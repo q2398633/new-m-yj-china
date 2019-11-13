@@ -6,6 +6,8 @@ import 'vant/lib/index.css'
 import axios from 'axios'
 import Vueaxios from 'vue-axios'
 import 'amfe-flexible/index'
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 Vue.use(Vant)

@@ -11,28 +11,38 @@
              style="width:100% border-radius: 50%;">
       </div>
       <!-- 登录表单 -->
-      <div class="login_form_bottom">
-        <van-cell-group>
-          <van-field v-model="username"
-                     required
-                     clearable
-                     label="用户名"
-                     right-icon="question-o"
-                     placeholder="请输入用户名"
-                     @click-right-icon="$toast('question')" />
+      <form action="/"
+            method="POST"
+            ref="loginForm"
+            ::model="loginForm">
+        <div class="login_form_bottom">
+          <van-cell-group>
+            <van-field v-model="loginForm.username"
+                       required
+                       clearable
+                       label="用户名"
+                       right-icon="question-o"
+                       placeholder="请输入用户名"
+                       @click-right-icon="$toast('用户名可以是邮箱,手机号,普通账户')" />
 
-          <van-field v-model="password"
-                     type="password"
-                     label="密码"
-                     placeholder="请输入密码"
-                     required />
-        </van-cell-group>
-        <!-- 登录Button -->
-        <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                    style="margin-bottom: 3px;">登录</van-button>
-        <!-- 注册Button -->
-        <van-button color="linear-gradient(to left, #4bb0ff, #6149f6)">注册</van-button>
-      </div>
+            <van-field v-model="loginForm.password"
+                       required
+                       clearable
+                       prop="code"
+                       type="password"
+                       label="密码"
+                       placeholder="请输入密码"
+                       right-icon="question-o"
+                       @click-right-icon="$toast('密码长度为6位')" />
+          </van-cell-group>
+          <!-- 登录Button -->
+          <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"
+                      style="margin-bottom: 3px;"
+                      loading
+                      loading-text="登录中..."
+                      @click.prevent="handleLogin">登录</van-button>
+        </div>
+      </form>
       <div class="footer">
         <a href="#"
            class="forget_password"
@@ -58,12 +68,45 @@
   </div>
 </template>
 <script>
-export default {
+import { login } from '../../api/user'
 
+export default {
+  name: 'loginIndex',
+  data () {
+    return {
+      loginForm: {
+        username: 'admin',
+        password: 'caifu123456'
+      }
+    }
+  },
+  methods: {
+    async handleLogin () {
+      this.loding = true
+      const valid = await this.$validator.validate()
+      if (!valid) {
+        this.loding = false
+        return
+      }
+      try {
+        const data = await login(this.loginForm)
+        console.log(data)
+        this.$store.commit('setUser', data)
+        this.$router.push({ path: '/' })
+      } catch (error) {
+        console.log(error)
+      }
+      this.loding = false
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 .login_form {
   width: 100%;
   height: 1400px;
@@ -133,6 +176,7 @@ export default {
             display: inline-block;
             float: left;
             margin-right: 13px;
+
             img {
               width: 50px;
             }
