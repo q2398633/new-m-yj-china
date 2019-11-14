@@ -17,7 +17,10 @@
             ::model="loginForm">
         <div class="login_form_bottom">
           <van-cell-group>
-            <van-field v-model="loginForm.username"
+            <van-field v-validate="'required|alpha_num'"
+                       name="username"
+                       :error-message="errors.first('mobile')"
+                       v-model="loginForm.mobile"
                        required
                        clearable
                        label="用户名"
@@ -25,7 +28,10 @@
                        placeholder="请输入用户名"
                        @click-right-icon="$toast('用户名可以是邮箱,手机号,普通账户')" />
 
-            <van-field v-model="loginForm.password"
+            <van-field v-validate="'required|alpha_num'"
+                       name="password"
+                       v-model="loginForm.code"
+                       :error-message="errors.first('code')"
                        required
                        clearable
                        prop="code"
@@ -33,12 +39,12 @@
                        label="密码"
                        placeholder="请输入密码"
                        right-icon="question-o"
-                       @click-right-icon="$toast('密码长度为6位')" />
+                       @click-right-icon="$toast('密码长度为11位')" />
           </van-cell-group>
           <!-- 登录Button -->
           <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)"
                       style="margin-bottom: 3px;"
-                      loading
+                      :loading="loading"
                       loading-text="登录中..."
                       @click.prevent="handleLogin">登录</van-button>
         </div>
@@ -69,32 +75,66 @@
 </template>
 <script>
 import { login } from '../../api/user'
-
+import { mapMutations } from 'vuex'
 export default {
-  name: 'loginIndex',
+  name: 'Login',
   data () {
     return {
       loginForm: {
-        username: 'admin',
-        password: 'caifu123456'
-      }
+        mobile: '13911111111',
+        code: '246810'
+      },
+      loading: false // 控制登录按钮是否显示加载
     }
   },
-  methods: {
-    async handleLogin () {
-      this.loding = true
-      const valid = await this.$validator.validate()
-      if (!valid) {
-        this.loding = false
-        return
+  created () {
+    // 配置 VeeValidate 的验证信息
+    const dict = {
+      custom: {
+        // 验证的文本信息
+        mobile: {
+          // 验证规则之后失败的提示信息
+          required: '请输入手机号码',
+          digits: '手机号码为11位数字'
+        },
+        code: {
+          // 验证规则之后失败的提示信息
+          required: '请输入验证码',
+          digits: '验证码为6位数字'
+        }
       }
+    }
+    this.$validator.localize('custom', dict)
+  },
+  methods: {
+    ...mapMutations(['setUser']),
+    // 点击按钮处理登录
+    async handleLogin () {
+      this.loading = true
+
       try {
+        // 表单验证
+        // validate() 返回promise对象, 所以可以用await
+        const valid = await this.$validator.validate()
+        if (!valid) {
+          this.loading = false
+          return // 验证失败出去
+        }
+        // 验证成功
         const data = await login(this.loginForm)
+        // 储存登录状态
+        this.setUser(data)
         console.log(data)
-        this.$store.commit('setUser', data)
-        this.$router.push({ path: '/' })
-      } catch (error) {
-        console.log(error)
+        // 跳转到首页
+        // 获取url上的查询字符串redirect
+        // 如果获取到redirect ，跳转到redirect指向地址
+        // 如果没有redirect跳转首页
+
+        this.$router.push(this.$route.query.redirect || '/')
+        this.$toast.success('登陆成功')
+      } catch (err) {
+        console.log(err)
+        this.$toast.fail('登陆失败')
       }
       this.loding = false
     }

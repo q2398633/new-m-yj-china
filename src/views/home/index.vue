@@ -1,123 +1,128 @@
 <template>
   <div class="Home">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="首页"
-                 left-text="重新登录">
+    <van-nav-bar title="寅卯幼儿园"
+                 left-text="重新登录"
+                 left-arrow
+                 @click-left="onCleck_left">
       <van-icon name="scan"
                 slot="right"
                 size="25px" />
     </van-nav-bar>
-    <!-- 主页轮播 -->
-    <div class="swiper">
-      <van-swipe :autoplay="3000"
-                 indicator-color="white">
-        <van-swipe-item>
-          <img src="../../assets/1.png"
-               alt="">
-        </van-swipe-item>
-        <van-swipe-item>
-          <img src="../../assets/2.png"
-               alt="">
-        </van-swipe-item>
-        <van-swipe-item>
-          <img src="../../assets/3.png"
-               alt="">
-        </van-swipe-item>
-        <van-swipe-item>
-          <img src="../../assets/4.png"
-               alt="">
-        </van-swipe-item>
-      </van-swipe>
-    </div>
-    <!-- 菜单项 -->
-    <div class="menu">
-      <van-row>
-        <van-col span="6">
-          <van-button icon="point-gift-o"
-                      type="primary"
-                      color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">限时优惠</div>
-        </van-col>
-        <van-col span="6">
-          <van-button icon="hot-o"
-                      type="primary"
-                      color="linear-gradient(to left, #4bb0ff, #6149f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">爆款单品</div>
+    <van-tabs v-model="active"
+              animated
+              background="#524c4c"
+              color="rgba(124, 89, 214)"
+              title-active-color="gold"
+              title-inactive-color="white">
+      <van-tab title="首页">
+        <!-- 主页轮播 -->
+        <div class="swiper">
+          <van-swipe :autoplay="3000"
+                     indicator-color="white">
+            <van-swipe-item>
+              <img src="../../assets/1.png"
+                   alt="">
+            </van-swipe-item>
+            <van-swipe-item>
+              <img src="../../assets/2.png"
+                   alt="">
+            </van-swipe-item>
+            <van-swipe-item>
+              <img src="../../assets/3.png"
+                   alt="">
+            </van-swipe-item>
+            <van-swipe-item>
+              <img src="../../assets/4.png"
+                   alt="">
+            </van-swipe-item>
+          </van-swipe>
+        </div>
+        <!-- 菜单项 -->
+        <div class="menu">
+          <van-row>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="linear-gradient(to right, #4bb0ff, #6149f6)"
+                          round />
+              <div class="shoping">限时优惠</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="hot-o"
+                          type="primary"
+                          color="linear-gradient(to left, #4bb0ff, #6149f6)"
+                          round />
+              <div class="shoping">爆款单品</div>
 
-        </van-col>
-        <van-col span="6">
-          <van-button icon="free-postage"
-                      type="primary"
-                      color="linear-gradient(to top, #4bb0ff, #6149f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">全场包邮</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="free-postage"
+                          type="primary"
+                          color="linear-gradient(to top, #4bb0ff, #6149f6)"
+                          round />
+              <div class="shoping">全场包邮</div>
 
-        </van-col>
-        <van-col span="6">
-          <van-button icon="logistics"
-                      type="primary"
-                      color="linear-gradient(to bottom, #4bb0ff, #6149f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">我的快递</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="logistics"
+                          type="primary"
+                          color="linear-gradient(to bottom, #4bb0ff, #6149f6)"
+                          round />
+              <div class="shoping">我的快递</div>
 
-        </van-col>
-      </van-row>
-      <van-row>
-        <van-col span="6">
-          <van-button icon="goods-collect-o"
-                      type="primary"
-                      color="linear-gradient(to right, #ebb0ff, #2c49f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">爆火商品</div>
+            </van-col>
+          </van-row>
+          <van-row>
+            <van-col span="6">
+              <van-button icon="goods-collect-o"
+                          type="primary"
+                          color="linear-gradient(to right, #ebb0ff, #2c49f6)"
+                          round />
+              <div class="shoping">爆火商品</div>
 
-        </van-col>
-        <van-col span="6">
-          <van-button icon="vip-card-o"
-                      type="primary"
-                      color="linear-gradient(to top, #cbb0ff, #a149f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">大牌会员</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="vip-card-o"
+                          type="primary"
+                          color="linear-gradient(to top, #cbb0ff, #a149f6)"
+                          round />
+              <div class="shoping">大牌会员</div>
 
-        </van-col>
-        <van-col span="6">
-          <van-button icon="shop-o"
-                      type="primary"
-                      color="linear-gradient(to right, #ebb0ff, #2c49f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">热门商店</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="shop-o"
+                          type="primary"
+                          color="linear-gradient(to right, #ebb0ff, #2c49f6)"
+                          round />
+              <div class="shoping">热门商店</div>
 
-        </van-col>
-        <van-col span="6">
-          <van-button icon="gold-coin-o"
-                      type="primary"
-                      color="linear-gradient(to bottom, #ebb0ff, #2c49f6)"
-                      round />
-          <div class="shoping"
-               style="font-size: 13px;">我的账户</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="gold-coin-o"
+                          type="primary"
+                          color="linear-gradient(to bottom, #ebb0ff, #2c49f6)"
+                          round />
+              <div class="shoping">我的账户</div>
 
-        </van-col>
-      </van-row>
-    </div>
-    <!-- 图表 -->
-    <div class="Home_Echarts">
-      <div ref="bar"
-           style="width: 10rem; height: 400px; color: white;"></div>
-    </div>
+            </van-col>
+          </van-row>
+        </div>
+        <!-- 图表 -->
+        <div class="Home_Echarts">
+          <ve-line :data="chartData"></ve-line>
+        </div>
+      </van-tab>
+      <van-tab title="打卡">内容 2</van-tab>
+      <van-tab title="分类">内容 3</van-tab>
+      <van-tab title="我的">内容 4</van-tab>
+    </van-tabs>
     <!-- 底部标签栏 -->
     <div class="footer_nav">
       <van-tabbar v-model="active">
-        <van-tabbar-item icon="location-o">打卡</van-tabbar-item>
-        <van-tabbar-item icon="shopping-cart-o"
-                         dot>购物车</van-tabbar-item>
+        <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="location-o"
+                         dot>签到</van-tabbar-item>
         <van-tabbar-item icon="apps-o"
                          info="5">分类</van-tabbar-item>
         <van-tabbar-item icon="user-circle-o"
@@ -128,104 +133,34 @@
 </template>
 
 <script>
-import echarts from 'echarts'
+
 export default {
   data () {
     return {
       current: 0,
-      active: 0
+      active: 4,
+      chartData: {
+        columns: ['日期', '访问用户', '下单用户', '下单率'],
+        rows: [
+          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
+          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
+          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
+          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
+          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
+          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
+        ]
+      }
     }
   },
   mounted () {
-    const dom = this.$refs.bar
-    const mytEcharts = echarts.init(dom)
-    const option = {
-      title: {
-        text: ''
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['最高气温', '最低气温']
-      },
-      toolbox: {
-        show: false,
-        feature: {
-          dataZoom: {
-            yAxisIndex: 'none'
-          },
-          dataView: { readOnly: false },
-          magicType: { type: ['line', 'bar'] },
-          restore: {},
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      },
-      yAxis: {
-        type: 'value',
-        axisLabel: {
-          formatter: '{value} °C'
-        }
-      },
-      series: [
-        {
-          name: '最高气温',
-          type: 'line',
-          data: [11, 11, 15, 13, 12, 13, 10],
-          markPoint: {
-            data: [
-              { type: 'max', name: '最大值' },
-              { type: 'min', name: '最小值' }
-            ]
-          },
-          markLine: {
-            data: [
-              { type: 'average', name: '平均值' }
-            ]
-          }
-        },
-        {
-          name: '最低气温',
-          type: 'line',
-          data: [1, -2, 2, 5, 3, 2, 0],
-          markPoint: {
-            data: [
-              { name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }
-            ]
-          },
-          markLine: {
-            data: [
-              { type: 'average', name: '平均值' },
-              [{
-                symbol: 'none',
-                x: '90%',
-                yAxis: 'max'
-              }, {
-                symbol: 'circle',
-                label: {
-                  normal: {
-                    position: 'start',
-                    formatter: '最大值'
-                  }
-                },
-                type: 'max',
-                name: '最高点'
-              }]
-            ]
-          }
-        }
-      ]
-    }
-    mytEcharts.setOption(option)
+
   },
   methods: {
     onChange (index) {
       this.current = index
+    },
+    onCleck_left () {
+      this.$router.push('/login')
     }
   }
 }
@@ -234,10 +169,8 @@ export default {
 <style lang="less" scoped>
 .Home {
   width: 100%;
-  height: 2000px;
-  background: url("../../assets/Home_Bg.png");
-  position: fixed;
-  object-fit: cover;
+  height: 22.66667rem;
+  background: #524c4c;
   .van-nav-bar {
     background: #524c4c;
     color: white;
@@ -275,10 +208,11 @@ export default {
     // background-color: rgba(209, 205, 205, 0.7);
     border-radius: 20px;
     margin-top: 15px;
+    margin-left: 11px;
     padding: 10px;
 
     .shoping {
-      font-size: 14px;
+      font-size: 0.3rem;
       color: white;
       font-family: "楷体";
     }
@@ -290,12 +224,7 @@ export default {
       }
     }
   }
-  .Home_Echarts {
-    width: 10rem;
-    height: 400px;
-    margin: 20px 40px 20px 20px;
-    background: white;
-  }
+
   .footer_nav {
     .van-tabbar--fixed {
       background: #524c4c;

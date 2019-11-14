@@ -2,15 +2,11 @@
 import request from '../utils/request'
 
 export const login = ({
-  username,
-  password
+  mobile,
+  code
 }) => {
-  return request({
-    method: 'POST',
-    url: '/Login/Check',
-    data: {
-      username,
-      password
-    }
+  return request.post('authorizations', {
+    mobile,
+    code
   })
 }
