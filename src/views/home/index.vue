@@ -113,7 +113,16 @@
           <ve-line :data="chartData"></ve-line>
         </div>
       </van-tab>
-      <van-tab title="打卡">内容 2</van-tab>
+      <van-tab title="打卡">
+        <van-nav-bar title="打卡签到">
+          <van-icon name="calender-o"
+                    slot="right"
+                    size="25px" />
+        </van-nav-bar>
+        <div class="calendar">
+          <span class="now_date">{{ currentTime }}</span>
+        </div>
+      </van-tab>
       <van-tab title="分类">内容 3</van-tab>
       <van-tab title="我的">内容 4</van-tab>
     </van-tabs>
@@ -148,9 +157,22 @@ export default {
           { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
           { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
           { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-        ]
+        ],
+        currentTime: new Date()
       }
     }
+  },
+  created () {
+    var _this = this
+    this.timer = setInterval(() => {
+      _this.currentTime =
+        new Date().getFullYear() +
+        '年' + (new Date().getMonth() + 1) +
+        '月' + new Date().getDate() +
+        '日' + new Date().getHours() +
+        ':' + new Date().getMinutes() +
+        ':' + new Date().getSeconds()
+    }, 1000)
   },
   mounted () {
 
@@ -161,6 +183,11 @@ export default {
     },
     onCleck_left () {
       this.$router.push('/login')
+    }
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearInterval(this.timer)
     }
   }
 }
@@ -224,7 +251,24 @@ export default {
       }
     }
   }
+  .calendar {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(to right, #eead92, #6018dc);
+    margin: 180px 27px 30px 140px;
+    border-radius: 50%;
 
+    .now_date {
+      display: inline-block;
+      width: 100%;
+      height: 200px;
+      line-height: 230px;
+      font-size: 0.54rem;
+      color: white;
+      margin-top: 120px;
+      margin-left: 22px;
+    }
+  }
   .footer_nav {
     .van-tabbar--fixed {
       background: #524c4c;
