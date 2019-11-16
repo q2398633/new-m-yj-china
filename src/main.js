@@ -12,9 +12,12 @@ import { fmtDate } from '../src/utils/dayjs'
 import 'vant/lib/index.css'
 import 'amfe-flexible/index'
 import CheckLogin from './utils/CheckLogin'
+import animated from 'animate.css'
 
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
+
+Vue.use(animated)
 
 Vue.filter('fmtDate', fmtDate)
 

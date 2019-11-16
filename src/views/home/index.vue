@@ -7,7 +7,7 @@
                  @click-left="onCleck_left">
       <van-icon name="scan"
                 slot="right"
-                size="25px" />
+                size="36px" />
     </van-nav-bar>
     <van-tabs v-model="active"
               animated
@@ -113,14 +113,33 @@
           <ve-line :data="chartData"></ve-line>
         </div>
       </van-tab>
+      <!-- 打卡 -->
       <van-tab title="打卡">
-        <van-nav-bar title="打卡签到">
-          <van-icon name="calender-o"
-                    slot="right"
-                    size="25px" />
-        </van-nav-bar>
-        <div class="calendar">
-          <span class="now_date">{{ currentTime }}</span>
+        <div class="sign-in-top">
+          <van-row>
+            <van-col span="16">
+              <div class="Head-portrait">
+                <div class="Fl-left">
+                  <img src="../../assets/head.png"
+                       alt=""
+                       align="left">
+                </div>
+                <div class="Fl-right">
+                  <span class="Nickname">{{ Nickname }}</span>
+                  <div class="van-ellipsis Nickname rule">考勤组: {{ AttendanceGroup }} 查看考勤规则</div>
+                </div>
+              </div>
+            </van-col>
+            <van-col span="8"
+                     class="nav-right">
+              <van-icon name="calender-o"
+                        color="white"
+                        calender-o
+                        size="36px" />
+            </van-col>
+          </van-row>
+        </div>
+        <div class="calendar animated pulse">
         </div>
       </van-tab>
       <van-tab title="分类">内容 3</van-tab>
@@ -157,22 +176,14 @@ export default {
           { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
           { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
           { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-        ],
-        currentTime: new Date()
-      }
+        ]
+      },
+      Nickname: '山田孝之',
+      AttendanceGroup: '二组'
     }
   },
   created () {
-    var _this = this
-    this.timer = setInterval(() => {
-      _this.currentTime =
-        new Date().getFullYear() +
-        '年' + (new Date().getMonth() + 1) +
-        '月' + new Date().getDate() +
-        '日' + new Date().getHours() +
-        ':' + new Date().getMinutes() +
-        ':' + new Date().getSeconds()
-    }, 1000)
+
   },
   mounted () {
 
@@ -186,9 +197,7 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.timer) {
-      clearInterval(this.timer)
-    }
+
   }
 }
 </script>
@@ -252,12 +261,12 @@ export default {
     }
   }
   .calendar {
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(to right, #eead92, #6018dc);
-    margin: 180px 27px 30px 140px;
+    width: 450px;
+    height: 450px;
+    background: linear-gradient(to bottom, #52e5e7, #736efe);
+    margin: 180px 40px 30px 160px;
     border-radius: 50%;
-
+    box-shadow: 1px 1px 25px 6px #52e5e7;
     .now_date {
       display: inline-block;
       width: 100%;
@@ -272,6 +281,43 @@ export default {
   .footer_nav {
     .van-tabbar--fixed {
       background: #524c4c;
+    }
+  }
+  .sign-in-top {
+    width: 100%;
+    height: 120px;
+
+    .Head-portrait {
+      width: 100%;
+      height: 100px;
+      display: inline-block;
+      margin-left: 40px;
+
+      .Nickname {
+        font-size: 30px;
+        font-family: "楷体";
+        color: white;
+      }
+
+      img {
+        width: 100px;
+        border-radius: 50%;
+        margin-top: 20px;
+        margin-right: 15px;
+      }
+      .rule {
+        color: #736efe;
+      }
+    }
+    .nav-right {
+      padding-top: 56px;
+      padding-left: 135px;
+    }
+    .van-row {
+      height: 153px;
+      border-top: 0.5px solid #b4afae;
+      border-bottom: 0.5px solid #b4afae;
+      margin-top: 10px;
     }
   }
 }
