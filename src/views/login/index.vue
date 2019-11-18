@@ -77,68 +77,68 @@
 import { login } from '../../api/user'
 import { mapMutations } from 'vuex'
 export default {
-  name: 'Login',
-  data () {
-    return {
-      loginForm: {
-        mobile: '13911111111',
-        code: '246810'
-      },
-      loading: false // 控制登录按钮是否显示加载
-    }
-  },
-  created () {
+    name: 'Login',
+    data () {
+        return {
+            loginForm: {
+                mobile: '13911111111',
+                code: '246810'
+            },
+            loading: false // 控制登录按钮是否显示加载
+        }
+    },
+    created () {
     // 配置 VeeValidate 的验证信息
-    const dict = {
-      custom: {
-        // 验证的文本信息
-        mobile: {
-          // 验证规则之后失败的提示信息
-          required: '请输入手机号码',
-          digits: '手机号码为11位数字'
-        },
-        code: {
-          // 验证规则之后失败的提示信息
-          required: '请输入验证码',
-          digits: '验证码为6位数字'
+        const dict = {
+            custom: {
+                // 验证的文本信息
+                mobile: {
+                    // 验证规则之后失败的提示信息
+                    required: '请输入手机号码',
+                    digits: '手机号码为11位数字'
+                },
+                code: {
+                    // 验证规则之后失败的提示信息
+                    required: '请输入验证码',
+                    digits: '验证码为6位数字'
+                }
+            }
         }
-      }
-    }
-    this.$validator.localize('custom', dict)
-  },
-  methods: {
-    ...mapMutations(['setUser']),
-    // 点击按钮处理登录
-    async handleLogin () {
-      this.loading = true
+        this.$validator.localize('custom', dict)
+    },
+    methods: {
+        ...mapMutations(['setUser']),
+        // 点击按钮处理登录
+        async handleLogin () {
+            this.loading = true
 
-      try {
-        // 表单验证
-        // validate() 返回promise对象, 所以可以用await
-        const valid = await this.$validator.validate()
-        if (!valid) {
-          this.loading = false
-          return // 验证失败出去
+            try {
+                // 表单验证
+                // validate() 返回promise对象, 所以可以用await
+                const valid = await this.$validator.validate()
+                if (!valid) {
+                    this.loading = false
+                    return // 验证失败出去
+                }
+                // 验证成功
+                const data = await login(this.loginForm)
+                // 储存登录状态
+                this.setUser(data)
+                console.log(data)
+                // 跳转到首页
+                // 获取url上的查询字符串redirect
+                // 如果获取到redirect ，跳转到redirect指向地址
+                // 如果没有redirect跳转首页
+
+                this.$router.push(this.$route.query.redirect || '/')
+                this.$toast.success('登陆成功')
+            } catch (err) {
+                console.log(err)
+                this.$toast.fail('登陆失败')
+            }
+            this.loding = false
         }
-        // 验证成功
-        const data = await login(this.loginForm)
-        // 储存登录状态
-        this.setUser(data)
-        console.log(data)
-        // 跳转到首页
-        // 获取url上的查询字符串redirect
-        // 如果获取到redirect ，跳转到redirect指向地址
-        // 如果没有redirect跳转首页
-
-        this.$router.push(this.$route.query.redirect || '/')
-        this.$toast.success('登陆成功')
-      } catch (err) {
-        console.log(err)
-        this.$toast.fail('登陆失败')
-      }
-      this.loding = false
     }
-  }
 }
 </script>
 

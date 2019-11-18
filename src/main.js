@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Vant from 'vant'
 import Vcharts from 'v-charts'
-
+import moment from 'moment/moment'
 import VeeValidate, { Validator } from 'vee-validate'
 //  导入veevalidate 中文包
 import zhCN from 'vee-validate/dist/locale/zh_CN'
@@ -26,7 +26,11 @@ Vue.use(Vcharts)
 
 // 配置插件 VeeValidate
 Vue.use(VeeValidate, {
-  events: ''
+    events: ''
+})
+Vue.filter('moment', function (value, formatString) {
+    formatString = formatString || 'HH:mm:ss'
+    return moment(value).format(formatString)
 })
 // 配置中文包
 Validator.localize('zhCN', zhCN)
@@ -35,8 +39,8 @@ Vue.config.productionTip = false
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  Vant,
-  render: h => h(App)
+    router,
+    store,
+    Vant,
+    render: h => h(App)
 }).$mount('#app')
