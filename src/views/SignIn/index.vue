@@ -19,8 +19,7 @@
     </div>
     <!-- 排班规则 -->
     <van-collapse v-model="activeName"
-                  accordion
-                  color="#524c4c">
+                  accordion>
       <van-collapse-item title="考勤时间"
                          name="1">
         <h2>上班时间</h2>
@@ -42,6 +41,7 @@
         <div>{{  WithinLimits }}</div>
       </van-collapse-item>
     </van-collapse>
+
   </div>
 </template>
 
@@ -58,7 +58,8 @@ export default {
             SatrDaKaShiJian2: '12:30',
             EndDaKaShiJian2: '17:00',
             Scheduling: '有排班',
-            WithinLimits: '已在打卡范围内'
+            WithinLimits: '已在打卡范围内',
+            show3: false
         }
     },
     created () {
@@ -70,6 +71,9 @@ export default {
     methods: {
         back () {
             this.$router.go(-1)
+        },
+        demo () {
+            this.show3 = true
         }
     }
 }
@@ -79,7 +83,8 @@ export default {
 .Home {
   width: 100%;
   height: 22.66667rem;
-  background: #524c4c;
+  background: white;
+
   .van-nav-bar {
     background: #524c4c;
     color: white;
@@ -96,15 +101,14 @@ export default {
   }
   .UserScheduling {
     width: 100%;
-    height: 100px;
-    padding: 20px;
+    height: 180px;
     border-bottom: 1px solid #b4afae;
-    padding-bottom: 35px;
+    background: #524c4c;
     .head {
       float: left;
       width: 100px;
       height: 100px;
-
+      padding: 24px 10px 20px 35px;
       img {
         border-radius: 50%;
         width: 100%;
@@ -113,18 +117,18 @@ export default {
     .rule {
       float: left;
       margin-left: 20px;
-      margin-top: 20px;
+      margin-top: 40px;
 
       .username {
         font-size: 40px;
-        color: white;
+        color: black;
         font-weight: 700;
         font-family: "楷体";
       }
 
       .AttendanceGroup {
         font-size: 30px;
-        color: white;
+        color: blavk;
         font-weight: 700;
         font-family: "楷体";
       }

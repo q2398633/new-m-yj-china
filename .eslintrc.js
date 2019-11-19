@@ -11,9 +11,13 @@ module.exports = {
         // 缩进
         "indent": [2, 4],
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        "space-before-function-paren": 0,
+        "no-multiple-empty-lines": [2, { "max": 99999, "maxEOF": 0 }],
+        'eslint eol-last': 0
     },
     parserOptions: {
         parser: 'babel-eslint'
-    }
+    },
+
 }

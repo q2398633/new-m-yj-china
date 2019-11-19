@@ -75,11 +75,12 @@
           </van-row>
           <van-row>
             <van-col span="6">
-              <van-button icon="goods-collect-o"
+              <van-button icon="contact"
                           type="primary"
                           color="linear-gradient(to right, #ebb0ff, #2c49f6)"
-                          round />
-              <div class="shoping">爆火商品</div>
+                          round
+                          @click.prevent="ChildManagement" />
+              <div class="shoping">幼儿管理</div>
 
             </van-col>
             <van-col span="6">
@@ -110,7 +111,9 @@
         </div>
         <!-- 图表 -->
         <div class="Home_Echarts">
-          <ve-line :data="chartData"></ve-line>
+          <ve-line :data="chartData"
+                   width="360px"
+                   height="350px"></ve-line>
         </div>
       </van-tab>
       <!-- 打卡 -->
@@ -134,9 +137,10 @@
             <van-col span="8"
                      class="nav-right">
               <van-icon name="calender-o"
+                        @click='calender'
                         color="white"
-                        calender-o
-                        size="36px" />
+                        size="45px"
+                        @click.prevent="calender" />
             </van-col>
           </van-row>
         </div>
@@ -164,7 +168,7 @@
         <div class="Range">
           <van-radio-group v-model="radio">
             <van-radio name="1">
-              <span class="Rang_font">{{ Range }} {{ CFN }}</span>
+              <span class="Rang_font">{{ Range }}</span>
             </van-radio>
           </van-radio-group>
         </div>
@@ -188,6 +192,7 @@
 </template>
 
 <script>
+import { Dialog } from 'vant'
 export default {
     name: 'Home',
     data () {
@@ -210,8 +215,7 @@ export default {
             date: '',
             timer: null,
             radio: '1',
-            Range: '已进入考勤范围:',
-            CFN: '里屋',
+            Range: '已进入考勤范围',
             count: 0,
             flag1: true,
             flag2: false
@@ -276,8 +280,17 @@ export default {
         },
         SignInRule () {
             this.$router.push('/SignInRule')
+        },
+        calender () {
+            this.$router.push('/Calender')
+        },
+        ChildManagement () {
+            this.$router.push('/ChildManagement')
         }
 
+    },
+    components: {
+        [Dialog.Component.name]: Dialog.Component
     },
     computed: {
 
@@ -310,19 +323,22 @@ export default {
     }
   }
   .swiper {
-    width: 100%;
+    width: 710px;
     height: 400px;
+    padding: 20px;
+    border-radius: 20px;
 
     .van-swipe {
       width: 100%;
       height: 100%;
-
+      border-radius: 10px;
       .van-swipe-item {
         width: 100%;
         height: 100%;
       }
     }
     img {
+      height: 100%;
       width: 100%;
     }
   }
@@ -426,20 +442,26 @@ export default {
     width: 100%;
     text-align: center;
     font-family: "微软雅黑";
-    padding-top: 40px;
+    padding-top: 60px;
   }
   .Range {
     padding: 0 180px;
     margin-top: 50px;
+
     .Rang_font {
       font-size: 30px;
       color: white;
       font-weight: 700;
-      padding-left: 15px;
+      padding-left: 45px;
     }
   }
   .van-steps {
     background: #524c4c;
+  }
+  .Home_Echarts {
+    margin-top: 80px;
+    margin-left: 30px;
+    margin-right: 40px;
   }
 }
 </style>

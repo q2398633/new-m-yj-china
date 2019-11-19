@@ -1,20 +1,20 @@
 const {
-  sep
+    sep
 } = require('path')
 
 module.exports = ({
-  file
-  // parser: 'postcss-scss
+    file
+    // parser: 'postcss-scss
 }) => {
-  let rootValue = file.dirname.indexOf(`node_modules${sep}vant`) !== -1 ? 37.5 : 75
+    let rootValue = file.dirname.indexOf(`node_modules${sep}vant`) !== -1 ? 37.5 : 75
 
-  return {
-    plugins: {
-      autoprefixer: {},
-      'postcss-pxtorem': {
-        rootValue,
-        propList: ['*']
-      }
+    return {
+        plugins: {
+            autoprefixer: {},
+            'postcss-pxtorem': {
+                rootValue,
+                propList: ['*']
+            }
+        }
     }
-  }
 }
