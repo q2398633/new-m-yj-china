@@ -4,71 +4,81 @@
     <van-nav-bar title="寅卯幼儿园"
                  left-text="重新登录"
                  left-arrow
-                 @click-left="onCleck_left">
+                 @click-left="onCleck_left"
+                 fixed>
       <van-icon name="scan"
                 slot="right"
-                size="36px" />
+                size=".6rem" />
     </van-nav-bar>
     <van-tabs v-model="active"
               animated
-              background="#524c4c"
-              color="rgba(124, 89, 214)"
-              title-active-color="gold"
-              title-inactive-color="white">
+              background="white"
+              color="black"
+              title-active-color="#414a67"
+              title-inactive-color="black">
       <van-tab title="首页">
         <!-- 主页轮播 -->
-        <div class="swiper">
-          <van-swipe :autoplay="3000"
-                     indicator-color="white">
-            <van-swipe-item>
-              <img src="../../assets/1.png"
-                   alt="">
-            </van-swipe-item>
-            <van-swipe-item>
-              <img src="../../assets/2.png"
-                   alt="">
-            </van-swipe-item>
-            <van-swipe-item>
-              <img src="../../assets/3.png"
-                   alt="">
-            </van-swipe-item>
-            <van-swipe-item>
-              <img src="../../assets/4.png"
-                   alt="">
-            </van-swipe-item>
-          </van-swipe>
-        </div>
+        <carousel-3d>
+          <slide :index="0">
+            <img src="../../assets/1.gif"
+                 alt="">
+          </slide>
+          <slide :index="1">
+            <img src="../../assets/2.gif"
+                 alt="">
+          </slide>
+          <slide :index="2">
+            <img src="../../assets/3.gif"
+                 alt="">
+          </slide>
+          <slide :index="3">
+            <img src="../../assets/4.gif"
+                 alt="">
+          </slide>
+          <slide :index="4">
+            <img src="../../assets/3.gif"
+                 alt="">
+          </slide>
+          <slide :index="5">
+            <img src="../../assets/1.gif"
+                 alt="">
+          </slide>
+          <slide :index="6">
+            <img src="../../assets/4.gif"
+                 alt="">
+          </slide>
+        </carousel-3d>
         <!-- 菜单项 -->
         <div class="menu">
-          <van-row>
+          <div class="default">
+            <span class="menu_left">菜单</span>
+            <span class="menu_right">更多功能</span>
+          </div>
+          <van-row style="">
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                          round />
+                          color="#9569f9" />
               <div class="shoping">限时优惠</div>
             </van-col>
             <van-col span="6">
               <van-button icon="hot-o"
                           type="primary"
-                          color="linear-gradient(to left, #4bb0ff, #6149f6)"
-                          round />
+                          color="#ff9400" />
               <div class="shoping">爆款单品</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="free-postage"
                           type="primary"
-                          color="linear-gradient(to top, #4bb0ff, #6149f6)"
-                          round />
+                          color="#fe6c58" />
               <div class="shoping">全场包邮</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="logistics"
                           type="primary"
-                          color="linear-gradient(to bottom, #4bb0ff, #6149f6)"
-                          round />
+                          color="#6f9dff" />
               <div class="shoping">我的快递</div>
 
             </van-col>
@@ -77,8 +87,7 @@
             <van-col span="6">
               <van-button icon="contact"
                           type="primary"
-                          color="linear-gradient(to right, #ebb0ff, #2c49f6)"
-                          round
+                          color="#93d030"
                           @click.prevent="ChildManagement" />
               <div class="shoping">幼儿管理</div>
 
@@ -86,23 +95,23 @@
             <van-col span="6">
               <van-button icon="vip-card-o"
                           type="primary"
-                          color="linear-gradient(to top, #cbb0ff, #a149f6)"
-                          round />
+                          color="#fb6365" />
               <div class="shoping">大牌会员</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="shop-o"
                           type="primary"
-                          color="linear-gradient(to right, #ebb0ff, #2c49f6)"
+                          color="#009aff"
                           round />
               <div class="shoping">热门商店</div>
 
             </van-col>
             <van-col span="6">
-              <van-button icon="gold-coin-o"
+              <van-button icon="ecard-pay"
+                          color:white
                           type="primary"
-                          color="linear-gradient(to bottom, #ebb0ff, #2c49f6)"
+                          color="#30c5cb"
                           round />
               <div class="shoping">我的账户</div>
 
@@ -111,9 +120,10 @@
         </div>
         <!-- 图表 -->
         <div class="Home_Echarts">
-          <ve-line :data="chartData"
-                   width="360px"
-                   height="350px"></ve-line>
+          <div class="Echarts_details">
+            <span class="Echarts_left">可视化图表</span>
+          </div>
+          <ve-line :data="chartData"></ve-line>
         </div>
       </van-tab>
       <!-- 打卡 -->
@@ -138,7 +148,7 @@
                      class="nav-right">
               <van-icon name="calender-o"
                         @click='calender'
-                        color="white"
+                        color="black"
                         size="45px"
                         @click.prevent="calender" />
             </van-col>
@@ -178,7 +188,9 @@
     </van-tabs>
     <!-- 底部标签栏 -->
     <div class="footer_nav">
-      <van-tabbar v-model="active">
+      <van-tabbar v-model="active"
+                  active-color="gold"
+                  inactive-color="white">
         <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
         <van-tabbar-item icon="location-o"
                          dot>签到</van-tabbar-item>
@@ -192,7 +204,6 @@
 </template>
 
 <script>
-import { Dialog } from 'vant'
 export default {
     name: 'Home',
     data () {
@@ -289,9 +300,7 @@ export default {
         }
 
     },
-    components: {
-        [Dialog.Component.name]: Dialog.Component
-    },
+
     computed: {
 
     },
@@ -306,12 +315,12 @@ export default {
 <style lang="less" scoped>
 .Home {
   width: 100%;
-  height: 22.66667rem;
-  background: #524c4c;
   .van-nav-bar {
-    background: #524c4c;
+    background-color: #009aff;
+
     color: white;
     font-family: "楷体";
+
     .van-nav-bar__title {
       color: white;
     }
@@ -322,24 +331,10 @@ export default {
       color: white;
     }
   }
-  .swiper {
-    width: 710px;
-    height: 400px;
-    padding: 20px;
-    border-radius: 20px;
-
-    .van-swipe {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-      .van-swipe-item {
-        width: 100%;
-        height: 100%;
-      }
-    }
+  .carousel-3d-slide {
+    border-radius: 25px;
     img {
       height: 100%;
-      width: 100%;
     }
   }
   .menu {
@@ -349,12 +344,41 @@ export default {
     border-radius: 20px;
     margin-top: 15px;
     margin-left: 11px;
+    margin-bottom: 20px;
     padding: 10px;
 
+    .default {
+      width: 700px;
+      height: 90px;
+      margin-bottom: 15px;
+      margin-left: 8px;
+      border-radius: 10px;
+      background: #0199ff;
+      .menu_left {
+        font-size: 40px;
+        margin-left: 25px;
+        color: white;
+        line-height: 80px;
+        margin-top: 20px;
+      }
+      .menu_right {
+        color: white;
+        font-size: 30px;
+        margin-top: 28px;
+        margin-right: 30px;
+        margin-left: 440px;
+      }
+    }
+    .van-button {
+      border-radius: 20px;
+    }
+
+    .van-button__icon {
+      font-size: 50px;
+    }
     .shoping {
-      font-size: 0.3rem;
-      color: white;
-      font-family: "楷体";
+      font-size: 0.4rem;
+      color: black;
     }
     .van-col {
       padding-left: 30px;
@@ -384,7 +408,7 @@ export default {
   }
   .footer_nav {
     .van-tabbar--fixed {
-      background: #524c4c;
+      background: #0199ff;
     }
   }
   .sign-in-top {
@@ -400,9 +424,9 @@ export default {
         height: 5px;
       }
       .Nickname {
-        font-size: 30px;
+        font-size: 35px;
         font-family: "楷体";
-        color: white;
+        color: black;
       }
 
       img {
@@ -450,18 +474,37 @@ export default {
 
     .Rang_font {
       font-size: 30px;
-      color: white;
+      color: black;
       font-weight: 700;
       padding-left: 45px;
     }
   }
   .van-steps {
-    background: #524c4c;
+    margin-top: 70px;
   }
   .Home_Echarts {
-    margin-top: 80px;
+    margin-top: 220px;
     margin-left: 30px;
     margin-right: 40px;
+
+    .Echarts_details {
+      width: 700px;
+      height: 95px;
+      background: #009aff;
+      margin-bottom: 30px;
+      border-radius: 10px;
+
+      .Echarts_left {
+        font-size: 40px;
+        margin-left: 25px;
+        color: white;
+        line-height: 90px;
+        margin-top: 20px;
+      }
+    }
+  }
+  .van-tabs {
+    margin-top: 90px;
   }
 }
 </style>

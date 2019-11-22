@@ -8,9 +8,8 @@
     </van-nav-bar>
     <!-- 日历 -->
     <div class="Calendar">
-      <calendar @change="onChange"
-                style="background: #524c4c" />
-      <inlineCalendar style="background: #524c4c" />
+      <calendar @change="onChange" />
+      <inlineCalendar />
     </div>
     <div id="allmap"
          style="width: 0;height: 0; display: none;">电</div>
@@ -47,10 +46,9 @@ export default {
 .Home {
   width: 100%;
   height: 22.66667rem;
-  background: #524c4c;
 
   .van-nav-bar {
-    background: #524c4c;
+    background: #0199ff;
     color: white;
     font-family: "楷体";
     .van-nav-bar__title {

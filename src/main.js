@@ -7,35 +7,33 @@ import Vcharts from 'v-charts'
 import moment from 'moment/moment'
 import VeeValidate, { Validator } from 'vee-validate'
 import zhCN from 'vee-validate/dist/locale/zh_CN'
-import Calendar from 'vue-mobile-calendar'
 import { fmtDate } from '../src/utils/dayjs'
 import 'vant/lib/index.css'
 import 'amfe-flexible/index'
 import CheckLogin from './utils/CheckLogin'
 import animated from 'animate.css'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-
+import Carousel3d from 'vue-carousel-3d'
+import Calendar from 'vue-mobile-calendar'
+import './assets/iconfont/iconfont.css'
 
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
 
 Vue.use(animated)
 
-Vue.use(ElementUI)
+Vue.use(Calendar)
 
 Vue.filter('fmtDate', fmtDate)
 
 Vue.use(Vant)
 Vue.use(Vcharts)
 
+Vue.use(Carousel3d)
 
 // 配置插件 VeeValidate
 Vue.use(VeeValidate, {
     events: ''
 })
-
-Vue.use(Calendar)
 
 Vue.filter('moment', function (value, formatString) {
     formatString = formatString || 'HH:mm:ss'

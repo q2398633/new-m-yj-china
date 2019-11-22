@@ -18,7 +18,7 @@
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; color: white; font-family: '楷体'; background: #524c4c; margin-left: 15px;">搜索幼儿</div>
+        <div style="font-size: 30px; width: 100%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索幼儿</div>
         <van-field clearable
                    autosize
                    label-width="70px"
@@ -41,7 +41,15 @@
         <van-field label="生日:"
                    label-width="70px"
                    autosize
-                   placeholder="选择生日" />
+                   placeholder="选择生日"
+                   @click.prevent="Birthday" />
+        <van-popup v-model="BirthdayShow"
+                   position="bottom">
+          <div class="Calendar">
+            <calendar @change="onChange" />
+            <inlineCalendar />
+          </div>
+        </van-popup>
         <van-field label="性别:"
                    label-width="70px"
                    autosize />
@@ -52,7 +60,15 @@
         <van-field label="入托日期:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入入托日期" />
+                   placeholder="请输入入托日期"
+                   @click.prevent="InNursery" />
+        <van-popup v-model="InNurseryShow"
+                   position="bottom">
+          <div class="Calendar">
+            <calendar @change="InNurseryDay" />
+            <inlineCalendar />
+          </div>
+        </van-popup>
         <van-field label="入托类型:"
                    label-width="70px"
                    autosize />
@@ -62,14 +78,9 @@
                    placeholder="请输入户籍" />
       </van-cell-group>
       <div class="submit">
-        <van-button plain
-                    hairline
-                    round
-                    type="primary">搜索</van-button>
-        <van-button plain
-                    hairline
-                    round
-                    type="info">退出</van-button>
+        <van-button type="primary">搜索</van-button>
+        <van-button type="info"
+                    @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
     <!--通知栏 -->
@@ -80,9 +91,7 @@
 
       <van-tabs v-model="active"
                 class="channel-tabs">
-        <van-tab v-for="(item) in channels"
-                 :key='item.id'
-                 :title="item.name">
+        <van-tab title="亲子班">
           <van-pull-refresh v-model="isLoading"
                             @refresh="onRefresh">
             <van-list v-model="loading"
@@ -115,9 +124,6 @@
 </template>
 
 <script>
-import getChannelsDefaultOrUser from '../../api/channel'
-
-import store from '../../store'
 export default {
     name: 'SignInRule',
     data () {
@@ -129,7 +135,9 @@ export default {
             finished: false,
             currentPage: 1,
             isLoading: false,
-            active: 0
+            active: 0,
+            BirthdayShow: false,
+            InNurseryShow: false
         }
     },
     created () {
@@ -145,21 +153,6 @@ export default {
         SideMenu () {
             this.show = true
         },
-        onLoad () {
-            // 异步更新数据
-            setTimeout(() => {
-                for (let i = 0; i < 10; i++) {
-                    this.list.push(this.list.length + 1)
-                }
-                // 加载状态结束
-                this.loading = false
-
-                // 数据全部加载完成
-                if (this.list.length >= 40) {
-                    this.finished = true
-                }
-            }, 500)
-        },
         onRefresh () {
             setTimeout(() => {
                 this.$toast('刷新成功')
@@ -167,43 +160,20 @@ export default {
                 this.count++
             }, 500)
         },
-        async loadchannels () {
-            const { user } = store.state
-            // 如果用户未登录
-            if (!user) {
-                const localChannels = JSON.parse(
-                    window.localStorage.getItem('channels')
-                )
-                // 如果有本地数据缓存
-                if (localChannels) {
-                    this.channels = localChannels
-                } else {
-                    // 如果没有本地数据缓存
-                    const data = await getChannelsDefaultOrUser()
-                    this.channels = data.channels
-                }
-            } else {
-                // 如果用户是正常登陆
-                const data = await getChannelsDefaultOrUser()
-                this.channels = data.channels
-            }
+        close () {
+            this.show = false
         },
-        async loadChannels () {
-            const { user } = store.state
-            const localChannels = JSON.parse(window.localStorage.getItem(channels))
-            if (!user && localChannels) this.channels = localChannels
-            // 如果用户没登陆且没有本地数据 或用户已登陆
-            if ((!user && !localChannels) || user) {
-                const data = await getChannelsDefaultOrUser()
-                // 规范channels数据结构
-                data.channels.forEach(item => {
-                    item.articles = [] // 当前列表数据
-                    item.downPullLoading = false // 当前下拉状态
-                    item.upPullLoading = false // 当前上拉加载更多
-                    item.upPullFinished = false // 当前加载完毕
-                })
-                this.channels = data.channels
-            }
+        Birthday () {
+            this.BirthdayShow = true
+        },
+        onChange (date) {
+            console.log(date.format('YY-MM-DD'))
+        },
+        InNursery () {
+            this.InNurseryShow = true
+        },
+        InNurseryDay (date) {
+
         }
     }
 }
@@ -213,10 +183,9 @@ export default {
 .Home {
   width: 100%;
   height: 22.66667rem;
-  background: #524c4c;
 
   .van-nav-bar {
-    background: #524c4c;
+    background: #0199ff;
     color: white;
     font-family: "楷体";
     .van-nav-bar__title {
@@ -233,21 +202,20 @@ export default {
     width: 100%;
   }
   .van-field {
-    background: #524c4c;
-    color: white;
+    color: black;
   }
   .van-cell-group {
-    padding: 20px;
-    background: #524c4c;
   }
   .submit {
     width: 100%;
     height: 140px;
-
+    background: white;
     button {
-      background: #524c4c;
-      margin-left: 100px;
+      margin-left: 180px;
     }
+  }
+  .van-popup {
+    width: 100%;
   }
 }
 </style>

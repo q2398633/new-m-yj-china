@@ -1,8 +1,5 @@
 <template>
   <div class="login_form">
-    <!-- 顶部导航 -->
-    <van-nav-bar title="登录"
-                 class="nav" />
     <!-- LoGo -->
     <div class="login_form_center">
       <div class="login_form_top">
@@ -16,7 +13,7 @@
             ref="loginForm"
             ::model="loginForm">
         <div class="login_form_bottom">
-          <van-cell-group>
+          <van-cell-group style="opacity: 0.6;">
             <van-field v-validate="'required|alpha_num'"
                        name="username"
                        :error-message="errors.first('mobile')"
@@ -53,22 +50,6 @@
         <a href="#"
            class="forget_password"
            style="margin-top:13px;">忘记密码?</a>
-        <div class="footer_right">
-          <ul>
-            <li>
-              <img src="../../assets/11.png"
-                   alt="">
-            </li>
-            <li>
-              <img src="../../assets/12.png"
-                   alt="">
-            </li>
-            <li>
-              <img src="../../assets/13.png"
-                   alt="">
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -129,12 +110,12 @@ export default {
                 // 获取url上的查询字符串redirect
                 // 如果获取到redirect ，跳转到redirect指向地址
                 // 如果没有redirect跳转首页
-
                 this.$router.push(this.$route.query.redirect || '/')
-                this.$toast.success('登陆成功')
+                this.$toast.success('登陆成功!')
             } catch (err) {
                 console.log(err)
-                this.$toast.fail('登陆失败')
+                this.$toast.fail('登陆失败,您的账号或密码有误!')
+                this.loding = false
             }
             this.loding = false
         }
@@ -167,23 +148,19 @@ export default {
   .login_form_center {
     width: 9rem;
     height: 11rem;
-    border-radius: 16px;
-    background: white;
     opacity: 0.9;
     position: absolute;
-    top: 5rem;
+    top: 3rem;
     left: 0.4767rem;
     // transform: translate(-50%, -50%);
     .login_form_top {
       width: 100%;
-      height: 24%;
 
       img {
-        width: 45%;
+        width: 300px;
         border-radius: 50%;
-        margin-left: 190px;
-        margin-top: -100px;
-        box-shadow: 1px 1px 0.21333rem 1px;
+        margin-left: 30%;
+        margin-bottom: 80px;
       }
     }
     .login_form_bottom {
@@ -203,25 +180,6 @@ export default {
         float: left;
         font-size: 30px;
         color: #585151;
-      }
-      .footer_right {
-        float: right;
-        width: 200px;
-
-        ul {
-          width: 100%;
-          float: left;
-
-          li {
-            display: inline-block;
-            float: left;
-            margin-right: 13px;
-
-            img {
-              width: 50px;
-            }
-          }
-        }
       }
     }
   }

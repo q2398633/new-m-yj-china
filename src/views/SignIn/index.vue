@@ -86,7 +86,7 @@ export default {
   background: white;
 
   .van-nav-bar {
-    background: #524c4c;
+    background: #0199ff;
     color: white;
     font-family: "楷体";
     .van-nav-bar__title {
@@ -103,7 +103,7 @@ export default {
     width: 100%;
     height: 180px;
     border-bottom: 1px solid #b4afae;
-    background: #524c4c;
+    background: white;
     .head {
       float: left;
       width: 100px;
