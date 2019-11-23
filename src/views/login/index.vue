@@ -9,7 +9,7 @@
       </div>
       <!-- 登录表单 -->
       <form action="/"
-            method="POST"
+            method="POSt"
             ref="loginForm"
             ::model="loginForm">
         <div class="login_form_bottom">
@@ -43,6 +43,7 @@
                       style="margin-bottom: 3px;"
                       :loading="loading"
                       loading-text="登录中..."
+                      block
                       @click.prevent="handleLogin">登录</van-button>
         </div>
       </form>
@@ -64,6 +65,7 @@ export default {
             loginForm: {
                 mobile: '13911111111',
                 code: '246810'
+
             },
             loading: false // 控制登录按钮是否显示加载
         }
@@ -92,7 +94,6 @@ export default {
         // 点击按钮处理登录
         async handleLogin () {
             this.loading = true
-
             try {
                 // 表单验证
                 // validate() 返回promise对象, 所以可以用await
@@ -105,7 +106,7 @@ export default {
                 const data = await login(this.loginForm)
                 // 储存登录状态
                 this.setUser(data)
-                console.log(data)
+                console.log(data.refresh_token)
                 // 跳转到首页
                 // 获取url上的查询字符串redirect
                 // 如果获取到redirect ，跳转到redirect指向地址

@@ -52,34 +52,35 @@
         <div class="menu">
           <div class="default">
             <span class="menu_left">菜单</span>
-            <span class="menu_right">更多功能</span>
+            <span class="menu_right"
+                  @click.prevent="Menu">更多功能</span>
           </div>
           <van-row style="">
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
                           color="#9569f9" />
-              <div class="shoping">限时优惠</div>
+              <div class="shoping">家长管理</div>
             </van-col>
             <van-col span="6">
               <van-button icon="hot-o"
                           type="primary"
                           color="#ff9400" />
-              <div class="shoping">爆款单品</div>
+              <div class="shoping">员工管理</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="free-postage"
                           type="primary"
                           color="#fe6c58" />
-              <div class="shoping">全场包邮</div>
+              <div class="shoping">班级管理</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="logistics"
                           type="primary"
                           color="#6f9dff" />
-              <div class="shoping">我的快递</div>
+              <div class="shoping">账户管理</div>
 
             </van-col>
           </van-row>
@@ -96,7 +97,7 @@
               <van-button icon="vip-card-o"
                           type="primary"
                           color="#fb6365" />
-              <div class="shoping">大牌会员</div>
+              <div class="shoping">考勤列表</div>
 
             </van-col>
             <van-col span="6">
@@ -104,7 +105,7 @@
                           type="primary"
                           color="#009aff"
                           round />
-              <div class="shoping">热门商店</div>
+              <div class="shoping">考勤审核</div>
 
             </van-col>
             <van-col span="6">
@@ -113,7 +114,7 @@
                           type="primary"
                           color="#30c5cb"
                           round />
-              <div class="shoping">我的账户</div>
+              <div class="shoping">督导评估</div>
 
             </van-col>
           </van-row>
@@ -141,13 +142,18 @@
                   <span class="Nickname">{{ Nickname }}</span>
                   <div class="van-ellipsis Nickname rule"
                        @click="SignInRule">考勤组: {{ AttendanceGroup }} 查看考勤规则</div>
+                  <van-popup v-model="CalendarShow">
+                    <div class="Calendar">
+                      <calendar @change="onChange" />
+                      <inlineCalendar />
+                    </div>
+                  </van-popup>
                 </div>
               </div>
             </van-col>
             <van-col span="8"
                      class="nav-right">
               <van-icon name="calender-o"
-                        @click='calender'
                         color="black"
                         size="45px"
                         @click.prevent="calender" />
@@ -229,7 +235,8 @@ export default {
             Range: '已进入考勤范围',
             count: 0,
             flag1: true,
-            flag2: false
+            flag2: false,
+            CalendarShow: false
         }
     },
     created () {
@@ -292,11 +299,14 @@ export default {
         SignInRule () {
             this.$router.push('/SignInRule')
         },
-        calender () {
-            this.$router.push('/Calender')
+        CalenderShow () {
+            this.CalendarShow = true
         },
         ChildManagement () {
             this.$router.push('/ChildManagement')
+        },
+        Menu () {
+            this.$router.push('/Menu')
         }
 
     },
@@ -483,7 +493,7 @@ export default {
     margin-top: 70px;
   }
   .Home_Echarts {
-    margin-top: 220px;
+    margin-top: 200px;
     margin-left: 30px;
     margin-right: 40px;
 

@@ -5,8 +5,11 @@
                          name="1">
         1111111111111111111111</van-collapse-item>
       <van-collapse-item title=""
-                         name="2">内容</van-collapse-item>
+                         name="2">
+      </van-collapse-item>
+      <div>
 
+      </div>
     </van-collapse>
   </div>
 </template>

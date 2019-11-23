@@ -11,8 +11,7 @@
       <calendar @change="onChange" />
       <inlineCalendar />
     </div>
-    <div id="allmap"
-         style="width: 0;height: 0; display: none;">电</div>
+
   </div>
 </template>
 

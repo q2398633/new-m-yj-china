@@ -5,7 +5,7 @@ import router from '../router/index'
 
 // 创建一个axios 的实例 设置不同的 baseURL
 const instance = axios.create({
-    baseURL: 'http://ttapi.research.itcast.cn/app/v1_0/'
+    baseURL: 'http://ttapi.research.itcast.cn'
 })
 
 // 获取到服务器返回的数据，并且在处理数据之前使用使用大数字

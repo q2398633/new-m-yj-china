@@ -92,17 +92,6 @@
       <van-tabs v-model="active"
                 class="channel-tabs">
         <van-tab title="亲子班">
-          <van-pull-refresh v-model="isLoading"
-                            @refresh="onRefresh">
-            <van-list v-model="loading"
-                      :finished="finished"
-                      finished-text="没有更多了"
-                      @load="onLoad">
-              <van-cell v-for="item in list"
-                        :key="item"
-                        :title="item" />
-            </van-list>
-          </van-pull-refresh>
         </van-tab>
         <van-tab title="小班"></van-tab>
         <van-tab title="中班"></van-tab>
@@ -124,6 +113,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'SignInRule',
     data () {
@@ -141,7 +131,8 @@ export default {
         }
     },
     created () {
-
+    // 加载频道列表
+        this.loadChannels()
     },
     mounted () {
 
@@ -172,8 +163,16 @@ export default {
         InNursery () {
             this.InNurseryShow = true
         },
-        InNurseryDay (date) {
+        InNurseryDay () {
 
+        },
+        loadchannle () {
+            const res = axios({
+                method: 'post',
+                url: 'http://39.97.98.245:9005/api/STU/STUStudentGrid',
+                data: this.loginform.token
+            })
+            console.log(res)
         }
     }
 }
