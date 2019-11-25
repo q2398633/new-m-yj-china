@@ -30,16 +30,32 @@ Vue.use(Vcharts)
 
 Vue.use(Carousel3d)
 
+Validator.localize('zhCN', zhCN)
+
 // 配置插件 VeeValidate
-Vue.use(VeeValidate, {
-    events: ''
-})
+Vue.use(VeeValidate)
 
 Vue.filter('moment', function (value, formatString) {
     formatString = formatString || 'HH:mm:ss'
     return moment(value).format(formatString)
 })
-Validator.localize('zhCN', zhCN)
+
+
+Validator.extend('username', {
+    getMessage: field => field + '格式不正确',
+    validate: value => {
+        // 自定义的校验规则
+        return value.length === 5
+    }
+})
+Validator.extend('password', {
+    getMessage: field => field + '格式不正确',
+    validate: value => {
+        // 自定义的校验规则
+        return value.length === 11
+    }
+})
+
 Vue.config.productionTip = false
 
 

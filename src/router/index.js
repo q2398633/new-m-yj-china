@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
     routes: [
-        { name: 'index', path: '/', redirect: '/home' },
+        { name: 'index', path: '/', redirect: '/login' },
         { name: 'login', path: '/login', component: Login },
         { name: 'home', path: '/home', component: Home },
         { name: 'SignInRule', path: '/SignInRule', component: SignInRule },

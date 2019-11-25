@@ -156,7 +156,7 @@
               <van-icon name="calender-o"
                         color="black"
                         size="45px"
-                        @click.prevent="calender" />
+                        @click.prevent="CalenderShow" />
             </van-col>
           </van-row>
         </div>
@@ -210,6 +210,7 @@
 </template>
 
 <script>
+import AMap from 'AMap'
 export default {
     name: 'Home',
     data () {
@@ -242,15 +243,15 @@ export default {
     created () {
         this.nowTimes()
         this.getMycount()
+        // 此处为调用精确定位之后，调取ip定位，可根据实际情况改写
+        this.getLocation()
     },
     mounted () {
         let _this = this // 声明一个变量指向Vue实例this，保证作用域一致
         this.timer = setInterval(() => {
             _this.time = new Date() // 修改数据date
         }, 1000)
-        setTimeout(() => {
-
-        }, 500)
+        this.getLocation() // 调用获取地理位置
     },
     methods: {
         onChange (index) {
@@ -307,10 +308,37 @@ export default {
         },
         Menu () {
             this.$router.push('/Menu')
+        },
+        getLocation () {
+            AMap.plugin('AMap.Geolocation', function () {
+                var geolocation = new AMap.Geolocation({
+                    // 是否使用高精度定位，默认：true
+                    enableHighAccuracy: true,
+                    // 设置定位超时时间，默认：无穷大
+                    timeout: 5000
+                })
+                geolocation.getCurrentPosition()
+                AMap.event.addListener(geolocation, 'complete', onComplete)
+                AMap.event.addListener(geolocation, 'error', onError)
+                // data是具体的定位信息
+                function onComplete (data) {
+                    console.log('具体的定位信息', data)
+                }
+                function onError (data) {
+                    // 失败 启用 ip定位
+                    AMap.plugin('AMap.CitySearch', function () {
+                        var citySearch = new AMap.CitySearch()
+                        citySearch.getLocalCity(function (status, result) {
+                            if (status === 'complete' && result.info === 'OK') {
+                                // 查询成功，result即为当前所在城市信息
+                                console.log('通过ip获取当前城市：', result)
+                            }
+                        })
+                    })
+                }
+            })
         }
-
     },
-
     computed: {
 
     },
@@ -359,7 +387,6 @@ export default {
 
     .default {
       width: 700px;
-      height: 90px;
       margin-bottom: 15px;
       margin-left: 8px;
       border-radius: 10px;
@@ -499,7 +526,7 @@ export default {
 
     .Echarts_details {
       width: 700px;
-      height: 95px;
+
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;

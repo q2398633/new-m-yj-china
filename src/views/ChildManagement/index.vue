@@ -88,51 +88,53 @@
                     left-icon="volume-o">{{ news }}</van-notice-bar>
     <!-- 导航页 -->
     <div class="Top-Nav">
-
-      <van-tabs v-model="active"
-                class="channel-tabs">
-        <van-tab title="亲子班">
-        </van-tab>
-        <van-tab title="小班"></van-tab>
-        <van-tab title="中班"></van-tab>
-        <van-tab title="大班"></van-tab>
-        <van-tab title="学前班"></van-tab>
-      </van-tabs>
+      <van-pull-refresh v-model="isLoading"
+                        @refresh="onRefresh">
+        <van-list v-model="loading"
+                  :finished="finished"
+                  finished-text="没有更多了"
+                  @load="onLoad">
+          <van-cell v-for="(item) in list"
+                    :key="item.Id">
+            <span> {{ '姓名: '+item.RealName }}</span>
+            <span> {{ '班级: '+item.BanJi }}</span>
+            <span> {{ '性别:' + item.XingBie }}</span>
+            <span> {{ '民族: '+item.MinZu }}</span>
+            <span style="width: 75%;"> {{ '入园时间:'+item.RuTuoRiQi }}</span>
+            <span> {{ '状态:' + item.Status }}</span>
+          </van-cell>
+        </van-list>
+      </van-pull-refresh>
     </div>
-    <!-- 底部tabbar -->
-    <van-tabbar v-model="active"
-                active-color="#07c160"
-                inactive-color="#000">
-      <van-tabbar-item icon="friends">亲子班</van-tabbar-item>
-      <van-tabbar-item icon="smile">小班</van-tabbar-item>
-      <van-tabbar-item icon="manager">中班</van-tabbar-item>
-      <van-tabbar-item icon="good-job">大班</van-tabbar-item>
-      <van-tabbar-item icon="diamond">学前班</van-tabbar-item>
-    </van-tabbar>
+    <!-- 分页 -->
+    <van-pagination v-model="
+                    currentPage"
+                    :total-items="10"
+                    :show-page-size="10"
+                    force-ellipses
+                    style="position:fixed; bottom: 0; width: 100%; background: white;" />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { getList } from '@/api/channel'
 export default {
     name: 'SignInRule',
     data () {
         return {
             show: false,
-            news: '据中国银行保险监督管理委员会网站11月18日消息，中国建设银行两家分行因严重违反审慎经营规则，分别给予30万元罚款的行政处罚，并责令改正',
             list: [],
             loading: false,
             finished: false,
             currentPage: 1,
             isLoading: false,
-            active: 0,
             BirthdayShow: false,
             InNurseryShow: false
         }
     },
     created () {
     // 加载频道列表
-        this.loadChannels()
+        this.loadchannle()
     },
     mounted () {
 
@@ -148,7 +150,6 @@ export default {
             setTimeout(() => {
                 this.$toast('刷新成功')
                 this.isLoading = false
-                this.count++
             }, 500)
         },
         close () {
@@ -166,13 +167,20 @@ export default {
         InNurseryDay () {
 
         },
-        loadchannle () {
-            const res = axios({
-                method: 'post',
-                url: 'http://39.97.98.245:9005/api/STU/STUStudentGrid',
-                data: this.loginform.token
-            })
-            console.log(res)
+        async loadchannle () {
+            let channels = []
+            const data = await getList()
+            this.channels = data
+            channels = this.channels
+            console.log(channels)
+            return channels
+        },
+        async onLoad () {
+            const data = await this.loadchannle()
+            this.list = data
+            console.log('----------1')
+            console.log(this.list[0])
+            console.log('----------2')
         }
     }
 }
@@ -182,7 +190,9 @@ export default {
 .Home {
   width: 100%;
   height: 22.66667rem;
-
+  .van-list {
+    margin-top: 70px;
+  }
   .van-nav-bar {
     background: #0199ff;
     color: white;
@@ -199,11 +209,16 @@ export default {
   }
   .Top-Nav {
     width: 100%;
+
+    .van-tabs {
+      position: fixed;
+      width: 100%;
+      top: 90px;
+      z-index: 100;
+    }
   }
   .van-field {
     color: black;
-  }
-  .van-cell-group {
   }
   .submit {
     width: 100%;
@@ -215,6 +230,14 @@ export default {
   }
   .van-popup {
     width: 100%;
+  }
+  .van-cell {
+    width: 100%;
+
+    span {
+      display: inline-block;
+      width: 25%;
+    }
   }
 }
 </style>
