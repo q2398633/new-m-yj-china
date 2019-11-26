@@ -210,6 +210,7 @@
 </template>
 
 <script>
+import { latitude, longitude } from '@/views/demo'
 export default {
     name: 'Home',
     data () {
@@ -269,7 +270,7 @@ export default {
         },
         SignIn () {
             this.count++
-            console.log(this.count)
+            console.log(latitude, longitude)
             if (this.count >= 2) {
                 this.$toast.fail('请勿重复打卡')
             } else {
