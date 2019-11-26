@@ -21,7 +21,7 @@ export default {
     // 定位获得当前位置信息
     getMyLocation () {
       var geolocation = new qq.maps.Geolocation('PVLBZ-W55WW-JCWRK-RWI4Z-S76RO-4QFB6', 'myapp')
-      geolocation.getIpLocation(this.showPosition, this.showErr)
+      geolocation.getLocation(this.showPosition, this.showErr, this.options)
       // geolocation.getLocation(this.showPosition, this.showErr);//或者用getLocation精确度比较高
     },
     showPosition (position) {
