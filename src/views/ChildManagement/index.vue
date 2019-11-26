@@ -129,7 +129,8 @@ export default {
             currentPage: 1,
             isLoading: false,
             BirthdayShow: false,
-            InNurseryShow: false
+            InNurseryShow: false,
+            news: '据悉，京东某副总裁在朋友圈披露今天的京东集团早会上，刘强东 宣布了一个政策：以后京东的员工只要是在任职期间无论因为什么原因遭遇不幸，公司都将负责其所有孩子一直到22岁'
         }
     },
     created () {
