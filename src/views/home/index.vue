@@ -1,3 +1,5 @@
+<script src = "https://webapi.amap.com/maps?v=1.4.15&key=3554afad07a8ac3ddedf7b201e678de9" />
+
 <template>
   <div class="Home">
     <!-- NavBar 顶部导航 -->
@@ -189,7 +191,11 @@
           </van-radio-group>
         </div>
       </van-tab>
-      <van-tab title="分类">内容 3</van-tab>
+      <van-tab title="分类">
+        <div>精确定位成功→ {{ jqcg }}</div>
+        <div>精确定位失败→ {{ jqsb }}</div>
+        <div>IP定位成功→ {{ ipcg }}</div>
+      </van-tab>
       <van-tab title="我的">内容 4</van-tab>
     </van-tabs>
     <!-- 底部标签栏 -->
@@ -210,111 +216,171 @@
 </template>
 
 <script>
-import { latitude, longitude } from '@/views/demo'
+import { getLocation, getLngLatLocation } from '../../App'
 export default {
-    name: 'Home',
-    data () {
-        return {
-            current: 0,
-            active: 4,
-            chartData: {
-                columns: ['日期', '访问用户', '下单用户', '下单率'],
-                rows: [
-                    { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-                    { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-                    { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-                    { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-                    { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-                    { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
-                ]
-            },
-            Nickname: '山田孝之',
-            AttendanceGroup: '二组',
-            date: '',
-            timer: null,
-            radio: '1',
-            Range: '已进入考勤范围',
-            count: 0,
-            flag1: true,
-            flag2: false,
-            CalendarShow: false
-        }
-    },
-    created () {
-        this.nowTimes()
-        this.getMycount()
-    },
-    mounted () {
-        let _this = this // 声明一个变量指向Vue实例this，保证作用域一致
-        this.timer = setInterval(() => {
-            _this.time = new Date() // 修改数据date
-        }, 1000)
-    },
-    methods: {
-        onChange (index) {
-            this.current = index
-        },
-        onCleck_left () {
-            this.$router.push('/login')
-        },
-        timeFormate (timeStamp) {
-            let hh = new Date(timeStamp).getHours() < 10 ? '0' + new Date(timeStamp).getHours() : new Date(timeStamp).getHours()
-            let mm = new Date(timeStamp).getMinutes() < 10 ? '0' + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes()
-            let ss = new Date(timeStamp).getSeconds() < 10 ? '0' + new Date(timeStamp).getSeconds() : new Date(timeStamp).getSeconds()
-            this.date = hh + ':' + mm + ':' + ss
-        },
-        // 定时器函数
-        nowTimes () {
-            this.timeFormate(new Date())
-            this.timer = setTimeout(this.nowTimes, 1000)
-        },
-        SignIn () {
-            this.count++
-            console.log(latitude, longitude)
-            if (this.count >= 2) {
-                this.$toast.fail('请勿重复打卡')
-            } else {
-                this.$toast.success('打卡成功')
-            }
-        },
-        getMycount () {
-            let self = this
-            let date = new Date()
-            if (date.getHours() >= 6 && date.getHours() < 8) {
-                self.flag1 = true
-                self.flag2 = false
-            } else if (date.getHours() >= 12 && date.getHours() < 13) {
-                self.flag1 = false
-                self.flag2 = true
-            } else if (date.getHours() >= 14 && date.getHours() < 15) {
-                self.flag1 = true
-                self.flag2 = false
-            } else if (date.getHours() >= 18 && date.getHours() < 23 && date.getMinutes() <= 59 && date.getSeconds() <= 59) {
-                self.flag1 = false
-                self.flag2 = true
-            }
-        },
-        SignInRule () {
-            this.$router.push('/SignInRule')
-        },
-        CalenderShow () {
-            this.CalendarShow = true
-        },
-        ChildManagement () {
-            this.$router.push('/ChildManagement')
-        },
-        Menu () {
-            this.$router.push('/Menu')
-        }
-    },
-    computed: {
-
-    },
-    beforeDestroy () {
-        if (this.timer) {
-            clearTimeout(this.timer) // 在Vue实例销毁前，清除我们的定时器
-        }
+  name: 'Home',
+  data () {
+    return {
+      current: 0,
+      active: 4,
+      chartData: {
+        columns: ['日期', '访问用户', '下单用户', '下单率'],
+        rows: [
+          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
+          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
+          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
+          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
+          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
+          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
+        ]
+      },
+      Nickname: '山田孝之',
+      AttendanceGroup: '二组',
+      date: '',
+      timer: null,
+      radio: '1',
+      Range: '已进入考勤范围',
+      count: 0,
+      flag1: true,
+      flag2: false,
+      CalendarShow: false,
+      jqcg: null,
+      jqsb: null,
+      ipcg: null
     }
+  },
+  created () {
+    this.nowTimes()
+    this.getMycount()
+    this.getLocation()
+  },
+  mounted () {
+    let _this = this // 声明一个变量指向Vue实例this，保证作用域一致
+    this.timer = setInterval(() => {
+      _this.time = new Date() // 修改数据date
+    }, 1000)
+  },
+  methods: {
+    onChange (index) {
+      this.current = index
+    },
+    onCleck_left () {
+      this.$router.push('/login')
+    },
+    timeFormate (timeStamp) {
+      let hh = new Date(timeStamp).getHours() < 10 ? '0' + new Date(timeStamp).getHours() : new Date(timeStamp).getHours()
+      let mm = new Date(timeStamp).getMinutes() < 10 ? '0' + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes()
+      let ss = new Date(timeStamp).getSeconds() < 10 ? '0' + new Date(timeStamp).getSeconds() : new Date(timeStamp).getSeconds()
+      this.date = hh + ':' + mm + ':' + ss
+    },
+    // 定时器函数
+    nowTimes () {
+      this.timeFormate(new Date())
+      this.timer = setTimeout(this.nowTimes, 1000)
+    },
+    SignIn () {
+      this.count++
+      if (this.count >= 2) {
+        this.$toast.fail('请勿重复打卡')
+      } else {
+        this.$toast.success('打卡成功')
+      }
+    },
+    getMycount () {
+      let self = this
+      let date = new Date()
+      if (date.getHours() >= 6 && date.getHours() < 8) {
+        self.flag1 = true
+        self.flag2 = false
+      } else if (date.getHours() >= 12 && date.getHours() < 13) {
+        self.flag1 = false
+        self.flag2 = true
+      } else if (date.getHours() >= 14 && date.getHours() < 15) {
+        self.flag1 = true
+        self.flag2 = false
+      } else if (date.getHours() >= 18 && date.getHours() < 23 && date.getMinutes() <= 59 && date.getSeconds() <= 59) {
+        self.flag1 = false
+        self.flag2 = true
+      }
+    },
+    SignInRule () {
+      this.$router.push('/SignInRule')
+    },
+    CalenderShow () {
+      this.CalendarShow = true
+    },
+    ChildManagement () {
+      this.$router.push('/ChildManagement')
+    },
+    Menu () {
+      this.$router.push('/Menu')
+    },
+    getLocation () {
+      const self = this
+      AMap.plugin('AMap.Geolocation', function () {
+        var geolocation = new AMap.Geolocation({
+          // 是否使用高精度定位，默认：true
+          enableHighAccuracy: true,
+          // 设置定位超时时间，默认：无穷大
+          timeout: 10000
+        })
+
+        geolocation.getCurrentPosition()
+        AMap.event.addListener(geolocation, 'complete', onComplete)
+        AMap.event.addListener(geolocation, 'error', onError)
+
+        function onComplete (data) {
+          // data是具体的定位信息
+          console.log('定位成功信息：', data)
+          this.jqcg = data
+        }
+
+        function onError (data) {
+          // 定位出错
+          console.log('定位失败错误：', data)
+          this.jqsb = data
+          // 调用ip定位
+          self.getLngLatLocation()
+        }
+      })
+    },
+    getLngLatLocation () {
+      AMap.plugin('AMap.CitySearch', function () {
+        var citySearch = new AMap.CitySearch()
+        citySearch.getLocalCity(function (status, result) {
+          if (status === 'complete' && result.info === 'OK') {
+            // 查询成功，result即为当前所在城市信息
+            console.log('通过ip获取当前城市：', result)
+            // 逆向地理编码
+            AMap.plugin('AMap.Geocoder', function () {
+              var geocoder = new AMap.Geocoder({
+                // city 指定进行编码查询的城市，支持传入城市名、adcode 和 citycode
+                city: result.adcode
+              })
+
+              var lnglat = result.rectangle.split(';')[0].split(',')
+
+              geocoder.getAddress(lnglat, function (status, data) {
+                if (status === 'complete' && data.info === 'OK') {
+                  // result为对应的地理位置详细信息
+                  console.log(data)
+
+                }
+              })
+            })
+          }
+        })
+      })
+    }
+  },
+  computed: {
+
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearTimeout(this.timer) // 在Vue实例销毁前，清除我们的定时器
+    }
+  }
 }
 </script>
 
