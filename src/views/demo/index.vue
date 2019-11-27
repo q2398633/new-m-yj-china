@@ -12,6 +12,9 @@ export default {
   created () {
     this.getLocation()
   },
+  mounted () {
+    this.getLocation()
+  },
   methods: {
     getLocation () {
       const self = this
@@ -20,7 +23,7 @@ export default {
           // 是否使用高精度定位，默认：true
           enableHighAccuracy: true,
           // 设置定位超时时间，默认：无穷大
-          timeout: 10000
+          timeout: 5000
         })
 
         geolocation.getCurrentPosition()
@@ -30,11 +33,13 @@ export default {
         function onComplete (data) {
           // data是具体的定位信息
           console.log('定位成功信息：', data)
+          alert('精定成功' + data.message)
         }
 
         function onError (data) {
           // 定位出错
           console.log('定位失败错误：', data)
+          alert('精定失败转IP定位:' + data.message)
           self.getLngLatLocation()
         }
       })
@@ -56,7 +61,7 @@ export default {
               var lnglat = result.rectangle.split(';')[0].split(',')
               console.log('------1----------')
               console.log(lnglat)
-              alert('高德定位经度' + lnglat[0] + '高德定位纬度' + lnglat[1])
+              alert('IP定' + '经度' + lnglat[0] + '纬度' + lnglat[1])
               console.log('------2----------')
 
               geocoder.getAddress(lnglat, function (status, data) {
