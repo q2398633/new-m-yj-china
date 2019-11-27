@@ -9,8 +9,7 @@ export default {
     name: 'app',
     data () {
         return {
-            jqsb: '',
-            jqcg: ''
+
         }
     },
     methods: {
