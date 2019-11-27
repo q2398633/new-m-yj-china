@@ -15,6 +15,7 @@ import animated from 'animate.css'
 import Carousel3d from 'vue-carousel-3d'
 import Calendar from 'vue-mobile-calendar'
 import './assets/iconfont/iconfont.css'
+import AMap from 'vue-amap'
 
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
@@ -29,6 +30,8 @@ Vue.use(Vant)
 Vue.use(Vcharts)
 
 Vue.use(Carousel3d)
+
+Vue.use(AMap)
 
 Validator.localize('zhCN', zhCN)
 
@@ -54,6 +57,13 @@ Validator.extend('password', {
         // 自定义的校验规则
         return value.length === 11
     }
+})
+
+AMap.initAMapApiLoader({
+    key: '3554afad07a8ac3ddedf7b201e678de9',
+    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView',
+        'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor',
+        'AMap.CircleEditor', 'AMap.Geolocation']
 })
 
 Vue.config.productionTip = false
