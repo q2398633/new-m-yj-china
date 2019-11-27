@@ -12,7 +12,7 @@
                 size="25px"
                 @click.prevent="SideMenu" />
     </van-nav-bar>
-    <!-- 侧边菜单 -->
+    <!-- 搜索菜单 -->
     <van-popup v-model="show"
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"

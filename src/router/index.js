@@ -7,6 +7,7 @@ import Calender from '@/views/Calender'
 import ChildManagement from '@/views/ChildManagement'
 import Demo from '@/views/demo'
 import Menu from '../views/Menu/Index.vue'
+import ParentAdmin from '@/views/ParentAdmin'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,8 @@ const router = new VueRouter({
         { name: 'calender', path: '/Calender', component: Calender },
         { name: 'demo', path: '/demo', component: Demo },
         { name: 'childManagement', path: '/ChildManagement', component: ChildManagement },
-        { name: 'Menu', path: '/Menu', component: Menu }
+        { name: 'Menu', path: '/Menu', component: Menu },
+        { name: 'parentAdmin', path: '/parentAdmin', component: ParentAdmin }
     ]
 })
 

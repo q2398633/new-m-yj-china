@@ -61,7 +61,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9" />
+                          color="#9569f9"
+                          @click.prevent="ParentAdmin" />
               <div class="shoping">家长管理</div>
             </van-col>
             <van-col span="6">
@@ -301,6 +302,9 @@ export default {
     },
     CalenderShow () {
       this.CalendarShow = true
+    },
+    ParentAdmin () {
+      this.$router.push('/ParentAdmin')
     },
     ChildManagement () {
       this.$router.push('/ChildManagement')
