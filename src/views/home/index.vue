@@ -192,9 +192,6 @@
         </div>
       </van-tab>
       <van-tab title="分类">
-        <div>精确定位成功→ {{ jqcg }}</div>
-        <div>精确定位失败→ {{ jqsb }}</div>
-        <div>IP定位成功→ {{ ipcg }}</div>
       </van-tab>
       <van-tab title="我的">内容 4</van-tab>
     </van-tabs>
@@ -244,9 +241,7 @@ export default {
       flag1: true,
       flag2: false,
       CalendarShow: false,
-      jqcg: null,
-      jqsb: null,
-      ipcg: null
+      zb: this.zb
     }
   },
   created () {
@@ -332,13 +327,13 @@ export default {
         function onComplete (data) {
           // data是具体的定位信息
           console.log('定位成功信息：', data)
-          this.jqcg = data
+
         }
 
         function onError (data) {
           // 定位出错
           console.log('定位失败错误：', data)
-          this.jqsb = data
+
           // 调用ip定位
           self.getLngLatLocation()
         }
@@ -351,6 +346,8 @@ export default {
           if (status === 'complete' && result.info === 'OK') {
             // 查询成功，result即为当前所在城市信息
             console.log('通过ip获取当前城市：', result)
+            const zb = result.rectangle
+            console.log(zb)
             // 逆向地理编码
             AMap.plugin('AMap.Geocoder', function () {
               var geocoder = new AMap.Geocoder({
@@ -364,7 +361,6 @@ export default {
                 if (status === 'complete' && data.info === 'OK') {
                   // result为对应的地理位置详细信息
                   console.log(data)
-
                 }
               })
             })
