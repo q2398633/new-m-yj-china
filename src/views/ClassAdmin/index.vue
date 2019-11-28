@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="家长管理"
+    <van-nav-bar title="班级管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 家长列表 -->
+    <!-- 班级列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,17 +57,11 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <span> {{ '姓名: '+item.RealName }}</span>
-            <span> {{ '手机号: '+item.Mobile }}</span>
-            <span> {{ '关系:' + item.GuanXi }}</span>
-            <span> {{ '常接送人: '+item.IsJieSongRen }}</span>
-            <span> {{ '单位:'+item.WorkPlace }}</span>
-            <span> {{ '身份证号:' + item.IdNumber }}</span>
-            <span> {{ '微信号:' + item.WeChat }}</span>
-            <span> {{ 'QQ号:' + item.QQ }}</span>
-            <span> {{ '学生:' + item.StudentIdName }}</span>
-            <span> {{ '学历:' + item.XueLi }}</span>
-            <span> {{ '家庭住址:' + item.ZhuZhi }}</span>
+            <span> {{ '班级名称: '+item.Title }}</span>
+            <span> {{ '年级: '+item.NianJi }}</span>
+            <span> {{ '备注:' + item.Mark }}</span>
+            <span> {{ '创建时间:' + item.CreateTime }}</span>
+            <span> {{ '状态:' + item.Status }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -83,9 +77,9 @@
 </template>
 
 <script>
-import { ParentList } from '@/api/ParentAdmin'
+import { ClassList } from '@/api/ClassAdmin'
 export default {
-    name: 'parentAdmin',
+    name: 'StaffAdmin',
     data () {
         return {
             show: false,
@@ -97,8 +91,8 @@ export default {
         }
     },
     created () {
-    // 加载家长列表
-        this.loadParent()
+    // 页面一进入加载账户列表
+        this.loadClassList()
     },
     methods: {
         back () {
@@ -116,20 +110,17 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadParent () {
+        async loadClassList () {
             let channels = []
-            const data = await ParentList()
+            const data = await ClassList()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadParent()
+            const data = await this.loadClassList()
             this.list = data
-            console.log('----------1')
-            console.log(this.list[0])
-            console.log('----------2')
         }
     }
 }

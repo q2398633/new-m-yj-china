@@ -68,21 +68,24 @@
             <van-col span="6">
               <van-button icon="hot-o"
                           type="primary"
-                          color="#ff9400" />
+                          color="#ff9400"
+                          @click.prevent="StaffAdmin" />
               <div class="shoping">员工管理</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="free-postage"
                           type="primary"
-                          color="#fe6c58" />
+                          color="#fe6c58"
+                          @click.prevent="ClassAdmin" />
               <div class="shoping">班级管理</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="logistics"
                           type="primary"
-                          color="#6f9dff" />
+                          color="#6f9dff"
+                          @click.prevent="AccountAdmin" />
               <div class="shoping">账户管理</div>
 
             </van-col>
@@ -106,8 +109,7 @@
             <van-col span="6">
               <van-button icon="shop-o"
                           type="primary"
-                          color="#009aff"
-                          round />
+                          color="#009aff" />
               <div class="shoping">考勤审核</div>
 
             </van-col>
@@ -116,7 +118,7 @@
                           color:white
                           type="primary"
                           color="#30c5cb"
-                          round />
+                          @click.prevent="Evaluating" />
               <div class="shoping">督导评估</div>
 
             </van-col>
@@ -311,6 +313,18 @@ export default {
     },
     Menu () {
       this.$router.push('/Menu')
+    },
+    StaffAdmin () {
+      this.$router.push('/StaffAdmin')
+    },
+    AccountAdmin () {
+      this.$router.push('/AccountAdmin')
+    },
+    ClassAdmin () {
+      this.$router.push('/ClassAdmin')
+    },
+    Evaluating () {
+      this.$router.push('/Evaluating')
     }
   },
   computed: {

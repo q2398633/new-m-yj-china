@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="家长管理"
+    <van-nav-bar title="评测管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 家长列表 -->
+    <!-- 评测列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,17 +57,11 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <span> {{ '姓名: '+item.RealName }}</span>
-            <span> {{ '手机号: '+item.Mobile }}</span>
-            <span> {{ '关系:' + item.GuanXi }}</span>
-            <span> {{ '常接送人: '+item.IsJieSongRen }}</span>
-            <span> {{ '单位:'+item.WorkPlace }}</span>
-            <span> {{ '身份证号:' + item.IdNumber }}</span>
-            <span> {{ '微信号:' + item.WeChat }}</span>
-            <span> {{ 'QQ号:' + item.QQ }}</span>
-            <span> {{ '学生:' + item.StudentIdName }}</span>
-            <span> {{ '学历:' + item.XueLi }}</span>
-            <span> {{ '家庭住址:' + item.ZhuZhi }}</span>
+            <span> {{ '标题: '+item.Title }}</span>
+            <span> {{ '得分: '+item.DeFen }}</span>
+            <span> {{ '总分:' + item.ZongFen }}</span>
+            <span> {{ '已答题数:' + item.YiDaShu }}</span>
+            <span> {{ '总题数:' + item.TiMuNum }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -83,9 +77,9 @@
 </template>
 
 <script>
-import { ParentList } from '@/api/ParentAdmin'
+import { EvaluatingList } from '@/api/Evaluating'
 export default {
-    name: 'parentAdmin',
+    name: 'StaffAdmin',
     data () {
         return {
             show: false,
@@ -97,8 +91,8 @@ export default {
         }
     },
     created () {
-    // 加载家长列表
-        this.loadParent()
+    // 页面一进入加载评测列表
+        this.loadEvaluatingList()
     },
     methods: {
         back () {
@@ -116,20 +110,13 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadParent () {
-            let channels = []
-            const data = await ParentList()
-            this.channels = data
-            channels = this.channels
-            console.log(channels)
-            return channels
+        async loadEvaluatingList () {
+            const data = await EvaluatingList()
+            console.log(data)
         },
         async onLoad () {
-            const data = await this.loadParent()
+            const data = await this.loadEvaluatingList()
             this.list = data
-            console.log('----------1')
-            console.log(this.list[0])
-            console.log('----------2')
         }
     }
 }

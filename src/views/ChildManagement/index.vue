@@ -83,10 +83,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!--通知栏 -->
-    <van-notice-bar mode="closeable"
-                    left-icon="volume-o">{{ news }}</van-notice-bar>
-    <!-- 导航页 -->
+    <!-- 幼儿列表 -->
     <div class="Top-Nav">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -129,8 +126,7 @@ export default {
             currentPage: 1,
             isLoading: false,
             BirthdayShow: false,
-            InNurseryShow: false,
-            news: '据悉，京东某副总裁在朋友圈披露今天的京东集团早会上，刘强东 宣布了一个政策：以后京东的员工只要是在任职期间无论因为什么原因遭遇不幸，公司都将负责其所有孩子一直到22岁'
+            InNurseryShow: false
         }
     },
     created () {
@@ -210,13 +206,6 @@ export default {
   }
   .Top-Nav {
     width: 100%;
-
-    .van-tabs {
-      position: fixed;
-      width: 100%;
-      top: 90px;
-      z-index: 100;
-    }
   }
   .van-field {
     color: black;
@@ -234,10 +223,26 @@ export default {
   }
   .van-cell {
     width: 100%;
+    margin-top: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 300px;
 
     span {
       display: inline-block;
-      width: 25%;
+      width: 55%;
+      height: 55px;
+      line-height: 55px;
+      font-size: 30px;
+      font-family: "楷体";
+      font-weight: 700;
+    }
+  }
+  .van-cell-group {
+    width: 100%;
+
+    .van-field {
+      width: 100%;
+      padding: 0 0 0 30px;
     }
   }
 }

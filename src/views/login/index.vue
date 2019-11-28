@@ -2,54 +2,54 @@
   <div class="login_form">
     <!-- LoGo -->
     <div class="login_form_center">
-      <div class="login_form_top">
-        <img src="../../assets/logo.png"
-             alt="LOGO"
-             style="width:100% border-radius: 50%;">
-      </div>
       <!-- 登录表单 -->
       <form action="/"
             method="POSt"
             ref="loginForm"
             ::model="loginForm">
         <div class="login_form_bottom">
-          <van-cell-group style="opacity: 0.6;">
-            <van-field v-validate="'required|username'"
-                       name="username"
-                       :error-message="errors.first('username')"
-                       v-model="loginForm.username"
-                       required
-                       clearable
-                       prop="username"
-                       label="用户名"
-                       placeholder="请输入用户名" />
-
-            <van-field v-validate="'required|password'"
-                       name="password"
-                       :error-message="errors.first('password')"
-                       v-model="loginForm.password"
-                       required
-                       clearable
-                       prop="password"
-                       type="password"
-                       label="密码"
-                       placeholder="请输入密码" />
-          </van-cell-group>
+          <div class="login_form_top">
+            <img src="../../assets/LoGo.gif"
+                 alt="LOGO"
+                 style="width:100% border-radius: 50%;">
+          </div>
           <!-- 登录Button -->
-          <van-button :loading="loginloading"
-                      loading-type='spinner'
-                      loading-size='30px'
-                      color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                      style="margin-bottom: 3px;"
-                      block
-                      @click.prevent="handleLogin">登录</van-button>
+          <div class="LoginForm">
+            <div style="font-size: 15px; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体">账号登录</div>
+            <van-cell-group>
+              <van-field v-validate="'required|username'"
+                         name="username"
+                         :error-message="errors.first('用户名错误')"
+                         v-model="loginForm.username"
+                         clearable
+                         left-icon="contact"
+                         prop="username"
+                         placeholder="请输入用户名" />
+
+              <van-field v-validate="'required|password'"
+                         name="password"
+                         :error-message="errors.first('密码错误')"
+                         v-model="loginForm.password"
+                         clearable
+                         left-icon="closed-eye"
+                         prop="password"
+                         type="password"
+                         placeholder="请输入密码" />
+            </van-cell-group>
+            <van-button :loading="loginloading"
+                        loading-type='spinner'
+                        loading-size='30px'
+                        color="linear-gradient(to right, #4bb0ff, #6149f6)"
+                        style="margin-bottom: 3px; width: 100%;"
+                        block
+                        @click.prevent="handleLogin">登录</van-button>
+          </div>
+          <div class="footer">
+            <a href="#"
+               style="margin-top:13px; margin-left: 200px; font-size: 14px; color: #106ecc; font-weight: 700; font-family: 楷体">忘记密码?</a>
+          </div>
         </div>
       </form>
-      <div class="footer">
-        <a href="#"
-           class="forget_password"
-           style="margin-top:13px;">忘记密码?</a>
-      </div>
     </div>
   </div>
 </template>
@@ -117,7 +117,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  background: url("../../assets/Login_Bg.jpg") no-repeat center / cover;
+  background: url("../../assets/BG2.jpg") no-repeat center / cover;
   .nav {
     background: linear-gradient(to right, #4bb0ff, #6149f6);
     font-family: "楷体";
@@ -130,30 +130,25 @@ export default {
   .login_form_center {
     width: 9rem;
     height: 11rem;
-    opacity: 0.9;
     position: absolute;
     top: 3rem;
     left: 0.4767rem;
-    // transform: translate(-50%, -50%);
-    .login_form_top {
-      width: 100%;
-
-      img {
-        width: 300px;
-        border-radius: 50%;
-        margin-left: 30%;
-        margin-bottom: 80px;
-      }
-    }
     .login_form_bottom {
-      padding: 10px;
+      width: 600px;
+      height: 10rem;
+      background: white;
+      opacity: 1;
+      border-radius: 20px;
+      margin: 200px 0 0 38px;
 
-      .van-field__label {
-        width: 1.4rem;
-      }
-      .van-button {
-        width: 500px;
-        margin-left: 80px;
+      .login_form_top {
+        width: 100%;
+
+        img {
+          width: 300px;
+          border-radius: 20px;
+          margin-left: 24%;
+        }
       }
     }
     .footer {
@@ -162,6 +157,19 @@ export default {
         float: left;
         font-size: 30px;
         color: #585151;
+      }
+    }
+    .LoginForm {
+      width: 400px;
+      height: 400px;
+      margin-left: 93px;
+
+      .van-hairline--top-bottom {
+        height: 65%;
+      }
+
+      .van-field {
+        border-bottom: 1px solid #e0e8eb;
       }
     }
   }

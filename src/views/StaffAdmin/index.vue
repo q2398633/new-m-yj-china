@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="家长管理"
+    <van-nav-bar title="员工管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 家长列表 -->
+    <!-- 员工列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -58,16 +58,18 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <span> {{ '姓名: '+item.RealName }}</span>
-            <span> {{ '手机号: '+item.Mobile }}</span>
-            <span> {{ '关系:' + item.GuanXi }}</span>
-            <span> {{ '常接送人: '+item.IsJieSongRen }}</span>
-            <span> {{ '单位:'+item.WorkPlace }}</span>
+            <span> {{ '部门: '+item.Department }}</span>
+            <span> {{ '职务:' + item.Position }}</span>
+            <span> {{ '账号: '+item.Account }}</span>
+            <span> {{ '性别:'+item.XingBie }}</span>
+            <span> {{ '生日:' + item.Birthday }}</span>
             <span> {{ '身份证号:' + item.IdNumber }}</span>
-            <span> {{ '微信号:' + item.WeChat }}</span>
-            <span> {{ 'QQ号:' + item.QQ }}</span>
-            <span> {{ '学生:' + item.StudentIdName }}</span>
-            <span> {{ '学历:' + item.XueLi }}</span>
-            <span> {{ '家庭住址:' + item.ZhuZhi }}</span>
+            <span> {{ '学历:' + item.Education }}</span>
+            <span> {{ '毕业院校:' + item.Schools }}</span>
+            <span> {{ '专业:' + item.Professional }}</span>
+            <span> {{ '入职时间:' + item.EntryDate }}</span>
+            <span> {{ '现住址:' + item.DiZhiData }}</span>
+            <span> {{ '状态:' + item.Status }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -83,9 +85,9 @@
 </template>
 
 <script>
-import { ParentList } from '@/api/ParentAdmin'
+import { StaffList } from '@/api/StaffAdmin'
 export default {
-    name: 'parentAdmin',
+    name: 'StaffAdmin',
     data () {
         return {
             show: false,
@@ -97,8 +99,8 @@ export default {
         }
     },
     created () {
-    // 加载家长列表
-        this.loadParent()
+    // 加载员工列表
+        this.loadStaffList()
     },
     methods: {
         back () {
@@ -116,20 +118,17 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadParent () {
+        async loadStaffList () {
             let channels = []
-            const data = await ParentList()
+            const data = await StaffList()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadParent()
+            const data = await this.loadStaffList()
             this.list = data
-            console.log('----------1')
-            console.log(this.list[0])
-            console.log('----------2')
         }
     }
 }

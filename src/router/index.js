@@ -8,6 +8,10 @@ import ChildManagement from '@/views/ChildManagement'
 import Demo from '@/views/demo'
 import Menu from '../views/Menu/Index.vue'
 import ParentAdmin from '@/views/ParentAdmin'
+import StaffAdmin from '@/views/StaffAdmin'
+import AccountAdmin from '@/views/AccountAdmin'
+import ClassAdmin from '@/views/ClassAdmin'
+import Evaluating from '@/views/EvaluatingList'
 
 Vue.use(VueRouter)
 
@@ -21,7 +25,12 @@ const router = new VueRouter({
         { name: 'demo', path: '/demo', component: Demo },
         { name: 'childManagement', path: '/ChildManagement', component: ChildManagement },
         { name: 'Menu', path: '/Menu', component: Menu },
-        { name: 'parentAdmin', path: '/parentAdmin', component: ParentAdmin }
+        { name: 'parentAdmin', path: '/parentAdmin', component: ParentAdmin },
+        { name: 'StaffAdmin', path: '/StaffAdmin', component: StaffAdmin },
+        { name: 'AccountAdmin', path: '/AccountAdmin', component: AccountAdmin },
+        { name: 'ClassAdmin', path: '/ClassAdmin', component: ClassAdmin },
+        { name: 'Evaluating', path: '/Evaluating', component: Evaluating }
+
     ]
 })
 
