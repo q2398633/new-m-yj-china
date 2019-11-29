@@ -59,9 +59,9 @@
                     :key="item.Id">
             <span> {{ '标题: '+item.Title }}</span>
             <span> {{ '得分: '+item.DeFen }}</span>
-            <span> {{ '总分:' + item.ZongFen }}</span>
-            <span> {{ '已答题数:' + item.YiDaShu }}</span>
-            <span> {{ '总题数:' + item.TiMuNum }}</span>
+            <span> {{ '总分: ' +item.ZongFen }}</span>
+            <span> {{ '已答题数: ' +item.YiDaShu }}</span>
+            <span> {{ '总题数:' +item.TiMuNum }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -111,8 +111,12 @@ export default {
             }, 500)
         },
         async loadEvaluatingList () {
+            let channels = []
             const data = await EvaluatingList()
-            console.log(data)
+            this.channels = data
+            channels = this.channels
+            console.log(channels)
+            return channels
         },
         async onLoad () {
             const data = await this.loadEvaluatingList()
@@ -160,7 +164,11 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 250px;
+    padding-left: 200px;
+    span:nth-child(1) {
+      font-size: 30px;
+    }
+
     span {
       display: inline-block;
       width: 100%;
@@ -175,7 +183,7 @@ export default {
     width: 100%;
 
     .van-field {
-      width: 50%;
+      width: 100%;
     }
   }
 }

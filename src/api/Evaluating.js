@@ -11,10 +11,6 @@ import request from '../utils/request'
 export const EvaluatingList = () => {
     return request({
         method: 'post',
-        url: '/Eva/EvaShiJuanGrid',
-        data: {
-            fields: 'title,DeFen'
-        }
-
+        url: '/Eva/EvaShiJuanGrid'
     })
 }

@@ -8,7 +8,7 @@
                  left-arrow
                  @click-left="onCleck_left"
                  fixed>
-      <van-icon name="scan"
+      <van-icon name="search"
                 slot="right"
                 size=".6rem" />
     </van-nav-bar>
@@ -18,6 +18,7 @@
               color="black"
               title-active-color="#414a67"
               title-inactive-color="black">
+
       <van-tab title="首页">
         <!-- 主页轮播 -->
         <carousel-3d>
@@ -131,6 +132,24 @@
           </div>
           <ve-line :data="chartData"></ve-line>
         </div>
+
+        <!-- 公告栏 -->
+        <div class="Notice-box">
+          <div class="Notice">
+            <span class="Notice_Left">公告详情</span>
+          </div>
+          <div class="Notice-List">
+            <div v-for="(item) in list"
+                 :key="item.Id"
+                 class="NoticeList-countent">
+              <span> {{ item.RowIndex + '.'}} </span>
+              <span> {{ item.JianJie }} </span>
+              <div style="margin-left:30px; margin-right: 30px; font-size: 22px; font-weiht: 700; color: rgb(156, 149, 104);"> {{ item.NeiRong }} </div>
+              <div style="margin-left:300px; margin-right: 10px; font-size: 15px; font-weiht: 700; color: #ab132d;"> {{ item.CreateName }} {{ item.CreateTime }} </div>
+            </div>
+          </div>
+        </div>
+
       </van-tab>
       <!-- 打卡 -->
       <van-tab title="打卡">
@@ -216,6 +235,7 @@
 </template>
 
 <script>
+import { NoticeList } from '@/api/Notice'
 export default {
   name: 'Home',
   data () {
@@ -243,12 +263,15 @@ export default {
       flag1: true,
       flag2: false,
       CalendarShow: false,
-      zb: this.zb
+      list: [],
+      currentPage: 1
     }
   },
   created () {
     this.nowTimes()
     this.getMycount()
+    // 页面一进入加载评测列表
+    this.loadNoticeList()
   },
   mounted () {
     let _this = this // 声明一个变量指向Vue实例this，保证作用域一致
@@ -325,6 +348,10 @@ export default {
     },
     Evaluating () {
       this.$router.push('/Evaluating')
+    },
+    async loadNoticeList () {
+      const data = await NoticeList()
+      this.list = data
     }
   },
   computed: {
@@ -514,7 +541,6 @@ export default {
 
     .Echarts_details {
       width: 700px;
-
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;
@@ -530,6 +556,58 @@ export default {
   }
   .van-tabs {
     margin-top: 90px;
+  }
+  .Notice-box {
+    width: 100%;
+    margin-bottom: 150px;
+
+    .Notice-List {
+      width: 100%;
+      padding-left: 15px;
+
+      span {
+        display: inline-block;
+        font-size: 40px;
+        font-family: "楷体";
+        color: #009aff;
+      }
+      .NoticeList-countent {
+        margin-bottom: 30px;
+        border-bottom: 3px dashed #ccc;
+        padding-bottom: 40px;
+        span:nth-child(2) {
+          margin-left: 20px;
+          color: #009aff;
+        }
+      }
+    }
+    .Notice {
+      width: 700px;
+      background: #009aff;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      margin-left: 20px;
+
+      .Notice_Left {
+        font-size: 40px;
+        margin-left: 25px;
+        color: white;
+        line-height: 90px;
+        margin-top: 20px;
+      }
+    }
+  }
+  .van-list {
+    margin-top: 70px;
+    font-size: 20px;
+  }
+}
+
+.van-cell-group {
+  width: 100%;
+
+  .van-field {
+    width: 100%;
   }
 }
 </style>
