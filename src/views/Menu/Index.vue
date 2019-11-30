@@ -69,7 +69,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9" />
+                          color="#9569f9"
+                          @click.prevent="BudgetAdmin" />
               <div class="shoping">收支管理</div>
             </van-col>
           </van-row>
@@ -465,6 +466,9 @@ export default {
         },
         onClickRight () {
 
+        },
+        BudgetAdmin () {
+            this.$router.push('/BudgetAdmin')
         }
     }
 }

@@ -12,6 +12,7 @@ import StaffAdmin from '@/views/StaffAdmin'
 import AccountAdmin from '@/views/AccountAdmin'
 import ClassAdmin from '@/views/ClassAdmin'
 import Evaluating from '@/views/EvaluatingList'
+import BudgetAdmin from '@/views/BudgetAdmin'
 
 Vue.use(VueRouter)
 
@@ -29,7 +30,9 @@ const router = new VueRouter({
         { name: 'StaffAdmin', path: '/StaffAdmin', component: StaffAdmin },
         { name: 'AccountAdmin', path: '/AccountAdmin', component: AccountAdmin },
         { name: 'ClassAdmin', path: '/ClassAdmin', component: ClassAdmin },
-        { name: 'Evaluating', path: '/Evaluating', component: Evaluating }
+        { name: 'Evaluating', path: '/Evaluating', component: Evaluating },
+        { name: 'BudgetAdmin', path: '/BudgetAdmin', component: BudgetAdmin }
+
 
     ]
 })

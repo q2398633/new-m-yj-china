@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="班级管理"
+    <van-nav-bar title="收支管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 班级列表 -->
+    <!-- 评测列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,15 +57,22 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <span> {{ '班级名称: '+item.Title }}</span>
-            <span> {{ '年级: '+item.NianJi }}</span>
-            <span> {{ '备注:' + item.Mark }}</span>
-            <span> {{ '创建时间:' + item.CreateTime }}</span>
-            <span> {{ '状态:' + item.Status }}</span>
+            <span> {{ '单号: '+item.DanHao }}</span>
+            <span> {{ '姓名: '+item.Type1 }}</span>
+            <span> {{ '班级: ' +item.Type2 }}</span>
+            <span> {{ '年级: ' +item.Type3 }}</span>
+            <span> {{ '金额:' +item.JinE }}</span>
+            <span> {{ '银行账户:' +item.YinHangZhangHuIdName }}</span>
+            <span> {{ '创建人:' +item.CreateIdName }}</span>
+            <span> {{ '日期:' +item.Date }}</span>
+            <span> {{ '备注:' +item.Data }}</span>
+            <span> {{ '收支:' +item.ShouZhiType }}</span>
+            <span> {{ '审核:' +item.ShenHeStatus }}</span>
+            <span> {{ '是否作废:' +item.IsDelete }}</span>
+
           </van-cell>
         </van-list>
       </van-pull-refresh>
-
       <!-- 分页 -->
       <van-pagination v-model="currentPage"
                       :total-items="10"
@@ -74,12 +81,11 @@
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
 
     </div>
-
   </div>
 </template>
 
 <script>
-import { ClassList } from '@/api/ClassAdmin'
+import { BudgetAdminList } from '@/api/BudgetAdmin'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -93,8 +99,8 @@ export default {
         }
     },
     created () {
-    // 页面一进入加载账户列表
-        this.loadClassList()
+    // 页面一进入加载收支列表
+        this.loadBudgetAdminList()
     },
     methods: {
         back () {
@@ -112,16 +118,16 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadClassList () {
+        async loadBudgetAdminList () {
             let channels = []
-            const data = await ClassList()
+            const data = await BudgetAdminList()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadClassList()
+            const data = await this.loadBudgetAdminList()
             this.list = data
         }
     }
@@ -166,7 +172,11 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 250px;
+    padding-left: 200px;
+    span:nth-child(1) {
+      font-size: 30px;
+    }
+
     span {
       display: inline-block;
       width: 100%;
@@ -181,7 +191,7 @@ export default {
     width: 100%;
 
     .van-field {
-      width: 50%;
+      width: 100%;
     }
   }
 }
