@@ -144,8 +144,8 @@
                  class="NoticeList-countent">
               <span> {{ item.RowIndex + '.'}} </span>
               <span> {{ item.JianJie }} </span>
-              <div style="margin-left:30px; margin-right: 30px; font-size: 22px; font-weiht: 700; color: rgb(156, 149, 104);"> {{ item.NeiRong }} </div>
-              <div style="margin-left:300px; margin-right: 10px; font-size: 15px; font-weiht: 700; color: #ab132d;"> {{ item.CreateName }} {{ item.CreateTime }} </div>
+              <div style="margin-left:30px; margin-right: 30px; font-size: .4rem; font-weiht: 700; color: rgb(156, 149, 104);"> {{ item.NeiRong }} </div>
+              <div style="margin-left:300px; margin-right: 10px; font-size: .3rem; font-weiht: 700; color: #ab132d;"> {{ item.CreateName }} {{ item.CreateTime }} </div>
             </div>
           </div>
         </div>
@@ -401,7 +401,7 @@ export default {
     padding: 10px;
 
     .default {
-      width: 700px;
+      width: 9.5rem;
       margin-bottom: 15px;
       margin-left: 8px;
       border-radius: 10px;
@@ -409,16 +409,17 @@ export default {
       .menu_left {
         font-size: 40px;
         margin-left: 25px;
+        margin-right: 5rem;
         color: white;
         line-height: 80px;
         margin-top: 20px;
       }
       .menu_right {
         color: white;
-        font-size: 30px;
-        margin-top: 28px;
-        margin-right: 30px;
-        margin-left: 440px;
+        font-size: 40px;
+        margin-top: 20px;
+        margin-right: 5px;
+        line-height: 80px;
       }
     }
     .van-button {
@@ -540,7 +541,7 @@ export default {
     margin-right: 40px;
 
     .Echarts_details {
-      width: 700px;
+      width: 9.5rem;
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;

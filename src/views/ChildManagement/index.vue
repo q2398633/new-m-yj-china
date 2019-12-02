@@ -91,14 +91,43 @@
                   :finished="finished"
                   finished-text="没有更多了"
                   @load="onLoad">
+
           <van-cell v-for="(item) in list"
-                    :key="item.Id">
-            <span> {{ '姓名: '+item.RealName }}</span>
-            <span> {{ '班级: '+item.BanJi }}</span>
-            <span> {{ '性别:' + item.XingBie }}</span>
-            <span> {{ '民族: '+item.MinZu }}</span>
-            <span style="width: 75%;"> {{ '入园时间:'+item.RuTuoRiQi }}</span>
-            <span> {{ '状态:' + item.Status }}</span>
+                    :key="item.RealName">
+            <van-swipe-cell>
+              <van-cell :border="false"
+                        title="姓名">
+                {{ item.Title }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="班级">
+                {{ item.BanJi }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="性别">
+                {{ item.XingBie }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="民族">
+                {{ item.MinZu }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="入园时间">
+                {{ item.RuTuoRiQi }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="状态">
+                {{ item.状态 }}
+              </van-cell>
+              <template slot="right">
+                <van-button square
+                            type="danger"
+                            text="删除" />
+                <van-button square
+                            type="primary"
+                            text="收藏" />
+              </template>
+            </van-swipe-cell>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -164,20 +193,18 @@ export default {
         InNurseryDay () {
 
         },
+        async DelectList () {
+        },
         async loadchannle () {
             let channels = []
             const data = await getList()
             this.channels = data
             channels = this.channels
-            console.log(channels)
             return channels
         },
         async onLoad () {
             const data = await this.loadchannle()
             this.list = data
-            console.log('----------1')
-            console.log(this.list[0])
-            console.log('----------2')
         }
     }
 }
@@ -244,6 +271,12 @@ export default {
       width: 100%;
       padding: 0 0 0 30px;
     }
+  }
+  .van-cell {
+    padding: 0;
+  }
+  .van-button {
+    height: null;
   }
 }
 </style>

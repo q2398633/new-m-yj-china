@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="班级管理"
+    <van-nav-bar title="食谱管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 班级列表 -->
+    <!-- 食谱列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,53 +57,58 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
-              <van-cell :border="false"
-                        title="班级名称">
-                {{ item.Title }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="年级">
-                {{ item.NianJi }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="备注">
-                {{ item.Mark }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="创建时间">
-                {{ item.CreateTime }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="状态">
-                {{ item.Status }}
-              </van-cell>
-              <template slot="right">
-                <van-button square
-                            type="danger"
-                            text="删除" />
-                <van-button square
-                            type="primary"
-                            text="收藏" />
-              </template>
-            </van-swipe-cell>
+            <span> {{ '名称: '+item.Title }}</span>
+            <span> {{ '菜肴类型: '+item.Type }}</span>
+            <span> {{ '水分(克): ' +item.Water }}</span>
+            <span> {{ '能量(卡路里): ' +item.EnergyKcal }}</span>
+            <span> {{ '能量(千焦):' +item.EnergyKj }}</span>
+            <span> {{ '蛋白质(克):' +item.Protein }}</span>
+            <span> {{ '脂肪(克):' +item.Fat }}</span>
+            <span> {{ '碳水化合物(克):' +item.CHO }}</span>
+            <span> {{ '膳食纤维(克):' +item.DietaryFiber }}</span>
+            <span> {{ '可溶性膳食纤维(克):' +item.DietaryFiberS }}</span>
+            <span> {{ '不溶性膳食纤维(克):' +item.DietaryFiberI }}</span>
+            <span> {{ '胆固醇(毫克):' +item.Cholesterol }}</span>
+            <span> {{ '灰分(克):' +item.Ash }}</span>
+            <span> {{ '维生素A(微克):' +item.VitA }}</span>
+            <span> {{ '胡萝卜素(微克):' +item.Carotene }}</span>
+            <span> {{ '硫胺素(毫克):' +item.Thiamin }}</span>
+            <span> {{ '核黄素(毫克):' +item.Riboflavin }}</span>
+            <span> {{ '维生素B6(毫克):' +item.VitB6 }}</span>
+            <span> {{ '维生素B12(微克):' +item.VitB12 }}</span>
+            <span> {{ '叶酸(微克):' +item.Folate }}</span>
+            <span> {{ '烟酸(毫克):' +item.Niacin }}</span>
+            <span> {{ '维生素C(毫克):' +item.VitC }}</span>
+            <span> {{ '维生素E(毫克):' +item.VitE }}</span>
+            <span> {{ '维生素Ea(毫克):' +item.VitEa }}</span>
+            <span> {{ '钙(毫克):' +item.Ca }}</span>
+            <span> {{ '磷(毫克):' +item.P }}</span>
+            <span> {{ '钾(毫克):' +item.K }}</span>
+            <span> {{ '钠(毫克):' +item.Na }}</span>
+            <span> {{ '镁(毫克):' +item.Mg }}</span>
+            <span> {{ '铁(毫克):' +item.Fe }}</span>
+            <span> {{ '锌(毫克):' +item.Zn }}</span>
+            <span> {{ '硒(微克):' +item.Se }}</span>
+            <span> {{ '铜(毫克):' +item.Cu }}</span>
+            <span> {{ '锰(毫克):' +item.Mn }}</span>
+            <span> {{ '碘(微克):' +item.I }}</span>
+            <span> {{ '创建时间:' +item.CreateTime }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
-
       <!-- 分页 -->
       <van-pagination v-model="currentPage"
                       :total-items="10"
                       :show-page-size="10"
                       force-ellipses
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
-    </div>
 
+    </div>
   </div>
 </template>
 
 <script>
-import { ClassList } from '@/api/ClassAdmin'
+import { RecipesList } from '@/api/Recipes'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -117,8 +122,8 @@ export default {
         }
     },
     created () {
-    // 页面一进入加载账户列表
-        this.loadClassList()
+    // 页面一进入加载评测列表
+        this.loadRecipesList()
     },
     methods: {
         back () {
@@ -136,16 +141,16 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadClassList () {
+        async loadRecipesList () {
             let channels = []
-            const data = await ClassList()
+            const data = await RecipesList()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadClassList()
+            const data = await this.loadRecipesList()
             this.list = data
         }
     }
@@ -190,7 +195,11 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 250px;
+    padding-left: 200px;
+    span:nth-child(1) {
+      font-size: 30px;
+    }
+
     span {
       display: inline-block;
       width: 100%;
@@ -205,11 +214,8 @@ export default {
     width: 100%;
 
     .van-field {
-      width: 50%;
+      width: 100%;
     }
-  }
-  .van-cell {
-    padding: 0;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="班级管理"
+    <van-nav-bar title="资产维护"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 班级列表 -->
+    <!-- 资产维护 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,53 +57,29 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
-              <van-cell :border="false"
-                        title="班级名称">
-                {{ item.Title }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="年级">
-                {{ item.NianJi }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="备注">
-                {{ item.Mark }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="创建时间">
-                {{ item.CreateTime }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="状态">
-                {{ item.Status }}
-              </van-cell>
-              <template slot="right">
-                <van-button square
-                            type="danger"
-                            text="删除" />
-                <van-button square
-                            type="primary"
-                            text="收藏" />
-              </template>
-            </van-swipe-cell>
+            <span> {{ '名称: '+item.Title }}</span>
+            <span> {{ '类别: '+item.WeiHuType }}</span>
+            <span> {{ '经手人: ' +item.WeiHuRen }}</span>
+            <span> {{ '费用金额: ' +item.FeiYong }}</span>
+            <span> {{ '维护内容: ' +item.WeiHuNeiRong }}</span>
+            <span> {{ '备注: ' +item.BeiZhu }}</span>
+            <span> {{ '维护日期: ' +item.Date }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
-
       <!-- 分页 -->
       <van-pagination v-model="currentPage"
                       :total-items="10"
                       :show-page-size="10"
                       force-ellipses
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
-    </div>
 
+    </div>
   </div>
 </template>
 
 <script>
-import { ClassList } from '@/api/ClassAdmin'
+import { AssetMaintenance } from '@/api/AssetMaintenance'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -117,8 +93,8 @@ export default {
         }
     },
     created () {
-    // 页面一进入加载账户列表
-        this.loadClassList()
+    // 页面一进入加载评测列表
+        this.loadAssetMaintenance()
     },
     methods: {
         back () {
@@ -136,16 +112,16 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadClassList () {
+        async loadAssetMaintenance () {
             let channels = []
-            const data = await ClassList()
+            const data = await AssetMaintenance()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadClassList()
+            const data = await this.loadAssetMaintenance()
             this.list = data
         }
     }
@@ -190,7 +166,11 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 250px;
+    padding-left: 200px;
+    span:nth-child(1) {
+      font-size: 30px;
+    }
+
     span {
       display: inline-block;
       width: 100%;
@@ -205,11 +185,8 @@ export default {
     width: 100%;
 
     .van-field {
-      width: 50%;
+      width: 100%;
     }
-  }
-  .van-cell {
-    padding: 0;
   }
 }
 </style>

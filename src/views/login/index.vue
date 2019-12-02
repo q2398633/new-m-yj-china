@@ -15,7 +15,7 @@
           </div>
           <!-- 登录Button -->
           <div class="LoginForm">
-            <div style="font-size: 15px; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体">账号登录</div>
+            <div style="font-size: .5rem; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体">账号登录</div>
             <van-cell-group>
               <van-field v-validate="'required|username'"
                          name="username"
@@ -43,11 +43,12 @@
                         style="margin-bottom: 3px; width: 100%;"
                         block
                         @click.prevent="handleLogin">登录</van-button>
+            <div class="footer">
+              <a href="#"
+                 style="margin-top:13px;  font-size: .5rem; color: #106ecc; font-weight: 700; font-family: 楷体">忘记密码?</a>
+            </div>
           </div>
-          <div class="footer">
-            <a href="#"
-               style="margin-top:13px; margin-left: 200px; font-size: 14px; color: #106ecc; font-weight: 700; font-family: 楷体">忘记密码?</a>
-          </div>
+
         </div>
       </form>
     </div>
@@ -139,7 +140,7 @@ export default {
       background: white;
       opacity: 1;
       border-radius: 20px;
-      margin: 200px 0 0 38px;
+      margin: -20px 0 0 38px;
 
       .login_form_top {
         width: 100%;
@@ -153,11 +154,6 @@ export default {
     }
     .footer {
       padding: 30px;
-      a {
-        float: left;
-        font-size: 30px;
-        color: #585151;
-      }
     }
     .LoginForm {
       width: 400px;

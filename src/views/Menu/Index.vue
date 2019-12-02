@@ -110,7 +110,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9" />
+                          color="#9569f9"
+                          @click.prevent="Recipes" />
               <div class="shoping">食谱部分</div>
             </van-col>
             <van-col span="6">
@@ -156,13 +157,15 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="FoodSafety"></van-button>
               <div class="shoping">食品安全监测</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="TablewareDisinfection"></van-button>
               <div class="shoping">餐具消毒</div>
             </van-col>
             <van-col span="6">
@@ -435,13 +438,15 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="AssetsInformation"></van-button>
               <div class="shoping">资产信息表</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="AssetMaintenance"></van-button>
               <div class="shoping">资产维修</div>
             </van-col>
           </van-row>
@@ -469,6 +474,21 @@ export default {
         },
         BudgetAdmin () {
             this.$router.push('/BudgetAdmin')
+        },
+        Recipes () {
+            this.$router.push('/Recipes')
+        },
+        FoodSafety () {
+            this.$router.push('/FoodSafety')
+        },
+        AssetsInformation () {
+            this.$router.push('/AssetsInformation')
+        },
+        AssetMaintenance () {
+            this.$router.push('/AssetMaintenance')
+        },
+        TablewareDisinfection () {
+            this.$router.push('/TablewareDisinfection')
         }
     }
 }

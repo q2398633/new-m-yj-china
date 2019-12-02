@@ -56,18 +56,61 @@
                   finished-text="没有更多了"
                   @load="onLoad">
           <van-cell v-for="(item) in list"
-                    :key="item.Id">
-            <span> {{ '姓名: '+item.RealName }}</span>
-            <span> {{ '手机号: '+item.Mobile }}</span>
-            <span> {{ '关系:' + item.GuanXi }}</span>
-            <span> {{ '常接送人: '+item.IsJieSongRen }}</span>
-            <span> {{ '单位:'+item.WorkPlace }}</span>
-            <span> {{ '身份证号:' + item.IdNumber }}</span>
-            <span> {{ '微信号:' + item.WeChat }}</span>
-            <span> {{ 'QQ号:' + item.QQ }}</span>
-            <span> {{ '学生:' + item.StudentIdName }}</span>
-            <span> {{ '学历:' + item.XueLi }}</span>
-            <span> {{ '家庭住址:' + item.ZhuZhi }}</span>
+                    :key="item.RealName">
+            <van-swipe-cell>
+              <van-cell :border="false"
+                        title="姓名">
+                {{ item.RealName }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="手机号">
+                {{ item.Mobile }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="关系">
+                {{ item.GuanXi }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="常接送人">
+                {{ item.IsJieSongRen }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="单位">
+                {{ item.WorkPlace }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="身份证号">
+                {{ item.IdNumber }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="微信号">
+                {{ item.WeChat }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="QQ号">
+                {{ item.QQ }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="学生">
+                {{ item.StudentIdName }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="学历">
+                {{ item.XueLi }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="家庭住址">
+                {{ item.ZhuZhi }}
+              </van-cell>
+              <template slot="right">
+                <van-button square
+                            type="danger"
+                            text="删除" />
+                <van-button square
+                            type="primary"
+                            text="修改" />
+              </template>
+            </van-swipe-cell>
           </van-cell>
         </van-list>
       </van-pull-refresh>
@@ -190,6 +233,9 @@ export default {
     .van-field {
       width: 50%;
     }
+  }
+  .van-cell {
+    padding: 0;
   }
 }
 </style>

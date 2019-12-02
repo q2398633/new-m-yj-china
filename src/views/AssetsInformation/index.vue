@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="班级管理"
+    <van-nav-bar title="资产信息表"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -47,7 +47,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 班级列表 -->
+    <!-- 资产信息表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -57,53 +57,39 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
-              <van-cell :border="false"
-                        title="班级名称">
-                {{ item.Title }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="年级">
-                {{ item.NianJi }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="备注">
-                {{ item.Mark }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="创建时间">
-                {{ item.CreateTime }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="状态">
-                {{ item.Status }}
-              </van-cell>
-              <template slot="right">
-                <van-button square
-                            type="danger"
-                            text="删除" />
-                <van-button square
-                            type="primary"
-                            text="收藏" />
-              </template>
-            </van-swipe-cell>
+            <span> {{ '名称: '+item.Title }}</span>
+            <span> {{ '类别: '+item.Type }}</span>
+            <span> {{ '单位: ' +item.JiLiangDanWei }}</span>
+            <span> {{ '数量: ' +item.Total }}</span>
+            <span> {{ '原币单价: ' +item.YuanZhi }}</span>
+            <span> {{ '购进原值: ' +item.RuZhangJiaZhi }}</span>
+            <span> {{ '使用年限/月: ' +item.ShiYongYue }}</span>
+            <span> {{ '残值率%: ' +item.CanZhiLv }}</span>
+            <span> {{ '入账日期: ' +item.RuZhangRiQi }}</span>
+            <span> {{ '预计净残值: ' +item.CreateTime }}</span>
+            <span> {{ '使用月份: ' +item.ShiYongYue }}</span>
+            <span> {{ '本月折旧: ' +item.CreateTime }}</span>
+            <span> {{ '累计折旧: ' +item.CreateTime }}</span>
+            <span> {{ '净值: ' +item.CreateTime }}</span>
+            <span> {{ '月折旧额: ' +item.CreateTime }}</span>
+            <span> {{ '状态: ' +item.ShenHeStatus }}</span>
+            <span> {{ '审核到期日期: ' +item.DaoQiRiQi }}</span>
           </van-cell>
         </van-list>
       </van-pull-refresh>
-
       <!-- 分页 -->
       <van-pagination v-model="currentPage"
                       :total-items="10"
                       :show-page-size="10"
                       force-ellipses
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
-    </div>
 
+    </div>
   </div>
 </template>
 
 <script>
-import { ClassList } from '@/api/ClassAdmin'
+import { AssetsInformation } from '@/api/AssetsInformation'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -117,8 +103,8 @@ export default {
         }
     },
     created () {
-    // 页面一进入加载账户列表
-        this.loadClassList()
+    // 页面一进入加载评测列表
+        this.loadAssetsInformation()
     },
     methods: {
         back () {
@@ -136,16 +122,16 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadClassList () {
+        async loadAssetsInformation () {
             let channels = []
-            const data = await ClassList()
+            const data = await AssetsInformation()
             this.channels = data
             channels = this.channels
             console.log(channels)
             return channels
         },
         async onLoad () {
-            const data = await this.loadClassList()
+            const data = await this.loadAssetsInformation()
             this.list = data
         }
     }
@@ -190,7 +176,11 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 250px;
+    padding-left: 200px;
+    span:nth-child(1) {
+      font-size: 30px;
+    }
+
     span {
       display: inline-block;
       width: 100%;
@@ -205,11 +195,8 @@ export default {
     width: 100%;
 
     .van-field {
-      width: 50%;
+      width: 100%;
     }
-  }
-  .van-cell {
-    padding: 0;
   }
 }
 </style>

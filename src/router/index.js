@@ -13,6 +13,13 @@ import AccountAdmin from '@/views/AccountAdmin'
 import ClassAdmin from '@/views/ClassAdmin'
 import Evaluating from '@/views/EvaluatingList'
 import BudgetAdmin from '@/views/BudgetAdmin'
+import Recipes from '@/views/Recipes'
+import SafetyProjectInspection from '@/views/SafetyProjectInspection'
+import FoodSafety from '@/views/FoodSafety'
+import AssetsInformation from '@/views/AssetsInformation'
+import AssetMaintenance from '@/views/AssetMaintenance'
+import TablewareDisinfection from '@/views/TablewareDisinfection'
+
 
 Vue.use(VueRouter)
 
@@ -31,7 +38,14 @@ const router = new VueRouter({
         { name: 'AccountAdmin', path: '/AccountAdmin', component: AccountAdmin },
         { name: 'ClassAdmin', path: '/ClassAdmin', component: ClassAdmin },
         { name: 'Evaluating', path: '/Evaluating', component: Evaluating },
-        { name: 'BudgetAdmin', path: '/BudgetAdmin', component: BudgetAdmin }
+        { name: 'BudgetAdmin', path: '/BudgetAdmin', component: BudgetAdmin },
+        { name: 'Recipes', path: '/Recipes', component: Recipes },
+        { name: 'SafetyProjectInspection', path: '/SafetyProjectInspection', component: SafetyProjectInspection },
+        { name: 'FoodSafety', path: '/FoodSafety', component: FoodSafety },
+        { name: 'AssetsInformation', path: '/AssetsInformation', component: AssetsInformation },
+        { name: 'AssetMaintenance', path: '/AssetMaintenance', component: AssetMaintenance },
+        { name: 'TablewareDisinfection', path: '/TablewareDisinfection', component: TablewareDisinfection }
+
 
 
     ]
