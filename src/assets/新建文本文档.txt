@@ -1,7 +1,0 @@
-        { name: 'index', path: '/', redirect: '/home' },
-        { name: 'login', path: '/login', component: Login },
-        { name: 'home', path: '/home', component: Home },
-        { name: 'SignInRule', path: '/SignInRule', component: SignInRule },
-        { name: 'calender', path: '/Calender', component: Calender },
-        { name: 'demo', path: '/demo', component: Demo },
-        { name: 'childManagement', path: '/ChildManagement', component: ChildManagement }

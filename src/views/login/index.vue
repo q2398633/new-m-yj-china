@@ -65,7 +65,6 @@ export default {
             loginForm: {
                 username: 'admin',
                 password: 'caifu123456'
-
             },
             loginloading: false
 
