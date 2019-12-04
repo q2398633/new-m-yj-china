@@ -71,7 +71,7 @@
                           type="primary"
                           color="#ff9400"
                           @click.prevent="StaffAdmin" />
-              <div class="shoping">员工管理</div>
+              <div class="shoping">安全检测</div>
 
             </van-col>
             <van-col span="6">
@@ -103,15 +103,17 @@
             <van-col span="6">
               <van-button icon="vip-card-o"
                           type="primary"
-                          color="#fb6365" />
-              <div class="shoping">考勤列表</div>
+                          color="#fb6365"
+                          @click.prevent="SupplierAdmin" />
+              <div class="shoping">供应管理</div>
 
             </van-col>
             <van-col span="6">
               <van-button icon="shop-o"
                           type="primary"
-                          color="#009aff" />
-              <div class="shoping">考勤审核</div>
+                          color="#009aff"
+                          @click.prevent="VaccineAdmin" />
+              <div class="shoping">疫苗管理</div>
 
             </van-col>
             <van-col span="6">
@@ -119,8 +121,8 @@
                           color:white
                           type="primary"
                           color="#30c5cb"
-                          @click.prevent="Evaluating" />
-              <div class="shoping">督导评估</div>
+                          @click.prevent="PostAdmin" />
+              <div class="shoping">职务管理</div>
 
             </van-col>
           </van-row>
@@ -338,7 +340,7 @@ export default {
       this.$router.push('/Menu')
     },
     StaffAdmin () {
-      this.$router.push('/StaffAdmin')
+      this.$router.push('/SafetyProjectInspection')
     },
     AccountAdmin () {
       this.$router.push('/AccountAdmin')
@@ -352,6 +354,15 @@ export default {
     async loadNoticeList () {
       const data = await NoticeList()
       this.list = data
+    },
+    SupplierAdmin () {
+      this.$router.push('/SupplierAdmin')
+    },
+    VaccineAdmin () {
+      this.$router.push('/VaccineAdmin')
+    },
+    PostAdmin () {
+      this.$router.push('/PostAdmin')
     }
   },
   computed: {
@@ -401,7 +412,9 @@ export default {
     padding: 10px;
 
     .default {
-      width: 9.5rem;
+      width: 95%;
+      height: 30%;
+      padding-bottom: 20px;
       margin-bottom: 15px;
       margin-left: 8px;
       border-radius: 10px;
@@ -416,9 +429,9 @@ export default {
       }
       .menu_right {
         color: white;
-        font-size: 40px;
+        font-size: 38px;
         margin-top: 20px;
-        margin-right: 5px;
+        height: 80px;
         line-height: 80px;
       }
     }
@@ -541,7 +554,9 @@ export default {
     margin-right: 40px;
 
     .Echarts_details {
-      width: 9.5rem;
+      width: 100%;
+      height: 90px;
+      padding-bottom: 20px;
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;
@@ -550,7 +565,6 @@ export default {
         font-size: 40px;
         margin-left: 25px;
         color: white;
-        line-height: 90px;
         margin-top: 20px;
       }
     }

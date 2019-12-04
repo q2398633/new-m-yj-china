@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="银行账户管理"
+    <van-nav-bar title="教育经历"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -19,15 +19,15 @@
                close-icon="close">
       <van-cell-group>
         <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
+        <van-field label="员工:"
                    label-width="70px"
                    autosize
                    placeholder="请输入班级名称" />
-        <van-field label="年级:"
+        <van-field label="学校:"
                    label-width="70px"
                    autosize
                    placeholder="请输入民族" />
-        <van-field label="备注:"
+        <van-field label="起始日期:"
                    label-width="70px"
                    autosize />
         <van-field label="创建时间:"
@@ -42,7 +42,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 银行账户列表 -->
+    <!-- 教育经历列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -54,29 +54,19 @@
                     :key="item.Id">
             <van-swipe-cell>
               <van-cell :border="false"
-                        title="标题"
+                        title="班级名称"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.Title }}``
               </van-cell>
               <van-cell :border="false"
-                        title="账号"
+                        title="年级"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.ZhangHao }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="余额"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.YuE }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="排序"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Sort }}
+                {{ item.NianJi }}
               </van-cell>
               <van-cell :border="false"
                         title="备注"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.BeiZhu }}
+                {{ item.Mark }}
               </van-cell>
               <van-cell :border="false"
                         title="创建时间"
@@ -103,8 +93,8 @@
         </van-list>
         <van-button type="info"
                     style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加银行账户</van-button>
-        <!-- 添加银行账户列表 -->
+                    @click.prevent="AddList">添加班级</van-button>
+        <!-- 添加教育经历者 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -113,39 +103,26 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
                 <van-field v-model="AddListForm.Title"
-                           placeholder="请输入标题"
+                           placeholder="请输入班级名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">账号:</span>
-                <van-field v-model="AddListForm.ZhangHao"
-                           placeholder="请输入账号"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
+                <van-field v-model="AddListForm.NianJi"
+                           placeholder="请输入年级"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
-                <van-field v-model="AddListForm.YuE"
-                           placeholder="余额"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
-                <van-field v-model="AddListForm.Sort"
-                           placeholder="排序"
-                           style="display:inline-block;" />
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
+                <van-switch v-model="AddListForm.Status"
+                            style="margin-left: 20px;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px;">
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="AddListForm.BeiZhu"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="AddListForm.Status"
-                           placeholder="状态"
+                <van-field v-model="AddListForm.Mark"
+                           placeholder="请输入备注"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -160,7 +137,7 @@
 
           </form>
         </van-popup>
-        <!-- 修改银行账户列表 -->
+        <!-- 修改教育经历 -->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -169,39 +146,26 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
                 <van-field v-model="dqList.Title"
-                           placeholder="请输入标题"
-                           style="display:inline-block;" />
-              </div>
-              <div>dqList
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">账号:</span>
-                <van-field v-model="dqList.ZhangHao"
-                           placeholder="请输入账号"
+                           placeholder="请输入班级名称"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
-                <van-field v-model="dqList.YuE"
-                           placeholder="余额"
-                           style="display:inline-block;" />
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
+                <van-switch v-model="checked"
+                            style="margin-left: 20px;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
-                <van-field v-model="dqList.Sort"
-                           placeholder="排序"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
+                <van-field v-model="dqList.NianJi"
+                           placeholder="请输入年级"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px;">
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="dqList.BeiZhu"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="dqList.Status"
-                           placeholder="状态"
+                <van-field v-model="dqList.Mark"
+                           placeholder="请输入备注"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -231,30 +195,26 @@
 </template>
 
 <script>
-import { AccountList } from '@/api/AccountAdmin'
-import { DelectList4 } from '@/api/Delect'
-import { AddList4 } from '@/api/AddList'
-import { ModifyList4 } from '@/api/ModifyList'
+import { EducationExperience } from '@/api/EducationExperience'
+import { DelectList } from '@/api/Delect'
+import { AddList } from '@/api/AddList'
+import { ModifyList } from '@/api/ModifyList'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             AddListForm: {
                 Title: '',
-                ZhangHao: '',
-                YuE: '',
-                Sort: '',
-                BeiZhu: '',
-                Status: '',
+                NianJi: '',
+                Status: 'true',
+                Mark: '',
                 Id: ''
             },
             ModifyListForm: {
                 Title: '',
-                ZhangHao: '',
-                YuE: '',
-                Sort: '',
-                BeiZhu: '',
-                Status: '',
+                NianJi: '',
+                Status: 'true',
+                Mark: '',
                 Id: ''
             },
             show: false,
@@ -276,8 +236,8 @@ export default {
 
     },
     created () {
-    // 页面一进入加载银行账户列表
-        this.loadAccountList()
+    // 页面一进入加载班级列表
+        this.loadClassList()
     },
     methods: {
         back () {
@@ -303,9 +263,9 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadAccountList () {
+        async loadEducationExperienceList () {
             let channels = []
-            const data = await AccountList()
+            const data = await EducationExperience()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -313,7 +273,7 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadAccountList()
+            const data = await this.loadEducationExperienceList()
             this.list = data
         },
         async DelList (currentList) {
@@ -323,8 +283,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId4 = this.currentList.Id
-                const data = await DelectList4(listId4)
+                const listId = this.currentList.Id
+                const data = await DelectList(listId)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -337,7 +297,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList4(this.AddListForm)
+            const data = await AddList(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -348,7 +308,7 @@ export default {
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList4(this.dqList)
+            const data = await ModifyList(this.dqList)
             console.log(data)
             this.ModifyListshow = false
             this.$toast.success('修改成功')
@@ -387,7 +347,7 @@ export default {
   }
 
   .van-list {
-    margin-top: 130px;
+    margin-top: 70px;
   }
   .van-popup {
     width: 100%;

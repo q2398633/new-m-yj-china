@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="银行账户管理"
+    <van-nav-bar title="职务管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -18,19 +18,19 @@
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索疫苗</div>
+        <van-field label="疫苗名称:"
                    label-width="70px"
                    autosize
                    placeholder="请输入班级名称" />
-        <van-field label="年级:"
+        <van-field label="接种年龄:"
                    label-width="70px"
                    autosize
                    placeholder="请输入民族" />
-        <van-field label="备注:"
+        <van-field label="针次:"
                    label-width="70px"
                    autosize />
-        <van-field label="创建时间:"
+        <van-field label="预防效果:"
                    label-width="70px"
                    autosize
                    placeholder="请输入户籍" />
@@ -42,7 +42,7 @@
                     @click.prevent="close">退出</van-button>
       </div>
     </van-popup>
-    <!-- 银行账户列表 -->
+    <!-- 职务管理列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -54,39 +54,14 @@
                     :key="item.Id">
             <van-swipe-cell>
               <van-cell :border="false"
-                        title="标题"
+                        title="职务名称:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.Title }}``
               </van-cell>
               <van-cell :border="false"
-                        title="账号"
+                        title="职务级别:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.ZhangHao }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="余额"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.YuE }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="排序"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Sort }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="备注"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.BeiZhu }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="创建时间"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.CreateTime }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="状态"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Status }}
+                {{ item.Grade }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -103,8 +78,8 @@
         </van-list>
         <van-button type="info"
                     style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加银行账户</van-button>
-        <!-- 添加银行账户列表 -->
+                    @click.prevent="AddList">添加职务</van-button>
+        <!-- 添加职务管理列表 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -113,39 +88,15 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">职务名称:</span>
                 <van-field v-model="AddListForm.Title"
-                           placeholder="请输入标题"
+                           placeholder="请输入职务名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">账号:</span>
-                <van-field v-model="AddListForm.ZhangHao"
-                           placeholder="请输入账号"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
-                <van-field v-model="AddListForm.YuE"
-                           placeholder="余额"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
-                <van-field v-model="AddListForm.Sort"
-                           placeholder="排序"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="AddListForm.BeiZhu"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="AddListForm.Status"
-                           placeholder="状态"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">职务级别:</span>
+                <van-field v-model="AddListForm.Grade"
+                           placeholder="请输入级别"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -160,7 +111,7 @@
 
           </form>
         </van-popup>
-        <!-- 修改银行账户列表 -->
+        <!-- 修改职务管理列表-->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -169,39 +120,15 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">职务名称:</span>
                 <van-field v-model="dqList.Title"
-                           placeholder="请输入标题"
+                           placeholder="请输入职务名称"
                            style="display:inline-block;" />
               </div>
-              <div>dqList
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">账号:</span>
-                <van-field v-model="dqList.ZhangHao"
-                           placeholder="请输入账号"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
-                <van-field v-model="dqList.YuE"
-                           placeholder="余额"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
-                <van-field v-model="dqList.Sort"
-                           placeholder="排序"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="dqList.BeiZhu"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="dqList.Status"
-                           placeholder="状态"
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">职务级别:</span>
+                <van-field v-model="dqList.Grade"
+                           placeholder="请输入职务级别"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -231,30 +158,22 @@
 </template>
 
 <script>
-import { AccountList } from '@/api/AccountAdmin'
-import { DelectList4 } from '@/api/Delect'
-import { AddList4 } from '@/api/AddList'
-import { ModifyList4 } from '@/api/ModifyList'
+import { PostAdmin } from '@/api/PostAdmin'
+import { DelectList7 } from '@/api/Delect'
+import { AddList7 } from '@/api/AddList'
+import { ModifyList7 } from '@/api/ModifyList'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             AddListForm: {
                 Title: '',
-                ZhangHao: '',
-                YuE: '',
-                Sort: '',
-                BeiZhu: '',
-                Status: '',
+                Grade: '',
                 Id: ''
             },
             ModifyListForm: {
                 Title: '',
-                ZhangHao: '',
-                YuE: '',
-                Sort: '',
-                BeiZhu: '',
-                Status: '',
+                Grade: '',
                 Id: ''
             },
             show: false,
@@ -276,8 +195,8 @@ export default {
 
     },
     created () {
-    // 页面一进入加载银行账户列表
-        this.loadAccountList()
+    // 页面一进入加载职务管理列表列表
+        this.loadvaccineAdminList()
     },
     methods: {
         back () {
@@ -303,9 +222,9 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadAccountList () {
+        async loadPostAdminList () {
             let channels = []
-            const data = await AccountList()
+            const data = await PostAdmin()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -313,7 +232,7 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadAccountList()
+            const data = await this.loadPostAdminList()
             this.list = data
         },
         async DelList (currentList) {
@@ -323,8 +242,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId4 = this.currentList.Id
-                const data = await DelectList4(listId4)
+                const listId7 = this.currentList.Id
+                const data = await DelectList7(listId7)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -337,7 +256,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList4(this.AddListForm)
+            const data = await AddList7(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -348,7 +267,7 @@ export default {
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList4(this.dqList)
+            const data = await ModifyList7(this.dqList)
             console.log(data)
             this.ModifyListshow = false
             this.$toast.success('修改成功')

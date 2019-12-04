@@ -22,4 +22,5 @@ export default {
 </script>
 
   <style lang="less">
+@import "./styles/custom-picker.css";
 </style>

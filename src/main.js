@@ -17,12 +17,15 @@ import Calendar from 'vue-mobile-calendar'
 import './assets/iconfont/iconfont.css'
 import AMap from 'vue-amap'
 
+
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
 
 Vue.use(animated)
 
 Vue.use(Calendar)
+
+
 
 Vue.filter('fmtDate', fmtDate)
 

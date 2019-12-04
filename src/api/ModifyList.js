@@ -1,15 +1,15 @@
 /**
- * 添加相关请求
+ * 修改列表相关请求
  */
 import request from '../utils/request'
 
 /**
  *
- * 已登录(设置请求头 token) 添加列表
+ * 已登录(设置请求头 token) 修改列表
  * 传值为表单
  */
 
-export const AddList = ({
+export const ModifyList = ({
     Title,
     Status,
     NianJi,
@@ -18,7 +18,7 @@ export const AddList = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/STU/STUBanJiAdd',
+        url: '/STU/STUBanJiEdit',
         data: {
             Title,
             Status,
@@ -39,7 +39,8 @@ export const AddList = ({
     })
 }
 
-export const AddList2 = ({
+
+export const ModifyList2 = ({
     StudentIdName,
     RealName,
     GuanXi,
@@ -56,7 +57,7 @@ export const AddList2 = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/STU/STUParentAdd',
+        url: '/STU/STUParentEdit',
         data: {
             StudentIdName,
             RealName,
@@ -85,7 +86,7 @@ export const AddList2 = ({
     })
 }
 
-export const AddList3 = ({
+export const ModifyList3 = ({
     Title,
     JiLiangDanWei,
     CanKaoZhi,
@@ -94,7 +95,7 @@ export const AddList3 = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/ChuFang/AnJianXiangMuAdd',
+        url: '/ChuFang/AnJianXiangMuEdit',
         data: {
             Title,
             JiLiangDanWei,
@@ -115,7 +116,7 @@ export const AddList3 = ({
     })
 }
 
-export const AddList4 = ({
+export const ModifyList4 = ({
     Title,
     ZhangHao,
     YuE,
@@ -126,7 +127,7 @@ export const AddList4 = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/CAW/YinHangZhangHuAdd',
+        url: '/CAW/YinHangZhangHuEdit',
         data: {
             Title,
             ZhangHao,
@@ -150,7 +151,7 @@ export const AddList4 = ({
 }
 
 
-export const AddList5 = ({
+export const ModifyList5 = ({
     Title,
     LianXiRen,
     Mobile,
@@ -164,7 +165,7 @@ export const AddList5 = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/HouQin/GongYingShangAdd',
+        url: '/CAW/YinHangZhangHuEdit',
         data: {
             Title,
             LianXiRen,
@@ -190,7 +191,7 @@ export const AddList5 = ({
     })
 }
 
-export const AddList6 = ({
+export const ModifyList6 = ({
     Title,
     Age,
     ZhenCi,
@@ -199,7 +200,7 @@ export const AddList6 = ({
 }) => {
     return request({
         method: 'POST',
-        url: '/STU/YiMiaoAdd',
+        url: '/STU/YiMiaoEdit',
         data: {
             Title,
             Age,
@@ -220,14 +221,15 @@ export const AddList6 = ({
     })
 }
 
-export const AddList7 = ({
+
+export const ModifyList7 = ({
     Title,
     Grade,
     Id
 }) => {
     return request({
         method: 'POST',
-        url: '/HR/PositionAdd',
+        url: '/STU/YiMiaoEdit',
         data: {
             Title,
             Grade,

@@ -19,7 +19,10 @@ import FoodSafety from '@/views/FoodSafety'
 import AssetsInformation from '@/views/AssetsInformation'
 import AssetMaintenance from '@/views/AssetMaintenance'
 import TablewareDisinfection from '@/views/TablewareDisinfection'
-
+import SupplierAdmin from '@/views/SupplierAdmin'
+import VaccineAdmin from '@/views/VaccineAdmin'
+import PostAdmin from '@/views/PostAdmin'
+import Echarts from '@/views/Echarts'
 
 Vue.use(VueRouter)
 
@@ -44,10 +47,11 @@ const router = new VueRouter({
         { name: 'FoodSafety', path: '/FoodSafety', component: FoodSafety },
         { name: 'AssetsInformation', path: '/AssetsInformation', component: AssetsInformation },
         { name: 'AssetMaintenance', path: '/AssetMaintenance', component: AssetMaintenance },
-        { name: 'TablewareDisinfection', path: '/TablewareDisinfection', component: TablewareDisinfection }
-
-
-
+        { name: 'TablewareDisinfection', path: '/TablewareDisinfection', component: TablewareDisinfection },
+        { name: 'SupplierAdmin', path: '/SupplierAdmin', component: SupplierAdmin },
+        { name: 'VaccineAdmin', path: '/VaccineAdmin', component: VaccineAdmin },
+        { name: 'PostAdmin', path: '/PostAdmin', component: PostAdmin },
+        { name: 'Echarts', path: '/Echarts', component: Echarts }
     ]
 })
 

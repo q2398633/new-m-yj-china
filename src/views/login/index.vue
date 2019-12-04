@@ -86,10 +86,15 @@ export default {
                 try {
                     const data = await login(this.loginForm)
                     console.log(data)
-                    this.$store.commit('setUser', data)
-                    this.loginloading = false
-                    this.$router.push('/home')
-                    this.$toast.success('登录成功')
+                    if (data.code === '500') {
+                        this.loginloading = false
+                        this.$toast.fail('登录失败!请检查账户名与密码')
+                    } else {
+                        this.$store.commit('setUser', data)
+                        this.loginloading = false
+                        this.$router.push('/home')
+                        this.$toast.success('登录成功')
+                    }
                 } catch (error) {
                     console.log(error)
                     this.loginloading = false

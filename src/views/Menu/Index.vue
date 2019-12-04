@@ -51,7 +51,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9" />
+                          color="#9569f9"
+                          @click.prevent="Echarts" />
               <div class="shoping">报表</div>
             </van-col>
             <van-col span="6">
@@ -489,6 +490,9 @@ export default {
         },
         TablewareDisinfection () {
             this.$router.push('/TablewareDisinfection')
+        },
+        Echarts () {
+            this.$router.push('/Echarts')
         }
     }
 }

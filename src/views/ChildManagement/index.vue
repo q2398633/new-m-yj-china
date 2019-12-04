@@ -215,7 +215,7 @@ export default {
   width: 100%;
   height: 22.66667rem;
   .van-list {
-    margin-top: 70px;
+    margin-top: 130px;
   }
   .van-nav-bar {
     background: #0199ff;
@@ -252,7 +252,6 @@ export default {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 300px;
 
     span {
       display: inline-block;

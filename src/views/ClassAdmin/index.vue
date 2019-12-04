@@ -7,7 +7,7 @@
                  size="36px"
                  @click-left="back"
                  fixed>
-      <van-icon name="wap-nav"
+      <van-icon name="search"
                 slot="right"
                 size="25px"
                 @click.prevent="SideMenu" />
@@ -18,7 +18,7 @@
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 100%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
         <van-field label="班级名称:"
                    label-width="70px"
                    autosize
@@ -86,7 +86,7 @@
                 <van-button square
                             type="primary"
                             text="修改"
-                            @click.prevent="Modify" />
+                            @click.prevent="Modify(item)" />
               </template>
             </van-swipe-cell>
           </van-cell>
@@ -110,7 +110,9 @@
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
-
+                <van-field v-model="AddListForm.NianJi"
+                           placeholder="请输入年级"
+                           style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px;">
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
@@ -141,17 +143,13 @@
           <form action="/"
                 method="POST"
                 ref="AddListForm"
-                :model="ModifyListForm">
+                :model="dqList">
             <van-cell-group>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
-                <van-field v-model="ModifyListForm.Title"
+                <van-field v-model="dqList.Title"
                            placeholder="请输入班级名称"
                            style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
-
               </div>
               <div style="margin-top: 40px;">
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
@@ -159,8 +157,14 @@
                             style="margin-left: 20px;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px;">
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
+                <van-field v-model="dqList.NianJi"
+                           placeholder="请输入年级"
+                           style="display:inline-block;" />
+              </div>
+              <div style="margin-top: 40px; margin-bottom: 30px;">
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="ModifyListForm.Mark"
+                <van-field v-model="dqList.Mark"
                            placeholder="请输入备注"
                            style="display:inline-block;" />
               </div>
@@ -169,7 +173,7 @@
                             @click.prevent="CloseModify"
                             style="float:left; width: 165px;">取消</van-button>
                 <van-button type="primary"
-                            @click.prevent="AddClass"
+                            @click.prevent="ModifyList"
                             style="float:right; width: 165px;">修改</van-button>
               </div>
             </van-cell-group>
@@ -180,8 +184,8 @@
 
       <!-- 分页 -->
       <van-pagination v-model="currentPage"
-                      :total-items="10"
-                      :show-page-size="10"
+                      :total-items="1"
+                      :show-page-size="3"
                       force-ellipses
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
 
@@ -194,7 +198,7 @@
 import { ClassList } from '@/api/ClassAdmin'
 import { DelectList } from '@/api/Delect'
 import { AddList } from '@/api/AddList'
-
+import { ModifyList } from '@/api/ModifyList'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -218,12 +222,14 @@ export default {
             loading: false,
             finished: false,
             list: [],
-            currentPage: 1,
+            currentPage: null,
             isShowDel: false,
             currentList: null,
             AddListshow: false,
             ModifyListshow: false,
-            checked: true
+            checked: true,
+            dqList: [],
+            Total: 0
         }
     },
     mounted () {
@@ -246,6 +252,7 @@ export default {
         },
         CloseModify () {
             this.ModifyListshow = false
+            this.$toast.fail('已取消修改')
         },
         close () {
             this.show = false
@@ -259,6 +266,8 @@ export default {
         async loadClassList () {
             let channels = []
             const data = await ClassList()
+            this.Total = data.length
+            console.log(this.Total)
             this.channels = data
             channels = this.channels
             return channels
@@ -294,8 +303,16 @@ export default {
             window.location.reload()
             this.$toast.success('添加成功')
         },
-        Modify () {
+        Modify (currentList) {
             this.ModifyListshow = true
+            this.dqList = currentList
+        },
+        async ModifyList () {
+            const data = await ModifyList(this.dqList)
+            console.log(data)
+            this.ModifyListshow = false
+            this.$toast.success('修改成功')
+            window.location.reload()
         }
     }
 }
@@ -330,10 +347,19 @@ export default {
   }
 
   .van-list {
-    margin-top: 70px;
+    margin-top: 130px;
   }
   .van-popup {
     width: 100%;
+    .van-cell-group {
+      width: 100%;
+
+      .van-field {
+        width: 90%;
+        padding: 0 0 0 30px;
+        margin-left: 20px;
+      }
+    }
   }
   .van-cell {
     width: 100%;
@@ -348,13 +374,6 @@ export default {
       font-size: 30px;
       font-family: "楷体";
       font-weight: 700;
-    }
-  }
-  .van-cell-group {
-    width: 100%;
-
-    .van-field {
-      width: 50%;
     }
   }
   .van-cell {
