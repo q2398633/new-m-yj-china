@@ -247,3 +247,37 @@ export const ModifyList7 = ({
         }
     })
 }
+
+export const ModifyList8 = ({
+    Title,
+    BanJi,
+    XingBie,
+    MinZu,
+    RuTuoRiQi,
+    Status,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/STU/STUStudentEdit',
+        data: {
+            Title,
+            BanJi,
+            XingBie,
+            MinZu,
+            RuTuoRiQi,
+            Status,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

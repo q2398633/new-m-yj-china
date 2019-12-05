@@ -53,11 +53,7 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <van-swipe-cell>
-              <van-cell :border="false"
-                        title="班级名称"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Title }}``
-              </van-cell>
+              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.Title }}</div>
               <van-cell :border="false"
                         title="年级"
                         style="padding-left:30px; padding-right: 30px;">
@@ -114,12 +110,12 @@
                            placeholder="请输入年级"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
                 <van-switch v-model="AddListForm.Status"
                             style="margin-left: 20px;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="AddListForm.Mark"
                            placeholder="请输入备注"
@@ -128,10 +124,10 @@
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
                             @click.prevent="ClosePop"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="AddClass"
-                            style="float:right; width: 165px;">添加</van-button>
+                            class="AddClass">添加</van-button>
               </div>
             </van-cell-group>
 
@@ -146,23 +142,23 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
                 <van-field v-model="dqList.Title"
                            placeholder="请输入班级名称"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
                 <van-switch v-model="checked"
                             style="margin-left: 20px;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
                 <van-field v-model="dqList.NianJi"
                            placeholder="请输入年级"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="dqList.Mark"
                            placeholder="请输入备注"
@@ -171,10 +167,10 @@
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
                             @click.prevent="CloseModify"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="ModifyList"
-                            style="float:right; width: 165px;">修改</van-button>
+                            class="AddClass">修改</van-button>
               </div>
             </van-cell-group>
 
@@ -355,7 +351,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 90%;
+        width: 40%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }
@@ -383,6 +379,14 @@ export default {
     .van-button {
       margin-top: 50%;
     }
+  }
+  .ClosePop {
+    float: left;
+    width: 50%;
+  }
+  .AddClass {
+    float: right;
+    width: 50%;
   }
 }
 </style>

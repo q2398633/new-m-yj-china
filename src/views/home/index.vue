@@ -245,14 +245,14 @@ export default {
       current: 0,
       active: 4,
       chartData: {
-        columns: ['日期', '访问用户', '下单用户', '下单率'],
+        columns: ['日期', '收入', '支出', '盈亏'],
         rows: [
-          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
+          { '日期': '1/1', '收入': 1393, '支出': 1093, '盈亏': 0.32 },
+          { '日期': '1/2', '收入': 3530, '支出': 3230, '盈亏': 0.26 },
+          { '日期': '1/3', '收入': 2923, '支出': 2623, '盈亏': 0.76 },
+          { '日期': '1/4', '收入': 1723, '支出': 1423, '盈亏': 0.49 },
+          { '日期': '1/5', '收入': 3792, '支出': 3492, '盈亏': 0.323 },
+          { '日期': '1/6', '收入': 4593, '支出': 4293, '盈亏': 0.78 }
         ]
       },
       Nickname: '山田孝之',
@@ -402,7 +402,7 @@ export default {
     }
   }
   .menu {
-    width: 98%;
+    width: 100%;
     height: 300px;
     // background-color: rgba(209, 205, 205, 0.7);
     border-radius: 20px;
@@ -413,8 +413,6 @@ export default {
 
     .default {
       width: 95%;
-      height: 30%;
-      padding-bottom: 20px;
       margin-bottom: 15px;
       margin-left: 8px;
       border-radius: 10px;
@@ -424,13 +422,14 @@ export default {
         margin-left: 25px;
         margin-right: 5rem;
         color: white;
-        line-height: 80px;
+        height: 80px;
+        line-height: 90px;
         margin-top: 20px;
       }
       .menu_right {
         color: white;
-        font-size: 38px;
-        margin-top: 20px;
+        font-size: 40px;
+        margin-left: 10px;
         height: 80px;
         line-height: 80px;
       }
@@ -549,14 +548,15 @@ export default {
     margin-top: 70px;
   }
   .Home_Echarts {
-    margin-top: 200px;
+    margin-top: 140px;
     margin-left: 30px;
     margin-right: 40px;
 
     .Echarts_details {
-      width: 100%;
-      height: 90px;
-      padding-bottom: 20px;
+      width: 706px;
+      height: 70px;
+      line-height: 70px;
+      padding-bottom: 10px;
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;

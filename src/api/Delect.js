@@ -149,3 +149,23 @@ export const DelectList7 = (listId7) => {
         }
     })
 }
+
+export const DelectList8 = (listId8) => {
+    return request({
+        method: 'DELETE',
+        url: '/STU/STUStudentDel',
+        data: {
+            Id: listId8
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

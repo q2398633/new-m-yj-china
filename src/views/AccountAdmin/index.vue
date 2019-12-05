@@ -53,11 +53,7 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <van-swipe-cell>
-              <van-cell :border="false"
-                        title="标题"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Title }}``
-              </van-cell>
+              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.Title }}</div>
               <van-cell :border="false"
                         title="账号"
                         style="padding-left:30px; padding-right: 30px;">
@@ -113,7 +109,7 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
                 <van-field v-model="AddListForm.Title"
                            placeholder="请输入标题"
                            style="display:inline-block;" />
@@ -124,25 +120,25 @@
                            placeholder="请输入账号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
                 <van-field v-model="AddListForm.YuE"
                            placeholder="余额"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
                 <van-field v-model="AddListForm.Sort"
                            placeholder="排序"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="AddListForm.BeiZhu"
                            placeholder="备注"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
                 <van-field v-model="AddListForm.Status"
                            placeholder="状态"
@@ -151,10 +147,10 @@
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
                             @click.prevent="ClosePop"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="AddClass"
-                            style="float:right; width: 165px;">添加</van-button>
+                            class="AddClass">添加</van-button>
               </div>
             </van-cell-group>
 
@@ -169,36 +165,36 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">标题:</span>
                 <van-field v-model="dqList.Title"
                            placeholder="请输入标题"
                            style="display:inline-block;" />
               </div>
-              <div>dqList
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">账号:</span>
                 <van-field v-model="dqList.ZhangHao"
                            placeholder="请输入账号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">余额:</span>
                 <van-field v-model="dqList.YuE"
                            placeholder="余额"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">排序:</span>
                 <van-field v-model="dqList.Sort"
                            placeholder="排序"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="dqList.BeiZhu"
                            placeholder="备注"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
                 <van-field v-model="dqList.Status"
                            placeholder="状态"
@@ -207,10 +203,10 @@
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
                             @click.prevent="CloseModify"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="ModifyList"
-                            style="float:right; width: 165px;">修改</van-button>
+                            class="AddClass">修改</van-button>
               </div>
             </van-cell-group>
 
@@ -395,7 +391,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 90%;
+        width: 40%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }
@@ -423,6 +419,22 @@ export default {
     .van-button {
       margin-top: 50%;
     }
+  }
+  .ClosePop {
+    float: left;
+    width: 50%;
+  }
+  .AddClass {
+    float: right;
+    width: 50%;
+  }
+  .ClosePop {
+    float: left;
+    width: 50%;
+  }
+  .AddClass {
+    float: right;
+    width: 50%;
   }
 }
 </style>

@@ -245,3 +245,38 @@ export const AddList7 = ({
         }
     })
 }
+
+
+export const AddList8 = ({
+    Title,
+    BanJi,
+    XingBie,
+    MinZu,
+    RuTuoRiQi,
+    Status,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/STU/STUStudentAdd',
+        data: {
+            Title,
+            BanJi,
+            XingBie,
+            MinZu,
+            RuTuoRiQi,
+            Status,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

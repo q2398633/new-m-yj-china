@@ -17,9 +17,9 @@
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
+      <van-cell-group class="Search">
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索家长</div>
+        <van-field label="姓名:"
                    label-width="70px"
                    autosize
                    placeholder="请输入班级名称" />
@@ -53,11 +53,7 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <van-swipe-cell>
-              <van-cell :border="false"
-                        title="姓名"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.RealName }}``
-              </van-cell>
+              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.RealName }}</div>
               <van-cell :border="false"
                         title="手机号"
                         style="padding-left:30px; padding-right: 30px;">
@@ -133,7 +129,7 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
                 <van-field v-model="AddListForm.RealName"
                            placeholder="请输入家长名称"
                            style="display:inline-block;" />
@@ -144,67 +140,67 @@
                            placeholder="请输入手机号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">关系:</span>
                 <van-field v-model="AddListForm.GuanXi"
                            placeholder="您与学生的关系"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">常接送人:</span>
                 <van-field v-model="AddListForm.IsJieSongRen"
                            placeholder="常接送人"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位:</span>
                 <van-field v-model="AddListForm.WorkPlace"
                            placeholder="您的单位"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">身份证:</span>
                 <van-field v-model="AddListForm.IdNumber"
                            placeholder="您的身份证号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
                 <van-field v-model="AddListForm.WeChat"
                            placeholder="您的微信号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
                 <van-field v-model="AddListForm.QQ"
                            placeholder="您的QQ号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生:</span>
                 <van-field v-model="AddListForm.StudentIdName"
                            placeholder="您的学生"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学历:</span>
                 <van-field v-model="AddListForm.XueLi"
                            placeholder="您的学历"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">家庭住址:</span>
                 <van-field v-model="AddListForm.ZhuZhi"
                            placeholder="您的家庭住址"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+              <div style="margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
                             @click.prevent="ClosePop"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="AddClass"
-                            style="float:right; width: 165px;">添加</van-button>
+                            class="AddClass">添加</van-button>
               </div>
             </van-cell-group>
 
@@ -219,7 +215,7 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 15px; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
                 <van-field v-model="dqList.RealName"
                            placeholder="请输入家长名称"
                            style="display:inline-block;" />
@@ -230,67 +226,67 @@
                            placeholder="请输入手机号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">关系:</span>
                 <van-field v-model="dqList.GuanXi"
                            placeholder="您与学生的关系"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">常接送人:</span>
                 <van-field v-model="dqList.IsJieSongRen"
                            placeholder="常接送人"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位:</span>
                 <van-field v-model="dqList.WorkPlace"
                            placeholder="您的单位"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">身份证:</span>
                 <van-field v-model="dqList.IdNumber"
                            placeholder="您的身份证号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
                 <van-field v-model="dqList.WeChat"
                            placeholder="您的微信号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
                 <van-field v-model="dqList.QQ"
                            placeholder="您的QQ号"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生:</span>
                 <van-field v-model="dqList.StudentIdName"
                            placeholder="您的学生"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学历:</span>
                 <van-field v-model="dqList.XueLi"
                            placeholder="您的学历"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px;">
+              <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">家庭住址:</span>
                 <van-field v-model="dqList.ZhuZhi"
                            placeholder="您的家庭住址"
                            style="display:inline-block;" />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+              <div>
                 <van-button type="info"
                             @click.prevent="CloseModify"
-                            style="float:left; width: 165px;">取消</van-button>
+                            class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="ModifyList"
-                            style="float:right; width: 165px;">修改</van-button>
+                            class="AddClass">修改</van-button>
               </div>
             </van-cell-group>
 
@@ -487,7 +483,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 90%;
+        width: 40%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }
@@ -513,8 +509,16 @@ export default {
   }
   .van-swipe-cell__right {
     .van-button {
-      margin-top: 50%;
+      margin-top: 100%;
     }
+  }
+  .ClosePop {
+    float: left;
+    width: 50%;
+  }
+  .AddClass {
+    float: right;
+    width: 50%;
   }
 }
 </style>
