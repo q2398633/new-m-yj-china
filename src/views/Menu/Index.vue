@@ -172,13 +172,15 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="RegionalDisinfection"></van-button>
               <div class="shoping">区域消毒 </div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="EnergyConsumptionDetails"></van-button>
               <div class="shoping">能耗详情</div>
             </van-col>
             <van-col span="6">
@@ -493,6 +495,12 @@ export default {
         },
         Echarts () {
             this.$router.push('/Echarts')
+        },
+        RegionalDisinfection () {
+            this.$router.push('/RegionalDisinfection')
+        },
+        EnergyConsumptionDetails () {
+            this.$router.push('/EnergyConsumptionDetails')
         }
     }
 }

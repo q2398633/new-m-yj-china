@@ -403,7 +403,7 @@ export default {
   }
   .menu {
     width: 100%;
-    height: 300px;
+    height: 350px;
     // background-color: rgba(209, 205, 205, 0.7);
     border-radius: 20px;
     margin-top: 15px;
@@ -560,7 +560,7 @@ export default {
       background: #009aff;
       margin-bottom: 30px;
       border-radius: 10px;
-
+      margin-top: 30px;
       .Echarts_left {
         font-size: 40px;
         margin-left: 25px;

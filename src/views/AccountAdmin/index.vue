@@ -52,35 +52,39 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
-              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.Title }}</div>
+            <van-swipe-cell style="border: 1px solid #ccc">
+              <div class="head">
+                <img src="../../assets/Bank2.jpg"
+                     alt="">
+                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
+              </div>
               <van-cell :border="false"
-                        title="账号"
+                        title="账号:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.ZhangHao }}
               </van-cell>
               <van-cell :border="false"
-                        title="余额"
+                        title="余额:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.YuE }}
               </van-cell>
               <van-cell :border="false"
-                        title="排序"
+                        title="排序:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.Sort }}
               </van-cell>
               <van-cell :border="false"
-                        title="备注"
+                        title="备注:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.BeiZhu }}
               </van-cell>
               <van-cell :border="false"
-                        title="创建时间"
+                        title="创建时间:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.CreateTime }}
               </van-cell>
               <van-cell :border="false"
-                        title="状态"
+                        title="状态:"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.Status }}
               </van-cell>
@@ -435,6 +439,15 @@ export default {
   .AddClass {
     float: right;
     width: 50%;
+  }
+  .head {
+    img {
+      width: 200px;
+      margin-left: 45px;
+    }
+    h1 {
+      display: inline-block;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="供应商管理"
+    <van-nav-bar title="区域消毒"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -18,31 +18,34 @@
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索区域消毒</div>
+        <van-field label="负责人:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
+                   placeholder="请输入负责人" />
+        <van-field label="操作员:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
+                   placeholder="请输入操作员" />
+        <van-field label="消毒方法:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入户籍" />
+                   placeholder="请输入消毒方法" />
+        <van-field label="消毒日期:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入消毒日期" />
       </van-cell-group>
       <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
         <van-button type="info"
-                    @click.prevent="close">退出</van-button>
+                    @click.prevent="close"
+                    class="ClosePop">退出</van-button>
+        <van-button type="primary"
+                    @click.prevent="SearchClass"
+                    class="AddClass">搜索</van-button>
       </div>
     </van-popup>
-    <!-- 供应商列表 -->
+    <!-- 区域消毒列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -52,31 +55,31 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
+            <van-swipe-cell style="border: 2px solid #ccc;">
               <div class="head">
-                <img src="../../assets/Shop.jpg"
+                <img src="../../assets/XD.jpg"
                      alt="">
-                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
+                <h1>{{ item.XiaoDuQuYu }}</h1>
               </div>
               <van-cell :border="false"
-                        title="联系人"
+                        title="负责人:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.LianXiRen }}
+                {{ item.FuZeRen }}
               </van-cell>
               <van-cell :border="false"
-                        title="手机号码"
+                        title="操作员:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Mobile }}
+                {{ item.CaoZuoYuan1 }}
               </van-cell>
               <van-cell :border="false"
-                        title="微信号"
+                        title="消毒方法:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.WinXin }}
+                {{ item.XiaoDuFangFa }}
               </van-cell>
               <van-cell :border="false"
-                        title="备注"
+                        title="消毒日期:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.BeiZhu }}
+                {{ item.Date }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -93,8 +96,8 @@
         </van-list>
         <van-button type="info"
                     style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加供应商</van-button>
-        <!-- 添加供应商列表 -->
+                    @click.prevent="AddList">添加区域消毒</van-button>
+        <!-- 添加区域消毒 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -103,57 +106,33 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
-                <van-field v-model="AddListForm.Title"
-                           placeholder="请输入名称"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒区域:</span>
+                <van-field v-model="AddListForm.XiaoDuQuYu"
+                           placeholder="请输入消毒区域"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
-                <van-field v-model="AddListForm.LianXiRen"
-                           placeholder="请输入联系人"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">负责人:</span>
+                <van-field v-model="AddListForm.FuZeRen"
+                           placeholder="请输入负责人"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
-                <van-field v-model="AddListForm.Mobile"
-                           placeholder="手机号"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">操作员:</span>
+                <van-field v-model="AddListForm.CaoZuoYuan1"
+                           placeholder="请输入操作员"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
-                <van-field v-model="AddListForm.QQ"
-                           placeholder="排序"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒方法:</span>
+                <van-field v-model="AddListForm.XiaoDuFangFa"
+                           placeholder="请输入消毒方法"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
-                <van-field v-model="AddListForm.WinXin"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
-                <van-field v-model="AddListForm.Email"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
-                <van-field v-model="AddListForm.DiZhi"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="AddListForm.Status"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="AddListForm.BeiZhu"
-                           placeholder="状态"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒日期:</span>
+                <van-field v-model="AddListForm.Date"
+                           placeholder="请输入消毒日期"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -168,7 +147,7 @@
 
           </form>
         </van-popup>
-        <!-- 修改供应商列表 -->
+        <!-- 修改区域消毒-->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -177,57 +156,33 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
-                <van-field v-model="dqList.Title"
-                           placeholder="请输入名称"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒区域:</span>
+                <van-field v-model="dqList.XiaoDuQuYu"
+                           placeholder="请输入消毒区域"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
-                <van-field v-model="dqList.LianXiRen"
-                           placeholder="请输入联系人"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">负责人:</span>
+                <van-field v-model="dqList.FuZeRen"
+                           placeholder="请输入负责人"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
-                <van-field v-model="dqList.Mobile"
-                           placeholder="手机号"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">操作员:</span>
+                <van-field v-model="dqList.CaoZuoYuan1"
+                           placeholder="请输入操作员"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
-                <van-field v-model="dqList.QQ"
-                           placeholder="排序"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒方法:</span>
+                <van-field v-model="dqList.XiaoDuFangFa"
+                           placeholder="请输入消毒方法"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
-                <van-field v-model="dqList.WinXin"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
-                <van-field v-model="dqList.Email"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
-                <van-field v-model="dqList.DiZhi"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="dqList.Status"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="dqList.BeiZhu"
-                           placeholder="状态"
+                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">消毒日期:</span>
+                <van-field v-model="dqList.Date"
+                           placeholder="请输入消毒日期"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -257,37 +212,28 @@
 </template>
 
 <script>
-import { SupplierAdmin } from '@/api/SupplierAdmin'
-import { DelectList5 } from '@/api/Delect'
-import { AddList5 } from '@/api/AddList'
-import { ModifyList5 } from '@/api/ModifyList'
+import { RegionalDisinfection } from '@/api/RegionalDisinfection'
+import { DelectList10 } from '@/api/Delect'
+import { AddList10 } from '@/api/AddList'
+import { ModifyList10 } from '@/api/ModifyList'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             AddListForm: {
-                Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
+                XiaoDuQuYu: '',
+                FuZeRen: '',
+                CaoZuoYuan1: '',
+                XiaoDuFangFa: '',
+                Date: '',
                 Id: ''
-
             },
             ModifyListForm: {
-                Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
+                XiaoDuQuYu: '',
+                FuZeRen: '',
+                CaoZuoYuan1: '',
+                XiaoDuFangFa: '',
+                Date: '',
                 Id: ''
             },
             show: false,
@@ -309,8 +255,8 @@ export default {
 
     },
     created () {
-    // 页面一进入加载供应商列表
-        this.loadSupplierAdminList()
+    // 页面一进入加载区域消毒列表
+        this.loadRegionalDisinfectionList()
     },
     methods: {
         back () {
@@ -329,6 +275,7 @@ export default {
         },
         close () {
             this.show = false
+            this.$toast.fail('已取消搜索')
         },
         onRefresh () {
             setTimeout(() => {
@@ -336,9 +283,9 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadSupplierAdminList () {
+        async loadRegionalDisinfectionList () {
             let channels = []
-            const data = await SupplierAdmin()
+            const data = await RegionalDisinfection()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -346,8 +293,9 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadSupplierAdminList()
+            const data = await this.loadRegionalDisinfectionList()
             this.list = data
+            this.load = false
         },
         async DelList (currentList) {
             this.isShowDel = true
@@ -356,8 +304,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId5 = this.currentList.Id
-                const data = await DelectList5(listId5)
+                const listId10 = this.currentList.Id
+                const data = await DelectList10(listId10)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -370,7 +318,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList5(this.AddListForm)
+            const data = await AddList10(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -381,11 +329,15 @@ export default {
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList5(this.dqList)
+            const data = await ModifyList10(this.dqList)
             console.log(data)
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
+        },
+        SearchClass () {
+            this.$toast.success('已完成搜索')
+            this.show = false
         }
     }
 }
@@ -414,9 +366,6 @@ export default {
     width: 100%;
     height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
   }
 
   .van-list {
@@ -469,9 +418,18 @@ export default {
     img {
       width: 200px;
       margin-left: 45px;
+      margin-top: 20px;
     }
     h1 {
       display: inline-block;
+      height: 40px;
+      color: black;
+      font-size: 0.5rem;
+      font-weight: 700;
+      font-family: "楷体";
+      margin-left: 45px;
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 }

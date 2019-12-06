@@ -280,3 +280,101 @@ export const AddList8 = ({
         }
     })
 }
+
+export const AddList9 = ({
+    CanBie,
+    FuZeRen,
+    CaoZuoYuan1,
+    XiaoDuFangFa,
+    Date,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/CanJuXiaoDuAdd',
+        data: {
+            CanBie,
+            FuZeRen,
+            CaoZuoYuan1,
+            XiaoDuFangFa,
+            Date,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList10 = ({
+    XiaoDuQuYu,
+    FuZeRen,
+    CaoZuoYuan1,
+    XiaoDuFangFa,
+    Date,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/QuYuXiaoDuAdd',
+        data: {
+            XiaoDuQuYu,
+            FuZeRen,
+            CaoZuoYuan1,
+            XiaoDuFangFa,
+            Date,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList11 = ({
+    Date,
+    Title,
+    NengHaoXiangMuId,
+    JiLiangDanWei,
+    DanJia,
+    YuSuanShuLiang,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/NengHaoShiYongAdd',
+        data: {
+            Date,
+            Title,
+            NengHaoXiangMuId,
+            JiLiangDanWei,
+            DanJia,
+            YuSuanShuLiang,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

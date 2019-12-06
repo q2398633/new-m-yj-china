@@ -53,7 +53,11 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <van-swipe-cell>
-              <div style="width: 99%; height: 1rem; background: #93d030; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.Title }}</div>
+              <div class="head">
+                <img src="../../assets/YM.jpg"
+                     alt="">
+                <h1>{{ item.Title }}</h1>
+              </div>
               <van-cell :border="false"
                         title="接种年龄:"
                         style="padding-left:30px; padding-right: 30px;">
@@ -384,6 +388,24 @@ export default {
   .AddClass {
     float: right;
     width: 50%;
+  }
+  .head {
+    img {
+      width: 200px;
+      margin-left: 45px;
+      margin-top: 20px;
+    }
+    h1 {
+      display: inline-block;
+      height: 40px;
+      color: black;
+      font-size: 0.5rem;
+      font-weight: 700;
+      font-family: "楷体";
+      margin-left: 45px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 }
 </style>

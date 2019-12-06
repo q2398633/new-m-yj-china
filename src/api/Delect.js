@@ -169,3 +169,65 @@ export const DelectList8 = (listId8) => {
         }
     })
 }
+
+export const DelectList9 = (listId9) => {
+    return request({
+        method: 'DELETE',
+        url: '/ChuFang/CanJuXiaoDuDel',
+        data: {
+            Id: listId9
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+
+
+export const DelectList10 = (listId10) => {
+    return request({
+        method: 'DELETE',
+        url: '/ChuFang/QuYuXiaoDuDel',
+        data: {
+            Id: listId10
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList11 = (listId11) => {
+    return request({
+        method: 'DELETE',
+        url: '/CAW/NengHaoShiYongDel',
+        data: {
+            Id: listId11
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

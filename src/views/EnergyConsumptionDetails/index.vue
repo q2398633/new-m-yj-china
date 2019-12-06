@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="供应商管理"
+    <van-nav-bar title="能耗详情"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -18,31 +18,62 @@
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索能耗详情</div>
+        <van-field label="名称:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
+                   placeholder="请输入名称" />
+        <van-field label="预算数量:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
+                   placeholder="请输入预算数量" />
+        <van-field label="使用数量:"
                    label-width="70px"
                    autosize
-                   placeholder="请输入户籍" />
+                   placeholder="请输入使用数量" />
+        <van-field label="预算金额:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入预算金额" />
+        <van-field label="使用金额:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入使用金额" />
+        <van-field label="数量差额:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入数量差额" />
+        <van-field label="费用差额:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入费用差额" />
+        <van-field label="单位:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入单位" />
+        <van-field label="单价:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入单价" />
+        <van-field label="月份:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入月份" />
+        <van-field label="是否结算:"
+                   label-width="70px"
+                   autosize
+                   placeholder="请输入预算金额" />
       </van-cell-group>
       <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
         <van-button type="info"
-                    @click.prevent="close">退出</van-button>
+                    @click.prevent="close"
+                    class="ClosePop">退出</van-button>
+        <van-button type="primary"
+                    @click.prevent="SearchClass"
+                    class="AddClass">搜索</van-button>
       </div>
     </van-popup>
-    <!-- 供应商列表 -->
+    <!-- 区域能耗详情 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -52,31 +83,66 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
+            <van-swipe-cell style="border: 2px solid #ccc;">
               <div class="head">
-                <img src="../../assets/Shop.jpg"
+                <img src="../../assets/NH.jpg"
                      alt="">
-                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
+                <h1>{{ item.XiaoDuQuYu }}</h1>
               </div>
               <van-cell :border="false"
-                        title="联系人"
+                        title="名称:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.LianXiRen }}
+                {{ item.Title }}
               </van-cell>
               <van-cell :border="false"
-                        title="手机号码"
+                        title="预算数量:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Mobile }}
+                {{ item.YuSuanShuLiang }} {{ item.JiLiangDanWei }}
               </van-cell>
               <van-cell :border="false"
-                        title="微信号"
+                        title="使用数量:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.WinXin }}
+                {{ item.ShiYongShuLiang }} {{ item.JiLiangDanWei }}
               </van-cell>
               <van-cell :border="false"
-                        title="备注"
+                        title="预算金额:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.BeiZhu }}
+                {{ item.YuSuanShuLiang * item.DanJia}} ¥
+              </van-cell>
+              <van-cell :border="false"
+                        title="使用金额:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.ShiYongShuLiang * item.DanJia}} ¥
+              </van-cell>
+              <van-cell :border="false"
+                        title="数量差额:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.YuSuanShuLiang - item.ShiYongShuLiang }} {{ item.JiLiangDanWei }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="费用差额:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.YuSuanShuLiang * item.DanJia - item.ShiYongShuLiang * item.DanJia }} ¥
+              </van-cell>
+              <van-cell :border="false"
+                        title="单位:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.JiLiangDanWei }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="单价:"
+                        style="padding-left:30px; padding-right: 30px;"> ¥
+                {{ item.DanJia }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="月份:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.Date }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="是否结算:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.IsJieSuan }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -85,7 +151,7 @@
                             @click.prevent="DelList(item)" />
                 <van-button square
                             type="primary"
-                            text="修改"
+                            text="结算"
                             @click.prevent="Modify(item)" />
               </template>
             </van-swipe-cell>
@@ -93,8 +159,8 @@
         </van-list>
         <van-button type="info"
                     style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加供应商</van-button>
-        <!-- 添加供应商列表 -->
+                    @click.prevent="AddList">添加能耗详情</van-button>
+        <!-- 添加能耗详情 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -103,57 +169,33 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+                <span class="ListSpan">日期:</span>
+                <van-field v-model="AddListForm.Date"
+                           placeholder="请输入日期"
+                           style="display:inline-block;" />
+              </div>
+              <div>
+                <span class="ListSpan">名称:</span>
                 <van-field v-model="AddListForm.Title"
                            placeholder="请输入名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
-                <van-field v-model="AddListForm.LianXiRen"
-                           placeholder="请输入联系人"
+                <span class="ListSpan">单位:</span>
+                <van-field v-model="AddListForm.JiLiangDanWei"
+                           placeholder="请输入单位"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
-                <van-field v-model="AddListForm.Mobile"
-                           placeholder="手机号"
+                <span class="ListSpan">单价:</span>
+                <van-field v-model="AddListForm.DanJia"
+                           placeholder="请输入单价"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
-                <van-field v-model="AddListForm.QQ"
-                           placeholder="排序"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
-                <van-field v-model="AddListForm.WinXin"
-                           placeholder="备注"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
-                <van-field v-model="AddListForm.Email"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
-                <van-field v-model="AddListForm.DiZhi"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="AddListForm.Status"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="AddListForm.BeiZhu"
-                           placeholder="状态"
+                <span class="ListSpan">预算:</span>
+                <van-field v-model="AddListForm.YuSuanShuLiang"
+                           placeholder="请输入预算"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -168,7 +210,7 @@
 
           </form>
         </van-popup>
-        <!-- 修改供应商列表 -->
+        <!-- 结算能耗详情-->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -177,57 +219,45 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+                <span class="ListSpan">日期:</span>
+                <van-field v-model="dqList.Date"
+                           placeholder="请输入日期"
+                           style="display:inline-block;" />
+              </div>
+              <div>
+                <span class="ListSpan">名称:</span>
                 <van-field v-model="dqList.Title"
                            placeholder="请输入名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
-                <van-field v-model="dqList.LianXiRen"
-                           placeholder="请输入联系人"
+                <span class="ListSpan">单位:</span>
+                <van-field v-model="dqList.JiLiangDanWei"
+                           placeholder="请输入单位"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
-                <van-field v-model="dqList.Mobile"
-                           placeholder="手机号"
+                <span class="ListSpan">单价:</span>
+                <van-field v-model="dqList.DanJia"
+                           placeholder="请输入单价"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
-                <van-field v-model="dqList.QQ"
-                           placeholder="排序"
+                <span class="ListSpan">预算:</span>
+                <van-field v-model="dqList.YuSuanShuLiang"
+                           placeholder="请输入使用"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
-                <van-field v-model="dqList.WinXin"
-                           placeholder="备注"
+                <span class="ListSpan">使用:</span>
+                <van-field v-model="dqList.ShiYongShuLiang"
+                           placeholder="请输入预算"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
-                <van-field v-model="dqList.Email"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
-                <van-field v-model="dqList.DiZhi"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
-                <van-field v-model="dqList.Status"
-                           placeholder="状态"
-                           style="display:inline-block;" />
-              </div>
-              <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="dqList.BeiZhu"
-                           placeholder="状态"
+                <span class="ListSpan">银行账户:</span>
+                <van-field v-model="dqList.YinHangZhangHuIdName"
+                           placeholder="请输入银行账户"
                            style="display:inline-block;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -236,7 +266,7 @@
                             class="ClosePop">取消</van-button>
                 <van-button type="primary"
                             @click.prevent="ModifyList"
-                            class="AddClass">修改</van-button>
+                            class="AddClass">结算</van-button>
               </div>
             </van-cell-group>
 
@@ -257,37 +287,31 @@
 </template>
 
 <script>
-import { SupplierAdmin } from '@/api/SupplierAdmin'
-import { DelectList5 } from '@/api/Delect'
-import { AddList5 } from '@/api/AddList'
-import { ModifyList5 } from '@/api/ModifyList'
+import { EnergyConsumptionDetails } from '@/api/EnergyConsumptionDetails'
+import { DelectList11 } from '@/api/Delect'
+import { AddList11 } from '@/api/AddList'
+import { ModifyList11 } from '@/api/ModifyList'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             AddListForm: {
+                Date: '',
                 Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
+                NengHaoXiangMuId: '',
+                JiLiangDanWei: '',
+                DanJia: 0,
+                YuSuanShuLiang: 0,
                 Id: ''
-
             },
             ModifyListForm: {
+                Date: '',
                 Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
+                JiLiangDanWei: '',
+                DanJia: 0,
+                YuSuanShuLiang: 0,
+                ShiYongShuLiang: 0,
+                YinHangZhangHuIdName: '',
                 Id: ''
             },
             show: false,
@@ -309,8 +333,8 @@ export default {
 
     },
     created () {
-    // 页面一进入加载供应商列表
-        this.loadSupplierAdminList()
+    // 页面一进入加载能耗详情列表
+        this.loadEnergyConsumptionDetailsList()
     },
     methods: {
         back () {
@@ -325,10 +349,11 @@ export default {
         },
         CloseModify () {
             this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
+            this.$toast.fail('已取消结算')
         },
         close () {
             this.show = false
+            this.$toast.fail('已取消搜索')
         },
         onRefresh () {
             setTimeout(() => {
@@ -336,9 +361,9 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadSupplierAdminList () {
+        async loadEnergyConsumptionDetailsList () {
             let channels = []
-            const data = await SupplierAdmin()
+            const data = await EnergyConsumptionDetails()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -346,8 +371,9 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadSupplierAdminList()
+            const data = await this.loadEnergyConsumptionDetailsList()
             this.list = data
+            this.load = false
         },
         async DelList (currentList) {
             this.isShowDel = true
@@ -356,8 +382,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId5 = this.currentList.Id
-                const data = await DelectList5(listId5)
+                const listId11 = this.currentList.Id
+                const data = await DelectList11(listId11)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -370,10 +396,9 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList5(this.AddListForm)
+            const data = await AddList11(this.AddListForm)
             console.log(data)
             this.AddListshow = false
-            window.location.reload()
             this.$toast.success('添加成功')
         },
         Modify (currentList) {
@@ -381,11 +406,16 @@ export default {
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList5(this.dqList)
-            console.log(data)
+            const data = await ModifyList11(this.dqList)
+            const msg = data.msg
+            console.log(data.msg)
             this.ModifyListshow = false
-            this.$toast.success('修改成功')
+            this.$toast.success(msg)
             window.location.reload()
+        },
+        SearchClass () {
+            this.$toast.success('已完成搜索')
+            this.show = false
         }
     }
 }
@@ -414,9 +444,6 @@ export default {
     width: 100%;
     height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
   }
 
   .van-list {
@@ -469,10 +496,27 @@ export default {
     img {
       width: 200px;
       margin-left: 45px;
+      margin-top: 20px;
     }
     h1 {
       display: inline-block;
+      height: 40px;
+      color: black;
+      font-size: 0.5rem;
+      font-weight: 700;
+      font-family: "楷体";
+      margin-left: 45px;
+      margin-top: 0;
+      margin-bottom: 0;
     }
+  }
+  .ListSpan {
+    font-size: 0.39rem;
+    color: black;
+    margin-left: 47px;
+    margin-right: 10px;
+    font-weight: 700;
+    font-family: "楷体";
   }
 }
 </style>

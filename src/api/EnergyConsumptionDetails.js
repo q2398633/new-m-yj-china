@@ -1,18 +1,18 @@
 
 /**
- * 餐具消毒相关请求
+ * 能耗详情相关请求
  */
 import request from '../utils/request'
 
 /**
  *
- * 已登录(设置请求头 token) 获取餐具消毒列表
+ * 已登录(设置请求头 token) 获取能耗详情列表
  */
 
-export const TablewareDisinfection = () => {
+export const EnergyConsumptionDetails = () => {
     return request({
         method: 'POST',
-        url: '/ChuFang/CanJuXiaoDuGrid',
+        url: '/CAW/NengHaoShiYongGrid',
         transformRequest: [function (data) {
             let ret = ''
             for (let it in data) {

@@ -281,3 +281,103 @@ export const ModifyList8 = ({
         }
     })
 }
+
+export const ModifyList9 = ({
+    CanBie,
+    FuZeRen,
+    CaoZuoYuan1,
+    XiaoDuFangFa,
+    Date,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/CanJuXiaoDuEdit',
+        data: {
+            CanBie,
+            FuZeRen,
+            CaoZuoYuan1,
+            XiaoDuFangFa,
+            Date,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList10 = ({
+    XiaoDuQuYu,
+    FuZeRen,
+    CaoZuoYuan1,
+    XiaoDuFangFa,
+    Date,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/QuYuXiaoDuEdit',
+        data: {
+            XiaoDuQuYu,
+            FuZeRen,
+            CaoZuoYuan1,
+            XiaoDuFangFa,
+            Date,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList11 = ({
+    Date,
+    Title,
+    JiLiangDanWei,
+    DanJia,
+    YuSuanShuLiang,
+    ShiYongShuLiang,
+    YinHangZhangHuIdName,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/NengHaoShiYongJieSuan',
+        data: {
+            Date,
+            Title,
+            JiLiangDanWei,
+            DanJia,
+            YuSuanShuLiang,
+            ShiYongShuLiang,
+            YinHangZhangHuIdName,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

@@ -23,6 +23,8 @@ import SupplierAdmin from '@/views/SupplierAdmin'
 import VaccineAdmin from '@/views/VaccineAdmin'
 import PostAdmin from '@/views/PostAdmin'
 import Echarts from '@/views/Echarts'
+import RegionalDisinfection from '@/views/RegionalDisinfection'
+import EnergyConsumptionDetails from '@/views/EnergyConsumptionDetails'
 
 Vue.use(VueRouter)
 
@@ -51,7 +53,11 @@ const router = new VueRouter({
         { name: 'SupplierAdmin', path: '/SupplierAdmin', component: SupplierAdmin },
         { name: 'VaccineAdmin', path: '/VaccineAdmin', component: VaccineAdmin },
         { name: 'PostAdmin', path: '/PostAdmin', component: PostAdmin },
-        { name: 'Echarts', path: '/Echarts', component: Echarts }
+        { name: 'Echarts', path: '/Echarts', component: Echarts },
+        { name: 'RegionalDisinfection', path: '/RegionalDisinfection', component: RegionalDisinfection },
+        { name: 'EnergyConsumptionDetails', path: '/EnergyConsumptionDetails', component: EnergyConsumptionDetails }
+
+
     ]
 })
 
