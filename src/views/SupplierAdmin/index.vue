@@ -17,30 +17,41 @@
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
+      <form action="/"
+            method="POST"
+            ref="Search"
+            :model="Search">
+        <van-cell-group>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索供应商</div>
+          <van-field label="供应商名称:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_Title_Like"
+                     name="GTitleLike"
+                     prop="GTitleLike"
+                     placeholder="请输入供应商名称" />
+          <van-field label="联系人:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_LianXiRen_Like"
+                     name="GLianXiRenLike"
+                     prop="GLianXiRenLike"
+                     placeholder="请输入联系人" />
+          <van-field label="手机号:"
+                     v-model="Search.G_Mobile_Like"
+                     prop="GMobileLike"
+                     name="GMobileLike"
+                     label-width="110px"
+                     autosize
+                     placeholder="请输入手机号" />
+        </van-cell-group>
+        <div class="submit">
+          <van-button type="info"
+                      @click.prevent="close">退出</van-button>
+          <van-button type="primary"
+                      @click.prevent="SearchClass">搜索</van-button>
+        </div>
+      </form>
     </van-popup>
     <!-- 供应商列表 -->
     <div class="Parent-List">
@@ -261,10 +272,16 @@ import { SupplierAdmin } from '@/api/SupplierAdmin'
 import { DelectList5 } from '@/api/Delect'
 import { AddList5 } from '@/api/AddList'
 import { ModifyList5 } from '@/api/ModifyList'
+import { SearchSupplier } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
+            Search: {
+                G_Title_Like: '',
+                G_LianXiRen_Like: '',
+                G_Mobile_Like: ''
+            },
             AddListForm: {
                 Title: '',
                 LianXiRen: '',
@@ -276,7 +293,6 @@ export default {
                 Status: '',
                 BeiZhu: '',
                 Id: ''
-
             },
             ModifyListForm: {
                 Title: '',
@@ -306,7 +322,6 @@ export default {
         }
     },
     mounted () {
-
     },
     created () {
     // 页面一进入加载供应商列表
@@ -386,6 +401,13 @@ export default {
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
+        },
+        async SearchClass () {
+            const data = await SearchSupplier(this.Search)
+            const SearchResult = data
+            this.list = SearchResult
+            console.log(this.list)
+            // this.Search.data = data
         }
     }
 }
@@ -428,7 +450,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 40%;
+        width: 100%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }

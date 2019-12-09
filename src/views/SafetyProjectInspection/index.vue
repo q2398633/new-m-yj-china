@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="安全项目检测"
+    <van-nav-bar title="食品安全检测"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -17,30 +17,41 @@
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
+      <form action="/"
+            method="POST"
+            ref="Search"
+            :model="Search">
+        <van-cell-group>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索食品安全相关</div>
+          <van-field label="检测对象:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_JianCeDuiXiang_Like"
+                     name="GTitleLike"
+                     prop="GTitleLike"
+                     placeholder="请输入检测对象" />
+          <van-field label="检测人员:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_JianCeRenYuan_Like"
+                     name="GLianXiRenLike"
+                     prop="GLianXiRenLike"
+                     placeholder="请输入检测人员" />
+          <van-field label="检测项目:"
+                     v-model="Search.G_AnJianXiangMuIdName_Like"
+                     prop="GMobileLike"
+                     name="GMobileLike"
+                     label-width="110px"
+                     autosize
+                     placeholder="请输入检测项目" />
+        </van-cell-group>
+        <div class="submit">
+          <van-button type="info"
+                      @click.prevent="close">退出</van-button>
+          <van-button type="primary"
+                      @click.prevent="SearchFoodSafety">搜索</van-button>
+        </div>
+      </form>
     </van-popup>
     <!-- 安全项目检测列表 -->
     <div class="Parent-List">
@@ -94,25 +105,25 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目名称:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目名称:</span>
                 <van-field v-model="AddListForm.Title"
                            placeholder="请输入项目名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
                 <van-field v-model="AddListForm.JiLiangDanWei"
                            placeholder="请输入计量单位"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
                 <van-field v-model="AddListForm.CanKaoZhi"
                            placeholder="参考值"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="AddListForm.BeiZhu"
                            placeholder="备注"
                            style="display:inline-block;" />
@@ -138,25 +149,25 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目名称:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目名称:</span>
                 <van-field v-model="dqList.Title"
                            placeholder="请输入项目名称"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
                 <van-field v-model="dqList.JiLiangDanWei"
                            placeholder="请输入计量单位"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
                 <van-field v-model="dqList.CanKaoZhi"
                            placeholder="参考值"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="dqList.BeiZhu"
                            placeholder="备注"
                            style="display:inline-block;" />
@@ -192,6 +203,7 @@ import { SafetyProjectInspectionList } from '@/api/SafetyProjectInspection'
 import { DelectList3 } from '@/api/Delect'
 import { AddList3 } from '@/api/AddList'
 import { ModifyList3 } from '@/api/ModifyList'
+import { SearchFoodSafety } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -209,6 +221,11 @@ export default {
                 CanKaoZhi: '',
                 BeiZhu: '',
                 Id: ''
+            },
+            Search: {
+                G_JianCeDuiXiang_Like: '',
+                G_JianCeRenYuan_Like: '',
+                G_AnJianXiangMuIdName_Like: ''
             },
             show: false,
             isLoading: false,
@@ -306,6 +323,12 @@ export default {
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
+        },
+        async SearchFoodSafety () {
+            const data = await SearchFoodSafety(this.Search)
+            const SearchResult = data
+            this.list = SearchResult
+            console.log(this.list)
         }
     }
 }
@@ -348,7 +371,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 40%;
+        width: 100%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }

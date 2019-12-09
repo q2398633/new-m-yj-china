@@ -76,6 +76,60 @@
             </van-col>
           </van-row>
         </van-tab>
+        <van-tab title="基础信息">
+          <carousel-3d>
+            <slide :index="0">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="1">
+              <img src="../../assets/2.gif"
+                   alt="">
+            </slide>
+            <slide :index="2">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="3">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+            <slide :index="4">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="5">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="6">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+          </carousel-3d>
+          <van-row>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9"
+                          @click.prevent="StaffAdmin" />
+              <div class="shoping">员工管理</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9"
+                          @click.prevent="AttendanceList" />
+              <div class="shoping">考勤列表</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9" />
+              <div class="shoping">考勤审核</div>
+            </van-col>
+          </van-row>
+        </van-tab>
         <van-tab title="营养保健">
           <carousel-3d>
             <slide :index="0">
@@ -501,6 +555,12 @@ export default {
         },
         EnergyConsumptionDetails () {
             this.$router.push('/EnergyConsumptionDetails')
+        },
+        StaffAdmin () {
+            this.$router.push('/StaffAdmin')
+        },
+        AttendanceList () {
+            this.$router.push('/AttendanceList')
         }
     }
 }

@@ -231,3 +231,22 @@ export const DelectList11 = (listId11) => {
         }
     })
 }
+export const DelectList12 = (listId12) => {
+    return request({
+        method: 'DELETE',
+        url: '/ChuFang/ShiPinJianCeDel',
+        data: {
+            Id: listId12
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

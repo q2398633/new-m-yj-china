@@ -9,39 +9,9 @@
                  fixed>
       <van-icon name="search"
                 slot="right"
-                size="25px"
-                @click.prevent="SideMenu" />
+                size="25px" />
     </van-nav-bar>
     <!-- 搜索 -->
-    <van-popup v-model="show"
-               position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
-               close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-        <van-field label="班级名称:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
-    </van-popup>
     <!-- 银行账户列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
@@ -257,7 +227,6 @@ export default {
                 Status: '',
                 Id: ''
             },
-            show: false,
             isLoading: false,
             loading: false,
             finished: false,
@@ -282,9 +251,6 @@ export default {
     methods: {
         back () {
             this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
         },
         ClosePop () {
             this.AddListshow = false

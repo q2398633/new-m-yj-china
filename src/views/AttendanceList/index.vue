@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="员工管理"
+    <van-nav-bar title="考勤列表"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -12,7 +12,7 @@
                 size="25px"
                 @click.prevent="SideMenu" />
     </van-nav-bar>
-    <!-- 搜索员工 -->
+    <!-- 搜索员工考勤 -->
     <van-popup v-model="show"
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"
@@ -22,63 +22,21 @@
             ref="Search"
             :model="Search">
         <van-cell-group>
-          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索员工</div>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索员工考勤</div>
           <van-field label="部门:"
                      label-width="110px"
                      autosize
-                     v-model="Search.G_Department_Like"
-                     name="G_Department_Like"
-                     prop="G_Department_Like"
-                     placeholder="请输入所在部门" />
+                     v-model="Search.G_StudentIdName_Like"
+                     name="G_StudentIdName_Like"
+                     prop="G_StudentIdName_Like"
+                     placeholder="请输入考勤人员姓名" />
           <van-field label="职务:"
                      label-width="110px"
                      autosize
-                     v-model="Search.G_Position_Like"
-                     name="G_Position_Like"
-                     prop="G_Position_Like"
-                     placeholder="请输入所属职务" />
-          <van-field label="姓名:"
-                     v-model="Search.G_RealName_Like"
-                     prop="G_RealName_Like"
-                     name="G_RealName_Like"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入姓名" />
-          <van-field label="账号:"
-                     v-model="Search.G_Mobile_Like"
-                     prop="GMobileLike"
-                     name="GMobileLike"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入账号" />
-          <van-field label="身份证号:"
-                     v-model="Search.G_Account_Like"
-                     prop="G_Account_Like"
-                     name="G_Account_Like"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入身份证号" />
-          <van-field label="学历:"
-                     v-model="Search.G_Education_Like"
-                     prop="G_Education_Like"
-                     name="G_Education_Like"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入学历" />
-          <van-field label="毕业院校:"
-                     v-model="Search.G_Schools_Like"
-                     prop="G_Schools_Like"
-                     name="G_Schools_Like"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入学历" />
-          <van-field label="专业:"
-                     v-model="Search.G_Professional_Like"
-                     prop="G_Professional_Like"
-                     name="G_Professional_Like"
-                     label-width="110px"
-                     autosize
-                     placeholder="请输入学历" />
+                     v-model="Search.G_Date_Like"
+                     name="G_Date_Like"
+                     prop="G_Date_Like"
+                     placeholder="请输入考勤日期" />
         </van-cell-group>
         <div class="submit">
           <van-button type="info"
@@ -88,7 +46,7 @@
         </div>
       </form>
     </van-popup>
-    <!-- 员工列表 -->
+    <!-- 考勤列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -102,78 +60,235 @@
               <div class="head">
                 <img src="../../assets/ZJZ.jpg"
                      alt="">
-                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.RealName }}</h1>
+                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.StudentIdName }}</h1>
               </div>
               <van-cell :border="false"
-                        title="部门"
+                        title="日期"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Department }}
+                {{ item.Date }}
               </van-cell>
               <van-cell :border="false"
-                        title="职务"
+                        title="费用"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Position }}
+                费用{{item.YingShouFei }} 出勤 {{ item.ShiJiChuQin }} / {{ item.YingChuQin }} 天
+              </van-cell>
+              <!-- <van-cell :border="false"
+                        title="考勤第1天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin1.DaKa }}
+                {{ item.KaoQin1.PeiCanTitle }}
+                {{ item.KaoQin1.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="账号"
+                        title="考勤第2天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Account }}
+                {{ item.KaoQin2.DaKa }}
+                {{ item.KaoQin2.PeiCanTitle }}
+                {{ item.KaoQin2.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="性别"
+                        title="考勤第3天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.XingBie }}
+                {{ item.KaoQin3.DaKa }}
+                {{ item.KaoQin3.PeiCanTitle }}
+                {{ item.KaoQin3.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="生日"
+                        title="考勤第4天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Birthday }}
+                {{ item.KaoQin4.DaKa }}
+                {{ item.KaoQin4.PeiCanTitle }}
+                {{ item.KaoQin4.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="身份证号"
+                        title="考勤第5天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.IdNumber }}
+                {{ item.KaoQin5.DaKa }}
+                {{ item.KaoQin5.PeiCanTitle }}
+                {{ item.KaoQin5.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="学历"
+                        title="考勤第6天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Education }}
+                {{ item.KaoQin6.DaKa }}
+                {{ item.KaoQin6.PeiCanTitle }}
+                {{ item.KaoQin6.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="毕业院校"
+                        title="考勤第7天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Schools }}
+                {{ item.KaoQin7.DaKa }}
+                {{ item.KaoQin7.PeiCanTitle }}
+                {{ item.KaoQin7.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="专业"
+                        title="考勤第8天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Professional }}
+                {{ item.KaoQin8.DaKa }}
+                {{ item.KaoQin8.PeiCanTitle }}
+                {{ item.KaoQin8.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="入职时间"
+                        title="考勤第9天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.EntryDate }}
+                {{ item.KaoQin9.DaKa }}
+                {{ item.KaoQin9.PeiCanTitle }}
+                {{ item.KaoQin9.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="现住址"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.DiZhi }}
+                        title="考勤第10天"
+                        style="0padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin10.DaKa }}
+                {{ item.KaoQin10.PeiCanTitle }}
+                {{ item.KaoQin10.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="详细地址"
+                        title="考勤第11天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.DiZhiData }}
+                {{ item.KaoQin11.DaKa }}
+                {{ item.KaoQin11.PeiCanTitle }}
+                {{ item.KaoQin11.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="备注"
+                        title="考勤第12天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Remarks }}
+                {{ item.KaoQin12.DaKa }}
+                {{ item.KaoQin12.PeiCanTitle }}
+                {{ item.KaoQin12.PeiCanId }}
               </van-cell>
               <van-cell :border="false"
-                        title="状态"
+                        title="考勤第13天"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Status }}
+                {{ item.KaoQin13.DaKa }}
+                {{ item.KaoQin13.PeiCanTitle }}
+                {{ item.KaoQin13.PeiCanId }}
               </van-cell>
+              <van-cell :border="false"
+                        title="考勤第14天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin14.DaKa }}
+                {{ item.KaoQin14.PeiCanTitle }}
+                {{ item.KaoQin14.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第15天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin15.DaKa }}
+                {{ item.KaoQin15.PeiCanTitle }}
+                {{ item.KaoQin15.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第16天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin16.DaKa }}
+                {{ item.KaoQin16.PeiCanTitle }}
+                {{ item.KaoQin16.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第17天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin17.DaKa }}
+                {{ item.KaoQin17.PeiCanTitle }}
+                {{ item.KaoQin17.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第18天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin18.DaKa }}
+                {{ item.KaoQin18.PeiCanTitle }}
+                {{ item.KaoQin18.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第19天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin19.DaKa }}
+                {{ item.KaoQin19.PeiCanTitle }}
+                {{ item.KaoQin19.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第20天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin20.DaKa }}
+                {{ item.KaoQin20.PeiCanTitle }}
+                {{ item.KaoQin20.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第21天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin21.DaKa }}
+                {{ item.KaoQin21.PeiCanTitle }}
+                {{ item.KaoQin21.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第22天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin22.DaKa }}
+                {{ item.KaoQin22.PeiCanTitle }}
+                {{ item.KaoQin22.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第23天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin23.DaKa }}
+                {{ item.KaoQin23.PeiCanTitle }}
+                {{ item.KaoQin23.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第24天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin24.DaKa }}
+                {{ item.KaoQin24.PeiCanTitle }}
+                {{ item.KaoQin24.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第25天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin25.DaKa }}
+                {{ item.KaoQin25.PeiCanTitle }}
+                {{ item.KaoQin25.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第26天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin26.DaKa }}
+                {{ item.KaoQin26.PeiCanTitle }}
+                {{ item.KaoQin26.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第27天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin27.DaKa }}
+                {{ item.KaoQin27.PeiCanTitle }}
+                {{ item.KaoQin27.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第28天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin28.DaKa }}
+                {{ item.KaoQin28.PeiCanTitle }}
+                {{ item.KaoQin28.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第29天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin29.DaKa }}
+                {{ item.KaoQin29.PeiCanTitle }}
+                {{ item.KaoQin29.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第30天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin30.DaKa }}
+                {{ item.KaoQin30.PeiCanTitle }}
+                {{ item.KaoQin30.PeiCanId }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="考勤第31天"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.KaoQin31.DaKa }}
+                {{ item.KaoQin31.PeiCanTitle }}
+                {{ item.KaoQin31.PeiCanId }}
+              </van-cell> -->
               <template slot="right">
                 <van-button square
                             type="danger"
@@ -190,7 +305,7 @@
         <van-button type="info"
                     style="margin-bottom: 50px; width: 100%"
                     @click.prevent="AddList">添加员工</van-button>
-        <!-- 添加员工列表 -->
+        <!-- 添加考勤列表 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -372,7 +487,7 @@
 
           </form>
         </van-popup>
-        <!-- 修改员工信息列表 -->
+        <!-- 配餐列表 -->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -576,24 +691,18 @@
 </template>
 
 <script>
-import { StaffList } from '@/api/StaffAdmin'
+import { AttendanceList } from '@/api/AttendanceList'
 import { DelectList5 } from '@/api/Delect'
 import { AddList13 } from '@/api/AddList'
 import { ModifyList13 } from '@/api/ModifyList'
-import { SearchStaff } from '@/api/Search'
+import { SearchAttendance } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             Search: {
-                G_Department_Like: '',
-                G_Position_Like: '',
-                G_RealName_Like: '',
-                G_Account_Like: '',
-                G_IdNumber_Like: '',
-                G_Education_Like: '',
-                G_Schools_Like: '',
-                G_Professional_Like: ''
+                G_StudentIdName_Like: '',
+                G_Date_Like: ''
             },
             AddListForm: {
                 Account: '',
@@ -677,8 +786,8 @@ export default {
     mounted () {
     },
     created () {
-    // 页面一进入加载供应商列表
-        this.loadStaffListList()
+    // 页面一进入加载考勤列表
+        this.loadAttendanceListList()
     },
     methods: {
         back () {
@@ -704,9 +813,9 @@ export default {
                 this.isLoading = false
             }, 500)
         },
-        async loadStaffListList () {
+        async loadAttendanceListList () {
             let channels = []
-            const data = await StaffList()
+            const data = await AttendanceList()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -714,7 +823,7 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadStaffListList()
+            const data = await this.loadAttendanceListList()
             this.list = data
         },
         async DelList (currentList) {
@@ -756,7 +865,7 @@ export default {
             window.location.reload()
         },
         async SearchClass () {
-            const data = await SearchStaff(this.Search)
+            const data = await SearchAttendance(this.Search)
             const SearchResult = data
             this.list = SearchResult
             console.log(this.list)

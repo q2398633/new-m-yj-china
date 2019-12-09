@@ -10,7 +10,8 @@
                  fixed>
       <van-icon name="search"
                 slot="right"
-                size=".6rem" />
+                size=".6rem"
+                @click.prevent="SearchNotice" />
     </van-nav-bar>
     <van-tabs v-model="active"
               animated
@@ -70,7 +71,7 @@
               <van-button icon="hot-o"
                           type="primary"
                           color="#ff9400"
-                          @click.prevent="StaffAdmin" />
+                          @click.prevent="FoodSafety" />
               <div class="shoping">安全检测</div>
 
             </van-col>
@@ -339,8 +340,8 @@ export default {
     Menu () {
       this.$router.push('/Menu')
     },
-    StaffAdmin () {
-      this.$router.push('/SafetyProjectInspection')
+    FoodSafety () {
+      this.$router.push('/FoodSafety')
     },
     AccountAdmin () {
       this.$router.push('/AccountAdmin')
@@ -363,6 +364,9 @@ export default {
     },
     PostAdmin () {
       this.$router.push('/PostAdmin')
+    },
+    SearchNotice () {
+
     }
   },
   computed: {

@@ -378,3 +378,123 @@ export const AddList11 = ({
         }
     })
 }
+
+export const AddList12 = ({
+    JianCeDuiXiang,
+    JianCeRenYuan,
+    JianCeRiQi,
+    AnJianXiangMuIdName,
+    AnJianXiangMuId,
+    JiLiangDanWei,
+    CanKaoZhi,
+    JianCeZhi,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/ShiPinJianCeAdd',
+        data: {
+            JianCeDuiXiang,
+            JianCeRenYuan,
+            JianCeRiQi,
+            AnJianXiangMuIdName,
+            AnJianXiangMuId,
+            JiLiangDanWei,
+            CanKaoZhi,
+            JianCeZhi,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList13 = ({
+    Account,
+    RealName,
+    XingBie,
+    MinZu,
+    Birthday,
+    IdNumber,
+    DepartmentId,
+    PositionId,
+    Education,
+    Schools,
+    Professional,
+    EntryDate,
+    DiZhi,
+    DiZhiData,
+    BanCiGroupId,
+    UserJiXiaoId,
+    BanJiId,
+    UserGongZiFangAnId,
+    RoleId,
+    IsJiaZuBingShi,
+    JiaZuBingShi,
+    IsXianTianJiBing,
+    XianTianJiBing,
+    IsBaoXian,
+    IsLaoDongHeTong,
+    JinJiLianXiRen,
+    JinJiLianXiRenDianHua,
+    TeChang,
+    Remarks,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/HR/UsersAdd',
+        data: {
+            Account,
+            RealName,
+            XingBie,
+            MinZu,
+            Birthday,
+            IdNumber,
+            DepartmentId,
+            PositionId,
+            Education,
+            Schools,
+            Professional,
+            EntryDate,
+            DiZhi,
+            DiZhiData,
+            BanCiGroupId,
+            UserJiXiaoId,
+            BanJiId,
+            UserGongZiFangAnId,
+            RoleId,
+            IsJiaZuBingShi,
+            JiaZuBingShi,
+            IsXianTianJiBing,
+            XianTianJiBing,
+            IsBaoXian,
+            IsLaoDongHeTong,
+            JinJiLianXiRen,
+            JinJiLianXiRenDianHua,
+            TeChang,
+            Remarks,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

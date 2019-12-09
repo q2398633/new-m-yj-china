@@ -15,68 +15,66 @@
     <!-- 搜索 -->
     <van-popup v-model="show"
                position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
+               :style="{width: '100%'}"
                close-icon="close">
       <van-cell-group>
         <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索幼儿</div>
         <van-field label="姓名:"
                    label-width="70px"
                    autosize
+                   name="G_RealName_Like"
+                   prop="G_RealName_Like"
+                   v-model="Search.G_RealName_Like"
                    placeholder="请输入幼儿名称" />
         <van-field label="班级:"
                    label-width="70px"
                    autosize
+                   name="G_BanJi_Like"
+                   prop="G_BanJi_Like"
+                   v-model="Search.G_BanJi_Like"
                    placeholder="请输入班级" />
         <van-field label="年级:"
                    label-width="70px"
-                   autosize />
+                   autosize
+                   name="G_NianJi_IN"
+                   prop="G_NianJi_IN"
+                   v-model="Search.G_NianJi_IN" />
         <van-field label="档案号:"
                    label-width="70px"
                    autosize
+                   name="G_DangAnHao_Like"
+                   prop="G_DangAnHao_Like"
+                   v-model="Search.G_DangAnHao_Like "
                    placeholder="请输入档案号" />
-        <van-field label="生日:"
-                   label-width="70px"
-                   autosize
-                   placeholder="选择生日" />
-        <van-popup v-model="BirthdayShow"
-                   position="bottom">
-          <div class="Calendar">
-            <calendar @change="onChange" />
-            <inlineCalendar />
-          </div>
-        </van-popup>
-        <van-field label="性别:"
-                   label-width="70px"
-                   autosize />
         <van-field label="民族:"
                    label-width="70px"
                    autosize
+                   name="G_MinZu_Like"
+                   prop="G_MinZu_Like"
+                   v-model="Search.G_MinZu_Like "
                    placeholder="请输入民族" />
-        <van-field label="入托日期:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入入托日期"
-                   @click.prevent="InNursery" />
-        <van-popup v-model="InNurseryShow"
-                   position="bottom">
-          <div class="Calendar">
-            <calendar @change="InNurseryDay" />
-            <inlineCalendar />
-          </div>
-        </van-popup>
-        <van-field label="入托类型:"
-                   label-width="70px"
-                   autosize />
         <van-field label="户籍:"
                    label-width="70px"
                    autosize
+                   name="G_HuJi_Like"
+                   prop="G_HuJi_Like"
+                   v-model="Search.G_HuJi_Like "
                    placeholder="请输入户籍" />
+        <van-field label="身份证号:"
+                   label-width="70px"
+                   autosize
+                   name="G_ShenFenZhengHao_Like"
+                   prop="G_ShenFenZhengHao_Like"
+                   v-model="Search.G_ShenFenZhengHao_Like "
+                   placeholder="请输入身份证号" />
       </van-cell-group>
       <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
         <van-button type="info"
+                    class="ClosePop"
                     @click.prevent="close">退出</van-button>
+        <van-button type="primary"
+                    class="AddClass"
+                    @click.prevent="SearchChild">搜索</van-button>
       </div>
     </van-popup>
     <!-- 幼儿列表 -->
@@ -197,40 +195,40 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
                 <van-field v-model="dqList.RealName"
                            placeholder="请输入姓名"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 65%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
                 <van-field v-model="dqList.BanJi"
                            placeholder="请输入班级"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 65%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
                 <van-field v-model="dqList.XingBie"
                            placeholder="请输入性别"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 65%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">民族:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">民族:</span>
                 <van-field v-model="dqList.MinZu"
                            placeholder="请输入民族"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 65%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">入园时间:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">入园时间:</span>
                 <van-field v-model="dqList.RuTuoRiQi"
                            placeholder="请输入入园时间"
-                           style="display:inline-block; width: 55%; padding: 0; margin-left: 0;" />
+                           style="display:inline-block; width: 60%; padding: 0; margin-left: 0;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
                 <van-field v-model="dqList.Status"
                            placeholder="请输入状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 65%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
@@ -263,6 +261,8 @@ import { getList } from '@/api/channel'
 import { DelectList8 } from '@/api/Delect'
 import { AddList8 } from '@/api/AddList'
 import { ModifyList8 } from '@/api/ModifyList'
+import { SearchChild } from '@/api/Search'
+
 export default {
     name: 'SignInRule',
     data () {
@@ -285,6 +285,15 @@ export default {
                 Status: '',
                 Id: ''
             },
+            Search: {
+                G_RealName_Like: '',
+                G_BanJi_Like: '',
+                G_NianJi_IN: '',
+                G_DangAnHao_Like: '',
+                G_MinZu_Like: '',
+                G_HuJi_Like: '',
+                G_ShenFenZhengHao_Like: ''
+            },
             show: false,
             isLoading: false,
             loading: false,
@@ -298,9 +307,7 @@ export default {
             checked: true,
             dqList: [],
             Total: 0,
-            InNurseryShow: false,
-            BirthdayShow: false
-
+            InNurseryShow: false
         }
     },
     mounted () {
@@ -327,12 +334,6 @@ export default {
         },
         close () {
             this.show = false
-        },
-        Birthday () {
-            this.BirthdayShow = true
-        },
-        onChange (date) {
-            console.log(date.format('YY-MM-DD'))
         },
         InNursery () {
             this.InNurseryShow = true
@@ -396,6 +397,12 @@ export default {
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
+        },
+        async SearchChild () {
+            const data = await SearchChild(this.Search)
+            const SearchResult = data
+            this.list = SearchResult
+            console.log(this.list)
         }
     }
 }
@@ -421,12 +428,11 @@ export default {
     }
   }
   .submit {
-    width: 100%;
-    height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
+    margin-top: 40px;
+    margin-bottom: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .van-list {
@@ -438,7 +444,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 40%;
+        width: 100%;
         padding-left: 30px;
         margin-left: 20px;
       }
@@ -461,6 +467,7 @@ export default {
   }
   .van-cell {
     padding: 0;
+    width: 100%;
   }
   .van-swipe-cell__right {
     .van-button {

@@ -14,7 +14,8 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         "space-before-function-paren": 0,
         "no-multiple-empty-lines": [2, { "max": 99999, "maxEOF": 0 }],
-        'eslint eol-last': 0
+        'eslint eol-last': 0,
+        "camelcase": [1, { "properties": "never" }]
     },
     parserOptions: {
         parser: 'babel-eslint'

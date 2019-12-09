@@ -17,30 +17,57 @@
                position="bottom"
                :style="{width: '100%', background: '#524c4c' }"
                close-icon="close">
-      <van-cell-group class="Search">
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索家长</div>
-        <van-field label="姓名:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="年级:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="备注:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="创建时间:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
+      <form action="/"
+            method="POST"
+            ref="Search"
+            :model="Search">
+        <van-cell-group>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索家长</div>
+          <van-field label="家长姓名:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_RealName_Like"
+                     name="G_RealName_Like"
+                     prop="G_RealName_Like"
+                     placeholder="请输入家长姓名" />
+          <van-field label="手机号:"
+                     label-width="110px"
+                     autosize
+                     v-model="Search.G_Mobile_Like"
+                     name="G_Mobile_Like"
+                     prop="G_Mobile_Like"
+                     placeholder="请输入手机号" />
+          <van-field label="单位:"
+                     v-model="Search.G_WorkPlace_Like"
+                     prop="G_WorkPlace_Like"
+                     name="G_WorkPlace_Like"
+                     label-width="110px"
+                     autosize
+                     placeholder="请输入所在单位" />
+          <van-field label="资源:"
+                     v-model="Search.G_ZiYuan_Like"
+                     prop="G_WorkPlace_Like"
+                     name="G_WorkPlace_Like"
+                     label-width="110px"
+                     autosize
+                     placeholder="请输入所在单位" />
+          <van-field label="学历:"
+                     v-model="Search.G_ZiYuan_Like"
+                     prop="G_WorkPlace_Like"
+                     name="G_WorkPlace_Like"
+                     label-width="110px"
+                     autosize
+                     placeholder="请输入所在单位" />
+        </van-cell-group>
+        <div class="submit">
+          <van-button type="info"
+                      @click.prevent="close"
+                      class="ClosePop">退出</van-button>
+          <van-button type="primary"
+                      class="AddClass"
+                      @click.prevent="SearchParent">搜索</van-button>
+        </div>
+      </form>
     </van-popup>
     <!-- 家长列表 -->
     <div class="Parent-List">
@@ -227,55 +254,55 @@
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">关系:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">关系:</span>
                 <van-field v-model="dqList.GuanXi"
                            placeholder="您与学生的关系"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">常接送人:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">常接送人:</span>
                 <van-field v-model="dqList.IsJieSongRen"
                            placeholder="常接送人"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位:</span>
                 <van-field v-model="dqList.WorkPlace"
                            placeholder="您的单位"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">身份证:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">身份证:</span>
                 <van-field v-model="dqList.IdNumber"
                            placeholder="您的身份证号"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
                 <van-field v-model="dqList.WeChat"
                            placeholder="您的微信号"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
                 <van-field v-model="dqList.QQ"
                            placeholder="您的QQ号"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生:</span>
                 <van-field v-model="dqList.StudentIdName"
                            placeholder="您的学生"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">学历:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学历:</span>
                 <van-field v-model="dqList.XueLi"
                            placeholder="您的学历"
                            style="display:inline-block;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">家庭住址:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">家庭住址:</span>
                 <van-field v-model="dqList.ZhuZhi"
                            placeholder="您的家庭住址"
                            style="display:inline-block;" />
@@ -311,6 +338,7 @@ import { ParentList } from '@/api/ParentAdmin'
 import { DelectList2 } from '@/api/Delect'
 import { AddList2 } from '@/api/AddList'
 import { ModifyList2 } from '@/api/ModifyList'
+import { SearchParent } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
@@ -344,6 +372,13 @@ export default {
                 XueLi: '',
                 ZhuZhi: '',
                 Id: ''
+            },
+            Search: {
+                G_RealName_Like: '',
+                G_Mobile_Like: '',
+                G_WorkPlace_Like: '',
+                G_ZiYuan_Like: '',
+                G_XueLi_Like: ''
             },
             show: false,
             isLoading: false,
@@ -441,6 +476,11 @@ export default {
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
+        },
+        async SearchParent () {
+            const data = await SearchParent(this.Search)
+            const SearchResult = data
+            this.list = SearchResult
         }
     }
 }
@@ -466,12 +506,10 @@ export default {
     }
   }
   .submit {
-    width: 100%;
-    height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
+    margin-bottom: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .van-list {
@@ -483,7 +521,7 @@ export default {
       width: 100%;
 
       .van-field {
-        width: 40%;
+        width: 100%;
         padding: 0 0 0 30px;
         margin-left: 20px;
       }

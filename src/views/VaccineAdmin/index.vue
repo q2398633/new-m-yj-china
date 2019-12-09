@@ -9,39 +9,9 @@
                  fixed>
       <van-icon name="search"
                 slot="right"
-                size="25px"
-                @click.prevent="SideMenu" />
+                size="25px" />
     </van-nav-bar>
-    <!-- 搜索 -->
-    <van-popup v-model="show"
-               position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
-               close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索疫苗</div>
-        <van-field label="疫苗名称:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="接种年龄:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="针次:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="预防效果:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
-    </van-popup>
+
     <!-- 疫苗管理列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
@@ -239,9 +209,6 @@ export default {
     methods: {
         back () {
             this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
         },
         ClosePop () {
             this.AddListshow = false
