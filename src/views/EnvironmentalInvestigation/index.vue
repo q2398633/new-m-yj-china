@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="资产信息表"
+    <van-nav-bar title="环境调研"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -12,34 +12,34 @@
                 size="25px"
                 @click.prevent="SideMenu" />
     </van-nav-bar>
-    <!-- 搜索资产信息 -->
+    <!-- 搜索环境调研信息 -->
     <van-popup v-model="show"
                position="bottom"
                :style="{width: '100%'}"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索资产信息</div>
-        <van-field label="名称:"
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索环境调研信息</div>
+        <van-field label="园所名称:"
                    label-width="70px"
                    autosize
                    name="G_Title_Like"
                    prop="G_Title_Like"
                    v-model="Search.G_Title_Like"
-                   placeholder="请输入名称" />
-        <van-field label="类别:"
+                   placeholder="请输入园所名称" />
+        <van-field label="园长姓名:"
                    label-width="70px"
                    autosize
-                   name="G_Type_Like"
-                   prop="G_Type_Like"
-                   v-model="Search.G_Type_Like"
-                   placeholder="请输入类别" />
-        <van-field label="单位:"
+                   name="G_YuanZhangXingMing_Like"
+                   prop="G_YuanZhangXingMing_Like"
+                   v-model="Search.G_YuanZhangXingMing_Like"
+                   placeholder="请输入园长姓名" />
+        <van-field label="联系电话:"
                    label-width="70px"
                    autosize
-                   name="G_JiLiangDanWei_Like"
-                   prop="G_JiLiangDanWei_Like"
-                   v-model="Search.G_JiLiangDanWei_Like"
-                   placeholder="请输入单位" />
+                   name="G_LianXiDianHua_Like"
+                   prop="G_LianXiDianHua_Like"
+                   v-model="Search.G_LianXiDianHua_Like"
+                   placeholder="请输入联系电话" />
       </van-cell-group>
       <div class="submit">
         <van-button type="info"
@@ -47,10 +47,10 @@
                     @click.prevent="close">退出</van-button>
         <van-button type="primary"
                     class="AddClass"
-                    @click.prevent="SearchAssetsInformation">搜索</van-button>
+                    @click.prevent="SearchEnvironmentalInvestigation">搜索</van-button>
       </div>
     </van-popup>
-    <!-- 资产信息列表 -->
+    <!-- 环境调研信息列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -60,56 +60,86 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
+            <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
               <div class="head">
-                <img src="../../assets/ZC.jpg"
+                <img src="../../assets/HJDY.jpg"
                      alt="">
                 <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
               </div>
               <van-cell :border="false"
-                        title="类别:"
+                        title="园所地址:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Type }}
+                {{ item.DiZhi }}
               </van-cell>
               <van-cell :border="false"
-                        title="单位:"
+                        title="距离(千米):"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.JiLiangDanWei }}
+                {{ item.JuLi }}
               </van-cell>
               <van-cell :border="false"
-                        title="数量:"
+                        title="教师人数:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Total }}
+                {{ item.JiaoShiRenShu }}
               </van-cell>
               <van-cell :border="false"
-                        title="原币单价:"
+                        title="园长姓名:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi / item.Total}}
+                {{ item.YuanZhangXingMing }}
               </van-cell>
               <van-cell :border="false"
-                        title="购进原值:"
+                        title="师幼比:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi }}
+                {{ item.ShiYouBi}}
               </van-cell>
               <van-cell :border="false"
-                        title="使用年限(月):"
+                        title="教师学历:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.ShiYongYue }}个月
+                {{ item.JiaoShiXueLi }}
               </van-cell>
               <van-cell :border="false"
-                        title="残值率%:"
+                        title="联系电话:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.CanZhiLv }}%
+                {{ item.LianXiDianHua }}
               </van-cell>
               <van-cell :border="false"
-                        title="入账日期:"
+                        title="园所级类:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangRiQi }}
+                {{ item.YuanSuoJiBie1 }}
               </van-cell>
               <van-cell :border="false"
-                        title="预计净残值:"
+                        title="园所级类3:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi / 100 * item.CanZhiLv }}%
+                {{ item.YuanSuoJiBie3 }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="园所性质:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.YuanSuoXingZhi }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="托费类型:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.TuoFeiLeiXing }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="托费价格:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.TuoFei }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="周边知名度:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.ZhouBianZhiMingDu }}星
+              </van-cell>
+              <van-cell :border="false"
+                        title="人气人数质量:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.RenQiRenShuZhiLiang }}星
+              </van-cell>
+              <van-cell :border="false"
+                        title="教育特色:"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.ZongJia }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -124,10 +154,7 @@
             </van-swipe-cell>
           </van-cell>
         </van-list>
-        <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加资产维护项目</van-button>
-        <!-- 添加资产信息列表 -->
+        <!-- 添加环境调研信息表 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -254,7 +281,7 @@
             </van-cell-group>
           </form>
         </van-popup>
-        <!-- 修改资产信息列表 -->
+        <!-- 修改环境调研信息表 -->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -391,65 +418,53 @@
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
 
     </div>
-
+    <van-button type="info"
+                style="margin-bottom: 50px; width: 100%"
+                @click.prevent="AddList">添加新产品</van-button>
   </div>
 </template>
 
 <script>
-import { AssetsInformation } from '@/api/AssetsInformation'
-import { DelectList14 } from '@/api/Delect'
-import { AddList15 } from '@/api/AddList'
-import { ModifyList15 } from '@/api/ModifyList'
-import { SearchAssetsInformation } from '@/api/Search'
+import { EnvironmentalInvestigation } from '@/api/EnvironmentalInvestigation'
+import { DelectList16 } from '@/api/Delect'
+import { AddList16 } from '@/api/AddList'
+import { ModifyList16 } from '@/api/ModifyList'
+import { SearchEnvironmentalInvestigation } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             Search: {
                 G_Title_Like: '',
-                G_Type_Like: '',
-                G_JiLiangDanWei_Like: ''
+                G_YuanZhangXingMing_Like: '',
+                G_LianXiDianHua_Like: ''
             },
             AddListForm: {
+                BarCode: null,
                 Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
+                ChanPinTypeId: '',
+                GongYingShangId: '',
+                DanJia: '',
+                CangKuId: '',
+                DanWeiId: '',
+                Status: '',
+                MaxNum: '',
+                MinNum: '',
+                BeiZhu: '',
                 Id: ''
             },
             ModifyListForm: {
+                BarCode: null,
                 Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
+                ChanPinTypeId: '',
+                GongYingShangId: '',
+                DanJia: '',
+                CangKuId: '',
+                DanWeiId: '',
+                Status: '',
+                MaxNum: '',
+                MinNum: '',
+                BeiZhu: '',
                 Id: ''
             },
             show: false,
@@ -471,9 +486,8 @@ export default {
     mounted () {
     },
     created () {
-    // 页面一进入加载资产信息列表
-        this.loadAssetsInformationList()
-        this.Toast.setDefaultOptions({ duration: 2000 })
+    // 页面一进入加载环境调研信息表
+        this.loadEnvironmentalInvestigationList()
     },
     methods: {
         back () {
@@ -500,9 +514,9 @@ export default {
                 this.finished = true
             }, 500)
         },
-        async loadAssetsInformationList () {
+        async loadEnvironmentalInvestigationList () {
             let channels = []
-            const data = await AssetsInformation()
+            const data = await EnvironmentalInvestigation()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -510,7 +524,7 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadAssetsInformationList()
+            const data = await this.loadEnvironmentalInvestigationList()
             this.list = data
             this.isLoading = false
             this.loading = false
@@ -523,8 +537,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId14 = this.currentList.Id
-                const data = await DelectList14(listId14)
+                const listId16 = this.currentList.Id
+                const data = await DelectList16(listId16)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -537,7 +551,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList15(this.AddListForm)
+            const data = await AddList16(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -545,17 +559,18 @@ export default {
         },
         Modify (currentList) {
             this.ModifyListshow = true
+            this.finished = false
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList15(this.dqList)
+            const data = await ModifyList16(this.dqList)
             this.ModifyList2 = data
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
         },
-        async SearchAssetsInformation () {
-            const data = await SearchAssetsInformation(this.Search)
+        async SearchEnvironmentalInvestigation () {
+            const data = await SearchEnvironmentalInvestigation(this.Search)
             const SearchResult = data
             this.list = SearchResult
             this.show = false
@@ -598,7 +613,6 @@ export default {
   .van-popup {
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 130px;
     .van-cell-group {
       width: 100%;
 

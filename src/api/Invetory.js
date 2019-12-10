@@ -1,18 +1,18 @@
 /**
- * 请求资产维护数据
+ * 请求库存清单数据
  */
 import request from '../utils/request'
 
 /**
  *
- * 已登录(设置请求头 token) 获取资产维护信息
+ * 已登录(设置请求头 token) 获取库存清单信息
  *
  */
 
-export const AssetMaintenance = () => {
+export const Invetory = () => {
     return request({
         method: 'POST',
-        url: '/CAW/ZiChanWeiXiuGrid',
+        url: '/HouQin/KuCunGrid',
         transformRequest: [function (data) {
             let ret = ''
             for (let it in data) {

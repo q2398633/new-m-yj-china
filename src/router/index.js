@@ -25,6 +25,11 @@ import Echarts from '@/views/Echarts'
 import RegionalDisinfection from '@/views/RegionalDisinfection'
 import EnergyConsumptionDetails from '@/views/EnergyConsumptionDetails'
 import AttendanceList from '@/views/AttendanceList'
+import Inventory from '@/views/Inventory'
+import productManagement from '@/views/productManagement'
+import OutgoingManagement from '@/views/OutgoingManagement'
+import WarehousingManagement from '@/views/WarehousingManagement'
+import EnvironmentalInvestigation from '@/views/EnvironmentalInvestigation'
 
 Vue.use(VueRouter)
 
@@ -55,8 +60,12 @@ const router = new VueRouter({
         { name: 'Echarts', path: '/Echarts', component: Echarts },
         { name: 'RegionalDisinfection', path: '/RegionalDisinfection', component: RegionalDisinfection },
         { name: 'EnergyConsumptionDetails', path: '/EnergyConsumptionDetails', component: EnergyConsumptionDetails },
-        { name: 'AttendanceList', path: '/AttendanceList', component: AttendanceList }
-
+        { name: 'AttendanceList', path: '/AttendanceList', component: AttendanceList },
+        { name: 'Inventory', path: '/Inventory', component: Inventory },
+        { name: 'productManagement', path: '/productManagement', component: productManagement },
+        { name: 'OutgoingManagement', path: '/OutgoingManagement', component: OutgoingManagement },
+        { name: 'WarehousingManagement', path: '/WarehousingManagement', component: WarehousingManagement },
+        { name: 'EnvironmentalInvestigation', path: '/EnvironmentalInvestigation', component: EnvironmentalInvestigation }
 
 
     ]

@@ -376,7 +376,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="peimary"
-                          color="greenyellow">
+                          color="greenyellow"
+                          @click.prevent="EnvironmentalInvestigation">
               </van-button>
               <div class="shoping">环境调研</div>
             </van-col>
@@ -431,31 +432,36 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="SupplierAdmin"></van-button>
               <div class="shoping">供应商管理</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="WarehousingManagement"></van-button>
               <div class="shoping">入库</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="Inventory"></van-button>
               <div class="shoping">库存清单</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="productManagement"></van-button>
               <div class="shoping">产品管理</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="gold"></van-button>
+                          color="gold"
+                          @click.prevent="OutgoingManagement"></van-button>
               <div class="shoping">出库管理</div>
             </van-col>
           </van-row>
@@ -463,31 +469,31 @@
         <van-tab title="资产管理">
           <carousel-3d>
             <slide :index="0">
-              <img src="../../assets/1.gif"
+              <img src="../../assets/ZC.jpg"
                    alt="">
             </slide>
             <slide :index="1">
-              <img src="../../assets/2.gif"
+              <img src="../../assets/ZC1.jpg"
                    alt="">
             </slide>
             <slide :index="2">
-              <img src="../../assets/3.gif"
+              <img src="../../assets/ZC2.jpg"
                    alt="">
             </slide>
             <slide :index="3">
-              <img src="../../assets/4.gif"
+              <img src="../../assets/ZC4.jpg"
                    alt="">
             </slide>
             <slide :index="4">
-              <img src="../../assets/3.gif"
+              <img src="../../assets/ZC.jpg"
                    alt="">
             </slide>
             <slide :index="5">
-              <img src="../../assets/1.gif"
+              <img src="../../assets/ZC1.jpg"
                    alt="">
             </slide>
             <slide :index="6">
-              <img src="../../assets/4.gif"
+              <img src="../../assets/ZC2.jpg"
                    alt="">
             </slide>
           </carousel-3d>
@@ -561,6 +567,24 @@ export default {
         },
         AttendanceList () {
             this.$router.push('/AttendanceList')
+        },
+        SupplierAdmin () {
+            this.$router.push('/SupplierAdmin')
+        },
+        Inventory () {
+            this.$router.push('/Inventory')
+        },
+        productManagement () {
+            this.$router.push('/productManagement')
+        },
+        OutgoingManagement () {
+            this.$router.push('/OutgoingManagement')
+        },
+        WarehousingManagement () {
+            this.$router.push('/WarehousingManagement')
+        },
+        EnvironmentalInvestigation () {
+            this.$router.push('/EnvironmentalInvestigation')
         }
     }
 }

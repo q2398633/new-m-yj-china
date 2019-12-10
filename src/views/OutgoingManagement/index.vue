@@ -1,7 +1,7 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="资产信息表"
+    <van-nav-bar title="出库管理"
                  left-arrow
                  left-text="返回"
                  size="36px"
@@ -12,34 +12,27 @@
                 size="25px"
                 @click.prevent="SideMenu" />
     </van-nav-bar>
-    <!-- 搜索资产信息 -->
+    <!-- 搜索出库信息 -->
     <van-popup v-model="show"
                position="bottom"
                :style="{width: '100%'}"
                close-icon="close">
       <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索资产信息</div>
-        <van-field label="名称:"
+        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索出库信息</div>
+        <van-field label="制单人:"
                    label-width="70px"
                    autosize
                    name="G_Title_Like"
                    prop="G_Title_Like"
                    v-model="Search.G_Title_Like"
-                   placeholder="请输入名称" />
-        <van-field label="类别:"
+                   placeholder="请输入制单人名称" />
+        <van-field label="审核人:"
                    label-width="70px"
                    autosize
-                   name="G_Type_Like"
-                   prop="G_Type_Like"
-                   v-model="Search.G_Type_Like"
-                   placeholder="请输入类别" />
-        <van-field label="单位:"
-                   label-width="70px"
-                   autosize
-                   name="G_JiLiangDanWei_Like"
-                   prop="G_JiLiangDanWei_Like"
-                   v-model="Search.G_JiLiangDanWei_Like"
-                   placeholder="请输入单位" />
+                   name="G_ChanPinTypeIdName_Like"
+                   prop="G_ChanPinTypeIdName_Like"
+                   v-model="Search.G_ChanPinTypeIdName_Like"
+                   placeholder="请输入审核人名称" />
       </van-cell-group>
       <div class="submit">
         <van-button type="info"
@@ -47,10 +40,10 @@
                     @click.prevent="close">退出</van-button>
         <van-button type="primary"
                     class="AddClass"
-                    @click.prevent="SearchAssetsInformation">搜索</van-button>
+                    @click.prevent="SearchproductManagement">搜索</van-button>
       </div>
     </van-popup>
-    <!-- 资产信息列表 -->
+    <!-- 出库信息列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
                         @refresh="onRefresh">
@@ -60,56 +53,41 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
+            <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
               <div class="head">
-                <img src="../../assets/ZC.jpg"
+                <img src="../../assets/CK.jpg"
                      alt="">
-                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
+                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.DanHao }}</h1>
               </div>
               <van-cell :border="false"
-                        title="类别:"
+                        title="类型:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Type }}
+                {{ item.ChuKuType }}
               </van-cell>
               <van-cell :border="false"
-                        title="单位:"
+                        title="制单人:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.JiLiangDanWei }}
+                {{ item.CreateIdName }}
               </van-cell>
               <van-cell :border="false"
-                        title="数量:"
+                        title="制单时间:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Total }}
+                {{ item.CreateTime }}
               </van-cell>
               <van-cell :border="false"
-                        title="原币单价:"
+                        title="审核人:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi / item.Total}}
+                {{ item.ShenHeName}}
               </van-cell>
               <van-cell :border="false"
-                        title="购进原值:"
+                        title="审核时间:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi }}
+                {{ item.ShenHeTime }}
               </van-cell>
               <van-cell :border="false"
-                        title="使用年限(月):"
+                        title="总价:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.ShiYongYue }}个月
-              </van-cell>
-              <van-cell :border="false"
-                        title="残值率%:"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.CanZhiLv }}%
-              </van-cell>
-              <van-cell :border="false"
-                        title="入账日期:"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangRiQi }}
-              </van-cell>
-              <van-cell :border="false"
-                        title="预计净残值:"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangJiaZhi / 100 * item.CanZhiLv }}%
+                {{ item.ZongJia }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -124,10 +102,7 @@
             </van-swipe-cell>
           </van-cell>
         </van-list>
-        <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加资产维护项目</van-button>
-        <!-- 添加资产信息列表 -->
+        <!-- 添加出库信息表 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
           <form action="/"
@@ -254,7 +229,7 @@
             </van-cell-group>
           </form>
         </van-popup>
-        <!-- 修改资产信息列表 -->
+        <!-- 修改出库信息表 -->
         <van-popup v-model="ModifyListshow"
                    style="width: 80%;">
           <form action="/"
@@ -391,65 +366,225 @@
                       style="position:fixed; bottom: 0; width: 100%; background: white;" />
 
     </div>
+    <van-button type="info"
+                style="margin-bottom: 50px; width: 100%"
+                @click.prevent="AddList">添加新产品</van-button>
+    <!-- 添加新出库表 -->
+    <van-popup v-model="AddListshow"
+               style="width: 80%;">
+      <form action="/"
+            method="POST"
+            ref="AddListForm"
+            :model="AddListForm">
+        <van-cell-group>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">条形码:</span>
+            <van-field v-model="AddListForm.BarCode"
+                       placeholder="请输入产品条形码"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+            <van-field v-model="AddListForm.Title"
+                       placeholder="请输入名称"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">类别(ID):</span>
+            <van-field v-model="AddListForm.ChanPinTypeId"
+                       placeholder="请输入类别"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">供应商(ID):</span>
+            <van-field v-model="AddListForm.GongYingShangId"
+                       placeholder="请输入供应商"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">单价:</span>
+            <van-field v-model="AddListForm.DanJia"
+                       placeholder="请输入单价"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">仓库(ID):</span>
+            <van-field v-model="AddListForm.CangKuId"
+                       placeholder="请输入存入仓库"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位(ID):</span>
+            <van-field v-model="AddListForm.DanWeiId"
+                       placeholder="请输入您的计量单位"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
+            <van-field v-model="AddListForm.Status"
+                       placeholder="请输入状态"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">报警上限:</span>
+            <van-field v-model="AddListForm.MaxNum"
+                       placeholder="请输入报警上限"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">报警下限:</span>
+            <van-field v-model="AddListForm.MinNum"
+                       placeholder="请输入报警下限"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+            <van-field v-model="AddListForm.BeiZhu"
+                       placeholder="请输入备注"
+                       style="display:inline-block; width: 55%;" />
+          </div>
 
+          <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+            <van-button type="info"
+                        @click.prevent="ClosePop"
+                        class="ClosePop">取消</van-button>
+            <van-button type="primary"
+                        @click.prevent="AddClass"
+                        class="AddClass">添加</van-button>
+          </div>
+        </van-cell-group>
+      </form>
+    </van-popup>
+    <!-- 修改产品信息列表 -->
+    <van-popup v-model="ModifyListshow"
+               style="width: 80%;">
+      <form action="/"
+            method="POST"
+            ref="ModifyListForm"
+            :model="dqList">
+        <van-cell-group>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">条形码:</span>
+            <van-field v-model="dqList.BarCode"
+                       placeholder="请输入产品条形码"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+            <van-field v-model="dqList.Title"
+                       placeholder="请输入名称"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">类别(ID):</span>
+            <van-field v-model="dqList.ChanPinTypeId"
+                       placeholder="请输入类别"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">供应商(ID):</span>
+            <van-field v-model="dqList.GongYingShangId"
+                       placeholder="请输入供应商"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">单价:</span>
+            <van-field v-model="dqList.DanJia"
+                       placeholder="请输入单价"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">仓库(ID):</span>
+            <van-field v-model="dqList.CangKuId"
+                       placeholder="请输入存入仓库"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">单位(ID):</span>
+            <van-field v-model="dqList.DanWeiId"
+                       placeholder="请输入您的计量单位"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
+            <van-field v-model="dqList.Status"
+                       placeholder="请输入状态"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">报警上限:</span>
+            <van-field v-model="dqList.MaxNum"
+                       placeholder="请输入报警上限"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">报警下限:</span>
+            <van-field v-model="dqList.MinNum"
+                       placeholder="请输入报警下限"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+          <div>
+            <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+            <van-field v-model="dqList.BeiZhu"
+                       placeholder="请输入备注"
+                       style="display:inline-block; width: 55%;" />
+          </div>
+
+          <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+            <van-button type="info"
+                        @click.prevent="CloseModify"
+                        class="ClosePop">取消</van-button>
+            <van-button type="primary"
+                        @click.prevent="ModifyList"
+                        class="AddClass">修改</van-button>
+          </div>
+        </van-cell-group>
+      </form>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { AssetsInformation } from '@/api/AssetsInformation'
-import { DelectList14 } from '@/api/Delect'
-import { AddList15 } from '@/api/AddList'
-import { ModifyList15 } from '@/api/ModifyList'
-import { SearchAssetsInformation } from '@/api/Search'
+import { OutgoingManagement } from '@/api/OutgoingManagement'
+import { DelectList15 } from '@/api/Delect'
+import { AddList16 } from '@/api/AddList'
+import { ModifyList16 } from '@/api/ModifyList'
+import { SearchproductManagement } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
     data () {
         return {
             Search: {
                 G_Title_Like: '',
-                G_Type_Like: '',
-                G_JiLiangDanWei_Like: ''
+                G_ChanPinTypeIdName_Like: '',
+                G_GongYingShangIdName_Like: ''
             },
             AddListForm: {
+                BarCode: null,
                 Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
+                ChanPinTypeId: '',
+                GongYingShangId: '',
+                DanJia: '',
+                CangKuId: '',
+                DanWeiId: '',
+                Status: '',
+                MaxNum: '',
+                MinNum: '',
+                BeiZhu: '',
                 Id: ''
             },
             ModifyListForm: {
+                BarCode: null,
                 Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
+                ChanPinTypeId: '',
+                GongYingShangId: '',
+                DanJia: '',
+                CangKuId: '',
+                DanWeiId: '',
+                Status: '',
+                MaxNum: '',
+                MinNum: '',
+                BeiZhu: '',
                 Id: ''
             },
             show: false,
@@ -471,9 +606,8 @@ export default {
     mounted () {
     },
     created () {
-    // 页面一进入加载资产信息列表
-        this.loadAssetsInformationList()
-        this.Toast.setDefaultOptions({ duration: 2000 })
+    // 页面一进入加载出库信息表
+        this.loadOutgoingManagementList()
     },
     methods: {
         back () {
@@ -500,9 +634,9 @@ export default {
                 this.finished = true
             }, 500)
         },
-        async loadAssetsInformationList () {
+        async loadOutgoingManagementList () {
             let channels = []
-            const data = await AssetsInformation()
+            const data = await OutgoingManagement()
             this.Total = data.length
             console.log(this.Total)
             this.channels = data
@@ -510,7 +644,7 @@ export default {
             return channels
         },
         async onLoad () {
-            const data = await this.loadAssetsInformationList()
+            const data = await this.loadOutgoingManagementList()
             this.list = data
             this.isLoading = false
             this.loading = false
@@ -523,8 +657,8 @@ export default {
                 title: '确认删除吗?',
                 message: '删除当前列表数据'
             }).then(async () => {
-                const listId14 = this.currentList.Id
-                const data = await DelectList14(listId14)
+                const listId15 = this.currentList.Id
+                const data = await DelectList15(listId15)
                 console.log('确认删除了' + data)
                 window.location.reload()
                 this.$toast.success('删除成功')
@@ -537,7 +671,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList15(this.AddListForm)
+            const data = await AddList16(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -545,17 +679,18 @@ export default {
         },
         Modify (currentList) {
             this.ModifyListshow = true
+            this.finished = false
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList15(this.dqList)
+            const data = await ModifyList16(this.dqList)
             this.ModifyList2 = data
             this.ModifyListshow = false
             this.$toast.success('修改成功')
             window.location.reload()
         },
-        async SearchAssetsInformation () {
-            const data = await SearchAssetsInformation(this.Search)
+        async SearchproductManagement () {
+            const data = await SearchproductManagement(this.Search)
             const SearchResult = data
             this.list = SearchResult
             this.show = false
@@ -598,7 +733,6 @@ export default {
   .van-popup {
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 130px;
     .van-cell-group {
       width: 100%;
 

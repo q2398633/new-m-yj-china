@@ -1,18 +1,18 @@
 /**
- * 请求资产维护数据
+ * 环境调研相关请求
  */
 import request from '../utils/request'
 
 /**
  *
- * 已登录(设置请求头 token) 获取资产维护信息
- *
+ * 已登录(设置请求头 token) 入库列表
+ * 参数为当前ID
  */
 
-export const AssetMaintenance = () => {
+export const EnvironmentalInvestigation = () => {
     return request({
         method: 'POST',
-        url: '/CAW/ZiChanWeiXiuGrid',
+        url: '/ZhaoSheng/HuanJingDiaoYanGrid',
         transformRequest: [function (data) {
             let ret = ''
             for (let it in data) {

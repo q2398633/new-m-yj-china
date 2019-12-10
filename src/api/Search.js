@@ -206,3 +206,111 @@ export const SearchAttendance = ({
         }
     })
 }
+
+export const SearchAssetsInformation = ({
+    G_Title_Like,
+    G_Type_Like,
+    G_JiLiangDanWei_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZiChan/ZiChanXinXiGrid',
+        data: {
+            G_Title_Like,
+            G_Type_Like,
+            G_JiLiangDanWei_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchInventory = ({
+    G_Title_Like,
+    G_ChanPinType_Like,
+    G_GongYingShangTitle_Like,
+    G_GongYingShangName_Like,
+    G_GongYingShangDianHua_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/HouQin/KuCunGrid',
+        data: {
+            G_Title_Like,
+            G_ChanPinType_Like,
+            G_GongYingShangTitle_Like,
+            G_GongYingShangName_Like,
+            G_GongYingShangDianHua_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchproductManagement = ({
+    G_Title_Like,
+    G_ChanPinTypeIdName_Like,
+    G_GongYingShangIdName_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/HouQin/ChanPinGrid',
+        data: {
+            G_Title_Like,
+            G_ChanPinTypeIdName_Like,
+            G_GongYingShangIdName_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchEnvironmentalInvestigation = ({
+    G_Title_Like,
+    G_YuanZhangXingMing_Like,
+    G_LianXiDianHua_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuanJingDiaoYanGrid',
+        data: {
+            G_Title_Like,
+            G_YuanZhangXingMing_Like,
+            G_LianXiDianHua_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

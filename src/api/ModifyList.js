@@ -502,3 +502,147 @@ export const ModifyList13 = ({
         }
     })
 }
+
+export const ModifyList14 = ({
+    Title,
+    ZiChanXinXiId,
+    Type,
+    WeiHuType,
+    Date,
+    YinHangZhangHuIdName,
+    YinHangZhangHuId,
+    FeiYong,
+    WeiHuNeiRong,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/ZiChanWeiXiuEdit',
+        data: {
+            Title,
+            ZiChanXinXiId,
+            Type,
+            WeiHuType,
+            Date,
+            YinHangZhangHuIdName,
+            YinHangZhangHuId,
+            FeiYong,
+            WeiHuNeiRong,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList15 = ({
+    Title,
+    Type,
+    GouZhiRiQi,
+    RuZhangRiQi,
+    YuanZhi,
+    RuZhangJiaZhi,
+    JiLiangDanWei,
+    Total,
+    ShiYongYue,
+    CanZhiLv,
+    BianHao,
+    GuiGe,
+    CunFangDiDian,
+    YongTu,
+    GouZhiLeiXing,
+    GongYingShang,
+    ChanDi,
+    ShiYongDi,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZiChan/ZiChanXinXiEdit',
+        data: {
+            Title,
+            Type,
+            GouZhiRiQi,
+            RuZhangRiQi,
+            YuanZhi,
+            RuZhangJiaZhi,
+            JiLiangDanWei,
+            Total,
+            ShiYongYue,
+            CanZhiLv,
+            BianHao,
+            GuiGe,
+            CunFangDiDian,
+            YongTu,
+            GouZhiLeiXing,
+            GongYingShang,
+            ChanDi,
+            ShiYongDi,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList16 = ({
+    BarCode,
+    Title,
+    ChanPinTypeId,
+    GongYingShangId,
+    DanJia,
+    CangKuId,
+    DanWeiId,
+    Status,
+    MaxNum,
+    MinNum,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/HouQin/ChanPinEdit',
+        data: {
+            BarCode,
+            Title,
+            ChanPinTypeId,
+            GongYingShangId,
+            DanJia,
+            CangKuId,
+            DanWeiId,
+            Status,
+            MaxNum,
+            MinNum,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
