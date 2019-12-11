@@ -646,3 +646,213 @@ export const ModifyList16 = ({
         }
     })
 }
+
+export const ModifyList17 = ({
+    Title,
+    DiZhi,
+    JuLi,
+    JiaoShiRenShu,
+    YuanZhangXingMing,
+    ShiYouBi,
+    JiaoShiXueLi,
+    LianXiDianHua,
+    CanDianLeiXing1,
+    CanDianLeiXing2,
+    YuanSuoJiBie1,
+    YuanSuoJiBie2,
+    YuanSuoJiBie3,
+    YuanSuoXingZhi,
+    TuoFeiLeiXing,
+    TuoFei,
+    CanFeiLeiXing,
+    CanFei,
+    ShengYuanRongLiang,
+    XianShengYuanShuLiang,
+    BanE,
+    CaoChangMianJi,
+    ZhouBianFangJia,
+    ZhouBianZhiMingDu,
+    RenQiRenShuZhiLiang,
+    JiaoYuTeSe,
+    XiaoQuTeZheng,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuanJingDiaoYanEdit',
+        data: {
+            Title,
+            DiZhi,
+            JuLi,
+            JiaoShiRenShu,
+            YuanZhangXingMing,
+            ShiYouBi,
+            JiaoShiXueLi,
+            LianXiDianHua,
+            CanDianLeiXing1,
+            CanDianLeiXing2,
+            YuanSuoJiBie1,
+            YuanSuoJiBie2,
+            YuanSuoJiBie3,
+            YuanSuoXingZhi,
+            TuoFeiLeiXing,
+            TuoFei,
+            CanFeiLeiXing,
+            CanFei,
+            ShengYuanRongLiang,
+            XianShengYuanShuLiang,
+            BanE,
+            CaoChangMianJi,
+            ZhouBianFangJia,
+            ZhouBianZhiMingDu,
+            RenQiRenShuZhiLiang,
+            JiaoYuTeSe,
+            XiaoQuTeZheng,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList18 = ({
+    Title,
+    FuZeRen,
+    StartDate,
+    EndDate,
+    JianJie,
+    BeiJing,
+    YuJiZhaoShengShu,
+    DiZhi,
+    HuoDongMoBanId,
+    NeiRong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuoDongEdit',
+        data: {
+            Title,
+            FuZeRen,
+            StartDate,
+            EndDate,
+            JianJie,
+            BeiJing,
+            YuJiZhaoShengShu,
+            DiZhi,
+            HuoDongMoBanId,
+            NeiRong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList19 = ({
+    HuoDongIdName,
+    Status,
+    JieDaiRen,
+    LaiFangLeiXing,
+    StudentName,
+    XingBie,
+    StudentShengRi,
+    JiaZhangName,
+    JiaZhangGuanXi,
+    JiaZhangDianHua,
+    JiaZhangWeiXin,
+    JiaZhangQQ,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuoDongLaiFangEdit',
+        data: {
+            HuoDongIdName,
+            Status,
+            JieDaiRen,
+            LaiFangLeiXing,
+            StudentName,
+            XingBie,
+            StudentShengRi,
+            JiaZhangName,
+            JiaZhangGuanXi,
+            JiaZhangDianHua,
+            JiaZhangWeiXin,
+            JiaZhangQQ,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList20 = ({
+    StudentIdName,
+    StudentId,
+    BanJiName,
+    Date,
+    JianChaRen,
+    ZhengZhuang,
+    TiZheng,
+    ZhenDuan,
+    ChuLiFangShi,
+    JiBingFenLei,
+    ZhengZhuangFenLei,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ChenWuWanJianEdit',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiName,
+            Date,
+            JianChaRen,
+            ZhengZhuang,
+            TiZheng,
+            ZhenDuan,
+            ChuLiFangShi,
+            JiBingFenLei,
+            ZhengZhuangFenLei,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

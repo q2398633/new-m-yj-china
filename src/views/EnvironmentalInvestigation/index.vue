@@ -139,7 +139,7 @@
               <van-cell :border="false"
                         title="教育特色:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.ZongJia }}
+                {{ item.JiaoYuTeSe }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -163,111 +163,171 @@
                 :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所名称:</span>
                 <van-field v-model="AddListForm.Title"
-                           placeholder="请输入名称"
+                           placeholder="请输入园所名称"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">类型:</span>
-                <van-field v-model="AddListForm.Type"
-                           placeholder="请输入类型"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所地址:</span>
+                <van-field v-model="AddListForm.DiZhi"
+                           placeholder="请输入园所地址"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">购置日期:</span>
-                <van-field v-model="AddListForm.GouZhiRiQi"
-                           placeholder="请输入购置日期"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">距离(千米):</span>
+                <van-field v-model="AddListForm.JuLi"
+                           placeholder="请输入距离"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">入账日期:</span>
-                <van-field v-model="AddListForm.RuZhangRiQi"
-                           placeholder="请输入入账日期"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教师人数:</span>
+                <van-field v-model="AddListForm.JiaoShiRenShu"
+                           placeholder="请输入教师人数"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">原值:</span>
-                <van-field v-model="AddListForm.YuanZhi"
-                           placeholder="请输入原值"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园长姓名:</span>
+                <van-field v-model="AddListForm.YuanZhangXingMing"
+                           placeholder="请输入园长姓名"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">入账价值:</span>
-                <van-field v-model="AddListForm.RuZhangJiaZhi"
-                           placeholder="请输入入账价值"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">师幼比:</span>
+                <van-field v-model="AddListForm.ShiYouBi"
+                           placeholder="请输入师幼比"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
-                <van-field v-model="AddListForm.JiLiangDanWei"
-                           placeholder="请输入您的计量单位"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教师学历:</span>
+                <van-field v-model="AddListForm.JiaoShiXueLi"
+                           placeholder="请输入教师学历"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">总量:</span>
-                <van-field v-model="AddListForm.Total"
-                           placeholder="请输入总量"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系电话:</span>
+                <van-field v-model="AddListForm.LianXiDianHua"
+                           placeholder="请输入联系电话"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用月:</span>
-                <van-field v-model="AddListForm.ShiYongYue"
-                           placeholder="请输入使用月"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐点类型:</span>
+                <van-field v-model="AddListForm.CanDianLeiXing1"
+                           placeholder="请输入餐点类型: 一餐/两餐/三餐"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">残值率:</span>
-                <van-field v-model="AddListForm.CanZhiLv"
-                           placeholder="请输入残值率"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐点类型2:</span>
+                <van-field v-model="AddListForm.CanDianLeiXing2"
+                           placeholder="请输入餐点类型: 一点/两点/三点"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">编号:</span>
-                <van-field v-model="AddListForm.BianHao"
-                           placeholder="请输入编号"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类:</span>
+                <van-field v-model="AddListForm.YuanSuoJiBie1"
+                           placeholder="请输入园所级类: 省/市/县/乡镇/农村/未入级"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">规格:</span>
-                <van-field v-model="AddListForm.GuiGe"
-                           placeholder="请输入规格"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类2:</span>
+                <van-field v-model="AddListForm.YuanSuoJiBie2"
+                           placeholder="请输入园所级类: 一级/二级/三级"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">存放地点:</span>
-                <van-field v-model="AddListForm.CunFangDiDian"
-                           placeholder="请输入存放地点"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类3:</span>
+                <van-field v-model="AddListForm.YuanSuoJiBie3"
+                           placeholder="请输入园所级类: 示范园/一级园/二级园/三级园"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">用途:</span>
-                <van-field v-model="AddListForm.YongTu"
-                           placeholder="请输入用途"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所性质:</span>
+                <van-field v-model="AddListForm.YuanSuoXingZhi"
+                           placeholder="请输入园所级类: 公办园/普惠园/民办非盈利/民办盈利"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">购置类型:</span>
-                <van-field v-model="AddListForm.GouZhiLeiXing"
-                           placeholder="请输入购置类型"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">托费类型:</span>
+                <van-field v-model="AddListForm.TuoFeiLeiXing"
+                           placeholder="请输入托费类型: 年/月/季度/学期"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">供应商:</span>
-                <van-field v-model="AddListForm.GongYingShang"
-                           placeholder="请输入供应商"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">托费价格:</span>
+                <van-field v-model="AddListForm.TuoFei"
+                           placeholder="请输入托费价格"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">产地:</span>
-                <van-field v-model="AddListForm.ChanDi"
-                           placeholder="请输入产地"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐费类型:</span>
+                <van-field v-model="AddListForm.CanFeiLeiXing"
+                           placeholder="请输入餐费类型: 年/月/季度/学期"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用地:</span>
-                <van-field v-model="AddListForm.ShiYongDi"
-                           placeholder="请输入使用地"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐费价格:</span>
+                <van-field v-model="AddListForm.CanFei"
+                           placeholder="请输入餐费价格"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">生源容量:</span>
+                <van-field v-model="AddListForm.ShengYuanRongLiang"
+                           placeholder="请输入生源容量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">现生源数量:</span>
+                <van-field v-model="AddListForm.XianShengYuanShuLiang"
+                           placeholder="请输入现生源容量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班额:</span>
+                <van-field v-model="AddListForm.BanE"
+                           placeholder="请输入班额"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">户外活动面积(平方):</span>
+                <van-field v-model="AddListForm.CaoChangMianJi"
+                           placeholder="请输入室外活动面积"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">周边房价(元/平方米):</span>
+                <van-field v-model="AddListForm.ZhouBianFangJia"
+                           placeholder="请输入周边房价"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">周边知名度:</span>
+                <van-field v-model="AddListForm.ZhouBianZhiMingDu"
+                           placeholder="请输入周边知名度"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">人气人数质量:</span>
+                <van-field v-model="AddListForm.RenQiRenShuZhiLiang"
+                           placeholder="请输入人气人数质量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教育特色:</span>
+                <van-field v-model="AddListForm.JiaoYuTeSe"
+                           placeholder="请输入教育特色"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">小区特征:</span>
+                <van-field v-model="AddListForm.XiaoQuTeZheng"
+                           placeholder="请输入小区特征"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                <van-field v-model="AddListForm.BeiZhu"
+                           placeholder="请输入备注"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -290,111 +350,171 @@
                 :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所名称:</span>
                 <van-field v-model="dqList.Title"
-                           placeholder="请输入名称"
+                           placeholder="请输入园所名称"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">类型:</span>
-                <van-field v-model="dqList.Type"
-                           placeholder="请输入类型"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所地址:</span>
+                <van-field v-model="dqList.DiZhi"
+                           placeholder="请输入园所地址"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">购置日期:</span>
-                <van-field v-model="dqList.GouZhiRiQi"
-                           placeholder="请输入购置日期"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">距离(千米):</span>
+                <van-field v-model="dqList.JuLi"
+                           placeholder="请输入距离"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">入账日期:</span>
-                <van-field v-model="dqList.RuZhangRiQi"
-                           placeholder="请输入入账日期"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教师人数:</span>
+                <van-field v-model="dqList.JiaoShiRenShu"
+                           placeholder="请输入教师人数"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">原值:</span>
-                <van-field v-model="dqList.YuanZhi"
-                           placeholder="请输入原值"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园长姓名:</span>
+                <van-field v-model="dqList.YuanZhangXingMing"
+                           placeholder="请输入园长姓名"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">入账价值:</span>
-                <van-field v-model="dqList.RuZhangJiaZhi"
-                           placeholder="请输入入账价值"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">师幼比:</span>
+                <van-field v-model="dqList.ShiYouBi"
+                           placeholder="请输入师幼比"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">计量单位:</span>
-                <van-field v-model="dqList.JiLiangDanWei"
-                           placeholder="请输入您的计量单位"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教师学历:</span>
+                <van-field v-model="dqList.JiaoShiXueLi"
+                           placeholder="请输入教师学历"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">总量:</span>
-                <van-field v-model="dqList.Total"
-                           placeholder="请输入总量"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系电话:</span>
+                <van-field v-model="dqList.LianXiDianHua"
+                           placeholder="请输入联系电话"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用月:</span>
-                <van-field v-model="dqList.ShiYongYue"
-                           placeholder="请输入使用月"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐点类型:</span>
+                <van-field v-model="dqList.CanDianLeiXing1"
+                           placeholder="请输入餐点类型: 一餐/两餐/三餐"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">残值率:</span>
-                <van-field v-model="dqList.CanZhiLv"
-                           placeholder="请输入残值率"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐点类型2:</span>
+                <van-field v-model="dqList.CanDianLeiXing2"
+                           placeholder="请输入餐点类型: 一点/两点/三点"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">编号:</span>
-                <van-field v-model="dqList.BianHao"
-                           placeholder="请输入编号"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类:</span>
+                <van-field v-model="dqList.YuanSuoJiBie1"
+                           placeholder="请输入园所级类: 省/市/县/乡镇/农村/未入级"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">规格:</span>
-                <van-field v-model="dqList.GuiGe"
-                           placeholder="请输入规格"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类2:</span>
+                <van-field v-model="dqList.YuanSuoJiBie2"
+                           placeholder="请输入园所级类: 一级/二级/三级"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">存放地点:</span>
-                <van-field v-model="dqList.CunFangDiDian"
-                           placeholder="请输入存放地点"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所级类3:</span>
+                <van-field v-model="dqList.YuanSuoJiBie3"
+                           placeholder="请输入园所级类: 示范园/一级园/二级园/三级园"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">用途:</span>
-                <van-field v-model="dqList.YongTu"
-                           placeholder="请输入用途"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">园所性质:</span>
+                <van-field v-model="dqList.YuanSuoXingZhi"
+                           placeholder="请输入园所级类: 公办园/普惠园/民办非盈利/民办盈利"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">购置类型:</span>
-                <van-field v-model="dqList.GouZhiLeiXing"
-                           placeholder="请输入购置类型"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">托费类型:</span>
+                <van-field v-model="dqList.TuoFeiLeiXing"
+                           placeholder="请输入托费类型: 年/月/季度/学期"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">供应商:</span>
-                <van-field v-model="dqList.GongYingShang"
-                           placeholder="请输入供应商"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">托费价格:</span>
+                <van-field v-model="dqList.TuoFei"
+                           placeholder="请输入托费价格"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">产地:</span>
-                <van-field v-model="dqList.ChanDi"
-                           placeholder="请输入产地"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐费类型:</span>
+                <van-field v-model="dqList.CanFeiLeiXing"
+                           placeholder="请输入餐费类型: 年/月/季度/学期"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用地:</span>
-                <van-field v-model="dqList.ShiYongDi"
-                           placeholder="请输入使用地"
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">餐费价格:</span>
+                <van-field v-model="dqList.CanFei"
+                           placeholder="请输入餐费价格"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">生源容量:</span>
+                <van-field v-model="dqList.ShengYuanRongLiang"
+                           placeholder="请输入生源容量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">现生源数量:</span>
+                <van-field v-model="dqList.XianShengYuanShuLiang"
+                           placeholder="请输入现生源容量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班额:</span>
+                <van-field v-model="dqList.BanE"
+                           placeholder="请输入班额"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">户外活动面积(平方):</span>
+                <van-field v-model="dqList.CaoChangMianJi"
+                           placeholder="请输入室外活动面积"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">周边房价(元/平方米):</span>
+                <van-field v-model="dqList.ZhouBianFangJia"
+                           placeholder="请输入周边房价"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">周边知名度:</span>
+                <van-field v-model="dqList.ZhouBianZhiMingDu"
+                           placeholder="请输入周边知名度"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">人气人数质量:</span>
+                <van-field v-model="dqList.RenQiRenShuZhiLiang"
+                           placeholder="请输入人气人数质量"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">教育特色:</span>
+                <van-field v-model="dqList.JiaoYuTeSe"
+                           placeholder="请输入教育特色"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">小区特征:</span>
+                <van-field v-model="dqList.XiaoQuTeZheng"
+                           placeholder="请输入小区特征"
+                           style="display:inline-block; width: 55%;" />
+              </div>
+              <div>
+                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                <van-field v-model="dqList.BeiZhu"
+                           placeholder="请输入备注"
                            style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -427,8 +547,8 @@
 <script>
 import { EnvironmentalInvestigation } from '@/api/EnvironmentalInvestigation'
 import { DelectList16 } from '@/api/Delect'
-import { AddList16 } from '@/api/AddList'
-import { ModifyList16 } from '@/api/ModifyList'
+import { AddList17 } from '@/api/AddList'
+import { ModifyList17 } from '@/api/ModifyList'
 import { SearchEnvironmentalInvestigation } from '@/api/Search'
 export default {
     name: 'StaffAdmin',
@@ -440,30 +560,64 @@ export default {
                 G_LianXiDianHua_Like: ''
             },
             AddListForm: {
-                BarCode: null,
                 Title: '',
-                ChanPinTypeId: '',
-                GongYingShangId: '',
-                DanJia: '',
-                CangKuId: '',
-                DanWeiId: '',
-                Status: '',
-                MaxNum: '',
-                MinNum: '',
+                DiZhi: '',
+                JuLi: '',
+                JiaoShiRenShu: '',
+                YuanZhangXingMing: '',
+                ShiYouBi: '',
+                JiaoShiXueLi: '',
+                LianXiDianHua: '',
+                CanDianLeiXing1: '',
+                CanDianLeiXing2: '',
+                YuanSuoJiBie1: '',
+                YuanSuoJiBie2: '',
+                YuanSuoJiBie3: '',
+                YuanSuoXingZhi: '',
+                TuoFeiLeiXing: '',
+                TuoFei: '',
+                CanFeiLeiXing: '',
+                CanFei: '',
+                ShengYuanRongLiang: '',
+                XianShengYuanShuLiang: '',
+                BanE: '',
+                CaoChangMianJi: '',
+                ZhouBianFangJia: '',
+                ZhouBianZhiMingDu: '',
+                RenQiRenShuZhiLiang: '',
+                JiaoYuTeSe: '',
+                XiaoQuTeZheng: '',
                 BeiZhu: '',
                 Id: ''
             },
             ModifyListForm: {
-                BarCode: null,
                 Title: '',
-                ChanPinTypeId: '',
-                GongYingShangId: '',
-                DanJia: '',
-                CangKuId: '',
-                DanWeiId: '',
-                Status: '',
-                MaxNum: '',
-                MinNum: '',
+                DiZhi: '',
+                JuLi: '',
+                JiaoShiRenShu: '',
+                YuanZhangXingMing: '',
+                ShiYouBi: '',
+                JiaoShiXueLi: '',
+                LianXiDianHua: '',
+                CanDianLeiXing1: '',
+                CanDianLeiXing2: '',
+                YuanSuoJiBie1: '',
+                YuanSuoJiBie2: '',
+                YuanSuoJiBie3: '',
+                YuanSuoXingZhi: '',
+                TuoFeiLeiXing: '',
+                TuoFei: '',
+                CanFeiLeiXing: '',
+                CanFei: '',
+                ShengYuanRongLiang: '',
+                XianShengYuanShuLiang: '',
+                BanE: '',
+                CaoChangMianJi: '',
+                ZhouBianFangJia: '',
+                ZhouBianZhiMingDu: '',
+                RenQiRenShuZhiLiang: '',
+                JiaoYuTeSe: '',
+                XiaoQuTeZheng: '',
                 BeiZhu: '',
                 Id: ''
             },
@@ -551,7 +705,7 @@ export default {
             this.AddListshow = true
         },
         async AddClass () {
-            const data = await AddList16(this.AddListForm)
+            const data = await AddList17(this.AddListForm)
             console.log(data)
             this.AddListshow = false
             window.location.reload()
@@ -563,7 +717,7 @@ export default {
             this.dqList = currentList
         },
         async ModifyList () {
-            const data = await ModifyList16(this.dqList)
+            const data = await ModifyList17(this.dqList)
             this.ModifyList2 = data
             this.ModifyListshow = false
             this.$toast.success('修改成功')

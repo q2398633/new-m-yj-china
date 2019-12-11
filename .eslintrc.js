@@ -9,7 +9,7 @@ module.exports = {
     ],
     rules: {
         // 缩进
-        "indent": [2, 4],
+        "indent": ["off", 2],
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         "space-before-function-paren": 0,

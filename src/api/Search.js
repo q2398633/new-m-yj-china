@@ -314,3 +314,77 @@ export const SearchEnvironmentalInvestigation = ({
         }
     })
 }
+
+export const SearchPlanningScheme = ({
+    G_Title_Like,
+    G_FuZeRen_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuoDongGrid',
+        data: {
+            G_Title_Like,
+            G_FuZeRen_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchIncomingCalls = ({
+    G_HuoDongIdName_Like,
+    G_JieDaiRen_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ZhaoSheng/HuoDongLaiFangGrid',
+        data: {
+            G_HuoDongIdName_Like,
+            G_JieDaiRen_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchMNECheck = ({
+    G_BanJiName_Like,
+    G_StudentIdName_Like,
+    G_JianChaRen_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ChenWuWanJianGrid',
+        data: {
+            G_BanJiName_Like,
+            G_StudentIdName_Like,
+            G_JianChaRen_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

@@ -313,10 +313,70 @@ export const DelectList15 = (listId15) => {
 
 export const DelectList16 = (listId16) => {
     return request({
-        method: 'POST',
+        method: 'DELETE',
         url: '/ZhaoSheng/HuanJingDiaoYanDel',
         data: {
             Id: listId16
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList17 = (listId17) => {
+    return request({
+        method: 'DELETE',
+        url: '/ZhaoSheng/HuoDongDel',
+        data: {
+            Id: listId17
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList18 = (listId18) => {
+    return request({
+        method: 'DELETE',
+        url: '/ZhaoSheng/HuoDongLaiFangDel',
+        data: {
+            Id: listId18
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList19 = (listId19) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ChenWuWanJianDel',
+        data: {
+            Id: listId19
         },
         transformRequest: [function (data) {
             let ret = ''

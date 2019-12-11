@@ -30,6 +30,10 @@ import productManagement from '@/views/productManagement'
 import OutgoingManagement from '@/views/OutgoingManagement'
 import WarehousingManagement from '@/views/WarehousingManagement'
 import EnvironmentalInvestigation from '@/views/EnvironmentalInvestigation'
+import PlanningScheme from '@/views/PlanningScheme'
+import IncomingCalls from '@/views/IncomingCalls'
+import DailyWorksheet from '@/views/DailyWorksheet'
+import MNECheck from '@/views/MNECheck'
 
 Vue.use(VueRouter)
 
@@ -65,8 +69,11 @@ const router = new VueRouter({
         { name: 'productManagement', path: '/productManagement', component: productManagement },
         { name: 'OutgoingManagement', path: '/OutgoingManagement', component: OutgoingManagement },
         { name: 'WarehousingManagement', path: '/WarehousingManagement', component: WarehousingManagement },
-        { name: 'EnvironmentalInvestigation', path: '/EnvironmentalInvestigation', component: EnvironmentalInvestigation }
-
+        { name: 'EnvironmentalInvestigation', path: '/EnvironmentalInvestigation', component: EnvironmentalInvestigation },
+        { name: 'PlanningScheme', path: '/PlanningScheme', component: PlanningScheme },
+        { name: 'IncomingCalls', path: '/IncomingCalls', component: IncomingCalls },
+        { name: 'DailyWorksheet', path: '/DailyWorksheet', component: DailyWorksheet },
+        { name: 'MNECheck', path: '/MNECheck', component: MNECheck }
 
     ]
 })

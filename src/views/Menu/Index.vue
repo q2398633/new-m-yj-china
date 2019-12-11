@@ -12,7 +12,7 @@
       </van-nav-bar>
       <!-- Tab切换 -->
       <van-tabs v-model="active"
-                background="#67d4e8"
+                background="#3481f3"
                 title-active-color="gold"
                 title-inactive-color="white"
                 color="white">
@@ -172,7 +172,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9" />
+                          color="#9569f9"
+                          @click.prevent="DailyWorksheet" />
               <div class="shoping">日常工作表</div>
             </van-col>
           </van-row>
@@ -384,14 +385,16 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="peimary"
-                          color="greenyellow">
+                          color="greenyellow"
+                          @click.prevent="PlanningScheme">
               </van-button>
               <div class="shoping">策划方案</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="peimary"
-                          color="greenyellow">
+                          color="greenyellow"
+                          @click.prevent="IncomingCalls">
               </van-button>
               <div class="shoping">来电来访</div>
             </van-col>
@@ -585,6 +588,15 @@ export default {
         },
         EnvironmentalInvestigation () {
             this.$router.push('/EnvironmentalInvestigation')
+        },
+        PlanningScheme () {
+            this.$router.push('/PlanningScheme')
+        },
+        IncomingCalls () {
+            this.$router.push('/IncomingCalls')
+        },
+        DailyWorksheet () {
+            this.$router.push('/DailyWorksheet')
         }
     }
 }
@@ -594,7 +606,7 @@ export default {
   width: 100%;
 
   .van-nav-bar {
-    background: #009aff;
+    background: rgb(51, 148, 231);
 
     .van-nav-bar__text {
       color: white;
