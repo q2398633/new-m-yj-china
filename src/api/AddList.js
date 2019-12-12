@@ -852,3 +852,305 @@ export const AddList20 = ({
         }
     })
 }
+
+export const AddList21 = ({
+    BanJiId,
+    Date,
+    ShangWuLaoShi,
+    YingDaoRenShu,
+    ShiDaoRenShu,
+    XiaWuBanLaoShi,
+    JieBanRenShu,
+    ChuYuanRenShu,
+    ShangWuShiXiang,
+    XiaWuShiXiang,
+    YeBanQingKuang,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/JiaoJieBanAdd',
+        data: {
+            BanJiId,
+            Date,
+            ShangWuLaoShi,
+            YingDaoRenShu,
+            ShiDaoRenShu,
+            XiaWuBanLaoShi,
+            JieBanRenShu,
+            ChuYuanRenShu,
+            ShangWuShiXiang,
+            XiaWuShiXiang,
+            YeBanQingKuang,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList22 = ({
+    Date,
+    Title,
+    HuoDongFangShi,
+    DuiXiang,
+    NeiRong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/JianKangDengJiAdd',
+        data: {
+            Date,
+            Title,
+            HuoDongFangShi,
+            DuiXiang,
+            NeiRong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList23 = ({
+    Date,
+    Title,
+    ZhiXingRen,
+    DuiXiang,
+    FangKong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/JiBingDengJiAdd',
+        data: {
+            Date,
+            Title,
+            ZhiXingRen,
+            DuiXiang,
+            FangKong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList24 = ({
+    RiQi,
+    Title,
+    ZhuChiRen,
+    HuiYiRenYuan,
+    JueYi,
+    NeiRong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ShanShiHuiYiAdd',
+        data: {
+            RiQi,
+            Title,
+            ZhuChiRen,
+            HuiYiRenYuan,
+            JueYi,
+            NeiRong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList25 = ({
+    StudentIdName,
+    StudentId,
+    BanJiIdName,
+    XingBie,
+    Date,
+    FaBingMingCheng,
+    QuYuDate,
+    JiLuRen,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ChuanRanBingDengJiAdd',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiIdName,
+            XingBie,
+            Date,
+            FaBingMingCheng,
+            QuYuDate,
+            JiLuRen,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList26 = ({
+    StudentIdName,
+    StudentId,
+    BanJiName,
+    XingBie,
+    NianLing,
+    JianChaRiQi,
+    JieAnRiQi,
+    FenLeiMingCheng,
+    IsZhuanAn,
+    ShouCiJieGuo,
+    FuCha,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/TiRuoDengJiAdd',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiName,
+            XingBie,
+            NianLing,
+            JianChaRiQi,
+            JieAnRiQi,
+            FenLeiMingCheng,
+            IsZhuanAn,
+            ShouCiJieGuo,
+            FuCha,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList27 = ({
+    StudentIdName,
+    StudentId,
+    BanJiIdName,
+    XingBie,
+    NianLing,
+    Date,
+    ShangHaiXingZhi,
+    ShangHaiDiDian,
+    ShangHaiBuWei,
+    ShangHaiQingKuang,
+    ShangHaiLeiXing,
+    DaiBanLaoShi,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ShangHaiDengJiAdd',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiIdName,
+            XingBie,
+            NianLing,
+            Date,
+            ShangHaiXingZhi,
+            ShangHaiDiDian,
+            ShangHaiBuWei,
+            ShangHaiQingKuang,
+            ShangHaiLeiXing,
+            DaiBanLaoShi,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList28 = ({
+    Title,
+    ShiYongDate,
+    BanFangDiDian,
+    JianChaBuWei,
+    IsShiYong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/DaXingWanJuAdd',
+        data: {
+            Title,
+            ShiYongDate,
+            BanFangDiDian,
+            JianChaBuWei,
+            IsShiYong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

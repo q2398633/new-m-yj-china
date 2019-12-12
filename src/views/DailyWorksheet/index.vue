@@ -25,42 +25,49 @@
             <van-col span="2"></van-col>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to right, #79F1A4, #0E5CAD)">交接班登记</van-button>
+                          color="linear-gradient(to right, #79F1A4, #0E5CAD)"
+                          @click.prevent="ShiftHandoverRegistration">交接班登记</van-button>
             </van-col>
           </van-row>
 
           <van-row>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to left, #97ABFF, #123597)">健康教育登记</van-button>
+                          color="linear-gradient(to left, #97ABFF, #123597)"
+                          @click.prevent="HealthEducationRegistration">健康教育登记</van-button>
             </van-col>
             <van-col span="2"></van-col>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to right, #97ABFF,#123597)">疾病防控登记</van-button>
+                          color="linear-gradient(to right, #97ABFF,#123597)"
+                          @click.prevent="DPACRegistration">疾病防控登记</van-button>
             </van-col>
           </van-row>
 
           <van-row>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to left, #3B2667, #BC78EC)">膳食管理会议记录</van-button>
+                          color="linear-gradient(to left, #3B2667, #BC78EC)"
+                          @click.prevent="MinutesOFMealManagementMeeting">膳食管理会议记录</van-button>
             </van-col>
             <van-col span="2"></van-col>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to right, #3B2667,#BC78EC)">传染病登记信息</van-button>
+                          color="linear-gradient(to right, #3B2667,#BC78EC)"
+                          @click.prevent="InfectiousDiseaseRegistrationInformation">传染病登记信息</van-button>
             </van-col>
           </van-row>
           <van-row>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to left, #FAB2FF, #1904E5)">体弱/肥胖儿童登记</van-button>
+                          color="linear-gradient(to left, #FAB2FF, #1904E5)"
+                          @click.prevent="InfirmityRegistration">体弱/肥胖儿童登记</van-button>
             </van-col>
             <van-col span="2"></van-col>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to right, #FAB2FF, #1904E5)">儿童伤害与事故登记</van-button>
+                          color="linear-gradient(to right, #FAB2FF, #1904E5)"
+                          @click.prevent="ChildInjuriesAndAccidents">儿童伤害与事故登记</van-button>
             </van-col>
           </van-row>
           <van-row>
@@ -71,13 +78,15 @@
             <van-col span="2"></van-col>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to right, #81FFEF, #F067B4)">视力矫正登记</van-button>
+                          color="linear-gradient(to right, #81FFEF, #F067B4)"
+                          @click.prevent="VisionCorrectionRegistration">视力矫正登记</van-button>
             </van-col>
           </van-row>
           <van-row>
             <van-col span="11">
               <van-button size="large"
-                          color="linear-gradient(to left, #C2FFD8, #465EFB)">大型玩具</van-button>
+                          color="linear-gradient(to left, #C2FFD8, #465EFB)"
+                          @click.prevent="LargeToys">大型玩具</van-button>
             </van-col>
             <van-col span="2"></van-col>
             <van-col span="11"
@@ -110,6 +119,33 @@ export default {
     },
     MNECheck () {
       this.$router.push('/MNECheck')
+    },
+    ShiftHandoverRegistration () {
+      this.$router.push('/ShiftHandoverRegistration')
+    },
+    HealthEducationRegistration () {
+      this.$router.push('/HealthEducationRegistration')
+    },
+    DPACRegistration () {
+      this.$router.push('/DPACRegistration')
+    },
+    MinutesOFMealManagementMeeting () {
+      this.$router.push('/MinutesOFMealManagementMeeting')
+    },
+    InfectiousDiseaseRegistrationInformation () {
+      this.$router.push('/InfectiousDiseaseRegistrationInformation')
+    },
+    InfirmityRegistration () {
+      this.$router.push('/InfirmityRegistration')
+    },
+    ChildInjuriesAndAccidents () {
+      this.$router.push('/ChildInjuriesAndAccidents')
+    },
+    LargeToys () {
+      this.$router.push('/LargeToys')
+    },
+    VisionCorrectionRegistration () {
+      this.$router.push('/VisionCorrectionRegistration')
     }
   }
 }

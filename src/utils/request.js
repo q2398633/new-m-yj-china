@@ -32,7 +32,6 @@ request.interceptors.request.use(function (config) {
 
 // 响应拦截器
 request.interceptors.response.use(function (response) {
-    console.log(response)
     return response.data.data || response.data
 }, function (error) {
     return Promise.reject(error)

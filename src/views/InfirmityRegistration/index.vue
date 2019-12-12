@@ -2,7 +2,7 @@
   <div>
     <div class="parentAdmin">
       <!-- 顶部导航 -->
-      <van-nav-bar title="晨午晚检"
+      <van-nav-bar title="体弱/肥胖儿童信息登记"
                    left-text="返回"
                    left-arrow
                    @click-left.prevent="back"
@@ -14,13 +14,13 @@
                   size="25px"
                   @click.prevent="SideMenu" />
       </van-nav-bar>
-      <!-- 搜索晨午晚检 -->
+      <!-- 搜索传体弱/肥胖儿童信息登记信息 -->
       <van-popup v-model="show"
                  position="bottom"
                  :style="{width: '100%'}"
                  close-icon="close">
         <van-cell-group>
-          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索晨午晚检</div>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">传体弱/肥胖儿童信息登记信息</div>
           <van-field label="班级:"
                      label-width="70px"
                      autosize
@@ -35,13 +35,6 @@
                      prop="G_StudentIdName_Like"
                      v-model="Search.G_StudentIdName_Like"
                      placeholder="请输入姓名" />
-          <van-field label="检查人:"
-                     label-width="80px"
-                     autosize
-                     name="G_JianChaRen_Like"
-                     prop="G_JianChaRen_Like"
-                     v-model="Search.G_JianChaRen_Like"
-                     placeholder="请输入检查人" />
         </van-cell-group>
         <div class="submit">
           <van-button type="info"
@@ -49,9 +42,10 @@
                       @click.prevent="close">退出</van-button>
           <van-button type="primary"
                       class="AddClass"
-                      @click.prevent="SearchMNECheck">搜索</van-button>
+                      @click.prevent="SearchloadInfirmityRegistration">搜索</van-button>
         </div>
       </van-popup>
+      <!-- 体弱/肥胖儿童信息登记信息表 -->
       <div class="Parent-List">
         <van-pull-refresh v-model="isLoading"
                           @refresh="onRefresh">
@@ -63,9 +57,9 @@
                       :key="item.Id">
               <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
                 <div class="head">
-                  <img src="../../assets/JC.jpg"
+                  <img src="../../assets/FPET.jpg"
                        alt="">
-                  <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.StudentIdName }}</h1>
+                  <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.StudentIdName }}</h1>
                 </div>
                 <van-cell :border="false"
                           title="班级:"
@@ -73,44 +67,44 @@
                   {{ item.BanJiName }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="症状:"
+                          title="性别:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ZhengZhuang }}
+                  {{ item.XingBie }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="体征:"
+                          title="年龄:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.TiZheng }}
+                  {{ item.NianLing }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="诊断:"
+                          title="分类:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ZhenDuan }}
+                  {{ item.FenLeiMingCheng }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="处理方式:"
+                          title="首次检查日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ChuLiFangShi}}
+                  {{ item.JianChaRiQi }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="疾病分类:"
+                          title="首次检查结果:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.JiBingFenLei }}
+                  {{ item.ShouCiJieGuo }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="症状分类:"
+                          title="采取措施与复查:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ZhengZhuangFenLei }}
+                  {{ item.FuCha }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="检查人:"
+                          title="转归与结案日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.JianChaRen }}
+                  {{ item.JieAnRiQi }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="日期:"
+                          title="建立专案:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.Date }}
+                  {{ item.IsZhuanAn }}
                 </van-cell>
                 <template slot="right">
                   <van-button square
@@ -125,7 +119,7 @@
               </van-swipe-cell>
             </van-cell>
           </van-list>
-          <!-- 添加晨午晚检信息表 -->
+          <!-- 添加传体弱/肥胖儿童信息登记信息 -->
           <van-popup v-model="AddListshow"
                      style="width: 80%;">
             <form action="/"
@@ -134,70 +128,70 @@
                   :model="AddListForm">
               <van-cell-group>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
-                  <van-field v-model="AddListForm.BanJiName"
-                             placeholder="请输入班级"
-                             style="display:inline-block; width: 55%;" />
-                </div>
-                <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生姓名:</span>
                   <van-field v-model="AddListForm.StudentIdName"
                              placeholder="请输入姓名"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名(ID):</span>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生姓名(ID):</span>
                   <van-field v-model="AddListForm.StudentId"
                              placeholder="请输入姓名ID"
+                             style="display:inline-block; width: 45%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
+                  <van-field v-model="AddListForm.BanJiName"
+                             placeholder="请输入所在班级"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
-                  <van-field v-model="AddListForm.Date"
-                             placeholder="请输入日期"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
+                  <van-field v-model="AddListForm.XingBie"
+                             placeholder="请输入性别"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查人:</span>
-                  <van-field v-model="AddListForm.JianChaRen"
-                             placeholder="请输入检查人"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年龄:</span>
+                  <van-field v-model="AddListForm.NianLing"
+                             placeholder="请输入年龄"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">症状:</span>
-                  <van-field v-model="AddListForm.ZhengZhuang"
-                             placeholder="请输入症状"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
+                  <van-field v-model="AddListForm.JianChaRiQi"
+                             placeholder="请输入检查日期"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">体征:</span>
-                  <van-field v-model="AddListForm.TiZheng"
-                             placeholder="请输入体征"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">结案日期:</span>
+                  <van-field v-model="AddListForm.JieAnRiQi"
+                             placeholder="请输入结案日期"
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">诊断:</span>
-                  <van-field v-model="AddListForm.ZhenDuan"
-                             placeholder="请输入诊断"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">分类:</span>
+                  <van-field v-model="AddListForm.FenLeiMingCheng"
+                             placeholder="请输入分类"
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理方式:</span>
-                  <van-field v-model="AddListForm.ChuLiFangShi"
-                             placeholder="请输入处理方式"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否建立专案:</span>
+                  <van-field v-model="AddListForm.IsZhuanAn"
+                             placeholder="请输入是否建立专案 "
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">疾病分类:</span>
-                  <van-field v-model="AddListForm.JiBingFenLei"
-                             placeholder="请输入疾病分类"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">首次检查结果:</span>
+                  <van-field v-model="AddListForm.ShouCiJieGuo"
+                             placeholder="请输入首次检查结果 "
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">症状分类:</span>
-                  <van-field v-model="AddListForm.ZhengZhuangFenLei"
-                             placeholder="请输入症状分类"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">措施与复查:</span>
+                  <van-field v-model="AddListForm.FuCha"
+                             placeholder="请输入措施与复查 "
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                   <van-button type="info"
@@ -210,7 +204,7 @@
               </van-cell-group>
             </form>
           </van-popup>
-          <!-- 修改晨午晚检信息表 -->
+          <!-- 修改传体弱/肥胖儿童信息登记信息-->
           <van-popup v-model="ModifyListshow"
                      style="width: 80%;">
             <form action="/"
@@ -219,70 +213,70 @@
                   :model="dqList">
               <van-cell-group>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
-                  <van-field v-model="dqList.BanJiName"
-                             placeholder="请输入班级"
-                             style="display:inline-block; width: 55%;" />
-                </div>
-                <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名(ID):</span>
-                  <van-field v-model="dqList.StudentId"
-                             placeholder="请输入姓名ID"
-                             style="display:inline-block; width: 55%;" />
-                </div>
-                <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生姓名:</span>
                   <van-field v-model="dqList.StudentIdName"
                              placeholder="请输入姓名"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
-                  <van-field v-model="dqList.Date"
-                             placeholder="请输入日期"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">学生姓名(ID):</span>
+                  <van-field v-model="dqList.StudentId"
+                             placeholder="请输入姓名ID"
+                             style="display:inline-block; width: 45%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
+                  <van-field v-model="dqList.BanJiName"
+                             placeholder="请输入所在班级"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查人:</span>
-                  <van-field v-model="dqList.JianChaRen"
-                             placeholder="请输入检查人"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
+                  <van-field v-model="dqList.XingBie"
+                             placeholder="请输入性别"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">症状:</span>
-                  <van-field v-model="dqList.ZhengZhuang"
-                             placeholder="请输入症状"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年龄:</span>
+                  <van-field v-model="dqList.NianLing"
+                             placeholder="请输入年龄"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">体征:</span>
-                  <van-field v-model="dqList.TiZheng"
-                             placeholder="请输入体征"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
+                  <van-field v-model="dqList.JianChaRiQi"
+                             placeholder="请输入检查日期"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">诊断:</span>
-                  <van-field v-model="dqList.ZhenDuan"
-                             placeholder="请输入诊断"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">结案日期:</span>
+                  <van-field v-model="dqList.JieAnRiQi"
+                             placeholder="请输入结案日期"
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理方式:</span>
-                  <van-field v-model="dqList.ChuLiFangShi"
-                             placeholder="请输入处理方式"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">分类:</span>
+                  <van-field v-model="dqList.FenLeiMingCheng"
+                             placeholder="请输入分类"
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">疾病分类:</span>
-                  <van-field v-model="dqList.JiBingFenLei"
-                             placeholder="请输入疾病分类"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否建立专案:</span>
+                  <van-field v-model="dqList.IsZhuanAn"
+                             placeholder="请输入是否建立专案 "
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">症状分类:</span>
-                  <van-field v-model="dqList.ZhengZhuangFenLei"
-                             placeholder="请输入症状分类"
-                             style="display:inline-block; width: 55%;" />
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">首次检查结果:</span>
+                  <van-field v-model="dqList.ShouCiJieGuo"
+                             placeholder="请输入首次检查结果 "
+                             style="display:inline-block; width: 45%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">措施与复查:</span>
+                  <van-field v-model="dqList.FuCha"
+                             placeholder="请输入措施与复查 "
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                   <van-button type="info"
@@ -307,52 +301,51 @@
       </div>
       <van-button type="info"
                   style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
-                  @click.prevent="AddList">添加晨午晚检</van-button>
+                  @click.prevent="AddList">添加体弱/肥胖儿童信息登记信息</van-button>
 
     </div>
   </div>
 </template>
 <script>
-import { MNECheck } from '@/api/MNECheck'
-import { DelectList19 } from '@/api/Delect'
-import { AddList20 } from '@/api/AddList'
-import { ModifyList20 } from '@/api/ModifyList'
-import { SearchMNECheck } from '@/api/Search'
+import { InfirmityRegistration } from '@/api/InfirmityRegistration'
+import { DelectList25 } from '@/api/Delect'
+import { AddList26 } from '@/api/AddList'
+import { ModifyList26 } from '@/api/ModifyList'
+import { SearchloadInfirmityRegistration } from '@/api/Search'
 export default {
   data () {
     return {
       active: 0,
       Search: {
         G_BanJiName_Like: '',
-        G_StudentIdName_Like: '',
-        G_JianChaRen_Like: ''
+        G_StudentIdName_Like: ''
       },
       AddListForm: {
         StudentIdName: '',
         StudentId: '',
-        BanJiName: '',
-        Date: '',
-        JianChaRen: '',
-        ZhengZhuang: '',
-        TiZheng: '',
-        ZhenDuan: '',
-        ChuLiFangShi: '',
-        JiBingFenLei: '',
-        ZhengZhuangFenLei: '',
+        BanJiIdName: '',
+        XingBie: '',
+        NianLing: '',
+        JianChaRiQi: '',
+        JieAnRiQi: '',
+        FenLeiMingCheng: '',
+        IsZhuanAn: '',
+        ShouCiJieGuo: '',
+        FuCha: '',
         Id: ''
       },
       ModifyListForm: {
         StudentIdName: '',
         StudentId: '',
         BanJiName: '',
-        Date: '',
-        JianChaRen: '',
-        ZhengZhuang: '',
-        TiZheng: '',
-        ZhenDuan: '',
-        ChuLiFangShi: '',
-        JiBingFenLei: '',
-        ZhengZhuangFenLei: '',
+        XingBie: '',
+        NianLing: '',
+        JianChaRiQi: '',
+        JieAnRiQi: '',
+        FenLeiMingCheng: '',
+        IsZhuanAn: '',
+        ShouCiJieGuo: '',
+        FuCha: '',
         Id: ''
       },
       show: false,
@@ -365,6 +358,7 @@ export default {
       currentList: null,
       AddListshow: false,
       ModifyListshow: false,
+      RecoveryListShow: false,
       checked: true,
       dqList: [],
       ModifyList2: [],
@@ -375,8 +369,8 @@ export default {
 
   },
   created () {
-    // 页面一进入加载晨午晚检查表
-    this.loadMNEChecksList()
+    // 页面一进入加载体弱/肥胖儿童信息登记信息
+    this.loadInfirmityRegistrationList()
   },
   methods: {
     back () {
@@ -399,6 +393,10 @@ export default {
       this.ModifyListshow = false
       this.$toast.fail('已取消修改')
     },
+    CloseRecovery () {
+      this.RecoveryListShow = false
+      this.$toast.fail('已取消治愈')
+    },
     close () {
       this.show = false
     },
@@ -409,10 +407,9 @@ export default {
         this.finished = true
       }, 500)
     },
-    // 晨午晚检
-    async loadMNEChecksList () {
+    async loadInfirmityRegistrationList () {
       let channels = []
-      const data = await MNECheck()
+      const data = await InfirmityRegistration()
       this.Total = data.length
       console.log(this.Total)
       this.channels = data
@@ -420,7 +417,7 @@ export default {
       return channels
     },
     async onLoad () {
-      const data = await this.loadMNEChecksList()
+      const data = await this.loadInfirmityRegistrationList()
       this.list = data
       this.isLoading = false
       this.loading = false
@@ -433,8 +430,8 @@ export default {
         title: '确认删除吗?',
         message: '删除当前列表数据'
       }).then(async () => {
-        const listId19 = this.currentList.Id
-        const data = await DelectList19(listId19)
+        const listId25 = this.currentList.Id
+        const data = await DelectList25(listId25)
         console.log('确认删除了' + data)
         window.location.reload()
         this.$toast.success('删除成功')
@@ -447,7 +444,7 @@ export default {
       this.AddListshow = true
     },
     async AddClass () {
-      const data = await AddList20(this.AddListForm)
+      const data = await AddList26(this.AddListForm)
       console.log(data)
       this.AddListshow = false
       this.$toast.success('添加成功')
@@ -458,14 +455,13 @@ export default {
       this.dqList = currentList
     },
     async ModifyList () {
-      const data = await ModifyList20(this.dqList)
+      const data = await ModifyList26(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
       this.$toast.success('修改成功')
-      window.location.reload()
     },
-    async SearchMNECheck () {
-      const data = await SearchMNECheck(this.Search)
+    async SearchloadInfirmityRegistration () {
+      const data = await SearchloadInfirmityRegistration(this.Search)
       const SearchResult = data
       this.list = SearchResult
       this.show = false
@@ -547,6 +543,8 @@ export default {
   .head {
     img {
       width: 200px;
+      margin-left: 50px;
+      margin-top: 50px;
     }
     h1 {
       display: inline-block;

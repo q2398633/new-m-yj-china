@@ -34,6 +34,15 @@ import PlanningScheme from '@/views/PlanningScheme'
 import IncomingCalls from '@/views/IncomingCalls'
 import DailyWorksheet from '@/views/DailyWorksheet'
 import MNECheck from '@/views/MNECheck'
+import ShiftHandoverRegistration from '@/views/ShiftHandoverRegistration'
+import HealthEducationRegistration from '@/views/HealthEducationRegistration'
+import DPACRegistration from '@/views/DPACRegistration'
+import MinutesOFMealManagementMeeting from '@/views/MinutesOFMealManagementMeeting'
+import InfectiousDiseaseRegistrationInformation from '@/views/InfectiousDiseaseRegistrationInformation'
+import InfirmityRegistration from '@/views/InfirmityRegistration'
+import ChildInjuriesAndAccidents from '@/views/ChildInjuriesAndAccidents'
+import LargeToys from '@/views/LargeToys'
+import VisionCorrectionRegistration from '@/views/VisionCorrectionRegistration'
 
 Vue.use(VueRouter)
 
@@ -73,7 +82,17 @@ const router = new VueRouter({
         { name: 'PlanningScheme', path: '/PlanningScheme', component: PlanningScheme },
         { name: 'IncomingCalls', path: '/IncomingCalls', component: IncomingCalls },
         { name: 'DailyWorksheet', path: '/DailyWorksheet', component: DailyWorksheet },
-        { name: 'MNECheck', path: '/MNECheck', component: MNECheck }
+        { name: 'MNECheck', path: '/MNECheck', component: MNECheck },
+        { name: 'ShiftHandoverRegistration', path: '/ShiftHandoverRegistration', component: ShiftHandoverRegistration },
+        { name: 'HealthEducationRegistration', path: '/HealthEducationRegistration', component: HealthEducationRegistration },
+        { name: 'DPACRegistration', path: '/DPACRegistration', component: DPACRegistration },
+        { name: 'MinutesOFMealManagementMeeting', path: '/MinutesOFMealManagementMeeting', component: MinutesOFMealManagementMeeting },
+        { name: 'InfectiousDiseaseRegistrationInformation', path: '/InfectiousDiseaseRegistrationInformation', component: InfectiousDiseaseRegistrationInformation },
+        { name: 'InfirmityRegistration', path: '/InfirmityRegistration', component: InfirmityRegistration },
+        { name: 'ChildInjuriesAndAccidents', path: '/ChildInjuriesAndAccidents', component: ChildInjuriesAndAccidents },
+        { name: 'LargeToys', path: '/LargeToys', component: LargeToys },
+        { name: 'VisionCorrectionRegistration', path: '/VisionCorrectionRegistration', component: VisionCorrectionRegistration }
+
 
     ]
 })
