@@ -268,140 +268,140 @@ import { DelectList8 } from '@/api/Delect'
 import { AddList8 } from '@/api/AddList'
 import { ModifyList8 } from '@/api/ModifyList'
 export default {
-    name: 'SignInRule',
-    data () {
-        return {
-            AddListForm: {
-                Title: '',
-                BanJi: '',
-                XingBie: '',
-                MinZu: '',
-                RuTuoRiQi: '',
-                Status: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                BanJi: '',
-                XingBie: '',
-                MinZu: '',
-                RuTuoRiQi: '',
-                Status: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0,
-            InNurseryShow: false,
-            BirthdayShow: false
+  name: 'SignInRule',
+  data () {
+    return {
+      AddListForm: {
+        Title: '',
+        BanJi: '',
+        XingBie: '',
+        MinZu: '',
+        RuTuoRiQi: '',
+        Status: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        BanJi: '',
+        XingBie: '',
+        MinZu: '',
+        RuTuoRiQi: '',
+        Status: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0,
+      InNurseryShow: false,
+      BirthdayShow: false
 
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载幼儿列表
-        this.loadgetList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        Birthday () {
-            this.BirthdayShow = true
-        },
-        onChange (date) {
-            console.log(date.format('YY-MM-DD'))
-        },
-        InNursery () {
-            this.InNurseryShow = true
-        },
-        InNurseryDay () {
-
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadgetList () {
-            let channels = []
-            const data = await getList()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadgetList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId8 = this.currentList.Id
-                const data = await DelectList8(listId8)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList8(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList8(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        }
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载幼儿列表
+    this.loadgetList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    Birthday () {
+      this.BirthdayShow = true
+    },
+    onChange (date) {
+      console.log(date.format('YY-MM-DD'))
+    },
+    InNursery () {
+      this.InNurseryShow = true
+    },
+    InNurseryDay () {
+
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadgetList () {
+      let channels = []
+      const data = await getList()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadgetList()
+      this.list = data
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId8 = this.currentList.Id
+        const data = await DelectList8(listId8)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList8(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList8(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    }
+  }
 }
 </script>
 

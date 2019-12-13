@@ -550,3 +550,63 @@ export const DelectList27 = (listId27) => {
         }
     })
 }
+
+export const DelectList28 = (listId28) => {
+    return request({
+        method: 'DELETE',
+        url: '/RiChang/ShiLiDengJiDel',
+        data: {
+            Id: listId28
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList29 = (listId29) => {
+    return request({
+        method: 'DELETE',
+        url: '/RiChang/QuChiDengJiDel',
+        data: {
+            Id: listId29
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList31 = (listId31) => {
+    return request({
+        method: 'DELETE',
+        url: '/STU/STUKaoQinDel',
+        data: {
+            Id: listId31
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

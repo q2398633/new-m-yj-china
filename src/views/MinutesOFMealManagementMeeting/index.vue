@@ -84,7 +84,7 @@
                 <van-cell :border="false"
                           title="日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.RiQi }}
+                  {{ item.RiQi  | dateFmt('YYYY-MM-DD') }}
                 </van-cell>
                 <template slot="right">
                   <van-button square

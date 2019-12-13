@@ -91,12 +91,12 @@
                 <van-cell :border="false"
                           title="发病日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.Date }}
+                  {{ item.Date  | dateFmt('YYYY-MM-DD') }}
                 </van-cell>
                 <van-cell :border="false"
                           title="痊愈日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.QuYuDate }}
+                  {{ item.QuYuDate  | dateFmt('YYYY-MM-DD') }}
                 </van-cell>
                 <template slot="right">
                   <van-button square

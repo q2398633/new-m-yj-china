@@ -19,7 +19,6 @@
             <van-cell-group>
               <van-field v-validate="'required|username'"
                          name="username"
-                         :error-message="errors.first('用户名错误')"
                          v-model="loginForm.username"
                          clearable
                          left-icon="contact"
@@ -28,7 +27,6 @@
 
               <van-field v-validate="'required|password'"
                          name="password"
-                         :error-message="errors.first('密码错误')"
                          v-model="loginForm.password"
                          clearable
                          left-icon="closed-eye"
@@ -59,54 +57,40 @@
 import { login } from '@/api/user'
 
 export default {
-    name: 'Login',
-    data () {
-        return {
-            loginForm: {
-                username: 'admin',
-                password: 'caifu123456'
-            },
-            loginloading: false
-
-        }
-    },
-    created () {
-
-    },
-    methods: {
-        async handleLogin () {
-            this.loginloading = true
-            // 先验证
-            this.$validator.validate().then(async valid => {
-                // 如果验证失败直接return出去 没任何操作
-                if (!valid) {
-                    return
-                }
-                // 验证通过, 发送请求
-                try {
-                    const data = await login(this.loginForm)
-                    console.log(data)
-                    if (data.code === '500') {
-                        this.loginloading = false
-                        this.$toast.fail('登录失败!请检查账户名与密码')
-                    } else {
-                        this.$store.commit('setUser', data)
-                        this.loginloading = false
-                        this.$router.push('/home')
-                        this.$toast.success('登录成功')
-                    }
-                } catch (error) {
-                    console.log(error)
-                    this.loginloading = false
-                    this.$toast.fail('登录失败!请检查账户名与密码')
-                }
-            })
-            this.loginloading = false
-        }
-    },
-    mounted: {
+  name: 'Login',
+  data () {
+    return {
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      loginloading: false
 
     }
+  },
+  created () {
+
+  },
+  methods: {
+    async handleLogin () {
+      this.loginloading = true
+      const data = await login(this.loginForm)
+      if (data.code === '500') {
+        this.loginloading = false
+        this.$toast.fail('登录失败!请检查账户名与密码')
+      } else {
+        this.$store.commit('setUser', data)
+        this.loginloading = false
+        this.$router.push('/home')
+        this.$toast.success('登录成功')
+      }
+
+      this.loginloading = false
+    }
+  },
+  mounted () {
+
+  }
 }
 </script>
 

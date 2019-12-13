@@ -1,18 +1,17 @@
 /**
- * 食谱相关请求
+ * 龋齿登记信息相关请求
  */
 import request from '../utils/request'
 
 /**
  *
- * 已登录(设置请求头 token) 获取食谱列表
- *
+ * 已登录(设置请求头 token) 龋齿登记信息
  */
 
-export const RecipesList = () => {
+export const RegistrationOFDentalCaries = () => {
     return request({
         method: 'POST',
-        url: '/YYB/YYBCaiYaoGrid',
+        url: '/RiChang/QuChiDengJiGrid',
         transformRequest: [function (data) {
             let ret = ''
             for (let it in data) {

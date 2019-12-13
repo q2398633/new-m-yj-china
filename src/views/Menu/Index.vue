@@ -287,7 +287,8 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="black">
+                          color="black"
+                          @click.prevent="AttendanceList">
               </van-button>
               <div class="shoping">考勤列表</div>
             </van-col>
@@ -523,82 +524,82 @@
 </template>
 <script>
 export default {
-    data () {
-        return {
-            active: 0
-        }
-    },
-    mounted () {
-
-    },
-    methods: {
-        pushHome () {
-            this.$router.push('/home')
-        },
-        onClickRight () {
-
-        },
-        BudgetAdmin () {
-            this.$router.push('/BudgetAdmin')
-        },
-        Recipes () {
-            this.$router.push('/Recipes')
-        },
-        FoodSafety () {
-            this.$router.push('/FoodSafety')
-        },
-        AssetsInformation () {
-            this.$router.push('/AssetsInformation')
-        },
-        AssetMaintenance () {
-            this.$router.push('/AssetMaintenance')
-        },
-        TablewareDisinfection () {
-            this.$router.push('/TablewareDisinfection')
-        },
-        Echarts () {
-            this.$router.push('/Echarts')
-        },
-        RegionalDisinfection () {
-            this.$router.push('/RegionalDisinfection')
-        },
-        EnergyConsumptionDetails () {
-            this.$router.push('/EnergyConsumptionDetails')
-        },
-        StaffAdmin () {
-            this.$router.push('/StaffAdmin')
-        },
-        AttendanceList () {
-            this.$router.push('/AttendanceList')
-        },
-        SupplierAdmin () {
-            this.$router.push('/SupplierAdmin')
-        },
-        Inventory () {
-            this.$router.push('/Inventory')
-        },
-        productManagement () {
-            this.$router.push('/productManagement')
-        },
-        OutgoingManagement () {
-            this.$router.push('/OutgoingManagement')
-        },
-        WarehousingManagement () {
-            this.$router.push('/WarehousingManagement')
-        },
-        EnvironmentalInvestigation () {
-            this.$router.push('/EnvironmentalInvestigation')
-        },
-        PlanningScheme () {
-            this.$router.push('/PlanningScheme')
-        },
-        IncomingCalls () {
-            this.$router.push('/IncomingCalls')
-        },
-        DailyWorksheet () {
-            this.$router.push('/DailyWorksheet')
-        }
+  data () {
+    return {
+      active: 0
     }
+  },
+  mounted () {
+
+  },
+  methods: {
+    pushHome () {
+      this.$router.push('/home')
+    },
+    onClickRight () {
+
+    },
+    BudgetAdmin () {
+      this.$router.push('/BudgetAdmin')
+    },
+    Recipes () {
+      this.$router.push('/Recipes')
+    },
+    FoodSafety () {
+      this.$router.push('/FoodSafety')
+    },
+    AssetsInformation () {
+      this.$router.push('/AssetsInformation')
+    },
+    AssetMaintenance () {
+      this.$router.push('/AssetMaintenance')
+    },
+    TablewareDisinfection () {
+      this.$router.push('/TablewareDisinfection')
+    },
+    Echarts () {
+      this.$router.push('/Echarts')
+    },
+    RegionalDisinfection () {
+      this.$router.push('/RegionalDisinfection')
+    },
+    EnergyConsumptionDetails () {
+      this.$router.push('/EnergyConsumptionDetails')
+    },
+    StaffAdmin () {
+      this.$router.push('/StaffAdmin')
+    },
+    AttendanceList () {
+      this.$router.push('/AttendanceList')
+    },
+    SupplierAdmin () {
+      this.$router.push('/SupplierAdmin')
+    },
+    Inventory () {
+      this.$router.push('/Inventory')
+    },
+    productManagement () {
+      this.$router.push('/productManagement')
+    },
+    OutgoingManagement () {
+      this.$router.push('/OutgoingManagement')
+    },
+    WarehousingManagement () {
+      this.$router.push('/WarehousingManagement')
+    },
+    EnvironmentalInvestigation () {
+      this.$router.push('/EnvironmentalInvestigation')
+    },
+    PlanningScheme () {
+      this.$router.push('/PlanningScheme')
+    },
+    IncomingCalls () {
+      this.$router.push('/IncomingCalls')
+    },
+    DailyWorksheet () {
+      this.$router.push('/DailyWorksheet')
+    }
+  }
 }
 </script>
 <style lang="less" scoped>

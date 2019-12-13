@@ -128,7 +128,7 @@
               <van-cell :border="false"
                         title="入库时间:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.CreateTime }}
+                {{ item.CreateTime  | dateFmt('YYYY-MM-DD')  }}
               </van-cell>
             </van-swipe-cell>
           </van-cell>
@@ -151,122 +151,122 @@
 import { Invetory } from '@/api/Invetory'
 import { SearchInventory } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            Search: {
-                G_Title_Like: '',
-                G_ChanPinType_Like: '',
-                G_GongYingShangTitle_Like: '',
-                G_GongYingShangName_Like: '',
-                G_GongYingShangDianHua_Like: ''
-            },
-            AddListForm: {
-                Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            ModifyList2: [],
-            Total: 0
-        }
-    },
-    mounted () {
-    },
-    created () {
-    // 页面一进入加载资产信息列表
-        this.loadInvetoryList()
-        this.Toast.setDefaultOptions({ duration: 2000 })
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-                this.finished = true
-            }, 500)
-        },
-        async loadInvetoryList () {
-            let channels = []
-            const data = await Invetory()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadInvetoryList()
-            this.list = data
-            this.isLoading = false
-            this.loading = false
-            this.finished = true
-        },
-        async SearchInventory () {
-            const data = await SearchInventory(this.Search)
-            const SearchResult = data
-            this.list = SearchResult
-            this.show = false
-            this.$toast.success('搜索完成')
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      Search: {
+        G_Title_Like: '',
+        G_ChanPinType_Like: '',
+        G_GongYingShangTitle_Like: '',
+        G_GongYingShangName_Like: '',
+        G_GongYingShangDianHua_Like: ''
+      },
+      AddListForm: {
+        Title: '',
+        Type: '',
+        GouZhiRiQi: '',
+        RuZhangRiQi: '',
+        YuanZhi: '',
+        RuZhangJiaZhi: '',
+        JiLiangDanWei: '',
+        Total: null,
+        ShiYongYue: '',
+        CanZhiLv: null,
+        BianHao: '',
+        GuiGe: '',
+        CunFangDiDian: '',
+        YongTu: '',
+        GouZhiLeiXing: '',
+        GongYingShang: '',
+        ChanDi: '',
+        ShiYongDi: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        Type: '',
+        GouZhiRiQi: '',
+        RuZhangRiQi: '',
+        YuanZhi: '',
+        RuZhangJiaZhi: '',
+        JiLiangDanWei: '',
+        Total: null,
+        ShiYongYue: '',
+        CanZhiLv: null,
+        BianHao: '',
+        GuiGe: '',
+        CunFangDiDian: '',
+        YongTu: '',
+        GouZhiLeiXing: '',
+        GongYingShang: '',
+        ChanDi: '',
+        ShiYongDi: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      ModifyList2: [],
+      Total: 0
     }
+  },
+  mounted () {
+  },
+  created () {
+    // 页面一进入加载资产信息列表
+    this.loadInvetoryList()
+    this.Toast.setDefaultOptions({ duration: 2000 })
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+        this.finished = true
+      }, 500)
+    },
+    async loadInvetoryList () {
+      let channels = []
+      const data = await Invetory()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadInvetoryList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async SearchInventory () {
+      const data = await SearchInventory(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      this.show = false
+      this.$toast.success('搜索完成')
+    }
+  }
 }
 </script>
 

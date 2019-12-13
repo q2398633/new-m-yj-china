@@ -103,7 +103,7 @@
           </van-cell>
         </van-list>
         <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
+                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
                     @click.prevent="AddList">添加供应商</van-button>
         <!-- 添加供应商列表 -->
         <van-popup v-model="AddListshow"
@@ -117,55 +117,55 @@
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
                 <van-field v-model="AddListForm.Title"
                            placeholder="请输入名称"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
                 <van-field v-model="AddListForm.LianXiRen"
                            placeholder="请输入联系人"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
                 <van-field v-model="AddListForm.Mobile"
                            placeholder="手机号"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
                 <van-field v-model="AddListForm.QQ"
                            placeholder="排序"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
                 <van-field v-model="AddListForm.WinXin"
                            placeholder="备注"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
                 <van-field v-model="AddListForm.Email"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
                 <van-field v-model="AddListForm.DiZhi"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
                 <van-field v-model="AddListForm.Status"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="AddListForm.BeiZhu"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
@@ -191,55 +191,55 @@
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">名称:</span>
                 <van-field v-model="dqList.Title"
                            placeholder="请输入名称"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">联系人:</span>
                 <van-field v-model="dqList.LianXiRen"
                            placeholder="请输入联系人"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">手机号码:</span>
                 <van-field v-model="dqList.Mobile"
                            placeholder="手机号"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">QQ:</span>
                 <van-field v-model="dqList.QQ"
                            placeholder="排序"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">微信:</span>
                 <van-field v-model="dqList.WinXin"
                            placeholder="备注"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">邮箱:</span>
                 <van-field v-model="dqList.Email"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">地址:</span>
                 <van-field v-model="dqList.DiZhi"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">状态:</span>
                 <van-field v-model="dqList.Status"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: 47px; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="dqList.BeiZhu"
                            placeholder="状态"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
@@ -274,142 +274,145 @@ import { AddList5 } from '@/api/AddList'
 import { ModifyList5 } from '@/api/ModifyList'
 import { SearchSupplier } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            Search: {
-                G_Title_Like: '',
-                G_LianXiRen_Like: '',
-                G_Mobile_Like: ''
-            },
-            AddListForm: {
-                Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                LianXiRen: '',
-                Mobile: '',
-                QQ: '',
-                WinXin: '',
-                Email: '',
-                DiZhi: '',
-                Status: '',
-                BeiZhu: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-    },
-    created () {
-    // 页面一进入加载供应商列表
-        this.loadSupplierAdminList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadSupplierAdminList () {
-            let channels = []
-            const data = await SupplierAdmin()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadSupplierAdminList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId5 = this.currentList.Id
-                const data = await DelectList5(listId5)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList5(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList5(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        },
-        async SearchClass () {
-            const data = await SearchSupplier(this.Search)
-            const SearchResult = data
-            this.list = SearchResult
-            console.log(this.list)
-            // this.Search.data = data
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      Search: {
+        G_Title_Like: '',
+        G_LianXiRen_Like: '',
+        G_Mobile_Like: ''
+      },
+      AddListForm: {
+        Title: '',
+        LianXiRen: '',
+        Mobile: '',
+        QQ: '',
+        WinXin: '',
+        Email: '',
+        DiZhi: '',
+        Status: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        LianXiRen: '',
+        Mobile: '',
+        QQ: '',
+        WinXin: '',
+        Email: '',
+        DiZhi: '',
+        Status: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+  },
+  created () {
+    // 页面一进入加载供应商列表
+    this.loadSupplierAdminList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadSupplierAdminList () {
+      let channels = []
+      const data = await SupplierAdmin()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadSupplierAdminList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId5 = this.currentList.Id
+        const data = await DelectList5(listId5)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList5(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList5(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    async SearchClass () {
+      const data = await SearchSupplier(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      console.log(this.list)
+      // this.Search.data = data
+    }
+  }
 }
 </script>
 
@@ -491,6 +494,8 @@ export default {
     img {
       width: 200px;
       margin-left: 45px;
+      margin-top: 80px;
+      box-shadow: 4px 4px 4px 4px #ccc;
     }
     h1 {
       display: inline-block;

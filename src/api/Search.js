@@ -579,3 +579,51 @@ export const SearchLargeToys = ({
         }
     })
 }
+
+export const SearchVisionCorrectionRegistration = ({
+    G_StudentIdName_Like,
+    G_BanJiIdName_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ShiLiDengJiGrid',
+        data: {
+            G_StudentIdName_Like,
+            G_BanJiIdName_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchRegistrationOFDentalCaries = ({
+    G_StudentIdName_Like,
+    G_BanJiIdName_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/QuChiDengJiGrid',
+        data: {
+            G_StudentIdName_Like,
+            G_BanJiIdName_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

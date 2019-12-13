@@ -79,7 +79,7 @@
               <van-cell :border="false"
                         title="消毒日期:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Date }}
+                {{ item.Date  | dateFmt('YYYY-MM-DD') }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -217,129 +217,129 @@ import { DelectList10 } from '@/api/Delect'
 import { AddList10 } from '@/api/AddList'
 import { ModifyList10 } from '@/api/ModifyList'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                XiaoDuQuYu: '',
-                FuZeRen: '',
-                CaoZuoYuan1: '',
-                XiaoDuFangFa: '',
-                Date: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                XiaoDuQuYu: '',
-                FuZeRen: '',
-                CaoZuoYuan1: '',
-                XiaoDuFangFa: '',
-                Date: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载区域消毒列表
-        this.loadRegionalDisinfectionList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-            this.$toast.fail('已取消搜索')
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadRegionalDisinfectionList () {
-            let channels = []
-            const data = await RegionalDisinfection()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadRegionalDisinfectionList()
-            this.list = data
-            this.load = false
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId10 = this.currentList.Id
-                const data = await DelectList10(listId10)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList10(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList10(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        },
-        SearchClass () {
-            this.$toast.success('已完成搜索')
-            this.show = false
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        XiaoDuQuYu: '',
+        FuZeRen: '',
+        CaoZuoYuan1: '',
+        XiaoDuFangFa: '',
+        Date: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        XiaoDuQuYu: '',
+        FuZeRen: '',
+        CaoZuoYuan1: '',
+        XiaoDuFangFa: '',
+        Date: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载区域消毒列表
+    this.loadRegionalDisinfectionList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+      this.$toast.fail('已取消搜索')
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadRegionalDisinfectionList () {
+      let channels = []
+      const data = await RegionalDisinfection()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadRegionalDisinfectionList()
+      this.list = data
+      this.load = false
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId10 = this.currentList.Id
+        const data = await DelectList10(listId10)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList10(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList10(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    SearchClass () {
+      this.$toast.success('已完成搜索')
+      this.show = false
+    }
+  }
 }
 </script>
 

@@ -12,36 +12,7 @@
                 size="25px"
                 @click.prevent="SideMenu" />
     </van-nav-bar>
-    <!-- 搜索 -->
-    <van-popup v-model="show"
-               position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
-               close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索疫苗</div>
-        <van-field label="疫苗名称:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入班级名称" />
-        <van-field label="接种年龄:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="针次:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="预防效果:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary"
-                    @click.prevent="SearchClass">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
-      </div>
-    </van-popup>
+
     <!-- 职务管理列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
@@ -53,7 +24,11 @@
           <van-cell v-for="(item) in list"
                     :key="item.Id">
             <van-swipe-cell>
-              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.Title }}</div>
+              <div class="head">
+                <img src="../../assets/ZW.jpg"
+                     alt="">
+                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.Title }}</h1>
+              </div>
               <van-cell :border="false"
                         title="职务名称:"
                         style="padding-left:30px; padding-right: 30px;">
@@ -78,7 +53,7 @@
           </van-cell>
         </van-list>
         <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
+                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
                     @click.prevent="AddList">添加职务</van-button>
         <!-- 添加职务管理列表 -->
         <van-popup v-model="AddListshow"
@@ -164,117 +139,116 @@ import { DelectList7 } from '@/api/Delect'
 import { AddList7 } from '@/api/AddList'
 import { ModifyList7 } from '@/api/ModifyList'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                Title: '',
-                Grade: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                Grade: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载职务管理列表列表
-        this.loadPostAdminList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadPostAdminList () {
-            let channels = []
-            const data = await PostAdmin()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadPostAdminList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId7 = this.currentList.Id
-                const data = await DelectList7(listId7)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList7(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList7(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        Title: '',
+        Grade: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        Grade: '',
+        Id: ''
+      },
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载职务管理列表列表
+    this.loadPostAdminList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadPostAdminList () {
+      let channels = []
+      const data = await PostAdmin()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadPostAdminList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId7 = this.currentList.Id
+        const data = await DelectList7(listId7)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList7(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList7(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    }
+  }
 }
 </script>
 
@@ -346,6 +320,17 @@ export default {
   .AddClass {
     float: right;
     width: 50%;
+  }
+  .head {
+    img {
+      width: 200px;
+      margin-left: 50px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
+    }
+    h1 {
+      display: inline-block;
+    }
   }
 }
 </style>

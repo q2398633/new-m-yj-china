@@ -552,6 +552,9 @@ export default {
   .head {
     img {
       width: 200px;
+      margin-left: 50px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
     }
     h1 {
       display: inline-block;

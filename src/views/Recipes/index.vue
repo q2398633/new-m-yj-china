@@ -1,162 +1,696 @@
 <template>
-  <div class="parentAdmin">
-    <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="食谱管理"
-                 left-arrow
-                 left-text="返回"
-                 size="36px"
-                 @click-left="back"
-                 fixed>
-      <van-icon name="wap-nav"
-                slot="right"
-                size="25px"
-                @click.prevent="SideMenu" />
-    </van-nav-bar>
-    <!-- 搜索 -->
-    <van-popup v-model="show"
-               position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
-               close-icon="close">
-      <van-cell-group>
-        <div style="font-size: 30px; width: 100%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索家长</div>
-        <van-field clearable
-                   autosize
-                   label-width="70px"
-                   label="姓名:"
-                   right-icon="question-o"
-                   placeholder="请输入用户名"
-                   @click-right-icon="$toast('家长姓名')" />
-        <van-field label="性别:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="民族:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入民族" />
-        <van-field label="入托类型:"
-                   label-width="70px"
-                   autosize />
-        <van-field label="户籍:"
-                   label-width="70px"
-                   autosize
-                   placeholder="请输入户籍" />
-      </van-cell-group>
-      <div class="submit">
-        <van-button type="primary">搜索</van-button>
-        <van-button type="info"
-                    @click.prevent="close">退出</van-button>
+  <div>
+    <div class="parentAdmin">
+      <!-- 顶部导航 -->
+      <van-nav-bar title="食谱管理"
+                   left-text="返回"
+                   left-arrow
+                   @click-left.prevent="back"
+                   fixed:
+                   true
+                   style="position: fixed; width: 100%;">
+        <van-icon name="search"
+                  slot="right"
+                  size="25px"
+                  @click.prevent="SideMenu" />
+      </van-nav-bar>
+      <!-- 搜索食谱管理信息 -->
+      <van-popup v-model="show"
+                 position="bottom"
+                 :style="{width: '100%'}"
+                 close-icon="close">
+        <van-cell-group>
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索食谱信息</div>
+          <van-field label="名称:"
+                     label-width="70px"
+                     autosize
+                     name="G_Title_Like"
+                     prop="G_Title_Like"
+                     v-model="Search.G_Title_Like"
+                     placeholder="请输入食谱名称" />
+        </van-cell-group>
+        <div class="submit">
+          <van-button type="info"
+                      class="ClosePop"
+                      @click.prevent="close">退出</van-button>
+          <van-button type="primary"
+                      class="AddClass"
+                      @click.prevent="SearchRegistrationOFDentalCaries">搜索</van-button>
+        </div>
+      </van-popup>
+      <!-- 食谱管理信息表 -->
+      <div class="Parent-List">
+        <van-pull-refresh v-model="isLoading"
+                          @refresh="onRefresh">
+          <van-list v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad">
+            <van-cell v-for="(item) in list"
+                      :key="item.Id">
+              <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
+                <div class="head">
+                  <img src="../../assets/SP.jpg"
+                       alt="">
+                  <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.Title }}</h1>
+                </div>
+                <van-cell :border="false"
+                          title="菜肴类型:"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.BanJiIdName }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="水分(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.NianLing }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="能量(卡路里):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JianChaRiQi }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="能量(千焦):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.ShangQuChi }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="蛋白质(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.XiaQuChi }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="脂肪(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.QuChiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="碳水化合物(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="膳食纤维(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="可溶性膳食纤维(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="不溶性膳食纤维(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="胆固醇(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="灰分(克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素A(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="胡萝卜素(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="硫胺素(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="核黄素(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素B6(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素B12(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="叶酸(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="烟酸(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素C(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素E(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="维生素Ea(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="钙(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="磷(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="钾(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="钠(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="镁(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="铁(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="锌(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="硒(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="铜(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="锰(毫克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="碘(微克):"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="状态:"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.JiaoZhiKeShu }}
+                </van-cell>
+                <template slot="right">
+                  <van-button square
+                              type="danger"
+                              text="删除"
+                              @click.prevent="DelList(item)" />
+                  <van-button square
+                              type="primary"
+                              text="修改"
+                              @click.prevent="Modify(item)" />
+                </template>
+              </van-swipe-cell>
+            </van-cell>
+          </van-list>
+          <!-- 添加食谱管理信息 -->
+          <van-popup v-model="AddListshow"
+                     style="width: 80%;">
+            <form action="/"
+                  method="POST"
+                  ref="AddListForm"
+                  :model="AddListForm">
+              <van-cell-group>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                  <van-field v-model="AddListForm.StudentIdName"
+                             placeholder="请输入姓名"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名ID:</span>
+                  <van-field v-model="AddListForm.StudentId"
+                             placeholder="请输入姓名ID"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
+                  <van-field v-model="AddListForm.BanJiIdName"
+                             placeholder="请输入班级"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
+                  <van-field v-model="AddListForm.XingBie"
+                             placeholder="请输入性别"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年龄:</span>
+                  <van-field v-model="AddListForm.NianLing"
+                             placeholder="请输入年龄"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">医院名称:</span>
+                  <van-field v-model="AddListForm.YiYuanMingCheng"
+                             placeholder="请输入医院名称"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
+                  <van-field v-model="AddListForm.Date"
+                             placeholder="请输入检查日期"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="AddListForm.ZuoYan"
+                             placeholder="请输入左眼"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="AddListForm.YouYan"
+                             placeholder="请输入右眼"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">确诊名称:</span>
+                  <van-field v-model="AddListForm.QueZhenMingCheng"
+                             placeholder="请输入确诊名称"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">矫治方法:</span>
+                  <van-field v-model="AddListForm.JiaoZhiFangFa"
+                             placeholder="请输入矫治方法"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查一:</span>
+                  <van-field v-model="AddListForm.FuChaDate1"
+                             placeholder="请输入视力复查一的时间"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="AddListForm.FuChaZuoYan1"
+                             placeholder="请输入左眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="AddListForm.FuChaYouYan1"
+                             placeholder="请输入右眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查二:</span>
+                  <van-field v-model="AddListForm.FuChaDate2"
+                             placeholder="请输入视力复查二的时间"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="AddListForm.FuChaZuoYan2"
+                             placeholder="请输入左眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="AddListForm.FuChaYouYan2"
+                             placeholder="请输入右眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                  <van-field v-model="AddListForm.BeiZhu"
+                             placeholder="请输入备注"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+
+                <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+                  <van-button type="info"
+                              @click.prevent="ClosePop"
+                              class="ClosePop">取消</van-button>
+                  <van-button type="primary"
+                              @click.prevent="AddClass"
+                              class="AddClass">添加</van-button>
+                </div>
+              </van-cell-group>
+            </form>
+          </van-popup>
+          <!-- 修改食谱管理信息-->
+          <van-popup v-model="ModifyListshow"
+                     style="width: 80%;">
+            <form action="/"
+                  method="POST"
+                  ref="ModifyListForm"
+                  :model="dqList">
+              <van-cell-group>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名:</span>
+                  <van-field v-model="dqList.StudentIdName"
+                             placeholder="请输入姓名"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">姓名ID:</span>
+                  <van-field v-model="dqList.StudentId"
+                             placeholder="请输入姓名ID"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级:</span>
+                  <van-field v-model="dqList.BanJiIdName"
+                             placeholder="请输入班级"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">性别:</span>
+                  <van-field v-model="dqList.XingBie"
+                             placeholder="请输入性别"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年龄:</span>
+                  <van-field v-model="dqList.NianLing"
+                             placeholder="请输入年龄"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">医院名称:</span>
+                  <van-field v-model="dqList.YiYuanMingCheng"
+                             placeholder="请输入医院名称"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
+                  <van-field v-model="dqList.Date"
+                             placeholder="请输入检查日期"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="dqList.ZuoYan"
+                             placeholder="请输入左眼"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="dqList.YouYan"
+                             placeholder="请输入右眼"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">确诊名称:</span>
+                  <van-field v-model="dqList.QueZhenMingCheng"
+                             placeholder="请输入确诊名称"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">矫治方法:</span>
+                  <van-field v-model="dqList.JiaoZhiFangFa"
+                             placeholder="请输入矫治方法"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查一:</span>
+                  <van-field v-model="dqList.FuChaDate1"
+                             placeholder="请输入视力复查一的时间"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="dqList.FuChaZuoYan1"
+                             placeholder="请输入左眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="dqList.FuChaYouYan1"
+                             placeholder="请输入右眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查二:</span>
+                  <van-field v-model="dqList.FuChaDate2"
+                             placeholder="请输入视力复查二的时间"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
+                  <van-field v-model="dqList.FuChaZuoYan2"
+                             placeholder="请输入左眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">右眼:</span>
+                  <van-field v-model="dqList.FuChaYouYan2"
+                             placeholder="请输入右眼视力"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
+                  <van-field v-model="dqList.BeiZhu"
+                             placeholder="请输入备注"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+
+                <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
+                  <van-button type="info"
+                              @click.prevent="CloseModify"
+                              class="ClosePop">取消</van-button>
+                  <van-button type="primary"
+                              @click.prevent="ModifyList"
+                              class="AddClass">修改</van-button>
+                </div>
+              </van-cell-group>
+            </form>
+          </van-popup>
+        </van-pull-refresh>
+
+        <!-- 分页 -->
+        <van-pagination v-model="currentPage"
+                        :total-items="1"
+                        :show-page-size="3"
+                        force-ellipses
+                        style="position:fixed; bottom: 0; width: 100%; background: white;" />
+
       </div>
-    </van-popup>
-    <!-- 食谱列表 -->
-    <div class="Parent-List">
-      <van-pull-refresh v-model="isLoading"
-                        @refresh="onRefresh">
-        <van-list v-model="loading"
-                  :finished="finished"
-                  finished-text="没有更多了"
-                  @load="onLoad">
-          <van-cell v-for="(item) in list"
-                    :key="item.Id">
-            <span> {{ '名称: '+item.Title }}</span>
-            <span> {{ '菜肴类型: '+item.Type }}</span>
-            <span> {{ '水分(克): ' +item.Water }}</span>
-            <span> {{ '能量(卡路里): ' +item.EnergyKcal }}</span>
-            <span> {{ '能量(千焦):' +item.EnergyKj }}</span>
-            <span> {{ '蛋白质(克):' +item.Protein }}</span>
-            <span> {{ '脂肪(克):' +item.Fat }}</span>
-            <span> {{ '碳水化合物(克):' +item.CHO }}</span>
-            <span> {{ '膳食纤维(克):' +item.DietaryFiber }}</span>
-            <span> {{ '可溶性膳食纤维(克):' +item.DietaryFiberS }}</span>
-            <span> {{ '不溶性膳食纤维(克):' +item.DietaryFiberI }}</span>
-            <span> {{ '胆固醇(毫克):' +item.Cholesterol }}</span>
-            <span> {{ '灰分(克):' +item.Ash }}</span>
-            <span> {{ '维生素A(微克):' +item.VitA }}</span>
-            <span> {{ '胡萝卜素(微克):' +item.Carotene }}</span>
-            <span> {{ '硫胺素(毫克):' +item.Thiamin }}</span>
-            <span> {{ '核黄素(毫克):' +item.Riboflavin }}</span>
-            <span> {{ '维生素B6(毫克):' +item.VitB6 }}</span>
-            <span> {{ '维生素B12(微克):' +item.VitB12 }}</span>
-            <span> {{ '叶酸(微克):' +item.Folate }}</span>
-            <span> {{ '烟酸(毫克):' +item.Niacin }}</span>
-            <span> {{ '维生素C(毫克):' +item.VitC }}</span>
-            <span> {{ '维生素E(毫克):' +item.VitE }}</span>
-            <span> {{ '维生素Ea(毫克):' +item.VitEa }}</span>
-            <span> {{ '钙(毫克):' +item.Ca }}</span>
-            <span> {{ '磷(毫克):' +item.P }}</span>
-            <span> {{ '钾(毫克):' +item.K }}</span>
-            <span> {{ '钠(毫克):' +item.Na }}</span>
-            <span> {{ '镁(毫克):' +item.Mg }}</span>
-            <span> {{ '铁(毫克):' +item.Fe }}</span>
-            <span> {{ '锌(毫克):' +item.Zn }}</span>
-            <span> {{ '硒(微克):' +item.Se }}</span>
-            <span> {{ '铜(毫克):' +item.Cu }}</span>
-            <span> {{ '锰(毫克):' +item.Mn }}</span>
-            <span> {{ '碘(微克):' +item.I }}</span>
-            <span> {{ '创建时间:' +item.CreateTime }}</span>
-          </van-cell>
-        </van-list>
-      </van-pull-refresh>
-      <!-- 分页 -->
-      <van-pagination v-model="currentPage"
-                      :total-items="10"
-                      :show-page-size="10"
-                      force-ellipses
-                      style="position:fixed; bottom: 0; width: 100%; background: white;" />
+      <van-button type="info"
+                  style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
+                  @click.prevent="AddList">添加食谱管理信息</van-button>
 
     </div>
   </div>
 </template>
-
 <script>
 import { RecipesList } from '@/api/Recipes'
+import { DelectList29 } from '@/api/Delect'
+import { AddList30 } from '@/api/AddList'
+import { ModifyList30 } from '@/api/ModifyList'
+import { SearchRegistrationOFDentalCaries } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: 1
-        }
-    },
-    created () {
-    // 页面一进入加载评测列表
-        this.loadRecipesList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadRecipesList () {
-            let channels = []
-            const data = await RecipesList()
-            this.channels = data
-            channels = this.channels
-            console.log(channels)
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadRecipesList()
-            this.list = data
-        }
+  data () {
+    return {
+      active: 0,
+      Search: {
+        G_StudentIdName_Like: '',
+        G_BanJiIdName_Like: ''
+      },
+      AddListForm: {
+        StudentIdName: '',
+        StudentId: '',
+        BanJiIdName: '',
+        XingBie: '',
+        NianLing: '',
+        YiYuanMingCheng: '',
+        Date: '',
+        ZuoYan: '',
+        YouYan: '',
+        QueZhenMingCheng: '',
+        JiaoZhiFangFa: '',
+        FuChaDate1: '',
+        FuChaZuoYan1: '',
+        FuChaYouYan1: '',
+        FuChaDate2: '',
+        FuChaZuoYan2: '',
+        FuChaYouYan2: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        StudentIdName: '',
+        StudentId: '',
+        BanJiIdName: '',
+        XingBie: '',
+        NianLing: '',
+        YiYuanMingCheng: '',
+        Date: '',
+        ZuoYan: '',
+        YouYan: '',
+        QueZhenMingCheng: '',
+        JiaoZhiFangFa: '',
+        FuChaDate1: '',
+        FuChaZuoYan1: '',
+        FuChaYouYan1: '',
+        FuChaDate2: '',
+        FuChaZuoYan2: '',
+        FuChaYouYan2: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      RecoveryListShow: false,
+      checked: true,
+      dqList: [],
+      ModifyList2: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载食谱管理信息
+    this.loadRecipesListList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    pushHome () {
+      this.$router.push('/home')
+    },
+    onClickRight () {
+
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+        this.finished = true
+      }, 500)
+    },
+    async loadRecipesListList () {
+      let channels = []
+      const data = await RecipesList()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadRecipesListList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId29 = this.currentList.Id
+        const data = await DelectList29(listId29)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = false
+    },
+    async AddClass () {
+      const data = await AddList30(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      this.$toast.success('添加成功')
+      window.location.reload()
+    },
+    Modify (currentList) {
+      this.ModifyListshow = false
+      this.finished = false
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList30(this.dqList)
+      this.ModifyList2 = data
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    async SearchRegistrationOFDentalCaries () {
+      const data = await SearchRegistrationOFDentalCaries(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      this.show = false
+      this.$toast.success('搜索完成')
+    }
+  }
 }
 </script>
-
 <style lang="less" scoped>
 .parentAdmin {
   width: 100%;
@@ -172,34 +706,35 @@ export default {
     .van-icon {
       color: white;
     }
-    .van-nav-bar__text {
-      color: white;
-    }
   }
   .submit {
-    width: 100%;
-    height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
+    margin-top: 40px;
+    margin-bottom: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .van-list {
-    margin-top: 70px;
+    margin-top: 130px;
   }
   .van-popup {
     width: 100%;
+    margin-top: 30px;
+    .van-cell-group {
+      width: 100%;
+
+      .van-field {
+        width: 100%;
+        margin-left: 20px;
+      }
+    }
   }
   .van-cell {
     width: 100%;
     margin-top: 20px;
     border-bottom: 1px solid #ccc;
-    padding-left: 200px;
-    span:nth-child(1) {
-      font-size: 30px;
-    }
-
+    padding-left: 250px;
     span {
       display: inline-block;
       width: 100%;
@@ -210,11 +745,30 @@ export default {
       font-weight: 700;
     }
   }
-  .van-cell-group {
-    width: 100%;
-
-    .van-field {
-      width: 100%;
+  .van-cell {
+    padding: 0;
+  }
+  .van-swipe-cell__right {
+    .van-button {
+      margin-top: 50%;
+    }
+  }
+  .ClosePop {
+    float: left;
+    width: 50%;
+  }
+  .AddClass {
+    float: right;
+    width: 50%;
+  }
+  .head {
+    img {
+      width: 200px;
+      margin-left: 50px;
+      margin-top: 50px;
+    }
+    h1 {
+      display: inline-block;
     }
   }
 }

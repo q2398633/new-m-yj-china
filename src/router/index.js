@@ -43,6 +43,8 @@ import InfirmityRegistration from '@/views/InfirmityRegistration'
 import ChildInjuriesAndAccidents from '@/views/ChildInjuriesAndAccidents'
 import LargeToys from '@/views/LargeToys'
 import VisionCorrectionRegistration from '@/views/VisionCorrectionRegistration'
+import RegistrationOFDentalCaries from '@/views/RegistrationOFDentalCaries'
+
 
 Vue.use(VueRouter)
 
@@ -91,7 +93,9 @@ const router = new VueRouter({
         { name: 'InfirmityRegistration', path: '/InfirmityRegistration', component: InfirmityRegistration },
         { name: 'ChildInjuriesAndAccidents', path: '/ChildInjuriesAndAccidents', component: ChildInjuriesAndAccidents },
         { name: 'LargeToys', path: '/LargeToys', component: LargeToys },
-        { name: 'VisionCorrectionRegistration', path: '/VisionCorrectionRegistration', component: VisionCorrectionRegistration }
+        { name: 'VisionCorrectionRegistration', path: '/VisionCorrectionRegistration', component: VisionCorrectionRegistration },
+        { name: 'RegistrationOFDentalCaries', path: '/RegistrationOFDentalCaries', component: RegistrationOFDentalCaries }
+
 
 
     ]

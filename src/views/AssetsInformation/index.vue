@@ -104,7 +104,7 @@
               <van-cell :border="false"
                         title="入账日期:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.RuZhangRiQi }}
+                {{ item.RuZhangRiQi  | dateFmt('YYYY-MM-DD')  }}
               </van-cell>
               <van-cell :border="false"
                         title="预计净残值:"
@@ -402,166 +402,166 @@ import { AddList15 } from '@/api/AddList'
 import { ModifyList15 } from '@/api/ModifyList'
 import { SearchAssetsInformation } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            Search: {
-                G_Title_Like: '',
-                G_Type_Like: '',
-                G_JiLiangDanWei_Like: ''
-            },
-            AddListForm: {
-                Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                Type: '',
-                GouZhiRiQi: '',
-                RuZhangRiQi: '',
-                YuanZhi: '',
-                RuZhangJiaZhi: '',
-                JiLiangDanWei: '',
-                Total: null,
-                ShiYongYue: '',
-                CanZhiLv: null,
-                BianHao: '',
-                GuiGe: '',
-                CunFangDiDian: '',
-                YongTu: '',
-                GouZhiLeiXing: '',
-                GongYingShang: '',
-                ChanDi: '',
-                ShiYongDi: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            ModifyList2: [],
-            Total: 0
-        }
-    },
-    mounted () {
-    },
-    created () {
-    // 页面一进入加载资产信息列表
-        this.loadAssetsInformationList()
-        this.Toast.setDefaultOptions({ duration: 2000 })
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-                this.finished = true
-            }, 500)
-        },
-        async loadAssetsInformationList () {
-            let channels = []
-            const data = await AssetsInformation()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadAssetsInformationList()
-            this.list = data
-            this.isLoading = false
-            this.loading = false
-            this.finished = true
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId14 = this.currentList.Id
-                const data = await DelectList14(listId14)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList15(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList15(this.dqList)
-            this.ModifyList2 = data
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        },
-        async SearchAssetsInformation () {
-            const data = await SearchAssetsInformation(this.Search)
-            const SearchResult = data
-            this.list = SearchResult
-            this.show = false
-            this.$toast.success('搜索完成')
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      Search: {
+        G_Title_Like: '',
+        G_Type_Like: '',
+        G_JiLiangDanWei_Like: ''
+      },
+      AddListForm: {
+        Title: '',
+        Type: '',
+        GouZhiRiQi: '',
+        RuZhangRiQi: '',
+        YuanZhi: '',
+        RuZhangJiaZhi: '',
+        JiLiangDanWei: '',
+        Total: null,
+        ShiYongYue: '',
+        CanZhiLv: null,
+        BianHao: '',
+        GuiGe: '',
+        CunFangDiDian: '',
+        YongTu: '',
+        GouZhiLeiXing: '',
+        GongYingShang: '',
+        ChanDi: '',
+        ShiYongDi: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        Type: '',
+        GouZhiRiQi: '',
+        RuZhangRiQi: '',
+        YuanZhi: '',
+        RuZhangJiaZhi: '',
+        JiLiangDanWei: '',
+        Total: null,
+        ShiYongYue: '',
+        CanZhiLv: null,
+        BianHao: '',
+        GuiGe: '',
+        CunFangDiDian: '',
+        YongTu: '',
+        GouZhiLeiXing: '',
+        GongYingShang: '',
+        ChanDi: '',
+        ShiYongDi: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      ModifyList2: [],
+      Total: 0
     }
+  },
+  mounted () {
+  },
+  created () {
+    // 页面一进入加载资产信息列表
+    this.loadAssetsInformationList()
+    this.Toast.setDefaultOptions({ duration: 2000 })
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+        this.finished = true
+      }, 500)
+    },
+    async loadAssetsInformationList () {
+      let channels = []
+      const data = await AssetsInformation()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadAssetsInformationList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId14 = this.currentList.Id
+        const data = await DelectList14(listId14)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList15(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList15(this.dqList)
+      this.ModifyList2 = data
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    async SearchAssetsInformation () {
+      const data = await SearchAssetsInformation(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      this.show = false
+      this.$toast.success('搜索完成')
+    }
+  }
 }
 </script>
 

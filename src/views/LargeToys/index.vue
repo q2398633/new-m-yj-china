@@ -72,7 +72,7 @@
                 <van-cell :border="false"
                           title="使用日期:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ShiYongDate }}
+                  {{ item.ShiYongDate  | dateFmt('YYYY-MM-DD')  }}
                 </van-cell>
                 <template slot="right">
                   <van-button square

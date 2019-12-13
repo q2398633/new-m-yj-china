@@ -112,7 +112,7 @@
               <van-cell :border="false"
                         title="幼儿生日:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.StudentShengRi }}
+                {{ item.StudentShengRi  | dateFmt('YYYY-MM-DD')  }}
               </van-cell>
               <template slot="right">
                 <van-button square

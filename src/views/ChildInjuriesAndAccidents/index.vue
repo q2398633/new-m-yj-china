@@ -116,7 +116,7 @@
                 <van-cell :border="false"
                           title="发生时间:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.Date }}
+                  {{ item.Date  | dateFmt('YYYY-MM-DD')  }}
                 </van-cell>
                 <template slot="right">
                   <van-button square

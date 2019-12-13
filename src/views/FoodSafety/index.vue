@@ -15,7 +15,7 @@
     <!-- 搜索 -->
     <van-popup v-model="show"
                position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
+               :style="{width: '100%',}"
                close-icon="close">
       <form action="/"
             method="POST"
@@ -65,8 +65,12 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
-              <div style="width: 99%; height: 1rem; background: #0199ff; color: white; font-size: .5rem; text-align: center; line-height: 1rem; border-radius: 20px; font-weight: 700; font-family: '楷体';">{{ item.JianCeDuiXiang  }}</div>
+            <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
+              <div class="head">
+                <img src="../../assets/SWJC.jpg"
+                     alt="">
+                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.JianCeDuiXiang }}</h1>
+              </div>
               <van-cell :border="false"
                         title="检测人员"
                         style="padding-left:30px; padding-right: 30px;">
@@ -81,6 +85,11 @@
                         title="项目单位"
                         style="padding-left:30px; padding-right: 30px;">
                 {{ item.JiLiangDanWei }}
+              </van-cell>
+              <van-cell :border="false"
+                        title="单位"
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.WorkPlace }}
               </van-cell>
               <van-cell :border="false"
                         title="参考值"
@@ -111,7 +120,7 @@
           </van-cell>
         </van-list>
         <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
+                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
                     @click.prevent="AddList">添加安全检测项目</van-button>
         <!-- 添加安全项目检测列表 -->
         <van-popup v-model="AddListshow"
@@ -125,25 +134,25 @@
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测对象:</span>
                 <van-field v-model="AddListForm.JianCeDuiXiang"
                            placeholder="请输入检测对象"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测人员:</span>
                 <van-field v-model="AddListForm.JianCeRenYuan"
                            placeholder="请输入检测人员"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测日期:</span>
                 <van-field v-model="AddListForm.JianCeRiQi"
                            placeholder="请输入检测日期"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测项目:</span>
                 <van-field v-model="AddListForm.AnJianXiangMuIdName"
                            placeholder="请输入检测项目"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测项目ID:</span>
@@ -155,7 +164,7 @@
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目单位:</span>
                 <van-field v-model="AddListForm.JiLiangDanWei"
                            placeholder="请输入项目单位"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
@@ -173,7 +182,7 @@
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="AddListForm.BeiZhu"
                            placeholder="请输入备注"
-                           style="display:inline-block;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
@@ -198,55 +207,55 @@
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测对象:</span>
                 <van-field v-model="dqList.JianCeDuiXiang"
                            placeholder="请输入检测对象"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测人员:</span>
                 <van-field v-model="dqList.JianCeRenYuan"
                            placeholder="请输入检测人员"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测日期:</span>
                 <van-field v-model="dqList.JianCeRiQi"
                            placeholder="请输入检测日期"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测项目:</span>
                 <van-field v-model="dqList.AnJianXiangMuIdName"
                            placeholder="请输入检测项目"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测项目ID:</span>
                 <van-field v-model="dqList.AnJianXiangMuId"
                            placeholder="请输入检测ID"
-                           style="display:inline-block; width: 45%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">项目单位:</span>
                 <van-field v-model="dqList.JiLiangDanWei"
                            placeholder="请输入项目单位"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">参考值:</span>
                 <van-field v-model="dqList.CanKaoZhi"
                            placeholder="请输入参考值"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检测值:</span>
                 <van-field v-model="dqList.JianCeZhi"
                            placeholder="请输入检测值"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
                 <van-field v-model="dqList.BeiZhu"
                            placeholder="请输入备注"
-                           style="display:inline-block; width: 65%;" />
+                           style="display:inline-block; width: 55%;" />
               </div>
               <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
                 <van-button type="info"
@@ -281,141 +290,146 @@ import { AddList12 } from '@/api/AddList'
 import { ModifyList12 } from '@/api/ModifyList'
 import { SearchFoodSafety } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                JianCeDuiXiang: '',
-                JianCeRenYuan: '',
-                JianCeRiQi: '',
-                AnJianXiangMuIdName: '',
-                AnJianXiangMuId: '',
-                JiLiangDanWei: '',
-                CanKaoZhi: null,
-                JianCeZhi: null,
-                BeiZhu: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                JianCeDuiXiang: '',
-                JianCeRenYuan: '',
-                JianCeRiQi: '',
-                AnJianXiangMuIdName: '',
-                AnJianXiangMuId: '',
-                JiLiangDanWei: '',
-                CanKaoZhi: null,
-                JianCeZhi: null,
-                BeiZhu: '',
-                Id: ''
-            },
-            Search: {
-                G_JianCeDuiXiang_Like: '',
-                G_JianCeRenYuan_Like: '',
-                G_AnJianXiangMuIdName_Like: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载安全项目检测列表
-        this.loadFoodSafetyList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadFoodSafetyList () {
-            let channels = []
-            const data = await FoodSafety()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadFoodSafetyList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId12 = this.currentList.Id
-                const data = await DelectList12(listId12)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList12(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            this.$toast.success('添加成功')
-            window.location.reload()
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList12(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        },
-        async SearchFoodSafety () {
-            const data = await SearchFoodSafety(this.Search)
-            const SearchResult = data
-            this.list = SearchResult
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        JianCeDuiXiang: '',
+        JianCeRenYuan: '',
+        JianCeRiQi: '',
+        AnJianXiangMuIdName: '',
+        AnJianXiangMuId: '',
+        JiLiangDanWei: '',
+        CanKaoZhi: null,
+        JianCeZhi: null,
+        BeiZhu: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        JianCeDuiXiang: '',
+        JianCeRenYuan: '',
+        JianCeRiQi: '',
+        AnJianXiangMuIdName: '',
+        AnJianXiangMuId: '',
+        JiLiangDanWei: '',
+        CanKaoZhi: null,
+        JianCeZhi: null,
+        BeiZhu: '',
+        Id: ''
+      },
+      Search: {
+        G_JianCeDuiXiang_Like: '',
+        G_JianCeRenYuan_Like: '',
+        G_AnJianXiangMuIdName_Like: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载安全项目检测列表
+    this.loadFoodSafetyList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadFoodSafetyList () {
+      let channels = []
+      const data = await FoodSafety()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadFoodSafetyList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId12 = this.currentList.Id
+        const data = await DelectList12(listId12)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList12(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      this.$toast.success('添加成功')
+      window.location.reload()
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList12(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    async SearchFoodSafety () {
+      const data = await SearchFoodSafety(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      this.show = false
+      this.$toast.success('搜索完成')
+    }
+  }
 }
 </script>
 
@@ -434,12 +448,10 @@ export default {
     .van-icon {
       color: white;
     }
-    .van-nav-bar__text {
-      color: white;
-    }
   }
   .submit {
     background: white;
+    margin-top: 40px;
     margin-bottom: 30px;
     padding-left: 0px;
     padding-right: 0px;
@@ -450,12 +462,12 @@ export default {
   }
   .van-popup {
     width: 100%;
+    margin-top: 30px;
     .van-cell-group {
       width: 100%;
 
       .van-field {
         width: 100%;
-        padding-left: 30px;
         margin-left: 20px;
       }
     }
@@ -477,7 +489,6 @@ export default {
   }
   .van-cell {
     padding: 0;
-    width: 100%;
   }
   .van-swipe-cell__right {
     .van-button {
@@ -491,6 +502,17 @@ export default {
   .AddClass {
     float: right;
     width: 50%;
+  }
+  .head {
+    img {
+      width: 200px;
+      margin-left: 50px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
+    }
+    h1 {
+      display: inline-block;
+    }
   }
 }
 </style>

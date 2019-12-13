@@ -92,7 +92,8 @@
             <van-col span="11"
                      style="margin-bottom: 2rem;">
               <van-button size="large"
-                          color="linear-gradient(to right,#C2FFD8,#465EFB)">龋齿登记</van-button>
+                          color="linear-gradient(to right,#C2FFD8,#465EFB)"
+                          @click.prevent="RegistrationOFDentalCaries">龋齿登记</van-button>
             </van-col>
           </van-row>
         </div>
@@ -146,6 +147,9 @@ export default {
     },
     VisionCorrectionRegistration () {
       this.$router.push('/VisionCorrectionRegistration')
+    },
+    RegistrationOFDentalCaries () {
+      this.$router.push('/RegistrationOFDentalCaries')
     }
   }
 }

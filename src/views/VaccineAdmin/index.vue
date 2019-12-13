@@ -57,8 +57,8 @@
           </van-cell>
         </van-list>
         <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
-                    @click.prevent="AddList">添加班级</van-button>
+                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
+                    @click.prevent="AddList">添加新疫苗</van-button>
         <!-- 添加疫苗管理 -->
         <van-popup v-model="AddListshow"
                    style="width: 80%;">
@@ -167,118 +167,121 @@ import { DelectList6 } from '@/api/Delect'
 import { AddList6 } from '@/api/AddList'
 import { ModifyList6 } from '@/api/ModifyList'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                Title: '',
-                Age: '',
-                ZhenCi: '',
-                XiaoGuo: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                Age: '',
-                ZhenCi: '',
-                XiaoGuo: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载疫苗管理列表
-        this.loadvaccineAdminList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadvaccineAdminList () {
-            let channels = []
-            const data = await vaccineAdmin()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadvaccineAdminList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId6 = this.currentList.Id
-                const data = await DelectList6(listId6)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList6(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList6(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        Title: '',
+        Age: '',
+        ZhenCi: '',
+        XiaoGuo: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        Age: '',
+        ZhenCi: '',
+        XiaoGuo: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载疫苗管理列表
+    this.loadvaccineAdminList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadvaccineAdminList () {
+      let channels = []
+      const data = await vaccineAdmin()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadvaccineAdminList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId6 = this.currentList.Id
+        const data = await DelectList6(listId6)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList6(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList6(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    }
+  }
 }
 </script>
 
@@ -360,7 +363,8 @@ export default {
     img {
       width: 200px;
       margin-left: 45px;
-      margin-top: 20px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
     }
     h1 {
       display: inline-block;

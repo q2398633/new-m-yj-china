@@ -55,7 +55,7 @@
               <van-cell :border="false"
                         title="维护日期:"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.Date }}
+                {{ item.Date  | dateFmt('YYYY-MM-DD')  }}
               </van-cell>
               <template slot="right">
                 <van-button square
@@ -253,128 +253,128 @@ import { AddList14 } from '@/api/AddList'
 import { ModifyList14 } from '@/api/ModifyList'
 
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                Title: '',
-                ZiChanXinXiId: '',
-                Type: '',
-                WeiHuType: '',
-                Date: '',
-                YinHangZhangHuIdName: '',
-                YinHangZhangHuId: '',
-                FeiYong: null,
-                WeiHuNeiRong: '',
-                BeiZhu: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Title: '',
-                ZiChanXinXiId: '',
-                Type: '',
-                WeiHuType: '',
-                Date: '',
-                YinHangZhangHuIdName: '',
-                YinHangZhangHuId: '',
-                FeiYong: null,
-                WeiHuNeiRong: '',
-                BeiZhu: '',
-                Id: ''
-            },
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-    },
-    created () {
-    // 页面一进入加载资产列表
-        this.loadAssetMaintenanceList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadAssetMaintenanceList () {
-            let channels = []
-            const data = await AssetMaintenance()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadAssetMaintenanceList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId13 = this.currentList.Id
-                const data = await DelectList13(listId13)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList14(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList14(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        Title: '',
+        ZiChanXinXiId: '',
+        Type: '',
+        WeiHuType: '',
+        Date: '',
+        YinHangZhangHuIdName: '',
+        YinHangZhangHuId: '',
+        FeiYong: null,
+        WeiHuNeiRong: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Title: '',
+        ZiChanXinXiId: '',
+        Type: '',
+        WeiHuType: '',
+        Date: '',
+        YinHangZhangHuIdName: '',
+        YinHangZhangHuId: '',
+        FeiYong: null,
+        WeiHuNeiRong: '',
+        BeiZhu: '',
+        Id: ''
+      },
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+  },
+  created () {
+    // 页面一进入加载资产列表
+    this.loadAssetMaintenanceList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadAssetMaintenanceList () {
+      let channels = []
+      const data = await AssetMaintenance()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadAssetMaintenanceList()
+      this.list = data
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId13 = this.currentList.Id
+        const data = await DelectList13(listId13)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList14(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      window.location.reload()
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList14(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    }
+  }
 }
 </script>
 

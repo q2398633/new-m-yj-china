@@ -4,7 +4,6 @@
     <van-nav-bar title="员工管理"
                  left-arrow
                  left-text="返回"
-                 size="36px"
                  @click-left="back"
                  fixed>
       <van-icon name="search"
@@ -15,7 +14,7 @@
     <!-- 搜索员工 -->
     <van-popup v-model="show"
                position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
+               :style="{width: '100%'}"
                close-icon="close">
       <form action="/"
             method="POST"
@@ -82,8 +81,10 @@
         </van-cell-group>
         <div class="submit">
           <van-button type="info"
+                      class="ClosePop"
                       @click.prevent="close">退出</van-button>
           <van-button type="primary"
+                      class="AddClass"
                       @click.prevent="SearchClass">搜索</van-button>
         </div>
       </form>
@@ -98,7 +99,7 @@
                   @load="onLoad">
           <van-cell v-for="(item) in list"
                     :key="item.Id">
-            <van-swipe-cell>
+            <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
               <div class="head">
                 <img src="../../assets/ZJZ.jpg"
                      alt="">
@@ -152,7 +153,7 @@
               <van-cell :border="false"
                         title="入职时间"
                         style="padding-left:30px; padding-right: 30px;">
-                {{ item.EntryDate }}
+                {{ item.EntryDate  | dateFmt('YYYY-MM-DD') }}
               </van-cell>
               <van-cell :border="false"
                         title="现住址"
@@ -188,7 +189,7 @@
           </van-cell>
         </van-list>
         <van-button type="info"
-                    style="margin-bottom: 50px; width: 100%"
+                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
                     @click.prevent="AddList">添加员工</van-button>
         <!-- 添加员工列表 -->
         <van-popup v-model="AddListshow"
@@ -369,7 +370,6 @@
                             class="AddClass">添加</van-button>
               </div>
             </van-cell-group>
-
           </form>
         </van-popup>
         <!-- 修改员工信息列表 -->
@@ -558,7 +558,6 @@
                             class="AddClass">修改</van-button>
               </div>
             </van-cell-group>
-
           </form>
         </van-popup>
       </van-pull-refresh>
@@ -582,187 +581,193 @@ import { AddList13 } from '@/api/AddList'
 import { ModifyList13 } from '@/api/ModifyList'
 import { SearchStaff } from '@/api/Search'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            Search: {
-                G_Department_Like: '',
-                G_Position_Like: '',
-                G_RealName_Like: '',
-                G_Account_Like: '',
-                G_IdNumber_Like: '',
-                G_Education_Like: '',
-                G_Schools_Like: '',
-                G_Professional_Like: ''
-            },
-            AddListForm: {
-                Account: '',
-                RealName: '',
-                XingBie: '',
-                MinZu: '',
-                Birthday: '',
-                IdNumber: '',
-                DepartmentId: '',
-                PositionId: '',
-                Education: '',
-                Schools: '',
-                Professional: '',
-                EntryDate: '',
-                DiZhi: '',
-                DiZhiData: '',
-                BanCiGroupId: '',
-                UserJiXiaoId: '',
-                BanJiId: '',
-                UserGongZiFangAnId: '',
-                RoleId: '',
-                IsJiaZuBingShi: '',
-                JiaZuBingShi: '',
-                IsXianTianJiBing: '',
-                XianTianJiBing: '',
-                IsBaoXian: '',
-                IsLaoDongHeTong: '',
-                JinJiLianXiRen: '',
-                JinJiLianXiRenDianHua: '',
-                TeChang: '',
-                Remarks: '',
-                Id: ''
-            },
-            ModifyListForm: {
-                Account: '',
-                RealName: '',
-                XingBie: '',
-                MinZu: '',
-                Birthday: '',
-                IdNumber: '',
-                DepartmentId: '',
-                PositionId: '',
-                Education: '',
-                Schools: '',
-                Professional: '',
-                EntryDate: '',
-                DiZhi: '',
-                DiZhiData: '',
-                BanCiGroupId: '',
-                UserJiXiaoId: '',
-                BanJiId: '',
-                UserGongZiFangAnId: '',
-                RoleId: '',
-                IsJiaZuBingShi: '',
-                JiaZuBingShi: '',
-                IsXianTianJiBing: '',
-                XianTianJiBing: '',
-                IsBaoXian: '',
-                IsLaoDongHeTong: '',
-                JinJiLianXiRen: '',
-                JinJiLianXiRenDianHua: '',
-                TeChang: '',
-                Remarks: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-    },
-    created () {
-    // 页面一进入加载供应商列表
-        this.loadStaffListList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消修改')
-        },
-        close () {
-            this.show = false
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadStaffListList () {
-            let channels = []
-            const data = await StaffList()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadStaffListList()
-            this.list = data
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId5 = this.currentList.Id
-                const data = await DelectList5(listId5)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList13(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            window.location.reload()
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList13(this.dqList)
-            console.log(data)
-            this.ModifyListshow = false
-            this.$toast.success('修改成功')
-            window.location.reload()
-        },
-        async SearchClass () {
-            const data = await SearchStaff(this.Search)
-            const SearchResult = data
-            this.list = SearchResult
-            console.log(this.list)
-            // this.Search.data = data
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      active: 0,
+      Search: {
+        G_Department_Like: '',
+        G_Position_Like: '',
+        G_RealName_Like: '',
+        G_Account_Like: '',
+        G_IdNumber_Like: '',
+        G_Education_Like: '',
+        G_Schools_Like: '',
+        G_Professional_Like: ''
+      },
+      AddListForm: {
+        Account: '',
+        RealName: '',
+        XingBie: '',
+        MinZu: '',
+        Birthday: '',
+        IdNumber: '',
+        DepartmentId: '',
+        PositionId: '',
+        Education: '',
+        Schools: '',
+        Professional: '',
+        EntryDate: '',
+        DiZhi: '',
+        DiZhiData: '',
+        BanCiGroupId: '',
+        UserJiXiaoId: '',
+        BanJiId: '',
+        UserGongZiFangAnId: '',
+        RoleId: '',
+        IsJiaZuBingShi: '',
+        JiaZuBingShi: '',
+        IsXianTianJiBing: '',
+        XianTianJiBing: '',
+        IsBaoXian: '',
+        IsLaoDongHeTong: '',
+        JinJiLianXiRen: '',
+        JinJiLianXiRenDianHua: '',
+        TeChang: '',
+        Remarks: '',
+        Id: ''
+      },
+      ModifyListForm: {
+        Account: '',
+        RealName: '',
+        XingBie: '',
+        MinZu: '',
+        Birthday: '',
+        IdNumber: '',
+        DepartmentId: '',
+        PositionId: '',
+        Education: '',
+        Schools: '',
+        Professional: '',
+        EntryDate: '',
+        DiZhi: '',
+        DiZhiData: '',
+        BanCiGroupId: '',
+        UserJiXiaoId: '',
+        BanJiId: '',
+        UserGongZiFangAnId: '',
+        RoleId: '',
+        IsJiaZuBingShi: '',
+        JiaZuBingShi: '',
+        IsXianTianJiBing: '',
+        XianTianJiBing: '',
+        IsBaoXian: '',
+        IsLaoDongHeTong: '',
+        JinJiLianXiRen: '',
+        JinJiLianXiRenDianHua: '',
+        TeChang: '',
+        Remarks: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+  },
+  created () {
+    // 页面一进入加载供应商列表
+    this.loadStaffListList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消修改')
+    },
+    close () {
+      this.show = false
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadStaffListList () {
+      let channels = []
+      const data = await StaffList()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadStaffListList()
+      this.list = data
+      this.isLoading = false
+      this.loading = false
+      this.finished = true
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId5 = this.currentList.Id
+        const data = await DelectList5(listId5)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList13(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      this.$toast.success('添加成功')
+      window.location.reload()
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.finished = false
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList13(this.dqList)
+      console.log(data)
+      this.ModifyListshow = false
+      this.$toast.success('修改成功')
+      window.location.reload()
+    },
+    async SearchClass () {
+      const data = await SearchStaff(this.Search)
+      const SearchResult = data
+      this.list = SearchResult
+      this.show = false
+      this.$toast.success('搜索完成')
+      // this.Search.data = data
+    }
+  }
 }
 </script>
 
@@ -781,17 +786,13 @@ export default {
     .van-icon {
       color: white;
     }
-    .van-nav-bar__text {
-      color: white;
-    }
   }
   .submit {
-    width: 100%;
-    height: 140px;
     background: white;
-    button {
-      margin-left: 180px;
-    }
+    margin-top: 40px;
+    margin-bottom: 30px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .van-list {
@@ -799,12 +800,12 @@ export default {
   }
   .van-popup {
     width: 100%;
+    margin-top: 30px;
     .van-cell-group {
       width: 100%;
 
       .van-field {
         width: 100%;
-        padding: 0 0 0 30px;
         margin-left: 20px;
       }
     }
@@ -843,7 +844,9 @@ export default {
   .head {
     img {
       width: 200px;
-      margin-left: 45px;
+      margin-left: 50px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
     }
     h1 {
       display: inline-block;

@@ -42,6 +42,7 @@ export const ModifyList = ({
 
 export const ModifyList2 = ({
     StudentIdName,
+    StudentId,
     RealName,
     GuanXi,
     Mobile,
@@ -53,6 +54,9 @@ export const ModifyList2 = ({
     QQ,
     XueLi,
     ZhuZhi,
+    TeShuJiNianRiDate,
+    TeShuJiNianRiName,
+    ZiYuan,
     Id
 }) => {
     return request({
@@ -60,6 +64,7 @@ export const ModifyList2 = ({
         url: '/STU/STUParentEdit',
         data: {
             StudentIdName,
+            StudentId,
             RealName,
             GuanXi,
             Mobile,
@@ -71,6 +76,9 @@ export const ModifyList2 = ({
             QQ,
             XueLi,
             ZhuZhi,
+            TeShuJiNianRiDate,
+            TeShuJiNianRiName,
+            ZiYuan,
             Id
         },
         transformRequest: [function (data) {
@@ -1144,6 +1152,103 @@ export const ModifyList28 = ({
             BanFangDiDian,
             JianChaBuWei,
             IsShiYong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList29 = ({
+    StudentIdName,
+    StudentId,
+    BanJiIdName,
+    XingBie,
+    NianLing,
+    YiYuanMingCheng,
+    Date,
+    ZuoYan,
+    YouYan,
+    QueZhenMingCheng,
+    JiaoZhiFangFa,
+    FuChaDate1,
+    FuChaZuoYan1,
+    FuChaYouYan1,
+    FuChaDate2,
+    FuChaZuoYan2,
+    FuChaYouYan2,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/ShiLiDengJiEdit',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiIdName,
+            XingBie,
+            NianLing,
+            YiYuanMingCheng,
+            Date,
+            ZuoYan,
+            YouYan,
+            QueZhenMingCheng,
+            JiaoZhiFangFa,
+            FuChaDate1,
+            FuChaZuoYan1,
+            FuChaYouYan1,
+            FuChaDate2,
+            FuChaZuoYan2,
+            FuChaYouYan2,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+export const ModifyList30 = ({
+    StudentIdName,
+    StudentId,
+    BanJiIdName,
+    JianChaRiQi,
+    NianLing,
+    ShangQuChi,
+    XiaQuChi,
+    QuChiKeShu,
+    JiaoZhiKeShu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/RiChang/QuChiDengJiEdit',
+        data: {
+            StudentIdName,
+            StudentId,
+            BanJiIdName,
+            JianChaRiQi,
+            NianLing,
+            ShangQuChi,
+            XiaQuChi,
+            QuChiKeShu,
+            JiaoZhiKeShu,
             Id
         },
         transformRequest: [function (data) {
