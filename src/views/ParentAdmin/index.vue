@@ -69,7 +69,8 @@
       <!-- 家长信息表 -->
       <div class="Parent-List">
         <van-pull-refresh v-model="isLoading"
-                          @refresh="onRefresh">
+                          @refresh="onRefresh"
+                          disabled>
           <van-list v-model="loading"
                     :finished="finished"
                     finished-text="没有更多了"
@@ -235,7 +236,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">特殊纪念日:</span>
                   <van-field v-model="AddListForm.TeShuJiNianRiDate"
                              placeholder="请输入纪念日日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">纪念日名称:</span>
@@ -350,7 +352,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">特殊纪念日:</span>
                   <van-field v-model="dqList.TeShuJiNianRiDate"
                              placeholder="请输入纪念日日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">纪念日名称:</span>
@@ -390,6 +393,15 @@
                   @click.prevent="AddList">添加家长信息</van-button>
 
     </div>
+    <van-popup v-model="DateShow"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate"
+                           type="date"
+                           @change="changeFn()"
+                           @confirm="confirmFn()"
+                           @cancel="cancelFn()" />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -461,7 +473,9 @@ export default {
       checked: true,
       dqList: [],
       ModifyList2: [],
-      Total: 0
+      Total: 0,
+      DateShow: false,
+      currentDate: new Date()
     }
   },
   mounted () {
@@ -546,6 +560,7 @@ export default {
       this.dqList = currentList
     },
     async ModifyList () {
+      this.disabled = true
       const data = await ModifyList2(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
@@ -558,6 +573,34 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
+    },
+    NowDate () {
+      this.DateShow = true
+    },
+    showPopFn () {
+      this.DateShow = true
+    },
+    showPopup () {
+      this.DateShow = true
+    },
+    changeFn () { // 值变化是触发
+      this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn () { // 确定按钮
+      this.AddListForm.TeShuJiNianRiDate = this.timeFormat(this.currentDate)
+      this.dqList.TeShuJiNianRiDate = this.timeFormat(this.currentDate)
+      this.DateShow = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn () {
+      this.DateShow = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
     }
   }
 }

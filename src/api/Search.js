@@ -627,3 +627,131 @@ export const SearchRegistrationOFDentalCaries = ({
         }
     })
 }
+
+export const SearchFoodProcessingRecord = ({
+    G_FoodName_Like,
+    G_LingYongRen_Like,
+    G_JiaGongRen_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/ShiCaiChuLiJiLuGrid',
+        data: {
+            G_FoodName_Like,
+            G_LingYongRen_Like,
+            G_JiaGongRen_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchSampleKeepingOFDishes = ({
+    G_CanBie_Like,
+    G_CaiYaoIdName_Like,
+    G_JiaGongRen_Like,
+    G_LiuYangRen_Like,
+    G_XiaoHuiRen_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/CaiPinLiuYangGrid',
+        data: {
+            G_CanBie_Like,
+            G_CaiYaoIdName_Like,
+            G_JiaGongRen_Like,
+            G_LiuYangRen_Like,
+            G_XiaoHuiRen_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchPerformanceScore = ({
+    G_UserName_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/HR/UserJiXiaoKaoHeGrid',
+        data: {
+            G_UserName_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchEmployeeRewardsAndPunishments = ({
+    G_UsersIdName_Like,
+    G_LaiYuan_Like,
+    G_LeiBie_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/UserJiangChengGrid',
+        data: {
+            G_UsersIdName_Like,
+            G_LaiYuan_Like,
+            G_LeiBie_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const SearchStaffTraining = ({
+    G_UsersIdName_Like,
+    G_Title_Like
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/UserPeiXunGrid',
+        data: {
+            G_UsersIdName_Like,
+            G_Title_Like
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

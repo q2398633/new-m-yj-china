@@ -48,7 +48,8 @@
       <!-- 视力矫治登记信息表 -->
       <div class="Parent-List">
         <van-pull-refresh v-model="isLoading"
-                          @refresh="onRefresh">
+                          @refresh="onRefresh"
+                          disabled>
           <van-list v-model="loading"
                     :finished="finished"
                     finished-text="没有更多了"
@@ -202,7 +203,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
                   <van-field v-model="AddListForm.Date"
                              placeholder="请输入检查日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -232,7 +234,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查一:</span>
                   <van-field v-model="AddListForm.FuChaDate1"
                              placeholder="请输入视力复查一的时间"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate2" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -250,7 +253,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查二:</span>
                   <van-field v-model="AddListForm.FuChaDate2"
                              placeholder="请输入视力复查二的时间"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate3" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -330,7 +334,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">检查日期:</span>
                   <van-field v-model="dqList.Date"
                              placeholder="请输入检查日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -360,7 +365,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查一:</span>
                   <van-field v-model="dqList.FuChaDate1"
                              placeholder="请输入视力复查一的时间"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate2" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -378,7 +384,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">视力复查二:</span>
                   <van-field v-model="dqList.FuChaDate2"
                              placeholder="请输入视力复查二的时间"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate3" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">左眼:</span>
@@ -425,6 +432,33 @@
                   @click.prevent="AddList">添加视力矫治登记信息</van-button>
 
     </div>
+    <van-popup v-model="DateShow"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate"
+                           type="date"
+                           @change="changeFn()"
+                           @confirm="confirmFn()"
+                           @cancel="cancelFn()" />
+    </van-popup>
+    <van-popup v-model="DateShow2"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate2"
+                           type="date"
+                           @change="changeFn2()"
+                           @confirm="confirmFn2()"
+                           @cancel="cancelFn2()" />
+    </van-popup>
+    <van-popup v-model="DateShow3"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate3"
+                           type="date"
+                           @change="changeFn3()"
+                           @confirm="confirmFn3()"
+                           @cancel="cancelFn3()" />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -497,7 +531,13 @@ export default {
       checked: true,
       dqList: [],
       ModifyList2: [],
-      Total: 0
+      Total: 0,
+      DateShow: false,
+      currentDate: new Date(),
+      DateShow2: false,
+      currentDate2: new Date(),
+      DateShow3: false,
+      currentDate3: new Date()
     }
   },
   mounted () {
@@ -578,7 +618,7 @@ export default {
       const data = await AddList29(this.AddListForm)
       console.log(data)
       this.AddListshow = false
-      this.$toast.success('添加成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     Modify (currentList) {
@@ -590,7 +630,7 @@ export default {
       const data = await ModifyList29(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
-      this.$toast.success('修改成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     async SearchVisionCorrectionRegistration () {
@@ -599,6 +639,90 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
+    },
+    NowDate () {
+      this.DateShow = true
+    },
+    showPopFn () {
+      this.DateShow = true
+    },
+    showPopup () {
+      this.DateShow = true
+    },
+    changeFn () { // 值变化是触发
+      this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn () { // 确定按钮
+      this.dqList.Date = this.timeFormat(this.currentDate)
+      this.AddListForm.Date = this.timeFormat(this.currentDate)
+      this.DateShow = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn () {
+      this.DateShow = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
+    },
+    NowDate2 () {
+      this.DateShow2 = true
+    },
+    showPopFn2 () {
+      this.DateShow2 = true
+    },
+    showPopup2 () {
+      this.DateShow2 = true
+    },
+    changeFn2 () { // 值变化是触发
+      this.changeDate2 = this.currentDate2 // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn2 () { // 确定按钮
+      this.dqList.FuChaDate1 = this.timeFormat(this.currentDate2)
+      this.AddListForm.FuChaDate1 = this.timeFormat(this.currentDate2)
+      this.DateShow2 = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn2 () {
+      this.DateShow2 = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat2 (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
+    },
+    NowDate3 () {
+      this.DateShow3 = true
+    },
+    showPopFn3 () {
+      this.DateShow3 = true
+    },
+    showPopup3 () {
+      this.DateShow3 = true
+    },
+    changeFn3 () { // 值变化是触发
+      this.changeDate3 = this.currentDate3 // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn3 () { // 确定按钮
+      this.dqList.FuChaDate2 = this.timeFormat(this.currentDate3)
+      this.AddListForm.FuChaDate2 = this.timeFormat(this.currentDate3)
+      this.DateShow3 = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn3 () {
+      this.DateShow3 = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat3 (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
     }
   }
 }

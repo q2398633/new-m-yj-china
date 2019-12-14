@@ -121,6 +121,7 @@ import { AttendanceList } from '@/api/AttendanceList'
 import { DelectList31 } from '@/api/Delect'
 import { AddList31 } from '@/api/AddList'
 import { SearchAttendance } from '@/api/Search'
+import { Catering } from '@/api/Catering'
 export default {
   name: 'StaffAdmin',
   data () {
@@ -231,7 +232,10 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
-      // this.Search.data = data
+    },
+    async PC () {
+      const data = await Catering()
+      this.$toast.success(data.msg)
     }
   }
 }

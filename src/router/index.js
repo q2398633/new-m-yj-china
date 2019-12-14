@@ -44,7 +44,13 @@ import ChildInjuriesAndAccidents from '@/views/ChildInjuriesAndAccidents'
 import LargeToys from '@/views/LargeToys'
 import VisionCorrectionRegistration from '@/views/VisionCorrectionRegistration'
 import RegistrationOFDentalCaries from '@/views/RegistrationOFDentalCaries'
-
+import FoodProcessingRecord from '@/views/FoodProcessingRecord'
+import SampleKeepingOFDishes from '@/views/SampleKeepingOFDishes'
+import WageList from '@/views/WageList'
+import PerformanceScore from '@/views/PerformanceScore'
+import EmployeeRewardsAndPunishments from '@/views/EmployeeRewardsAndPunishments'
+import StaffTraining from '@/views/StaffTraining'
+import LeaveManagement from '@/views/LeaveManagement'
 
 Vue.use(VueRouter)
 
@@ -94,7 +100,14 @@ const router = new VueRouter({
         { name: 'ChildInjuriesAndAccidents', path: '/ChildInjuriesAndAccidents', component: ChildInjuriesAndAccidents },
         { name: 'LargeToys', path: '/LargeToys', component: LargeToys },
         { name: 'VisionCorrectionRegistration', path: '/VisionCorrectionRegistration', component: VisionCorrectionRegistration },
-        { name: 'RegistrationOFDentalCaries', path: '/RegistrationOFDentalCaries', component: RegistrationOFDentalCaries }
+        { name: 'RegistrationOFDentalCaries', path: '/RegistrationOFDentalCaries', component: RegistrationOFDentalCaries },
+        { name: 'FoodProcessingRecord', path: '/FoodProcessingRecord', component: FoodProcessingRecord },
+        { name: 'SampleKeepingOFDishes', path: '/SampleKeepingOFDishes', component: SampleKeepingOFDishes },
+        { name: 'WageList', path: '/WageList', component: WageList },
+        { name: 'WageList', path: '/PerformanceScore', component: PerformanceScore },
+        { name: 'EmployeeRewardsAndPunishments', path: '/EmployeeRewardsAndPunishments', component: EmployeeRewardsAndPunishments },
+        { name: 'StaffTraining', path: '/StaffTraining', component: StaffTraining },
+        { name: 'LeaveManagement', path: '/LeaveManagement', component: LeaveManagement }
 
 
 

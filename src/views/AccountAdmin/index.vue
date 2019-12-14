@@ -15,7 +15,8 @@
     <!-- 银行账户列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
-                        @refresh="onRefresh">
+                        @refresh="onRefresh"
+                        disabled>
         <van-list v-model="loading"
                   :finished="finished"
                   finished-text="没有更多了"
@@ -317,6 +318,7 @@ export default {
       this.dqList = currentList
     },
     async ModifyList () {
+      this.disabled = true
       const data = await ModifyList4(this.dqList)
       console.log(data)
       this.ModifyListshow = false

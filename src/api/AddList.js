@@ -1281,3 +1281,190 @@ export const AddList31 = ({
         }
     })
 }
+
+export const AddList32 = ({
+    FoodCode,
+    FoodName,
+    LingYongRen,
+    JiaGongRen,
+    JiaGongDate,
+    ChuLiFangFa,
+    ChuLiShuLiang,
+    KeYongShuLiang,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/ShiCaiChuLiJiLuAdd',
+        data: {
+            FoodCode,
+            FoodName,
+            LingYongRen,
+            JiaGongRen,
+            JiaGongDate,
+            ChuLiFangFa,
+            ChuLiShuLiang,
+            KeYongShuLiang,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList33 = ({
+    CanBie,
+    CaiYaoIdName,
+    CaiYaoId,
+    LiuYangRen,
+    JiaGongRen,
+    LiuYangRiQi,
+    LiuYangWeiZhi,
+    YuJiXiaoHuiRiQi,
+    XiaoHuiRiQi,
+    XiaoHuiRen,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/CaiPinLiuYangAdd',
+        data: {
+            CanBie,
+            CaiYaoIdName,
+            CaiYaoId,
+            LiuYangRen,
+            JiaGongRen,
+            LiuYangRiQi,
+            LiuYangWeiZhi,
+            YuJiXiaoHuiRiQi,
+            XiaoHuiRiQi,
+            XiaoHuiRen,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList34 = () => {
+    return request({
+        method: 'POST',
+        url: '/HR/UserJiXiaoKaoHeAdd',
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList35 = ({
+    UsersIdName,
+    UsersId,
+    RiQi,
+    LaiYuan,
+    LeiBie,
+    JinE,
+    YinHangZhangHuIdName,
+    YinHangZhangHuId,
+    IsJiangCheng,
+    NeiRong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/UserJiangChengAdd',
+        data: {
+            UsersIdName,
+            UsersId,
+            RiQi,
+            LaiYuan,
+            LeiBie,
+            JinE,
+            YinHangZhangHuIdName,
+            YinHangZhangHuId,
+            IsJiangCheng,
+            NeiRong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const AddList36 = ({
+    UsersIdName,
+    UsersId,
+    Title,
+    StartDate,
+    EndDate,
+    JiaoShiFeiYong,
+    YuanSuoFeiYong,
+    JiangShi,
+    YinHangZhangHuIdName,
+    YinHangZhangHuId,
+    NeiRong,
+    ChengGuo,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/UserPeiXunAdd',
+        data: {
+            UsersIdName,
+            UsersId,
+            Title,
+            StartDate,
+            EndDate,
+            JiaoShiFeiYong,
+            YuanSuoFeiYong,
+            JiangShi,
+            YinHangZhangHuIdName,
+            YinHangZhangHuId,
+            NeiRong,
+            ChengGuo,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

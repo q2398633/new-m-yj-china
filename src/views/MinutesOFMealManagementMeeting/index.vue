@@ -111,7 +111,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
                   <van-field v-model="AddListForm.RiQi"
                              placeholder="请输入日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">议题:</span>
@@ -129,7 +130,7 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">出席会议人员:</span>
                   <van-field v-model="AddListForm.HuiYiRenYuan"
                              placeholder="请输入会议出席人员"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">决议:</span>
@@ -166,7 +167,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
                   <van-field v-model="dqList.RiQi"
                              placeholder="请输入日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">议题:</span>
@@ -184,7 +186,7 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">出席会议人员:</span>
                   <van-field v-model="dqList.HuiYiRenYuan"
                              placeholder="请输入会议出席人员"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">决议:</span>
@@ -224,6 +226,15 @@
                   @click.prevent="AddList">添加膳食管理会议记录</van-button>
 
     </div>
+    <van-popup v-model="DateShow"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate"
+                           type="date"
+                           @change="changeFn()"
+                           @confirm="confirmFn()"
+                           @cancel="cancelFn()" />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -271,7 +282,9 @@ export default {
       checked: true,
       dqList: [],
       ModifyList2: [],
-      Total: 0
+      Total: 0,
+      DateShow: false,
+      currentDate: new Date()
     }
   },
   mounted () {
@@ -340,7 +353,7 @@ export default {
         const data = await DelectList23(listId23)
         console.log('确认删除了' + data)
         window.location.reload()
-        this.$toast.success('删除成功')
+        this.$toast.success(data.msg)
       }).catch(() => {
         console.log('取消删除了')
         this.$toast.fail('删除失败')
@@ -353,7 +366,7 @@ export default {
       const data = await AddList24(this.AddListForm)
       console.log(data)
       this.AddListshow = false
-      this.$toast.success('添加成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     Modify (currentList) {
@@ -365,7 +378,7 @@ export default {
       const data = await ModifyList24(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
-      this.$toast.success('修改成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     async SearchMinutesOFMealManagementMeeting () {
@@ -374,6 +387,34 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
+    },
+    NowDate () {
+      this.DateShow = true
+    },
+    showPopFn () {
+      this.DateShow = true
+    },
+    showPopup () {
+      this.DateShow = true
+    },
+    changeFn () { // 值变化是触发
+      this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn () { // 确定按钮
+      this.dqList.RiQi = this.timeFormat(this.currentDate)
+      this.AddListForm.RiQi = this.timeFormat(this.currentDate)
+      this.DateShow = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn () {
+      this.DateShow = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
     }
   }
 }

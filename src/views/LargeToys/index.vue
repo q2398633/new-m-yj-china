@@ -105,7 +105,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用日期:</span>
                   <van-field v-model="AddListForm.ShiYongDate"
                              placeholder="请输入使用日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">摆放地点:</span>
@@ -117,7 +118,7 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">重点检查部位:</span>
                   <van-field v-model="AddListForm.JianChaBuWei"
                              placeholder="请输入重点检查部位"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否使用:</span>
@@ -155,7 +156,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">使用日期:</span>
                   <van-field v-model="dqList.ShiYongDate"
                              placeholder="请输入使用日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">摆放地点:</span>
@@ -167,7 +169,7 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">重点检查部位:</span>
                   <van-field v-model="dqList.JianChaBuWei"
                              placeholder="请输入重点检查部位"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 45%;" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否使用:</span>
@@ -202,6 +204,15 @@
                   @click.prevent="AddList">添加大型玩具检查登记信息</van-button>
 
     </div>
+    <van-popup v-model="DateShow"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate"
+                           type="date"
+                           @change="changeFn()"
+                           @confirm="confirmFn()"
+                           @cancel="cancelFn()" />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -247,7 +258,9 @@ export default {
       checked: true,
       dqList: [],
       ModifyList2: [],
-      Total: 0
+      Total: 0,
+      DateShow: false,
+      currentDate: new Date()
     }
   },
   mounted () {
@@ -328,7 +341,7 @@ export default {
       const data = await AddList28(this.AddListForm)
       console.log(data)
       this.AddListshow = false
-      this.$toast.success('添加成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     Modify (currentList) {
@@ -340,7 +353,7 @@ export default {
       const data = await ModifyList28(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
-      this.$toast.success('修改成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     async SearchLargeToys () {
@@ -349,6 +362,34 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
+    },
+    NowDate () {
+      this.DateShow = true
+    },
+    showPopFn () {
+      this.DateShow = true
+    },
+    showPopup () {
+      this.DateShow = true
+    },
+    changeFn () { // 值变化是触发
+      this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn () { // 确定按钮
+      this.dqList.ShiYongDate = this.timeFormat(this.currentDate)
+      this.AddListForm.ShiYongDate = this.timeFormat(this.currentDate)
+      this.DateShow = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn () {
+      this.DateShow = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
     }
   }
 }

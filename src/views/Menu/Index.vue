@@ -16,7 +16,7 @@
                 title-active-color="gold"
                 title-inactive-color="white"
                 color="white">
-        <van-tab title="财务管理">
+        <van-tab title="营养保健">
           <carousel-3d>
             <slide :index="0">
               <img src="../../assets/1.gif"
@@ -52,27 +52,15 @@
               <van-button icon="point-gift-o"
                           type="primary"
                           color="#9569f9"
-                          @click.prevent="Echarts" />
-              <div class="shoping">报表</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="#9569f9" />
-              <div class="shoping">出勤率</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="#9569f9" />
-              <div class="shoping">新增范围</div>
+                          @click.prevent="Recipes" />
+              <div class="shoping">食谱部分</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
                           color="#9569f9"
-                          @click.prevent="BudgetAdmin" />
-              <div class="shoping">收支管理</div>
+                          @click.prevent="DailyWorksheet" />
+              <div class="shoping">日常工作表</div>
             </van-col>
           </van-row>
         </van-tab>
@@ -127,54 +115,6 @@
                           type="primary"
                           color="#9569f9" />
               <div class="shoping">考勤审核</div>
-            </van-col>
-          </van-row>
-        </van-tab>
-        <van-tab title="营养保健">
-          <carousel-3d>
-            <slide :index="0">
-              <img src="../../assets/1.gif"
-                   alt="">
-            </slide>
-            <slide :index="1">
-              <img src="../../assets/2.gif"
-                   alt="">
-            </slide>
-            <slide :index="2">
-              <img src="../../assets/3.gif"
-                   alt="">
-            </slide>
-            <slide :index="3">
-              <img src="../../assets/4.gif"
-                   alt="">
-            </slide>
-            <slide :index="4">
-              <img src="../../assets/3.gif"
-                   alt="">
-            </slide>
-            <slide :index="5">
-              <img src="../../assets/1.gif"
-                   alt="">
-            </slide>
-            <slide :index="6">
-              <img src="../../assets/4.gif"
-                   alt="">
-            </slide>
-          </carousel-3d>
-          <van-row>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="#9569f9"
-                          @click.prevent="Recipes" />
-              <div class="shoping">食谱部分</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="#9569f9"
-                          @click.prevent="DailyWorksheet" />
-              <div class="shoping">日常工作表</div>
             </van-col>
           </van-row>
         </van-tab>
@@ -241,105 +181,16 @@
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="FoodProcessingRecord"></van-button>
               <div class="shoping">食材处理记录</div>
             </van-col>
             <van-col span="6">
               <van-button icon="point-gift-o"
                           type="primary"
-                          color="#9569f9"></van-button>
+                          color="#9569f9"
+                          @click.prevent="SampleKeepingOFDishes"></van-button>
               <div class="shoping">菜品留样</div>
-            </van-col>
-          </van-row>
-        </van-tab>
-        <van-tab title="人事管理">
-          <carousel-3d>
-            <slide :index="0">
-              <img src="../../assets/1.gif"
-                   alt="">
-            </slide>
-            <slide :index="1">
-              <img src="../../assets/2.gif"
-                   alt="">
-            </slide>
-            <slide :index="2">
-              <img src="../../assets/3.gif"
-                   alt="">
-            </slide>
-            <slide :index="3">
-              <img src="../../assets/4.gif"
-                   alt="">
-            </slide>
-            <slide :index="4">
-              <img src="../../assets/3.gif"
-                   alt="">
-            </slide>
-            <slide :index="5">
-              <img src="../../assets/1.gif"
-                   alt="">
-            </slide>
-            <slide :index="6">
-              <img src="../../assets/4.gif"
-                   alt="">
-            </slide>
-          </carousel-3d>
-          <van-row>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black"
-                          @click.prevent="AttendanceList">
-              </van-button>
-              <div class="shoping">考勤列表</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">打卡</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">请销假</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">员工奖惩</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">员工培训</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">绩效评分</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">工资列表</div>
-            </van-col>
-            <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="black">
-              </van-button>
-              <div class="shoping">用户管理</div>
             </van-col>
           </van-row>
         </van-tab>
@@ -398,6 +249,157 @@
                           @click.prevent="IncomingCalls">
               </van-button>
               <div class="shoping">来电来访</div>
+            </van-col>
+          </van-row>
+        </van-tab>
+        <van-tab title="财务管理">
+          <carousel-3d>
+            <slide :index="0">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="1">
+              <img src="../../assets/2.gif"
+                   alt="">
+            </slide>
+            <slide :index="2">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="3">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+            <slide :index="4">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="5">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="6">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+          </carousel-3d>
+          <van-row>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9"
+                          @click.prevent="Echarts" />
+              <div class="shoping">报表</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9" />
+              <div class="shoping">出勤率</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9" />
+              <div class="shoping">新增范围</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="#9569f9"
+                          @click.prevent="BudgetAdmin" />
+              <div class="shoping">收支管理</div>
+            </van-col>
+          </van-row>
+        </van-tab>
+        <van-tab title="人事管理">
+          <carousel-3d>
+            <slide :index="0">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="1">
+              <img src="../../assets/2.gif"
+                   alt="">
+            </slide>
+            <slide :index="2">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="3">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+            <slide :index="4">
+              <img src="../../assets/3.gif"
+                   alt="">
+            </slide>
+            <slide :index="5">
+              <img src="../../assets/1.gif"
+                   alt="">
+            </slide>
+            <slide :index="6">
+              <img src="../../assets/4.gif"
+                   alt="">
+            </slide>
+          </carousel-3d>
+          <van-row>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="AttendanceList">
+              </van-button>
+              <div class="shoping">考勤列表</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black">
+              </van-button>
+              <div class="shoping">打卡</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="LeaveManagement">
+              </van-button>
+              <div class="shoping">请假管理</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="EmployeeRewardsAndPunishments">
+              </van-button>
+              <div class="shoping">员工奖惩</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="StaffTraining">
+              </van-button>
+              <div class="shoping">员工培训</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="PerformanceScore">
+              </van-button>
+              <div class="shoping">绩效评分</div>
+            </van-col>
+            <van-col span="6">
+              <van-button icon="point-gift-o"
+                          type="primary"
+                          color="black"
+                          @click.prevent="WageList">
+              </van-button>
+              <div class="shoping">工资列表</div>
+            </van-col>
+            <van-col span="6">
             </van-col>
           </van-row>
         </van-tab>
@@ -598,6 +600,27 @@ export default {
     },
     DailyWorksheet () {
       this.$router.push('/DailyWorksheet')
+    },
+    FoodProcessingRecord () {
+      this.$router.push('/FoodProcessingRecord')
+    },
+    SampleKeepingOFDishes () {
+      this.$router.push('/SampleKeepingOFDishes')
+    },
+    WageList () {
+      this.$router.push('/WageList')
+    },
+    PerformanceScore () {
+      this.$router.push('/PerformanceScore')
+    },
+    EmployeeRewardsAndPunishments () {
+      this.$router.push('/EmployeeRewardsAndPunishments')
+    },
+    StaffTraining () {
+      this.$router.push('/StaffTraining')
+    },
+    LeaveManagement () {
+      this.$router.push('/LeaveManagement')
     }
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <div class="parentAdmin">
       <!-- 顶部导航 -->
-      <van-nav-bar title="疾病防控登记"
+      <van-nav-bar title="工资列表"
                    left-text="返回"
                    left-arrow
                    @click-left.prevent="back"
@@ -14,27 +14,34 @@
                   size="25px"
                   @click.prevent="SideMenu" />
       </van-nav-bar>
-      <!-- 搜索疾病防控登记 -->
+      <!-- 搜索工资列表 -->
       <van-popup v-model="show"
                  position="bottom"
                  :style="{width: '100%'}"
                  close-icon="close">
         <van-cell-group>
-          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索疾病防控登记</div>
-          <van-field label="目的:"
+          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索工资列表</div>
+          <van-field label="食材:"
                      label-width="70px"
                      autosize
-                     name="G_Title_Like"
-                     prop="G_Title_Like"
-                     v-model="Search.G_Title_Like"
-                     placeholder="请输入目的" />
-          <van-field label="执行人:"
+                     name="G_FoodName_Like"
+                     prop="G_FoodName_Like"
+                     v-model="Search.G_FoodName_Like"
+                     placeholder="请输入食材名称" />
+          <van-field label="领用人:"
                      label-width="70px"
                      autosize
-                     name="G_ZhiXingRen_Like"
-                     prop="G_ZhiXingRen_Like"
-                     v-model="Search.G_ZhiXingRen_Like"
-                     placeholder="请输入执行人" />
+                     name="G_LingYongRen_Like"
+                     prop="G_LingYongRen_Like"
+                     v-model="Search.G_LingYongRen_Like"
+                     placeholder="请输入食材名称" />
+          <van-field label="加工人:"
+                     label-width="70px"
+                     autosize
+                     name="G_JiaGongRen_Like"
+                     prop="G_JiaGongRen_Like"
+                     v-model="Search.G_JiaGongRen_Like"
+                     placeholder="请输入食材名称" />
         </van-cell-group>
         <div class="submit">
           <van-button type="info"
@@ -42,10 +49,10 @@
                       @click.prevent="close">退出</van-button>
           <van-button type="primary"
                       class="AddClass"
-                      @click.prevent="SearchDPACRegistration">搜索</van-button>
+                      @click.prevent="SearchFoodProcessingRecord">搜索</van-button>
         </div>
       </van-popup>
-      <!-- 疾病防控登记表 -->
+      <!-- 工资列表 -->
       <div class="Parent-List">
         <van-pull-refresh v-model="isLoading"
                           @refresh="onRefresh">
@@ -57,29 +64,39 @@
                       :key="item.Id">
               <van-swipe-cell style="border: 7px solid rgb(231, 231, 231);">
                 <div class="head">
-                  <img src="../../assets/JBYF.jpg"
+                  <img src="../../assets/GZ.jpg"
                        alt="">
-                  <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.Title }}</h1>
+                  <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;">{{ item.Title }}</h1>
                 </div>
                 <van-cell :border="false"
-                          title="执行人:"
+                          title="迟到扣考勤:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.ZhiXingRen }}
+                  {{ item.ChiDaoIsKouKaoQin }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="对象:"
+                          title="早退扣考勤:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.DuiXiang }}
+                  {{ item.ZaoTuiIsKouKaoQin }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="防控方式或措施:"
+                          title="迟到算法:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.FangKong }}
+                  {{ item.ChiDaoSuanFa }}
                 </van-cell>
                 <van-cell :border="false"
-                          title="日期:"
+                          title="早退算法:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.Date  | dateFmt('YYYY-MM-DD') }}
+                  {{ item.ZaoTuiSuanFa}}
+                </van-cell>
+                <van-cell :border="false"
+                          title="备注:"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.BeiZhu }}
+                </van-cell>
+                <van-cell :border="false"
+                          title="状态:"
+                          style="padding-left:30px; padding-right: 30px;">
+                  {{ item.Status }}
                 </van-cell>
                 <template slot="right">
                   <van-button square
@@ -94,7 +111,7 @@
               </van-swipe-cell>
             </van-cell>
           </van-list>
-          <!-- 添加疾病防控登记信息表 -->
+          <!-- 添加工资列表 -->
           <van-popup v-model="AddListshow"
                      style="width: 80%;">
             <form action="/"
@@ -103,35 +120,52 @@
                   :model="AddListForm">
               <van-cell-group>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
-                  <van-field v-model="AddListForm.Date"
-                             placeholder="请输入日期"
-                             readonly="readonly"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">食材编码:</span>
+                  <van-field v-model="AddListForm.FoodCode"
+                             placeholder="请输入食材编码"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">食材名称:</span>
+                  <van-field v-model="AddListForm.FoodName"
+                             placeholder="请输入食材名称"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">领用人:</span>
+                  <van-field v-model="AddListForm.LingYongRen"
+                             placeholder="请输入领用人"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">领用人:</span>
+                  <van-field v-model="AddListForm.JiaGongRen"
+                             placeholder="请输入加工人"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">加工日期:</span>
+                  <van-field v-model="AddListForm.JiaGongDate"
+                             placeholder="请输入加工日期"
                              style="display:inline-block; width: 55%;"
                              @click.prevent="NowDate" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">目的:</span>
-                  <van-field v-model="AddListForm.Title"
-                             placeholder="请输入目的"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理方法:</span>
+                  <van-field v-model="AddListForm.ChuLiFangFa"
+                             placeholder="请输入处理方法"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">执行人:</span>
-                  <van-field v-model="AddListForm.ZhiXingRen"
-                             placeholder="请输入执行人"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理量(KG):</span>
+                  <van-field v-model="AddListForm.ChuLiShuLiang"
+                             placeholder="请输入处理量"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">对象:</span>
-                  <van-field v-model="AddListForm.DuiXiang"
-                             placeholder="请输入对象"
-                             style="display:inline-block; width: 55%;" />
-                </div>
-                <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">防控方式或措施:</span>
-                  <van-field v-model="AddListForm.FangKong"
-                             placeholder="请输入内容"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">可用数量(KG):</span>
+                  <van-field v-model="AddListForm.KeYongShuLiang"
+                             placeholder="请输入可用数量"
                              style="display:inline-block; width: 45%;" />
                 </div>
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -143,10 +177,9 @@
                               class="AddClass">添加</van-button>
                 </div>
               </van-cell-group>
-
             </form>
           </van-popup>
-          <!-- 修改疾病防控登记信息表 -->
+          <!-- 修改工资列表 -->
           <van-popup v-model="ModifyListshow"
                      style="width: 80%;">
             <form action="/"
@@ -155,33 +188,52 @@
                   :model="dqList">
               <van-cell-group>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">日期:</span>
-                  <van-field v-model="dqList.Date"
-                             placeholder="请输入日期"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">食材编码:</span>
+                  <van-field v-model="dqList.FoodCode"
+                             placeholder="请输入食材编码"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">目的:</span>
-                  <van-field v-model="dqList.Title"
-                             placeholder="请输入目的"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">食材名称:</span>
+                  <van-field v-model="dqList.FoodName"
+                             placeholder="请输入食材名称"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">执行人:</span>
-                  <van-field v-model="dqList.ZhiXingRen"
-                             placeholder="请输入执行人"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">领用人:</span>
+                  <van-field v-model="dqList.LingYongRen"
+                             placeholder="请输入领用人"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">对象:</span>
-                  <van-field v-model="dqList.DuiXiang"
-                             placeholder="请输入对象"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">加工人:</span>
+                  <van-field v-model="dqList.JiaGongRen"
+                             placeholder="请输入加工人"
                              style="display:inline-block; width: 55%;" />
                 </div>
                 <div>
-                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">防控方式或措施:</span>
-                  <van-field v-model="dqList.FangKong"
-                             placeholder="请输入防控方式"
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">加工日期:</span>
+                  <van-field v-model="dqList.JiaGongDate"
+                             placeholder="请输入加工日期"
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理方法:</span>
+                  <van-field v-model="dqList.ChuLiFangFa"
+                             placeholder="请输入处理方法"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">处理量(KG):</span>
+                  <van-field v-model="dqList.ChuLiShuLiang"
+                             placeholder="请输入处理量"
+                             style="display:inline-block; width: 55%;" />
+                </div>
+                <div>
+                  <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">可用数量(KG):</span>
+                  <van-field v-model="dqList.KeYongShuLiang"
+                             placeholder="请输入可用数量"
                              style="display:inline-block; width: 45%;" />
                 </div>
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -206,11 +258,10 @@
 
       </div>
       <van-button type="info"
-                  style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
-                  @click.prevent="AddList">添加健康教育登记</van-button>
+                  style="margin-bottom: 0.1rem; width: 100%; border-radius: 20px;"
+                  @click.prevent="AddList">添加工资列表</van-button>
 
     </div>
-
     <van-popup v-model="DateShow"
                position="bottom"
                :style="{ height: '40%' }">
@@ -223,33 +274,40 @@
   </div>
 </template>
 <script>
-import { DPACRegistration } from '@/api/DPACRegistration'
-import { DelectList22 } from '@/api/Delect'
-import { AddList23 } from '@/api/AddList'
-import { ModifyList23 } from '@/api/ModifyList'
-import { SearchDPACRegistration } from '@/api/Search'
+import { WageList } from '@/api/WageList'
+import { DelectList32 } from '@/api/Delect'
+import { AddList32 } from '@/api/AddList'
+import { ModifyList31 } from '@/api/ModifyList'
+import { SearchFoodProcessingRecord } from '@/api/Search'
 export default {
   data () {
     return {
       active: 0,
       Search: {
-        G_Title_Like: '',
-        G_ZhiXingRen_Like: ''
+        G_FoodName_Like: '',
+        G_LingYongRen_Like: '',
+        G_JiaGongRen_Like: ''
       },
       AddListForm: {
-        Date: '',
-        Title: '',
-        ZhiXingRen: '',
-        DuiXiang: '',
-        FangKong: '',
+        FoodCode: '',
+        FoodName: '',
+        LingYongRen: '',
+        JiaGongRen: '',
+        JiaGongDate: '',
+        ChuLiFangFa: '',
+        ChuLiShuLiang: '',
+        KeYongShuLiang: '',
         Id: ''
       },
       ModifyListForm: {
-        Date: '',
-        Title: '',
-        ZhiXingRen: '',
-        DuiXiang: '',
-        FangKong: '',
+        FoodCode: '',
+        FoodName: '',
+        LingYongRen: '',
+        JiaGongRen: '',
+        JiaGongDate: '',
+        ChuLiFangFa: '',
+        ChuLiShuLiang: '',
+        KeYongShuLiang: '',
         Id: ''
       },
       show: false,
@@ -274,8 +332,8 @@ export default {
 
   },
   created () {
-    // 页面一进入加载疾病防控登记表
-    this.loadDPACRegistrationList()
+    // 页面一进入加载工资列表
+    this.loadWageList()
   },
   methods: {
     back () {
@@ -288,7 +346,7 @@ export default {
 
     },
     SideMenu () {
-      this.show = true
+      this.show = false
     },
     ClosePop () {
       this.AddListshow = false
@@ -308,10 +366,10 @@ export default {
         this.finished = true
       }, 500)
     },
-    // 晨午晚检
-    async loadDPACRegistrationList () {
+    // 工资列表
+    async loadWageList () {
       let channels = []
-      const data = await DPACRegistration()
+      const data = await WageList()
       this.Total = data.length
       console.log(this.Total)
       this.channels = data
@@ -319,7 +377,7 @@ export default {
       return channels
     },
     async onLoad () {
-      const data = await this.loadDPACRegistrationList()
+      const data = await this.loadWageList()
       this.list = data
       this.isLoading = false
       this.loading = false
@@ -332,39 +390,40 @@ export default {
         title: '确认删除吗?',
         message: '删除当前列表数据'
       }).then(async () => {
-        const listId22 = this.currentList.Id
-        const data = await DelectList22(listId22)
+        const listId32 = this.currentList.Id
+        const data = await DelectList32(listId32)
         console.log('确认删除了' + data)
         window.location.reload()
         this.$toast.success('删除成功')
       }).catch(() => {
+        console.log('取消删除了')
         this.$toast.fail('删除失败')
       })
     },
     AddList () {
-      this.AddListshow = true
+      this.AddListshow = false
     },
     async AddClass () {
-      const data = await AddList23(this.AddListForm)
+      const data = await AddList32(this.AddListForm)
       console.log(data)
       this.AddListshow = false
-      this.$toast.success('添加成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
     Modify (currentList) {
-      this.ModifyListshow = true
+      this.ModifyListshow = false
       this.finished = false
       this.dqList = currentList
     },
     async ModifyList () {
-      const data = await ModifyList23(this.dqList)
+      const data = await ModifyList31(this.dqList)
       this.ModifyList2 = data
       this.ModifyListshow = false
-      this.$toast.success('修改成功')
+      this.$toast.success(data.msg)
       window.location.reload()
     },
-    async SearchDPACRegistration () {
-      const data = await SearchDPACRegistration(this.Search)
+    async SearchFoodProcessingRecord () {
+      const data = await SearchFoodProcessingRecord(this.Search)
       const SearchResult = data
       this.list = SearchResult
       this.show = false
@@ -373,7 +432,6 @@ export default {
     NowDate () {
       this.DateShow = true
     },
-
     showPopFn () {
       this.DateShow = true
     },
@@ -384,7 +442,8 @@ export default {
       this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
     },
     confirmFn () { // 确定按钮
-      this.AddListForm.Date = this.timeFormat(this.currentDate)
+      this.dqList.JiaGongDate = this.timeFormat(this.currentDate)
+      this.AddListForm.JiaGongDate = this.timeFormat(this.currentDate)
       this.DateShow = false
       this.$toast.success('已选择日期')
     },
@@ -475,6 +534,8 @@ export default {
     img {
       width: 200px;
       margin-left: 50px;
+      margin-top: 50px;
+      box-shadow: 5px 5px 5px 5px #ccc;
     }
     h1 {
       display: inline-block;

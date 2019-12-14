@@ -610,3 +610,103 @@ export const DelectList31 = (listId31) => {
         }
     })
 }
+
+export const DelectList32 = (listId32) => {
+    return request({
+        method: 'DELETE',
+        url: '/ChuFang/ShiCaiChuLiJiLuDel',
+        data: {
+            Id: listId32
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList33 = (listId33) => {
+    return request({
+        method: 'DELETE',
+        url: '/ChuFang/CaiPinLiuYangDel',
+        data: {
+            Id: listId33
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList34 = (listId34) => {
+    return request({
+        method: 'DELETE',
+        url: '/HR/UserJiXiaoKaoHeDel',
+        data: {
+            Id: listId34
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList35 = (listId35) => {
+    return request({
+        method: 'DELETE',
+        url: '/CAW/UserJiangChengDel',
+        data: {
+            Id: listId35
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const DelectList36 = (listId36) => {
+    return request({
+        method: 'DELETE',
+        url: '/CAW/UserPeiXunDel',
+        data: {
+            Id: listId36
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}

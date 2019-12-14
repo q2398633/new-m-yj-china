@@ -56,7 +56,8 @@
     <!-- 供应商列表 -->
     <div class="Parent-List">
       <van-pull-refresh v-model="isLoading"
-                        @refresh="onRefresh">
+                        @refresh="onRefresh"
+                        disabled>
         <van-list v-model="loading"
                   :finished="finished"
                   finished-text="没有更多了"

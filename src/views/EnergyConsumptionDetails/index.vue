@@ -131,8 +131,8 @@
               </van-cell>
               <van-cell :border="false"
                         title="单价:"
-                        style="padding-left:30px; padding-right: 30px;"> ¥
-                {{ item.DanJia }}
+                        style="padding-left:30px; padding-right: 30px;">
+                {{ item.DanJia }}¥
               </van-cell>
               <van-cell :border="false"
                         title="月份:"
@@ -292,132 +292,132 @@ import { DelectList11 } from '@/api/Delect'
 import { AddList11 } from '@/api/AddList'
 import { ModifyList11 } from '@/api/ModifyList'
 export default {
-    name: 'StaffAdmin',
-    data () {
-        return {
-            AddListForm: {
-                Date: '',
-                Title: '',
-                NengHaoXiangMuId: '',
-                JiLiangDanWei: '',
-                DanJia: 0,
-                YuSuanShuLiang: 0,
-                Id: ''
-            },
-            ModifyListForm: {
-                Date: '',
-                Title: '',
-                JiLiangDanWei: '',
-                DanJia: 0,
-                YuSuanShuLiang: 0,
-                ShiYongShuLiang: 0,
-                YinHangZhangHuIdName: '',
-                Id: ''
-            },
-            show: false,
-            isLoading: false,
-            loading: false,
-            finished: false,
-            list: [],
-            currentPage: null,
-            isShowDel: false,
-            currentList: null,
-            AddListshow: false,
-            ModifyListshow: false,
-            checked: true,
-            dqList: [],
-            Total: 0
-        }
-    },
-    mounted () {
-
-    },
-    created () {
-    // 页面一进入加载能耗详情列表
-        this.loadEnergyConsumptionDetailsList()
-    },
-    methods: {
-        back () {
-            this.$router.go(-1)
-        },
-        SideMenu () {
-            this.show = true
-        },
-        ClosePop () {
-            this.AddListshow = false
-            this.$toast.fail('已取消添加')
-        },
-        CloseModify () {
-            this.ModifyListshow = false
-            this.$toast.fail('已取消结算')
-        },
-        close () {
-            this.show = false
-            this.$toast.fail('已取消搜索')
-        },
-        onRefresh () {
-            setTimeout(() => {
-                this.$toast('刷新成功')
-                this.isLoading = false
-            }, 500)
-        },
-        async loadEnergyConsumptionDetailsList () {
-            let channels = []
-            const data = await EnergyConsumptionDetails()
-            this.Total = data.length
-            console.log(this.Total)
-            this.channels = data
-            channels = this.channels
-            return channels
-        },
-        async onLoad () {
-            const data = await this.loadEnergyConsumptionDetailsList()
-            this.list = data
-            this.load = false
-        },
-        async DelList (currentList) {
-            this.isShowDel = true
-            this.currentList = currentList
-            this.$dialog.confirm({
-                title: '确认删除吗?',
-                message: '删除当前列表数据'
-            }).then(async () => {
-                const listId11 = this.currentList.Id
-                const data = await DelectList11(listId11)
-                console.log('确认删除了' + data)
-                window.location.reload()
-                this.$toast.success('删除成功')
-            }).catch(() => {
-                console.log('取消删除了')
-                this.$toast.fail('删除失败')
-            })
-        },
-        AddList () {
-            this.AddListshow = true
-        },
-        async AddClass () {
-            const data = await AddList11(this.AddListForm)
-            console.log(data)
-            this.AddListshow = false
-            this.$toast.success('添加成功')
-        },
-        Modify (currentList) {
-            this.ModifyListshow = true
-            this.dqList = currentList
-        },
-        async ModifyList () {
-            const data = await ModifyList11(this.dqList)
-            const msg = data.msg
-            console.log(data.msg)
-            this.ModifyListshow = false
-            this.$toast.success(msg)
-            window.location.reload()
-        },
-        SearchClass () {
-            this.$toast.success('已完成搜索')
-            this.show = false
-        }
+  name: 'StaffAdmin',
+  data () {
+    return {
+      AddListForm: {
+        Date: '',
+        Title: '',
+        NengHaoXiangMuId: '',
+        JiLiangDanWei: '',
+        DanJia: 0,
+        YuSuanShuLiang: 0,
+        Id: ''
+      },
+      ModifyListForm: {
+        Date: '',
+        Title: '',
+        JiLiangDanWei: '',
+        DanJia: 0,
+        YuSuanShuLiang: 0,
+        ShiYongShuLiang: 0,
+        YinHangZhangHuIdName: '',
+        Id: ''
+      },
+      show: false,
+      isLoading: false,
+      loading: false,
+      finished: false,
+      list: [],
+      currentPage: null,
+      isShowDel: false,
+      currentList: null,
+      AddListshow: false,
+      ModifyListshow: false,
+      checked: true,
+      dqList: [],
+      Total: 0
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    // 页面一进入加载能耗详情列表
+    this.loadEnergyConsumptionDetailsList()
+  },
+  methods: {
+    back () {
+      this.$router.go(-1)
+    },
+    SideMenu () {
+      this.show = true
+    },
+    ClosePop () {
+      this.AddListshow = false
+      this.$toast.fail('已取消添加')
+    },
+    CloseModify () {
+      this.ModifyListshow = false
+      this.$toast.fail('已取消结算')
+    },
+    close () {
+      this.show = false
+      this.$toast.fail('已取消搜索')
+    },
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+      }, 500)
+    },
+    async loadEnergyConsumptionDetailsList () {
+      let channels = []
+      const data = await EnergyConsumptionDetails()
+      this.Total = data.length
+      console.log(this.Total)
+      this.channels = data
+      channels = this.channels
+      return channels
+    },
+    async onLoad () {
+      const data = await this.loadEnergyConsumptionDetailsList()
+      this.list = data
+      this.load = false
+    },
+    async DelList (currentList) {
+      this.isShowDel = true
+      this.currentList = currentList
+      this.$dialog.confirm({
+        title: '确认删除吗?',
+        message: '删除当前列表数据'
+      }).then(async () => {
+        const listId11 = this.currentList.Id
+        const data = await DelectList11(listId11)
+        console.log('确认删除了' + data)
+        window.location.reload()
+        this.$toast.success('删除成功')
+      }).catch(() => {
+        console.log('取消删除了')
+        this.$toast.fail('删除失败')
+      })
+    },
+    AddList () {
+      this.AddListshow = true
+    },
+    async AddClass () {
+      const data = await AddList11(this.AddListForm)
+      console.log(data)
+      this.AddListshow = false
+      this.$toast.success('添加成功')
+    },
+    Modify (currentList) {
+      this.ModifyListshow = true
+      this.dqList = currentList
+    },
+    async ModifyList () {
+      const data = await ModifyList11(this.dqList)
+      const msg = data.msg
+      console.log(data.msg)
+      this.ModifyListshow = false
+      this.$toast.success(msg)
+      window.location.reload()
+    },
+    SearchClass () {
+      this.$toast.success('已完成搜索')
+      this.show = false
+    }
+  }
 }
 </script>
 

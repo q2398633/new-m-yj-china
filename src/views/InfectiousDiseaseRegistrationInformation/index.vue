@@ -151,7 +151,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病日期:</span>
                   <van-field v-model="AddListForm.Date"
                              placeholder="请输入发病日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病名称:</span>
@@ -163,7 +164,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">痊愈日期:</span>
                   <van-field v-model="AddListForm.QuYuDate"
                              placeholder="请输入痊愈日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -218,7 +220,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病日期:</span>
                   <van-field v-model="dqList.Date"
                              placeholder="请输入发病日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病名称:</span>
@@ -230,7 +233,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">痊愈日期:</span>
                   <van-field v-model="dqList.QuYuDate"
                              placeholder="请输入痊愈日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -285,7 +289,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病日期:</span>
                   <van-field v-model="RList.Date"
                              placeholder="请输入发病日期"
-                             style="display:inline-block; width: 55%;" />
+                             style="display:inline-block; width: 55%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">发病名称:</span>
@@ -297,7 +302,8 @@
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">痊愈日期:</span>
                   <van-field v-model="RList.QuYuDate"
                              placeholder="请输入痊愈日期"
-                             style="display:inline-block; width: 45%;" />
+                             style="display:inline-block; width: 45%;"
+                             @click.prevent="NowDate" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -331,6 +337,15 @@
                   @click.prevent="AddList">添加传染病信息登记</van-button>
 
     </div>
+    <van-popup v-model="DateShow"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate"
+                           type="date"
+                           @change="changeFn()"
+                           @confirm="confirmFn()"
+                           @cancel="cancelFn()" />
+    </van-popup>
   </div>
 </template>
 <script>
@@ -398,7 +413,9 @@ export default {
       RList: [],
       ModifyList2: [],
       RecoveryList2: [],
-      Total: 0
+      Total: 0,
+      DateShow: false,
+      currentDate: new Date()
     }
   },
   mounted () {
@@ -516,6 +533,38 @@ export default {
       this.list = SearchResult
       this.show = false
       this.$toast.success('搜索完成')
+    },
+    NowDate () {
+      this.DateShow = true
+    },
+    showPopFn () {
+      this.DateShow = true
+    },
+    showPopup () {
+      this.DateShow = true
+    },
+    changeFn () { // 值变化是触发
+      this.changeDate = this.currentDate // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn () { // 确定按钮
+      this.AddListForm.Date = this.timeFormat(this.currentDate)
+      this.AddListForm.QuYuDate = this.timeFormat(this.currentDate)
+      this.dqList.Date = this.timeFormat(this.currentDate)
+      this.dqList.QuYuDate = this.timeFormat(this.currentDate)
+      this.RList.Date = this.timeFormat(this.currentDate)
+      this.RList.QuYuDate = this.timeFormat(this.currentDate)
+      this.DateShow = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn () {
+      this.DateShow = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
     }
   }
 }

@@ -1263,3 +1263,127 @@ export const ModifyList30 = ({
         }
     })
 }
+
+export const ModifyList31 = ({
+    FoodCode,
+    FoodName,
+    LingYongRen,
+    JiaGongRen,
+    JiaGongDate,
+    ChuLiFangFa,
+    ChuLiShuLiang,
+    KeYongShuLiang,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/ShiCaiChuLiJiLuEdit',
+        data: {
+            FoodCode,
+            FoodName,
+            LingYongRen,
+            JiaGongRen,
+            JiaGongDate,
+            ChuLiFangFa,
+            ChuLiShuLiang,
+            KeYongShuLiang,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList32 = ({
+    CanBie,
+    CaiYaoIdName,
+    CaiYaoId,
+    LiuYangRen,
+    JiaGongRen,
+    LiuYangRiQi,
+    LiuYangWeiZhi,
+    YuJiXiaoHuiRiQi,
+    XiaoHuiRiQi,
+    XiaoHuiRen,
+    BeiZhu,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/ChuFang/CaiPinLiuYangEdit',
+        data: {
+            CanBie,
+            CaiYaoIdName,
+            CaiYaoId,
+            LiuYangRen,
+            JiaGongRen,
+            LiuYangRiQi,
+            LiuYangWeiZhi,
+            YuJiXiaoHuiRiQi,
+            XiaoHuiRiQi,
+            XiaoHuiRen,
+            BeiZhu,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const ModifyList33 = ({
+    UsersIdName,
+    UsersId,
+    RiQi,
+    LaiYuan,
+    LeiBie,
+    JinE,
+    YinHangZhangHuIdName,
+    YinHangZhangHuId,
+    IsJiangCheng,
+    NeiRong,
+    Id
+}) => {
+    return request({
+        method: 'POST',
+        url: '/CAW/UserJiangChengEdit',
+        data: {
+            UsersIdName,
+            UsersId,
+            RiQi,
+            LaiYuan,
+            LeiBie,
+            JinE,
+            YinHangZhangHuIdName,
+            YinHangZhangHuId,
+            IsJiangCheng,
+            NeiRong,
+            Id
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }],
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
