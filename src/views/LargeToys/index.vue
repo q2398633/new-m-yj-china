@@ -67,7 +67,7 @@
                 <van-cell :border="false"
                           title="是否使用:"
                           style="padding-left:30px; padding-right: 30px;">
-                  {{ item.IsShiYong }}
+                  {{ item.IsShiYong === true ? "使用" : "不使用" }}
                 </van-cell>
                 <van-cell :border="false"
                           title="使用日期:"
@@ -122,9 +122,10 @@
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否使用:</span>
-                  <van-field v-model="AddListForm.IsShiYong"
-                             placeholder="请输入是否使用"
-                             style="display:inline-block; width: 55%;" />
+                <van-switch
+                  v-model="AddListForm.IsShiYong"
+                  style="margin-left: 20px; "
+                />
                 </div>
 
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
@@ -173,9 +174,10 @@
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">是否使用:</span>
-                  <van-field v-model="dqList.IsShiYong"
-                             placeholder="请输入是否使用"
-                             style="display:inline-block; width: 55%;" />
+                <van-switch
+                  v-model="dqList.IsShiYong"
+                  style="margin-left: 20px; "
+                />
                 </div>
 
                 <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">

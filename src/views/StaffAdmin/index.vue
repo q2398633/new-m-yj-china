@@ -318,27 +318,35 @@
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">家族病史:</span>
-                <van-field v-model="AddListForm.IsJiaZuBingShi"
-                           placeholder="有无家族病史"
-                           style="display:inline-block; width: 55%;" />
+                <van-switch
+                  v-model="AddListForm.IsJiaZuBingShi"
+                  style="margin-left: 20px; "
+                />
+                <van-field v-model="AddListForm.JiaZuBingShi"
+                placeholder="有无家族病史"
+                           style="display:inline-block; width: 80%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">先天性疾病:</span>
-                <van-field v-model="AddListForm.IsXianTianJiBing"
+                <van-switch
+                  v-model="AddListForm.IsXianTianJiBing"
+                  style="margin-left: 2px; "
+                />
+                <van-field v-model="AddListForm.XianTianJiBing"
                            placeholder="有无先天性疾病"
-                           style="display:inline-block; width: 55%;" />
+                           style="display:inline-block; width: 80%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">保险:</span>
-                <van-field v-model="AddListForm.IsBaoXian"
-                           placeholder="有无保险"
-                           style="display:inline-block; width: 65%;" />
+                <van-switch
+                  v-model="AddListForm.IsBaoXian"
+                  style="margin-left: 47px; "/>
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">劳动合同:</span>
-                <van-field v-model="AddListForm.IsLaoDongHeTong"
-                           placeholder="有无劳动合同"
-                           style="display:inline-block; width: 55%;" />
+                <van-switch
+                  v-model="AddListForm.IsLaoDongHeTong"
+                  style="margin-left: 20px; "/>
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">紧急联系人:</span>
@@ -377,7 +385,7 @@
         </van-popup>
         <!-- 修改员工信息列表 -->
         <van-popup v-model="ModifyListshow"
-                   style="width: 80%;">
+                   style="width: 80%; margin-bottom: 20px;">
           <form action="/"
                 method="POST"
                 ref="ModifyListForm"
@@ -501,34 +509,36 @@
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">家族病史:</span>
-                <van-field v-model="dqList.IsJiaZuBingShi"
-                           placeholder="有无家族病史"
-                           style="display:inline-block; width: 15%;" />
-                -
+                <van-switch
+                  v-model="dqList.IsJiaZuBingShi"
+                  style="margin-left: 20px; "
+                />
                 <van-field v-model="dqList.JiaZuBingShi"
-                           style="display:inline-block; width: 20%;" />
+                placeholder="有无家族病史"
+                           style="display:inline-block; width: 80%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">先天性疾病:</span>
-                <van-field v-model="dqList.IsXianTianJiBing"
-                           placeholder="有无先天性疾病"
-                           style="display:inline-block; width: 15%;" />
-                -
+                <van-switch
+                  v-model="dqList.IsXianTianJiBing"
+                />
                 <van-field v-model="dqList.XianTianJiBing"
                            placeholder="有无先天性疾病"
-                           style="display:inline-block; width: 20%;" />
+                           style="display:inline-block; width: 80%;" />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">保险:</span>
-                <van-field v-model="dqList.IsBaoXian"
-                           placeholder="有无保险"
-                           style="display:inline-block; width: 65%;" />
+                <van-switch
+                  v-model="dqList.IsBaoXian"
+                  style="margin-left: 47px; "
+                />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">劳动合同:</span>
-                <van-field v-model="dqList.IsLaoDongHeTong"
-                           placeholder="有无劳动合同"
-                           style="display:inline-block; width: 55%;" />
+                <van-switch
+                  v-model="dqList.IsLaoDongHeTong"
+                  style="margin-left: 20px; "
+                />
               </div>
               <div>
                 <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">紧急联系人:</span>
@@ -881,7 +891,7 @@ export default {
   }
   .van-popup {
     width: 100%;
-    margin-top: 30px;
+    margin-top: 10px;
     .van-cell-group {
       width: 100%;
 

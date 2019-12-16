@@ -165,7 +165,7 @@
                   <van-field v-model="AddListForm.QuYuDate"
                              placeholder="请输入痊愈日期"
                              style="display:inline-block; width: 45%;"
-                             @click.prevent="NowDate" />
+                             @click.prevent="NowDate2" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -234,7 +234,7 @@
                   <van-field v-model="dqList.QuYuDate"
                              placeholder="请输入痊愈日期"
                              style="display:inline-block; width: 45%;"
-                             @click.prevent="NowDate" />
+                             @click.prevent="NowDate2" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -303,7 +303,7 @@
                   <van-field v-model="RList.QuYuDate"
                              placeholder="请输入痊愈日期"
                              style="display:inline-block; width: 45%;"
-                             @click.prevent="NowDate" />
+                             @click.prevent="NowDate2" />
                 </div>
                 <div>
                   <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">记录人:</span>
@@ -345,6 +345,15 @@
                            @change="changeFn()"
                            @confirm="confirmFn()"
                            @cancel="cancelFn()" />
+    </van-popup>
+        <van-popup v-model="DateShow2"
+               position="bottom"
+               :style="{ height: '40%' }">
+      <van-datetime-picker v-model="currentDate2"
+                           type="date"
+                           @change="changeFn2()"
+                           @confirm="confirmFn2()"
+                           @cancel="cancelFn2()" />
     </van-popup>
   </div>
 </template>
@@ -415,7 +424,9 @@ export default {
       RecoveryList2: [],
       Total: 0,
       DateShow: false,
-      currentDate: new Date()
+      currentDate: new Date(),
+      DateShow2: false,
+      currentDate2: new Date()
     }
   },
   mounted () {
@@ -548,11 +559,8 @@ export default {
     },
     confirmFn () { // 确定按钮
       this.AddListForm.Date = this.timeFormat(this.currentDate)
-      this.AddListForm.QuYuDate = this.timeFormat(this.currentDate)
       this.dqList.Date = this.timeFormat(this.currentDate)
-      this.dqList.QuYuDate = this.timeFormat(this.currentDate)
       this.RList.Date = this.timeFormat(this.currentDate)
-      this.RList.QuYuDate = this.timeFormat(this.currentDate)
       this.DateShow = false
       this.$toast.success('已选择日期')
     },
@@ -561,6 +569,35 @@ export default {
       this.$toast.fail('已取消选择日期')
     },
     timeFormat (time) { // 时间格式化 2019-09-08
+      let year = time.getFullYear()
+      let month = time.getMonth() + 1
+      let day = time.getDate()
+      return year + '-' + month + '-' + day
+    },
+        NowDate2 () {
+      this.DateShow2 = true
+    },
+    showPopFn2 () {
+      this.DateShow2 = true
+    },
+    showPopup2 () {
+      this.DateShow2 = true
+    },
+    changeFn2 () { // 值变化是触发
+      this.changeDate2 = this.currentDate2 // Tue Sep 08 2020 00:00:00 GMT+0800 (中国标准时间)
+    },
+    confirmFn2 () { // 确定按钮
+      this.AddListForm.QuYuDate = this.timeFormat(this.currentDate2)
+      this.dqList.QuYuDate = this.timeFormat(this.currentDate2)
+      this.RList.QuYuDate = this.timeFormat(this.currentDate2)
+      this.DateShow2 = false
+      this.$toast.success('已选择日期')
+    },
+    cancelFn2 () {
+      this.DateShow2 = false
+      this.$toast.fail('已取消选择日期')
+    },
+    timeFormat2 (time) { // 时间格式化 2019-09-08
       let year = time.getFullYear()
       let month = time.getMonth() + 1
       let day = time.getDate()

@@ -1,209 +1,284 @@
 <template>
   <div class="parentAdmin">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="班级管理"
-                 left-arrow
-                 left-text="返回"
-                 size=".8rem"
-                 @click-left="back"
-                 fixed>
-      <van-icon name="search"
-                slot="right"
-                size=".8rem"
-                @click.prevent="SideMenu" />
+    <van-nav-bar
+      title="班级管理"
+      left-arrow
+      left-text="返回"
+      size=".8rem"
+      @click-left="back"
+      fixed
+    >
+      <van-icon
+        name="search"
+        slot="right"
+        size=".8rem"
+        @click.prevent="SideMenu"
+      />
     </van-nav-bar>
     <!-- 搜索 -->
-    <van-popup v-model="show"
-               position="bottom"
-               :style="{width: '100%', background: '#524c4c' }"
-               close-icon="close">
-      <form action="/"
-            method="POST"
-            ref="Search"
-            :model="Search">
+    <van-popup
+      v-model="show"
+      position="bottom"
+      :style="{ width: '100%', background: '#524c4c' }"
+      close-icon="close"
+    >
+      <form action="/" method="POST" ref="Search" :model="Search">
         <van-cell-group>
-          <div style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;">搜索班级</div>
-          <van-field label="班级名称:"
-                     label-width="110px"
-                     autosize
-                     v-model="Search.G_Title_Like"
-                     name="GTitleLike"
-                     prop="GTitleLike"
-                     placeholder="请输入班级名称关键字"
-                     style="padding: .5rem 0 .5rem 0;" />
+          <div
+            style="font-size: 30px; width: 96.2%; height: 53px; line-height: 53px; color: white; font-family: '楷体'; background: #0199ff; padding-left:15px;"
+          >
+            搜索班级
+          </div>
+          <van-field
+            label="班级名称:"
+            label-width="110px"
+            autosize
+            v-model="Search.G_Title_Like"
+            name="GTitleLike"
+            prop="GTitleLike"
+            placeholder="请输入班级名称关键字"
+            style="padding: .5rem 0 .5rem 0;"
+          />
         </van-cell-group>
         <div class="submit">
-          <van-button type="info"
-                      class="ClosePop"
-                      @click.prevent="close">退出</van-button>
-          <van-button type="primary"
-                      class="AddClass"
-                      @click.prevent="SearchClass">搜索</van-button>
+          <van-button type="info" class="ClosePop" @click.prevent="close"
+            >退出</van-button
+          >
+          <van-button
+            type="primary"
+            class="AddClass"
+            @click.prevent="SearchClass"
+            >搜索</van-button
+          >
         </div>
       </form>
     </van-popup>
     <!-- 班级列表 -->
     <div class="Parent-List">
-      <van-pull-refresh v-model="isLoading"
-                        @refresh="onRefresh"
-                        disabled>
-        <van-list v-model="loading"
-                  :finished="finished"
-                  finished-text="没有更多了"
-                  @load="onLoad">
-          <van-cell v-for="(item) in list"
-                    :key="item.Id">
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh" disabled>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <van-cell v-for="item in list" :key="item.Id">
             <van-swipe-cell>
               <div class="head">
-                <img src="../../assets/CLASS.jpg"
-                     alt="">
-                <h1 style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"> {{ item.Title }}</h1>
+                <img src="../../assets/CLASS.jpg" alt="" />
+                <h1
+                  style="height: 1rem;color: black; font-size: .5rem;line-height: 1rem;font-weight: 700; font-family: '楷体'; margin-left: 45px;"
+                >
+                  {{ item.Title }}
+                </h1>
               </div>
-              <van-cell :border="false"
-                        title="年级"
-                        style="padding-left:30px; padding-right: 30px;">
+              <van-cell
+                :border="false"
+                title="年级"
+                style="padding-left:30px; padding-right: 30px;"
+              >
                 {{ item.NianJi }}
               </van-cell>
-              <van-cell :border="false"
-                        title="备注"
-                        style="padding-left:30px; padding-right: 30px;">
+              <van-cell
+                :border="false"
+                title="备注"
+                style="padding-left:30px; padding-right: 30px;"
+              >
                 {{ item.Mark }}
               </van-cell>
-              <van-cell :border="false"
-                        title="创建时间"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.CreateTime  | dateFmt('YYYY-MM-DD')  }}
+              <van-cell
+                :border="false"
+                title="创建时间"
+                style="padding-left:30px; padding-right: 30px;"
+              >
+                {{ item.CreateTime | dateFmt("YYYY-MM-DD") }}
               </van-cell>
-              <van-cell :border="false"
-                        title="状态"
-                        style="padding-left:30px; padding-right: 30px;">
-                {{ item.Status }}
+              <van-cell
+                :border="false"
+                title="状态"
+                style="padding-left:30px; padding-right: 30px;"
+              >
+                {{ item.Status === true ? "启用" : "未启用" }}
               </van-cell>
               <template slot="right">
-                <van-button square
-                            type="danger"
-                            text="删除"
-                            @click.prevent="DelList(item)" />
-                <van-button square
-                            type="primary"
-                            text="修改"
-                            @click.prevent="Modify(item)" />
+                <van-button
+                  square
+                  type="danger"
+                  text="删除"
+                  @click.prevent="DelList(item)"
+                />
+                <van-button
+                  square
+                  type="primary"
+                  text="修改"
+                  @click.prevent="Modify(item)"
+                />
               </template>
             </van-swipe-cell>
           </van-cell>
         </van-list>
-        <van-button type="info"
-                    style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
-                    @click.prevent="AddList">添加班级</van-button>
+        <van-button
+          type="info"
+          style="margin-bottom: 1.5rem; width: 100%; border-radius: 20px;"
+          @click.prevent="AddList"
+          >添加班级</van-button
+        >
         <!-- 添加班级 -->
-        <van-popup v-model="AddListshow"
-                   style="width: 80%;">
-          <form action="/"
-                method="POST"
-                ref="AddListForm"
-                :model="AddListForm">
+        <van-popup v-model="AddListshow" style="width: 80%;">
+          <form action="/" method="POST" ref="AddListForm" :model="AddListForm">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
-                <van-field v-model="AddListForm.Title"
-                           placeholder="请输入班级名称"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >班级名称:</span
+                >
+                <van-field
+                  v-model="AddListForm.Title"
+                  placeholder="请输入班级名称"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
-                <van-field v-model="AddListForm.NianJi"
-                           placeholder="请输入年级"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >年级:</span
+                >
+                <van-field
+                  v-model="AddListForm.NianJi"
+                  placeholder="请输入年级"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
-                <van-switch v-model="AddListForm.Status"
-                            style="margin-left: 20px; " />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >启用:</span
+                >
+                <van-switch
+                  v-model="AddListForm.Status"
+                  style="margin-left: 20px; "
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="AddListForm.Mark"
-                           placeholder="请输入备注"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >备注:</span
+                >
+                <van-field
+                  v-model="AddListForm.Mark"
+                  placeholder="请输入备注"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
-                <van-button type="info"
-                            @click.prevent="ClosePop"
-                            class="ClosePop">取消</van-button>
-                <van-button type="primary"
-                            @click.prevent="AddClass"
-                            class="AddClass">添加</van-button>
+              <div
+                style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;"
+              >
+                <van-button
+                  type="info"
+                  @click.prevent="ClosePop"
+                  class="ClosePop"
+                  >取消</van-button
+                >
+                <van-button
+                  type="primary"
+                  @click.prevent="AddClass"
+                  class="AddClass"
+                  >添加</van-button
+                >
               </div>
             </van-cell-group>
-
           </form>
         </van-popup>
         <!-- 修改班级 -->
-        <van-popup v-model="ModifyListshow"
-                   style="width: 80%;">
-          <form action="/"
-                method="POST"
-                ref="AddListForm"
-                :model="dqList">
+        <van-popup v-model="ModifyListshow" style="width: 80%;">
+          <form action="/" method="POST" ref="AddListForm" :model="dqList">
             <van-cell-group>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">班级名称:</span>
-                <van-field v-model="dqList.Title"
-                           placeholder="请输入班级名称"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >班级名称:</span
+                >
+                <van-field
+                  v-model="dqList.Title"
+                  placeholder="请输入班级名称"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">启用:</span>
-                <van-switch v-model="checked"
-                            style="margin-left: 20px;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >启用:</span
+                >
+                <van-switch
+                  v-model="dqList.Status"
+                  style="margin-left: 20px;"
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">年级:</span>
-                <van-field v-model="dqList.NianJi"
-                           placeholder="请输入年级"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >年级:</span
+                >
+                <van-field
+                  v-model="dqList.NianJi"
+                  placeholder="请输入年级"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
               <div>
-                <span style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';">备注:</span>
-                <van-field v-model="dqList.Mark"
-                           placeholder="请输入备注"
-                           style="display:inline-block; width: 55%;" />
+                <span
+                  style="font-size: .39rem; color: black; margin-left: .5rem; margin-right: 10px; font-weight: 700; font-family: '楷体';"
+                  >备注:</span
+                >
+                <van-field
+                  v-model="dqList.Mark"
+                  placeholder="请输入备注"
+                  style="display:inline-block; width: 55%;"
+                />
               </div>
-              <div style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;">
-                <van-button type="info"
-                            @click.prevent="CloseModify"
-                            class="ClosePop">取消</van-button>
-                <van-button type="primary"
-                            @click.prevent="ModifyList"
-                            class="AddClass">修改</van-button>
+              <div
+                style="margin-top: 40px; margin-bottom: 30px; padding-left:0px; padding-right: 0px;"
+              >
+                <van-button
+                  type="info"
+                  @click.prevent="CloseModify"
+                  class="ClosePop"
+                  >取消</van-button
+                >
+                <van-button
+                  type="primary"
+                  @click.prevent="ModifyList"
+                  class="AddClass"
+                  >修改</van-button
+                >
               </div>
             </van-cell-group>
-
           </form>
         </van-popup>
       </van-pull-refresh>
 
       <!-- 分页 -->
-      <van-pagination v-model="currentPage"
-                      :total-items="1"
-                      :show-page-size="3"
-                      force-ellipses
-                      style="position:fixed; bottom: 0; width: 100%; background: white;" />
-
+      <van-pagination
+        v-model="currentPage"
+        :total-items="1"
+        :show-page-size="3"
+        force-ellipses
+        style="position:fixed; bottom: 0; width: 100%; background: white;"
+      />
     </div>
-
   </div>
 </template>
 
 <script>
-import { ClassList } from '@/api/ClassAdmin'
-import { DelectList } from '@/api/Delect'
-import { AddList } from '@/api/AddList'
-import { ModifyList } from '@/api/ModifyList'
-import { SearchClass } from '@/api/Search'
+import { ClassList } from '@/api/ClassAdmin';
+import { DelectList } from '@/api/Delect';
+import { AddList } from '@/api/AddList';
+import { ModifyList } from '@/api/ModifyList';
+import { SearchClass } from '@/api/Search';
 export default {
   name: 'StaffAdmin',
-  data () {
+  data() {
     return {
       Search: {
         G_Title_Like: ''
@@ -211,14 +286,14 @@ export default {
       AddListForm: {
         Title: '',
         NianJi: '',
-        Status: 'true',
+        Status: '',
         Mark: '',
         Id: ''
       },
       ModifyListForm: {
         Title: '',
         NianJi: '',
-        Status: 'true',
+        Status: '',
         Mark: '',
         Id: ''
       },
@@ -234,104 +309,106 @@ export default {
       ModifyListshow: false,
       checked: true,
       dqList: [],
-      Total: 0
-    }
+      Total: 0,
+      Statuss: ''
+    };
   },
-  mounted () {
-
-  },
-  created () {
+  mounted() {},
+  created() {
     // 页面一进入加载班级列表
-    this.loadClassList()
+    this.loadClassList();
   },
   methods: {
-    back () {
-      this.$router.go(-1)
+    back() {
+      this.$router.go(-1);
     },
-    SideMenu () {
-      this.show = true
+    SideMenu() {
+      this.show = true;
     },
-    ClosePop () {
-      this.AddListshow = false
-      this.$toast.fail('已取消添加')
+    ClosePop() {
+      this.AddListshow = false;
+      this.$toast.fail('已取消添加');
     },
-    CloseModify () {
-      this.ModifyListshow = false
-      this.$toast.fail('已取消修改')
+    CloseModify() {
+      this.ModifyListshow = false;
+      this.$toast.fail('已取消修改');
     },
-    close () {
-      this.show = false
+    close() {
+      this.show = false;
     },
-    onRefresh () {
+    onRefresh() {
       setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-      }, 500)
+        this.$toast('刷新成功');
+        this.isLoading = false;
+      }, 500);
     },
-    async loadClassList () {
-      let channels = []
-      const data = await ClassList()
-      this.Total = data.length
-      console.log(this.Total)
-      this.channels = data
-      channels = this.channels
-      return channels
+    async loadClassList() {
+      let channels = [];
+      const data = await ClassList();
+      this.Total = data.length;
+      console.log(this.Total);
+      this.channels = data;
+      channels = this.channels;
+      return channels;
     },
-    async onLoad () {
-      const data = await this.loadClassList()
-      this.list = data
-      this.isLoading = false
-      this.loading = false
-      this.finished = true
+    async onLoad() {
+      const data = await this.loadClassList();
+      this.list = data;
+      this.isLoading = false;
+      this.loading = false;
+      this.finished = true;
     },
-    async DelList (currentList) {
-      this.isShowDel = true
-      this.currentList = currentList
-      this.$dialog.confirm({
-        title: '确认删除吗?',
-        message: '删除当前列表数据'
-      }).then(async () => {
-        const listId = this.currentList.Id
-        const data = await DelectList(listId)
-        console.log('确认删除了' + data)
-        window.location.reload()
-        this.$toast.success('删除成功')
-      }).catch(() => {
-        console.log('取消删除了')
-        this.$toast.fail('删除失败')
-      })
+    async DelList(currentList) {
+      this.isShowDel = true;
+      this.currentList = currentList;
+      this.$dialog
+        .confirm({
+          title: '确认删除吗?',
+          message: '删除当前列表数据'
+        })
+        .then(async () => {
+          const listId = this.currentList.Id;
+          const data = await DelectList(listId);
+          console.log('确认删除了' + data);
+          window.location.reload();
+          this.$toast.success('删除成功');
+        })
+        .catch(() => {
+          console.log('取消删除了');
+          this.$toast.fail('删除失败');
+        });
     },
-    AddList () {
-      this.AddListshow = true
+    AddList() {
+      this.AddListshow = true;
     },
-    async AddClass () {
-      const data = await AddList(this.AddListForm)
-      console.log(data)
-      this.AddListshow = false
-      window.location.reload()
-      this.$toast.success('添加成功')
+    async AddClass() {
+      const data = await AddList(this.AddListForm);
+      console.log(data);
+      this.AddListshow = false;
+      window.location.reload();
+      this.$toast.success('添加成功');
     },
-    Modify (currentList) {
-      this.ModifyListshow = true
-      this.dqList = currentList
+    Modify(currentList) {
+      this.ModifyListshow = true;
+      this.dqList = currentList;
     },
-    async ModifyList () {
-      this.disabled = true
-      const data = await ModifyList(this.dqList)
-      console.log(data)
-      this.ModifyListshow = false
-      this.$toast.success('修改成功')
-      window.location.reload()
+    async ModifyList() {
+      this.disabled = true;
+      const data = await ModifyList(this.dqList);
+      console.log(data);
+      this.ModifyListshow = false;
+      this.$toast.success('修改成功');
+      window.location.reload();
     },
-    async SearchClass () {
-      const data = await SearchClass(this.Search)
-      const SearchResult = data
-      this.list = SearchResult
-      this.show = false
-      this.$toast.success('搜索完成')
+    async SearchClass() {
+      const data = await SearchClass(this.Search);
+      const SearchResult = data;
+      this.list = SearchResult;
+      this.show = false;
+      this.$toast.success('搜索完成');
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
