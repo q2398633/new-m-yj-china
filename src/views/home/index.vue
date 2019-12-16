@@ -1,130 +1,136 @@
-<script src = "https://webapi.amap.com/maps?v=1.4.15&key=3554afad07a8ac3ddedf7b201e678de9" />
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=3554afad07a8ac3ddedf7b201e678de9" />
 
 <template>
   <div class="Home">
     <!-- NavBar 顶部导航 -->
-    <van-nav-bar title="寅卯幼儿园"
-                 left-text="重新登录"
-                 left-arrow
-                 @click-left="onCleck_left"
-                 fixed>
-      <van-icon name="search"
-                slot="right"
-                size=".6rem"
-                @click.prevent="SearchNotice" />
+    <van-nav-bar
+      title="寅卯幼儿园"
+      left-text="重新登录"
+      left-arrow
+      @click-left="onCleck_left"
+      fixed
+    >
+      <van-icon
+        name="search"
+        slot="right"
+        size=".6rem"
+        @click.prevent="SearchNotice"
+      />
     </van-nav-bar>
-    <van-tabs v-model="active"
-              animated
-              background="white"
-              color="black"
-              title-active-color="#414a67"
-              title-inactive-color="black">
-
+    <van-tabs
+      v-model="active"
+      animated
+      background="#0199ff"
+      color="white"
+      title-active-color="gold"
+      title-inactive-color="white"
+    >
       <van-tab title="首页">
         <!-- 主页轮播 -->
         <carousel-3d>
           <slide :index="0">
-            <img src="../../assets/1.gif"
-                 alt="">
+            <img src="../../assets/1.gif" alt="" />
           </slide>
           <slide :index="1">
-            <img src="../../assets/2.gif"
-                 alt="">
+            <img src="../../assets/2.gif" alt="" />
           </slide>
           <slide :index="2">
-            <img src="../../assets/3.gif"
-                 alt="">
+            <img src="../../assets/3.gif" alt="" />
           </slide>
           <slide :index="3">
-            <img src="../../assets/4.gif"
-                 alt="">
+            <img src="../../assets/4.gif" alt="" />
           </slide>
           <slide :index="4">
-            <img src="../../assets/3.gif"
-                 alt="">
+            <img src="../../assets/3.gif" alt="" />
           </slide>
           <slide :index="5">
-            <img src="../../assets/1.gif"
-                 alt="">
+            <img src="../../assets/1.gif" alt="" />
           </slide>
           <slide :index="6">
-            <img src="../../assets/4.gif"
-                 alt="">
+            <img src="../../assets/4.gif" alt="" />
           </slide>
         </carousel-3d>
         <!-- 菜单项 -->
         <div class="menu">
           <div class="default">
             <span class="menu_left">菜单</span>
-            <span class="menu_right"
-                  @click.prevent="Menu">更多功能</span>
+            <span class="menu_right" @click.prevent="Menu">更多功能</span>
           </div>
           <van-row style="">
             <van-col span="6">
-              <van-button icon="point-gift-o"
-                          type="primary"
-                          color="#9569f9"
-                          @click.prevent="ParentAdmin" />
+              <van-button
+                icon="point-gift-o"
+                type="primary"
+                color="#9569f9"
+                @click.prevent="ParentAdmin"
+              />
               <div class="shoping">家长管理</div>
             </van-col>
             <van-col span="6">
-              <van-button icon="hot-o"
-                          type="primary"
-                          color="#ff9400"
-                          @click.prevent="FoodSafety" />
+              <van-button
+                icon="hot-o"
+                type="primary"
+                color="#ff9400"
+                @click.prevent="FoodSafety"
+              />
               <div class="shoping">安全检测</div>
-
             </van-col>
             <van-col span="6">
-              <van-button icon="free-postage"
-                          type="primary"
-                          color="#fe6c58"
-                          @click.prevent="ClassAdmin" />
+              <van-button
+                icon="free-postage"
+                type="primary"
+                color="#fe6c58"
+                @click.prevent="ClassAdmin"
+              />
               <div class="shoping">班级管理</div>
-
             </van-col>
             <van-col span="6">
-              <van-button icon="logistics"
-                          type="primary"
-                          color="#6f9dff"
-                          @click.prevent="AccountAdmin" />
+              <van-button
+                icon="logistics"
+                type="primary"
+                color="#6f9dff"
+                @click.prevent="AccountAdmin"
+              />
               <div class="shoping">账户管理</div>
-
             </van-col>
           </van-row>
           <van-row>
             <van-col span="6">
-              <van-button icon="contact"
-                          type="primary"
-                          color="#93d030"
-                          @click.prevent="ChildManagement" />
+              <van-button
+                icon="contact"
+                type="primary"
+                color="#93d030"
+                @click.prevent="ChildManagement"
+              />
               <div class="shoping">幼儿管理</div>
-
             </van-col>
             <van-col span="6">
-              <van-button icon="vip-card-o"
-                          type="primary"
-                          color="#fb6365"
-                          @click.prevent="SupplierAdmin" />
+              <van-button
+                icon="vip-card-o"
+                type="primary"
+                color="#fb6365"
+                @click.prevent="SupplierAdmin"
+              />
               <div class="shoping">供应管理</div>
-
             </van-col>
             <van-col span="6">
-              <van-button icon="shop-o"
-                          type="primary"
-                          color="#009aff"
-                          @click.prevent="VaccineAdmin" />
+              <van-button
+                icon="shop-o"
+                type="primary"
+                color="#009aff"
+                @click.prevent="VaccineAdmin"
+              />
               <div class="shoping">疫苗管理</div>
-
             </van-col>
             <van-col span="6">
-              <van-button icon="ecard-pay"
-                          color:white
-                          type="primary"
-                          color="#30c5cb"
-                          @click.prevent="PostAdmin" />
+              <van-button
+                icon="ecard-pay"
+                color:white
+                type="primary"
+                color="#30c5cb"
+                @click.prevent="PostAdmin"
+              />
               <div class="shoping">职务管理</div>
-
             </van-col>
           </van-row>
         </div>
@@ -135,24 +141,6 @@
           </div>
           <ve-line :data="chartData"></ve-line>
         </div>
-
-        <!-- 公告栏 -->
-        <div class="Notice-box">
-          <div class="Notice">
-            <span class="Notice_Left">公告详情</span>
-          </div>
-          <div class="Notice-List">
-            <div v-for="(item) in list"
-                 :key="item.Id"
-                 class="NoticeList-countent">
-              <span> {{ item.RowIndex + '.'}} </span>
-              <span> {{ item.JianJie }} </span>
-              <div style="margin-left:30px; margin-right: 30px; font-size: .4rem; font-weiht: 700; color: rgb(156, 149, 104);"> {{ item.NeiRong }} </div>
-              <div style="margin-left:300px; margin-right: 10px; font-size: .3rem; font-weiht: 700; color: #ab132d;"> {{ item.CreateName }} {{ item.CreateTime }} </div>
-            </div>
-          </div>
-        </div>
-
       </van-tab>
       <!-- 打卡 -->
       <van-tab title="打卡">
@@ -161,14 +149,13 @@
             <van-col span="16">
               <div class="Head-portrait">
                 <div class="Fl-left">
-                  <img src="../../assets/head.png"
-                       alt=""
-                       align="left">
+                  <img src="../../assets/head.png" alt="" align="left" />
                 </div>
                 <div class="Fl-right">
                   <span class="Nickname">{{ Nickname }}</span>
-                  <div class="van-ellipsis Nickname rule"
-                       @click="SignInRule">考勤组: {{ AttendanceGroup }} 查看考勤规则</div>
+                  <div class="van-ellipsis Nickname rule" @click="SignInRule">
+                    考勤组: {{ AttendanceGroup }} 查看考勤规则
+                  </div>
                   <van-popup v-model="CalendarShow">
                     <div class="Calendar">
                       <calendar @change="onChange" />
@@ -178,22 +165,21 @@
                 </div>
               </div>
             </van-col>
-            <van-col span="8"
-                     class="nav-right">
-              <van-icon name="calender-o"
-                        color="black"
-                        size="45px"
-                        @click.prevent="CalenderShow" />
+            <van-col span="8" class="nav-right">
+              <van-icon
+                name="calender-o"
+                color="black"
+                size="45px"
+                @click.prevent="CalenderShow"
+              />
             </van-col>
           </van-row>
         </div>
-        <van-steps direction="vertical"
-                   :active="0">
+        <van-steps direction="vertical" :active="0">
           <van-step v-if="flag1">
             <h3>上班打卡</h3>
             <p>{{ date }}</p>
-            <div class="calendar animated pulse"
-                 @click="SignIn">
+            <div class="calendar animated pulse" @click="SignIn">
               <div class="Font-Top">上班打卡</div>
               <div class="Font-Bottom">{{ date }}</div>
             </div>
@@ -201,10 +187,9 @@
           <van-step v-if="flag2">
             <h3>下班打卡</h3>
             <p>{{ date }}</p>
-            <div class="calendar animated pulse"
-                 @click="SignIn">
+            <div class="calendar animated pulse" @click="SignIn">
               <div class="Font-Top">下班打卡</div>
-              <div class="Font-Bottom"> {{ date }}</div>
+              <div class="Font-Bottom">{{ date }}</div>
             </div>
           </van-step>
         </van-steps>
@@ -216,168 +201,310 @@
           </van-radio-group>
         </div>
       </van-tab>
-      <van-tab title="分类">
+      <van-tab title="公告">
+        <!-- 公告栏 -->
+        <div class="Notice-box" style="margin-top: 40px;">
+          <div class="Notice">
+            <span class="Notice_Left">公告详情</span>
+          </div>
+          <div class="Notice-List">
+            <div
+              v-for="item in list"
+              :key="item.Id"
+              class="NoticeList-countent"
+            >
+              <span> {{ item.RowIndex + "." }} </span>
+              <span> {{ item.JianJie }} </span>
+              <div
+                style="margin-left:30px; margin-right: 30px; font-size: .4rem; font-weiht: 700; color: rgb(156, 149, 104);"
+              >
+                {{ item.NeiRong }}
+              </div>
+              <div
+                style="margin-left:300px; margin-right: 10px; font-size: .3rem; font-weiht: 700; color: #ab132d;"
+              >
+                {{ item.CreateName }} {{ item.CreateTime }}
+              </div>
+            </div>
+          </div>
+        </div>
       </van-tab>
-      <van-tab title="我的">内容 4</van-tab>
+      <van-tab title="我的">
+        <div class="Top-BG">
+          <van-icon
+            name="setting-o"
+            color="white"
+            style="margin: .2rem 0 0 .5rem;"
+            size=".7rem"
+          />
+          <van-icon
+            name="envelop-o"
+            color="white"
+            style="margin: .5rem 0 0 6.5rem;"
+            size=".7rem"
+          />
+          <van-icon
+            name="qr"
+            color="white"
+            style="margin: .2rem 0 0 .5rem;"
+            size=".7rem"
+          />
+        </div>
+        <div class="User-Head">
+          <img src="../../assets/YGJC.jpg" alt="" />
+        </div>
+        <div class="User-Name">
+          <div class="Name">{{ RealName }}</div>
+        </div>
+        <div class="Notice">
+          <span class="Notice_Left">常用应用</span>
+        </div>
+        <div class="menu">
+          <van-row style="">
+            <van-col span="6">
+              <van-button
+                icon="point-gift-o"
+                type="primary"
+                color="#9569f9"
+                @click.prevent="ParentAdmin"
+              />
+              <div class="shoping">家长管理</div>
+            </van-col>
+            <van-col span="6">
+              <van-button
+                icon="hot-o"
+                type="primary"
+                color="#ff9400"
+                @click.prevent="FoodSafety"
+              />
+              <div class="shoping">安全检测</div>
+            </van-col>
+            <van-col span="6">
+              <van-button
+                icon="free-postage"
+                type="primary"
+                color="#fe6c58"
+                @click.prevent="ClassAdmin"
+              />
+              <div class="shoping">班级管理</div>
+            </van-col>
+            <van-col span="6">
+              <van-button
+                icon="logistics"
+                type="primary"
+                color="#6f9dff"
+                @click.prevent="AccountAdmin"
+              />
+              <div class="shoping">账户管理</div>
+            </van-col>
+          </van-row>
+        </div>
+        <div class="Notice" style="margin-top: .5rem;">
+          <span class="Notice_Left">系统设置</span>
+        </div>
+        <div class="menu" style="margin-bottom: 2rem;">
+          <van-row style="">
+            <van-col span="22">
+              <van-button
+                type="primary"
+                style="width: 100%; "
+                @click.prevent="ModifyPd"
+                >修改密码</van-button
+              >
+            </van-col>
+          </van-row>
+          <van-row style="">
+            <van-col span="22">
+              <van-button
+                type="danger"
+                style="width: 100%;"
+                @click.prevent="Close"
+                >退出登录</van-button
+              >
+            </van-col>
+          </van-row>
+        </div>
+      </van-tab>
     </van-tabs>
     <!-- 底部标签栏 -->
     <div class="footer_nav">
-      <van-tabbar v-model="active"
-                  active-color="gold"
-                  inactive-color="white">
+      <van-tabbar v-model="active" active-color="gold" inactive-color="white">
         <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
-        <van-tabbar-item icon="location-o"
-                         dot>签到</van-tabbar-item>
-        <van-tabbar-item icon="apps-o"
-                         info="5">分类</van-tabbar-item>
-        <van-tabbar-item icon="user-circle-o"
-                         info="20">我的</van-tabbar-item>
+        <van-tabbar-item icon="location-o" dot>签到</van-tabbar-item>
+        <van-tabbar-item icon="chat-o" info="5">公告</van-tabbar-item>
+        <van-tabbar-item icon="user-circle-o" info="20">我的</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
 </template>
 
 <script>
-import { NoticeList } from '@/api/Notice'
+import { NoticeList } from "@/api/Notice";
+import { getItem } from "@/utils/localStorage.js";
+import { UserGet } from "@/api/UserGet";
+
 export default {
-  name: 'Home',
-  data () {
+  name: "Home",
+  data() {
     return {
+      RealName: "",
       current: 0,
       active: 4,
       chartData: {
-        columns: ['日期', '收入', '支出', '盈亏'],
+        columns: ["日期", "收入", "支出", "盈亏"],
         rows: [
-          { '日期': '1/1', '收入': 1393, '支出': 1093, '盈亏': 0.32 },
-          { '日期': '1/2', '收入': 3530, '支出': 3230, '盈亏': 0.26 },
-          { '日期': '1/3', '收入': 2923, '支出': 2623, '盈亏': 0.76 },
-          { '日期': '1/4', '收入': 1723, '支出': 1423, '盈亏': 0.49 },
-          { '日期': '1/5', '收入': 3792, '支出': 3492, '盈亏': 0.323 },
-          { '日期': '1/6', '收入': 4593, '支出': 4293, '盈亏': 0.78 }
+          { 日期: "1/1", 收入: 1393, 支出: 1093, 盈亏: 0.32 },
+          { 日期: "1/2", 收入: 3530, 支出: 3230, 盈亏: 0.26 },
+          { 日期: "1/3", 收入: 2923, 支出: 2623, 盈亏: 0.76 },
+          { 日期: "1/4", 收入: 1723, 支出: 1423, 盈亏: 0.49 },
+          { 日期: "1/5", 收入: 3792, 支出: 3492, 盈亏: 0.323 },
+          { 日期: "1/6", 收入: 4593, 支出: 4293, 盈亏: 0.78 }
         ]
       },
-      Nickname: '山田孝之',
-      AttendanceGroup: '二组',
-      date: '',
+      Nickname: "山田孝之",
+      AttendanceGroup: "二组",
+      date: "",
       timer: null,
-      radio: '1',
-      Range: '已进入考勤范围',
+      radio: "1",
+      Range: "已进入考勤范围",
       count: 0,
       flag1: true,
       flag2: false,
       CalendarShow: false,
       list: [],
       currentPage: 1
-    }
+    };
   },
-  created () {
-    this.nowTimes()
-    this.getMycount()
-    // 页面一进入加载评测列表
-    this.loadNoticeList()
+  created() {
+    this.nowTimes();
+    this.getMycount();
+    // 页面一进入加载公告列表
+    this.UsersGet();
+    this.loadNoticeList();
   },
-  mounted () {
-    let _this = this // 声明一个变量指向Vue实例this，保证作用域一致
+  mounted() {
+    let _this = this; // 声明一个变量指向Vue实例this，保证作用域一致
     this.timer = setInterval(() => {
-      _this.time = new Date() // 修改数据date
-    }, 1000)
+      _this.time = new Date(); // 修改数据date
+    }, 1000);
   },
   methods: {
-    onChange (index) {
-      this.current = index
+    onChange(index) {
+      this.current = index;
     },
-    onCleck_left () {
-      this.$router.push('/login')
+    onCleck_left() {
+      this.$router.push("/login");
     },
-    timeFormate (timeStamp) {
-      let hh = new Date(timeStamp).getHours() < 10 ? '0' + new Date(timeStamp).getHours() : new Date(timeStamp).getHours()
-      let mm = new Date(timeStamp).getMinutes() < 10 ? '0' + new Date(timeStamp).getMinutes() : new Date(timeStamp).getMinutes()
-      let ss = new Date(timeStamp).getSeconds() < 10 ? '0' + new Date(timeStamp).getSeconds() : new Date(timeStamp).getSeconds()
-      this.date = hh + ':' + mm + ':' + ss
+    timeFormate(timeStamp) {
+      let hh =
+        new Date(timeStamp).getHours() < 10
+          ? "0" + new Date(timeStamp).getHours()
+          : new Date(timeStamp).getHours();
+      let mm =
+        new Date(timeStamp).getMinutes() < 10
+          ? "0" + new Date(timeStamp).getMinutes()
+          : new Date(timeStamp).getMinutes();
+      let ss =
+        new Date(timeStamp).getSeconds() < 10
+          ? "0" + new Date(timeStamp).getSeconds()
+          : new Date(timeStamp).getSeconds();
+      this.date = hh + ":" + mm + ":" + ss;
     },
     // 定时器函数
-    nowTimes () {
-      this.timeFormate(new Date())
-      this.timer = setTimeout(this.nowTimes, 1000)
+    nowTimes() {
+      this.timeFormate(new Date());
+      this.timer = setTimeout(this.nowTimes, 1000);
     },
-    SignIn () {
-      this.count++
+    SignIn() {
+      this.count++;
       if (this.count >= 2) {
-        this.$toast.fail('请勿重复打卡')
+        this.$toast.fail("请勿重复打卡");
       } else {
-        this.$toast.success('打卡成功')
+        this.$toast.success("打卡成功");
       }
     },
-    getMycount () {
-      let self = this
-      let date = new Date()
+    getMycount() {
+      let self = this;
+      let date = new Date();
       if (date.getHours() >= 6 && date.getHours() < 8) {
-        self.flag1 = true
-        self.flag2 = false
+        self.flag1 = true;
+        self.flag2 = false;
       } else if (date.getHours() >= 12 && date.getHours() < 13) {
-        self.flag1 = false
-        self.flag2 = true
+        self.flag1 = false;
+        self.flag2 = true;
       } else if (date.getHours() >= 14 && date.getHours() < 15) {
-        self.flag1 = true
-        self.flag2 = false
-      } else if (date.getHours() >= 18 && date.getHours() < 23 && date.getMinutes() <= 59 && date.getSeconds() <= 59) {
-        self.flag1 = false
-        self.flag2 = true
+        self.flag1 = true;
+        self.flag2 = false;
+      } else if (
+        date.getHours() >= 18 &&
+        date.getHours() < 23 &&
+        date.getMinutes() <= 59 &&
+        date.getSeconds() <= 59
+      ) {
+        self.flag1 = false;
+        self.flag2 = true;
       }
     },
-    SignInRule () {
-      this.$router.push('/SignInRule')
+    SignInRule() {
+      this.$router.push("/SignInRule");
     },
-    CalenderShow () {
-      this.CalendarShow = true
+    CalenderShow() {
+      this.CalendarShow = true;
     },
-    ParentAdmin () {
-      this.$router.push('/ParentAdmin')
+    ParentAdmin() {
+      this.$router.push("/ParentAdmin");
     },
-    ChildManagement () {
-      this.$router.push('/ChildManagement')
+    ChildManagement() {
+      this.$router.push("/ChildManagement");
     },
-    Menu () {
-      this.$router.push('/Menu')
+    Menu() {
+      this.$router.push("/Menu");
     },
-    FoodSafety () {
-      this.$router.push('/FoodSafety')
+    FoodSafety() {
+      this.$router.push("/FoodSafety");
     },
-    AccountAdmin () {
-      this.$router.push('/AccountAdmin')
+    AccountAdmin() {
+      this.$router.push("/AccountAdmin");
     },
-    ClassAdmin () {
-      this.$router.push('/ClassAdmin')
+    ClassAdmin() {
+      this.$router.push("/ClassAdmin");
     },
-    Evaluating () {
-      this.$router.push('/Evaluating')
+    Evaluating() {
+      this.$router.push("/Evaluating");
     },
-    async loadNoticeList () {
-      const data = await NoticeList()
-      this.list = data
+    async loadNoticeList() {
+      const data = await NoticeList();
+      this.list = data;
     },
-    SupplierAdmin () {
-      this.$router.push('/SupplierAdmin')
+    async UsersGet() {
+      const data = await UserGet();
+      this.RealName = data.RealName;
     },
-    VaccineAdmin () {
-      this.$router.push('/VaccineAdmin')
+    SupplierAdmin() {
+      this.$router.push("/SupplierAdmin");
     },
-    PostAdmin () {
-      this.$router.push('/PostAdmin')
+    VaccineAdmin() {
+      this.$router.push("/VaccineAdmin");
     },
-    SearchNotice () {
-
+    PostAdmin() {
+      this.$router.push("/PostAdmin");
+    },
+    SearchNotice() {},
+    Close() {
+      this.$toast.success("退出成功");
+      this.$router.push("/login");
+    },
+    ModifyPd() {
+      this.$router.push("/ModifyPD");
     }
   },
-  computed: {
-
-  },
-  beforeDestroy () {
+  computed: {},
+  beforeDestroy() {
     if (this.timer) {
-      clearTimeout(this.timer) // 在Vue实例销毁前，清除我们的定时器
+      clearTimeout(this.timer); // 在Vue实例销毁前，清除我们的定时器
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -407,12 +534,10 @@ export default {
   }
   .menu {
     width: 100%;
-    height: 350px;
     // background-color: rgba(209, 205, 205, 0.7);
     border-radius: 20px;
     margin-top: 15px;
     margin-left: 11px;
-    margin-bottom: 20px;
     padding: 10px;
 
     .default {
@@ -552,7 +677,7 @@ export default {
     margin-top: 70px;
   }
   .Home_Echarts {
-    margin-top: 140px;
+    margin-top: 40px;
     margin-left: 30px;
     margin-right: 40px;
 
@@ -600,33 +725,66 @@ export default {
         }
       }
     }
-    .Notice {
-      width: 700px;
-      background: #009aff;
-      margin-bottom: 30px;
-      border-radius: 10px;
-      margin-left: 20px;
-
-      .Notice_Left {
-        font-size: 40px;
-        margin-left: 25px;
-        color: white;
-        line-height: 90px;
-        margin-top: 20px;
-      }
-    }
   }
   .van-list {
     margin-top: 70px;
     font-size: 20px;
   }
 }
+.Notice {
+  width: 95%;
+  background: #009aff;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  margin-left: 20px;
 
+  .Notice_Left {
+    font-size: 40px;
+    margin-left: 25px;
+    color: white;
+    line-height: 90px;
+    margin-top: 20px;
+  }
+}
 .van-cell-group {
   width: 100%;
 
   .van-field {
     width: 100%;
+  }
+}
+.Top-BG {
+  width: 100%;
+  height: 200px;
+  border-radius: 0 0 80px 80px;
+  background: #009aff;
+}
+.User-Head {
+  width: 100%;
+  img {
+    width: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: 100px;
+    right: -250%;
+    transform: translate(50%);
+  }
+}
+.User-Name {
+  width: 100%;
+  height: 100px;
+  margin-top: 2.5rem;
+
+  .Name {
+    height: 100px;
+    text-align: center;
+    font-size: 0.5rem;
+    color: #2f2b2a;
+    font-weight: 700;
+    font-family: "宋体";
+  }
+  .ModifyPd {
+    margin-left: 400px;
   }
 }
 </style>

@@ -15,7 +15,8 @@ module.exports = {
         "space-before-function-paren": 0,
         "no-multiple-empty-lines": [2, { "max": 99999, "maxEOF": 0 }],
         'eslint eol-last': 0,
-        "camelcase": [1, { "properties": "never" }]
+        "camelcase": [1, { "properties": "never" }],
+        'semi': 0
     },
     parserOptions: {
         parser: 'babel-eslint'

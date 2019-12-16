@@ -61,6 +61,7 @@ Validator.extend('password', {
         return value.length === 11
     }
 })
+
 AMap.initAMapApiLoader({
     key: '3554afad07a8ac3ddedf7b201e678de9',
     plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView',
@@ -77,6 +78,7 @@ Vue.filter('dateFmt', (input, formatString = 'YYYY-MM-DD') => {
     // format(formatString) 把时间对象，按照指定格式，格式化成符合条件的字符串
     return moment(input).format(formatString)
 })
+
 
 
 Vue.config.productionTip = false

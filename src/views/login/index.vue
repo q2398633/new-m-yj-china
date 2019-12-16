@@ -3,95 +3,101 @@
     <!-- LoGo -->
     <div class="login_form_center">
       <!-- 登录表单 -->
-      <form action="/"
-            method="POSt"
-            ref="loginForm"
-            ::model="loginForm">
+      <form action="/" method="POSt" ref="loginForm" ::model="loginForm">
         <div class="login_form_bottom">
           <div class="login_form_top">
-            <img src="../../assets/LoGo.gif"
-                 alt="LOGO"
-                 style="width:100% border-radius: 50%;">
+            <img
+              src="../../assets/LoGo.gif"
+              alt="LOGO"
+              style="width:100% border-radius: 50%;"
+            />
           </div>
           <!-- 登录Button -->
           <div class="LoginForm">
-            <div style="font-size: .5rem; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体">账号登录</div>
+            <div
+              style="font-size: .5rem; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体"
+            >
+              账号登录
+            </div>
             <van-cell-group>
-              <van-field v-validate="'required|username'"
-                         name="username"
-                         v-model="loginForm.username"
-                         clearable
-                         left-icon="contact"
-                         prop="username"
-                         placeholder="请输入用户名" />
+              <van-field
+                v-validate="'required|username'"
+                name="username"
+                v-model="loginForm.username"
+                clearable
+                left-icon="contact"
+                prop="username"
+                placeholder="请输入用户名"
+              />
 
-              <van-field v-validate="'required|password'"
-                         name="password"
-                         v-model="loginForm.password"
-                         clearable
-                         left-icon="closed-eye"
-                         prop="password"
-                         type="password"
-                         placeholder="请输入密码" />
+              <van-field
+                v-validate="'required|password'"
+                name="password"
+                v-model="loginForm.password"
+                clearable
+                left-icon="closed-eye"
+                prop="password"
+                type="password"
+                placeholder="请输入密码"
+              />
             </van-cell-group>
-            <van-button :loading="loginloading"
-                        loading-type='spinner'
-                        loading-size='30px'
-                        color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                        style="margin-bottom: 3px; width: 100%;"
-                        block
-                        @click.prevent="handleLogin">登录</van-button>
+            <van-button
+              :loading="loginloading"
+              loading-type="spinner"
+              loading-size="30px"
+              color="linear-gradient(to right, #4bb0ff, #6149f6)"
+              style="margin-bottom: 3px; width: 100%;"
+              block
+              @click.prevent="handleLogin"
+              >登录</van-button
+            >
             <div class="footer">
-              <a href="#"
-                 style="margin-top:13px;  font-size: .5rem; color: #106ecc; font-weight: 700; font-family: 楷体">忘记密码?</a>
+              <a
+                href="#"
+                style="margin-top:13px;  font-size: .5rem; color: #106ecc; font-weight: 700; font-family: 楷体"
+                >忘记密码?</a
+              >
             </div>
           </div>
-
         </div>
       </form>
     </div>
   </div>
 </template>
 <script>
-
-import { login } from '@/api/user'
+import { login } from '@/api/user';
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: 'caifu123456'
       },
       loginloading: false
-
-    }
+    };
   },
-  created () {
-
-  },
+  created() {},
   methods: {
-    async handleLogin () {
-      this.loginloading = true
-      const data = await login(this.loginForm)
-      if (data.code === '500') {
-        this.loginloading = false
-        this.$toast.fail('登录失败!请检查账户名与密码')
+    async handleLogin() {
+      this.loginloading = true;
+      const data = await login(this.loginForm);
+      if (data.Status === 500) {
+        this.loginloading = false;
+        this.$toast.fail('登录失败!请检查账户名与密码');
       } else {
-        this.$store.commit('setUser', data)
-        this.loginloading = false
-        this.$router.push('/home')
-        this.$toast.success('登录成功')
+        this.$store.commit('setUser', data);
+        this.loginloading = false;
+        this.$router.push('/home');
+        this.$toast.success('登录成功');
       }
 
-      this.loginloading = false
+      this.loginloading = false;
     }
   },
-  mounted () {
-
-  }
-}
+  mounted() {}
+};
 </script>
 
 <style lang="less" scoped>

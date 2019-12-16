@@ -51,13 +51,19 @@ import PerformanceScore from '@/views/PerformanceScore'
 import EmployeeRewardsAndPunishments from '@/views/EmployeeRewardsAndPunishments'
 import StaffTraining from '@/views/StaffTraining'
 import LeaveManagement from '@/views/LeaveManagement'
+import ModifyPD from '@/views/ModifyPD'
+import DaKa from '@/views/DaKa'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
     routes: [
         { name: 'index', path: '/', redirect: '/login' },
-        { name: 'login', path: '/login', component: Login },
+        {
+            name: 'login',
+            path: '/login',
+            component: Login
+        },
         { name: 'home', path: '/home', component: Home },
         { name: 'SignInRule', path: '/SignInRule', component: SignInRule },
         { name: 'calender', path: '/Calender', component: Calender },
@@ -107,8 +113,9 @@ const router = new VueRouter({
         { name: 'WageList', path: '/PerformanceScore', component: PerformanceScore },
         { name: 'EmployeeRewardsAndPunishments', path: '/EmployeeRewardsAndPunishments', component: EmployeeRewardsAndPunishments },
         { name: 'StaffTraining', path: '/StaffTraining', component: StaffTraining },
-        { name: 'LeaveManagement', path: '/LeaveManagement', component: LeaveManagement }
-
+        { name: 'LeaveManagement', path: '/LeaveManagement', component: LeaveManagement },
+        { name: 'ModifyPD', path: '/ModifyPD', component: ModifyPD },
+        { name: 'DaKa', path: '/DaKa', component: DaKa }
 
 
     ]

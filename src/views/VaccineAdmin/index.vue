@@ -229,13 +229,8 @@ export default {
       }, 500)
     },
     async loadvaccineAdminList () {
-      let channels = []
       const data = await vaccineAdmin()
       this.Total = data.length
-      console.log(this.Total)
-      this.channels = data
-      channels = this.channels
-      return channels
     },
     async onLoad () {
       const data = await this.loadvaccineAdminList()
