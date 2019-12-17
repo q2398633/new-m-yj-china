@@ -399,11 +399,13 @@ export const ModifyList10 = ({
 export const ModifyList11 = ({
     Date,
     Title,
+    NengHaoXiangMuId,
     JiLiangDanWei,
     DanJia,
     YuSuanShuLiang,
     ShiYongShuLiang,
     YinHangZhangHuIdName,
+    YinHangZhangHuId,
     Id
 }) => {
     return request({
@@ -412,11 +414,13 @@ export const ModifyList11 = ({
         data: {
             Date,
             Title,
+            NengHaoXiangMuId,
             JiLiangDanWei,
             DanJia,
             YuSuanShuLiang,
             ShiYongShuLiang,
             YinHangZhangHuIdName,
+            YinHangZhangHuId,
             Id
         },
         transformRequest: [function (data) {
