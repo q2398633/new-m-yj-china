@@ -4,7 +4,7 @@
     <div>
       <van-sticky>
         <van-nav-bar
-          title="幼儿管理"
+          title="考勤审核"
           left-text="返回"
           left-arrow
           @click-left="onClickLeft"
@@ -73,7 +73,7 @@
       closeable
       position="left"
       class="Serach"
-      :style="{ height: '100%', zIndex: '99999' }"
+      :style="{ height: '100%' }"
     >
       <!-- 筛选表单 -->
       <div style="margin-top: 2.5rem">
@@ -179,8 +179,8 @@
       <van-tabbar v-model="TabbarActive">
         <van-tabbar-item icon="wap-home-o" badge="3">首页</van-tabbar-item>
         <van-tabbar-item icon="smile-o">打卡</van-tabbar-item>
-        <van-tabbar-item>
-          <template style="width: 1rem; height: 1rem;"></template>
+        <van-tabbar-item @click="MyMenu">
+          <template style="width: 1rem; height: 1rem;"> </template>
         </van-tabbar-item>
         <van-tabbar-item icon="friends-o">公告</van-tabbar-item>
         <van-tabbar-item icon="volume-o">我的</van-tabbar-item>
@@ -191,7 +191,7 @@
       style="color: #1989fa; position: fixed; top: 92%; left: 41%; z-index: 9999;"
       @click="MyMenu"
     >
-      <van-icon name="wap-nav" size="1.5rem" v-show="MenuIcon" />
+      <van-icon name="wap-nav" size="1.5rem" />
     </div>
     <!-- 日历组件 -->
     <van-calendar v-model="showCalendar" @confirm="onConfirm" type="range" />
@@ -262,7 +262,6 @@
         :max-date="maxDate"
       />
     </van-popup>
-    <!-- 长按后执行事件 -->
     <div class="ButtonListStyle" v-show="TabbarActiveIf2">
       <van-tabs @click="tabClick" color="white">
         <van-tab
@@ -291,14 +290,13 @@
       style="height: 65%;"
       closeable
       close-icon="close"
-      closed="MenuShow"
     >
       <!-- 顶部说明 -->
-      <span class="CommonlyUsed">常用列表</span>
+      <span class="CommonlyUsed">常用菜单</span>
       <!-- 常用 -->
       <div class="CommonlyUsed_Counted">
         <van-button
-          color="rgb(103 155 208)"
+          color="rgb(84,152,220)"
           v-for="(item, index) in CommonlyUsedList"
           :key="index"
           style=" margin-left: 0.1rem"
@@ -308,17 +306,15 @@
       </div>
       <!-- 版心说明 -->
       <div
-        style="width: 100%; height: 0.1rem; background: #ccc; position: absolute; top: 30%; z-index: 9999;"
+        style="width: 100%; height: 0.2rem; background: #ccc; position: absolute; top: 30%; z-index: 9999;"
       ></div>
-
       <div
-        style="width: 100%; height: 1rem; position: absolute; top: 35%; z-index: 9999; font-size: 0.6rem;  text-align: center; font-family: 宋体;
+        style="width: 100%; height: 1rem; position: absolute; top: 35%; z-index: 9999; font-size: 0.6rem;  text-align: center; font-family: 楷体;
     font-weight: 700;   background: white; padding-top: 0.5rem;
 "
       >
-        列表选择
+        菜单跳转
       </div>
-
       <!-- 三级联动跳转 -->
       <div style="margin-top: 3rem;" @click="MenuLink">
         <van-picker :how-toolbar="false" :columns="columns3" />
@@ -386,7 +382,6 @@ export default {
       ButtonList: [],
       showSTime: false,
       showMTime: false,
-      MenuIcon: true,
       icon: {
         active:
           "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic2%2Fcover%2F00%2F30%2F55%2F5810873c9c2f7_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1612875685&t=2f3313f1d3f2b8f4ac54fa1f9818772b",
@@ -396,15 +391,77 @@ export default {
       chosenCoupon: -1,
       ShowMyMenu: false,
       CommonlyUsedList: ["幼儿列表", "家长列表", "员工列表", "考勤列表"],
-      columns3: [],
-      PickerList: [{}],
-      CheckIndex: ""
+      columns3: [
+        {
+          text: "基础信息",
+          children: [
+            {
+              text: "员工管理",
+              children: [{ text: "考勤列表" }, { text: "考勤审核" }]
+            },
+            {
+              text: "报表",
+              children: [{ text: "出勤率报表" }, { text: "新增范围报表" }]
+            }
+          ]
+        },
+        {
+          text: "营养保健",
+          children: [
+            {
+              text: "食谱部分",
+              children: [{ text: "食谱添加" }, { text: "食谱修改" }]
+            },
+            {
+              text: "食堂管理",
+              children: [{ text: "食品安全检测" }, { text: "餐具消毒" }]
+            }
+          ]
+        },
+        {
+          text: "人事管理",
+          children: [
+            {
+              text: "请假管理",
+              children: [{ text: "奖惩" }, { text: "请假审核" }]
+            },
+            {
+              text: "员工培训",
+              children: [{ text: "绩效评分" }, { text: "工资列表" }]
+            }
+          ]
+        },
+        {
+          text: "考勤列表",
+          children: [
+            {
+              text: "绩效评分",
+              children: [{ text: "食谱添加" }, { text: "食谱修改" }]
+            },
+            {
+              text: "工资列表",
+              children: [{ text: "工资审核" }, { text: "工资调整" }]
+            }
+          ]
+        },
+        {
+          text: "招生管理",
+          children: [
+            {
+              text: "环境调研",
+              children: [{ text: "环境评估" }, { text: "评估审核" }]
+            },
+            {
+              text: "策划方案",
+              children: [{ text: "策划方案审核" }, { text: "方案审批" }]
+            }
+          ]
+        }
+      ]
     };
   },
 
-  created() {
-    this.PickerJson();
-  },
+  created() {},
   methods: {
     onLoad() {
       // 异步更新数据
@@ -427,6 +484,7 @@ export default {
           });
           this.ListLenggth += 1;
         }
+        console.log(this.ListLenggth);
       });
 
       // 加载状态结束
@@ -471,10 +529,10 @@ export default {
       // this.ChildName = "";
       this.ChildName = [];
       this.show = true;
-      this.MenuIcon = false;
     },
     onChangeAddres(picker, index, value) {
       let val = picker.getValues();
+      console.log(val);
       let areaName = "";
       for (var i = 0; i < val.length; i++) {
         areaName = areaName + (i === 0 ? "" : "-") + val[i].name;
@@ -482,6 +540,7 @@ export default {
       this.Addres = areaName;
     },
     onSubmit(values) {
+      console.log("筛选条件", values);
       // 筛选赋值
       this.see = false;
       axios.get("/js/Child.json").then(response => {
@@ -524,7 +583,6 @@ export default {
       });
       this.$notify({ type: "success", message: "筛选完成" });
       this.show = false;
-      this.MenuIcon = true;
     },
     NameChange(val) {},
     onConfirm(date) {
@@ -639,8 +697,6 @@ export default {
     // 复选状态
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
-      this.CheckIndex = index;
-      console.log(this.CheckIndex);
     },
     vueTouch(txt, e) {
       this.name = txt;
@@ -690,21 +746,11 @@ export default {
       if (title === "添加") {
         this.$router.replace("/ChildAdd");
       } else if (title === "修改") {
-        console.log(this.CheckIndex);
-        if (this.CheckIndex == "0") {
-          this.$router.replace("/ChildEdit");
-        } else if (this.CheckIndex == "1") {
-          this.$router.replace("/ChildEdit2");
-        } else if (this.CheckIndex == "2") {
-          this.$router.replace("/ChildEdit3");
-        } else if (this.CheckIndex == "3") {
-          this.$router.replace("/ChildEdit4");
-        }
+        this.$router.replace("/ChildEdit");
       }
     },
     MyMenu() {
       this.ShowMyMenu = true;
-      this.MenuIcon = false;
       console.log(1);
     },
     // 幼儿详情
@@ -729,16 +775,6 @@ export default {
       } else if (value.path[0].innerText == "家长列表") {
         this.$router.replace("/ParentAdmin");
       }
-    },
-    MenuShow(e) {
-      this.MenuIcon = true;
-    },
-    PickerJson(val) {
-      axios.get("/js/Picker.json").then(response => {
-        for (let k in response.data) {
-          this.columns3.push(response.data[k]);
-        }
-      });
     }
   },
   computed: {
@@ -746,6 +782,7 @@ export default {
       var _search = this.search;
       if (_search) {
         var reg = new RegExp(_search, "ig");
+
         return this.list.filter(function(e) {
           return Object.keys(e).some(function(key) {
             return e[key].match(reg);
@@ -832,10 +869,10 @@ export default {
 }
 .CommonlyUsed {
   float: left;
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   font-weight: 700;
-  margin-top: 0.7rem;
-  margin-left: 4rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
   font-family: "楷体";
   display: block;
   color: #020202;

@@ -1,0 +1,67 @@
+ [
+  {
+    "text": "基础信息",
+    "children": [
+      {
+        "text": "员工管理",
+        "children": [{ "text": "考勤列表" }, { "text": "考勤审核" }]
+      },
+      {
+        "text": "报表",
+        "children": [{ "text": "出勤率报表" }, { "text": "新增范围报表" }]
+      }
+    ]
+  },
+  {
+    "text": "营养保健",
+    "children": [
+      {
+        "text": "食谱部分",
+        "children": [{ "text": "食谱添加" }, { "text": "食谱修改" }]
+      },
+      {
+        "text": "食堂管理",
+        "children": [{"text": "食品安全检测" }, { "text": "餐具消毒" }]
+      }
+    ]
+  },
+  {
+    "text": "人事管理",
+    "children": [
+      {
+        "text": "请假管理",
+        "children": [{ "text": "奖惩" }, { "text": "请假审核" }]
+      },
+      {
+        "text": "员工培训",
+        "children": [{ "text": "绩效评分" }, {" text": "工资列表" }]
+      }
+    ]
+  },
+  {
+    "text": "考勤列表",
+    "children": [
+      {
+        "text": "绩效评分",
+        "children": [{ "text": "食谱添加" }, { "text": "食谱修改" }]
+      },
+      {
+        "text": "工资列表",
+        "children": [{ "text": "工资审核" }, { "text": "工资调整" }]
+      }
+    ]
+  },
+  {
+    "text": "招生管理",
+    "children": [
+      {
+        "text": "环境调研",
+        "children": [{ "text": "环境评估" }, { "text": "评估审核" }]
+      },
+      {
+        "text": "策划方案",
+        "children": [{ "text": "策划方案审核" }, { "text": "方案审批" }]
+      }
+    ]
+  }
+]

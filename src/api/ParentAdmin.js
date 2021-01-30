@@ -9,8 +9,8 @@ import request from '../utils/request'
  *
  */
 export const ParentList = () => {
-    return request({
-        method: 'post',
-        url: '/STU/STUParentGrid'
-    })
+  return request({
+    method: 'post',
+    url: '../Mock/Parent.json'
+  })
 }

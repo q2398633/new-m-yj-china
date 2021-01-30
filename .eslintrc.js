@@ -16,7 +16,12 @@ module.exports = {
         "no-multiple-empty-lines": [2, { "max": 99999, "maxEOF": 0 }],
         'eslint eol-last': 0,
         "camelcase": [1, { "properties": "never" }],
-        'semi': 0
+        'semi': 0,
+        'no-unused-vars': 'warn',
+        "quotes":[1, "single"],
+        "no-tabs":"off",
+        "trailingComma": false,
+        "eqeqeq":["off"]
     },
     parserOptions: {
         parser: 'babel-eslint'

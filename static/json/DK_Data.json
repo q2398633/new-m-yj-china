@@ -1,0 +1,18 @@
+{
+  "DK_Data_To_Work": {
+    "DK_Name": "刘博",
+    "DK_Time": "08:44:05",
+    "DK_Address": "石家庄市长安区名门华都12号楼",
+    "DK_Scheduling": "上班",
+    "DK_Longitude": "114.52271",
+    "DK_Latitude": "38.05814"
+  },
+  "DK_Data_Off_Work": {
+    "DK_Name": "刘博",
+    "DK_Time": "18:44:05",
+    "DK_Address": "石家庄市长安区名门华都12号楼",
+    "DK_Scheduling": "下班",
+    "DK_Longitude": "114.52271",
+    "DK_Latitude": "38.05814"
+  }
+}

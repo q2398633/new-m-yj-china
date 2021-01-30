@@ -7,19 +7,17 @@
         <div class="login_form_bottom">
           <div class="login_form_top">
             <img
-              src="../../assets/LoGo.gif"
+              src="https://img.zcool.cn/community/01039857b959590000012e7e08ea22.jpg@1280w_1l_2o_100sh.jpg"
               alt="LOGO"
-              style="width:100% border-radius: 50%;"
+              style="width:9rem; border-radius: 50%; margin-left: 0;"
             />
           </div>
           <!-- 登录Button -->
           <div class="LoginForm">
             <div
               style="font-size: .5rem; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体"
-            >
-              账号登录
-            </div>
-            <van-cell-group>
+            ></div>
+            <van-cell-group style="margin-top: 0.5rem;">
               <van-field
                 v-validate="'required|username'"
                 name="username"
@@ -27,7 +25,7 @@
                 clearable
                 left-icon="contact"
                 prop="username"
-                placeholder="请输入用户名"
+                placeholder="手机号/用户名/邮箱"
               />
 
               <van-field
@@ -38,7 +36,7 @@
                 left-icon="closed-eye"
                 prop="password"
                 type="password"
-                placeholder="请输入密码"
+                placeholder="密码"
               />
             </van-cell-group>
             <van-button
@@ -46,17 +44,17 @@
               loading-type="spinner"
               loading-size="30px"
               color="linear-gradient(to right, #4bb0ff, #6149f6)"
-              style="margin-bottom: 3px; width: 100%;"
+              style="margin-bottom: 3px; width: 100%; "
               block
-              @click.prevent="handleLogin"
+              round
+              icon="contact"
+              @click.prevent="Login"
               >登录</van-button
             >
             <div class="footer">
-              <a
-                href="#"
-                style="margin-top:13px;  font-size: .5rem; color: #106ecc; font-weight: 700; font-family: 楷体"
-                >忘记密码?</a
-              >
+              <span class="LoginText">忘记密码</span>
+              <span class="LoginText">|</span>
+              <span class="LoginText">帮助</span>
             </div>
           </div>
         </div>
@@ -65,35 +63,46 @@
   </div>
 </template>
 <script>
-import { login } from '@/api/user';
+import { login } from "@/api/user";
 
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
       loginForm: {
-        username: 'admin',
-        password: 'caifu123456'
+        username: "18000000000",
+        password: "caifu123456"
       },
       loginloading: false
     };
   },
   created() {},
   methods: {
-    async handleLogin() {
-      this.loginloading = true;
-      const data = await login(this.loginForm);
-      if (data.Status === 500) {
-        this.loginloading = false;
-        this.$toast.fail('登录失败!请检查账户名与密码');
-      } else {
-        this.$store.commit('setUser', data);
-        this.loginloading = false;
-        this.$router.push('/home');
-        this.$toast.success('登录成功');
-      }
+    // async handleLogin() {
+    //   this.loginloading = true;
+    //   const data = await login(this.loginForm);
+    //   if (data.Status === 500) {
+    //     this.loginloading = false;
+    //     this.$toast.fail("登录失败!请检查账户名与密码");
+    //   } else {
+    //     this.$store.commit("setUser", data);
+    //     this.loginloading = false;
+    //     this.$router.push("/home");
+    //     this.$toast.success("登录成功");
+    //   }
 
-      this.loginloading = false;
+    //   this.loginloading = false;
+    // }
+    Login() {
+      if (
+        this.loginForm.username == "18000000000" &&
+        this.loginForm.password == "caifu123456"
+      ) {
+        this.$router.replace("/ChildManagement");
+      } else {
+        // 警告通知
+        this.$notify({ type: "warning", message: "账号密码错误" });
+      }
     }
   },
   mounted() {}
@@ -112,7 +121,8 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  background: url("../../assets/BG2.jpg") no-repeat center / cover;
+  // background: url("../../assets/BG2.jpg") no-repeat center / cover;
+  background: white;
   .nav {
     background: linear-gradient(to right, #4bb0ff, #6149f6);
     font-family: "楷体";
@@ -148,6 +158,12 @@ export default {
     }
     .footer {
       padding: 30px;
+
+      .LoginText {
+        font-size: 0.4rem;
+        margin-left: 0.5rem;
+        color: #5d5656;
+      }
     }
     .LoginForm {
       width: 400px;
@@ -165,3 +181,4 @@ export default {
   }
 }
 </style>
+-

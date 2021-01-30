@@ -53,6 +53,15 @@ import StaffTraining from '@/views/StaffTraining'
 import LeaveManagement from '@/views/LeaveManagement'
 import ModifyPD from '@/views/ModifyPD'
 import DaKa from '@/views/DaKa'
+import ChildAdd from '@/views/ChildLink/ChildAdd'
+import ChildEdit from '@/views/ChildLink/ChildEdit'
+import ChildDetails from '@/views/ChildLink/ChildDetails'
+import ChildDetails2 from '@/views/ChildLink/ChildDetails2'
+import AttendanceAudit from '@/views/AttendanceAudit'
+import ChildEdit2 from '@/views/ChildLink/ChildEdit2'
+import ChildEdit3 from '@/views/ChildLink/ChildEdit3'
+import ChildEdit4 from '@/views/ChildLink/ChildEdit4'
+
 
 Vue.use(VueRouter)
 
@@ -115,9 +124,15 @@ const router = new VueRouter({
         { name: 'StaffTraining', path: '/StaffTraining', component: StaffTraining },
         { name: 'LeaveManagement', path: '/LeaveManagement', component: LeaveManagement },
         { name: 'ModifyPD', path: '/ModifyPD', component: ModifyPD },
-        { name: 'DaKa', path: '/DaKa', component: DaKa }
-
-
+        { name: 'DaKa', path: '/DaKa', component: DaKa },
+        { name: 'ChildAdd', path: '/ChildAdd', component: ChildAdd },
+        { name: 'ChildEdit', path: '/ChildEdit', component: ChildEdit },
+        { name: 'ChildDetails', path: '/ChildDetails', component: ChildDetails },
+        { name: 'ChildDetails2', path: '/ChildDetails2', component: ChildDetails2 },
+        { name: 'AttendanceAudit', path: '/AttendanceAudit', component: AttendanceAudit },
+        { name: 'ChildEdit2', path: '/ChildEdit2', component: ChildEdit2 },
+        { name: 'ChildEdit3', path: '/ChildEdit3', component: ChildEdit3 },
+        { name: 'ChildEdit4', path: '/ChildEdit4', component: ChildEdit4 }
     ]
 })
 

@@ -1,0 +1,60 @@
+{
+  "ButtonListData":[
+    {
+      "Name":"添加",
+      "NR":"添加按钮",
+      "Color":"#1989fa",
+      "IconName":"add-o",
+      "ChildLink":"/ChildAdd"
+    },
+    {
+      "Name":"修改",
+      "NR":"添加按钮",
+      "Color":"#7232dd",
+      "IconName":"edit",
+      "ChildLink":"/ChildEdit"
+    },
+    {
+      "Name":"查找",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ff6034, #ee0a24)",
+      "IconName":"search",
+      "ChildLink":"/ChildSearch"
+    },
+    {
+      "Name":"删除",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ee0a24,#ff6034)",
+      "IconName":"close",
+      "ChildLink":"/ChildDelect"
+    },
+    {
+      "Name":"审核",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ee0a24,#ff6034)",
+      "IconName":"question-o",
+      "ChildLink":"/ChildExamine"
+    },
+    {
+      "Name":"批准",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ee0a24,#ff6034)",
+      "IconName":"passed",
+      "ChildLink":"/ChildApproval"
+    },
+    {
+      "Name":"检索",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ee0a24,#ff6034)",
+      "IconName":"manager-o",
+      "ChildLink":"/ChildRetrieval"
+    },
+    {
+      "Name":"增值",
+      "NR":"添加按钮",
+      "Color":"linear-gradient(to right, #ee0a24,#ff6034)",
+      "IconName":"balance-o",
+      "ChildLink":"/ChildIncrement"
+    }
+  ]
+  }
