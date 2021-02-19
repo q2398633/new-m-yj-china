@@ -21,8 +21,16 @@
         label="幼儿名称"
         required
         placeholder="请输入幼儿名称"
+        v-validate="'Name'"
         :rules="[{ required: true, message: '请填写幼儿名称' }]"
+        style="float: left; width: 60%"
       />
+      <span
+        v-show="errors.has('Name')"
+        class="help is-danger"
+        style="font-size: 0.3rem; color: red;"
+        >{{ errors.first("Name") }}</span
+      >
       <van-field
         v-model="Sex"
         name="Sex"
@@ -69,8 +77,17 @@
         label="监护人"
         required
         placeholder="请输入监护人名称"
+        v-validate="'ParentName'"
+        @click="valid"
         :rules="[{ required: true, message: '请填写监护人' }]"
+        style="float: left; width: 60%"
       />
+      <span
+        v-show="errors.has('ParentName')"
+        class="help is-danger"
+        style="font-size: 0.3rem; color: red;"
+        >{{ errors.first("ParentName") }}</span
+      >
       <van-field
         name="birthday"
         label="生日"
@@ -242,6 +259,7 @@ export default {
       visible: false
     };
   },
+  mounted() {},
   methods: {
     // 跳转回幼儿列表页
     onClickLeft() {
@@ -249,7 +267,6 @@ export default {
     },
     // 提交添加表单
     onSubmit(values) {
-      console.log("submit", values);
       this.$notify({ type: "success", message: "修改完成" });
       this.$router.replace("/ChildManagement");
     },
@@ -362,6 +379,11 @@ export default {
         return `${value}秒`;
       }
       return value;
+    },
+    valid() {
+      this.$validator.validate().then(valid => {
+        console.log(this.$validator.errors.all());
+      });
     }
   }
 };

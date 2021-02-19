@@ -27,7 +27,9 @@
                 prop="username"
                 placeholder="手机号/用户名/邮箱"
               />
-
+              <span v-show="errors.has('username')" class="help is-danger">{{
+                errors.first("username")
+              }}</span>
               <van-field
                 v-validate="'required|password'"
                 name="password"

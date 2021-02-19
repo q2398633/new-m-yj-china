@@ -85,12 +85,16 @@
         <van-form @submit="onSubmit">
           <van-field
             v-model="username"
+            v-validate="'required|Name'"
             name="Name"
             label="姓名"
             clearable
             @change="NameChange"
             placeholder="姓名"
           />
+          <span v-show="errors.has('Name')" class="help is-danger">{{
+            errors.first("Name")
+          }}</span>
           <van-field
             readonly
             clearable
@@ -412,7 +416,6 @@ export default {
       axios.get("/js/Child.json").then(response => {
         var data = response.data;
         var ChildListDate = data.ChildList;
-        console.log(ChildListDate);
         for (var i = 0; i <= ChildListDate.length; i++) {
           this.ChildName.push({
             Name: ChildListDate[i].Name,
@@ -640,7 +643,6 @@ export default {
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
       this.CheckIndex = index;
-      console.log(this.CheckIndex);
     },
     vueTouch(txt, e) {
       this.name = txt;
@@ -690,7 +692,6 @@ export default {
       if (title === "添加") {
         this.$router.replace("/ChildAdd");
       } else if (title === "修改") {
-        console.log(this.CheckIndex);
         if (this.CheckIndex == "0") {
           this.$router.replace("/ChildEdit");
         } else if (this.CheckIndex == "1") {
@@ -705,11 +706,9 @@ export default {
     MyMenu() {
       this.ShowMyMenu = true;
       this.MenuIcon = false;
-      console.log(1);
     },
     // 幼儿详情
     Child_Countend(value) {
-      console.log(value.path[0].innerText);
       if (value.path[0].innerText == "刘德华") {
         this.$router.replace("/ChildDetails");
       } else if (value.path[0].innerText == "张学友") {

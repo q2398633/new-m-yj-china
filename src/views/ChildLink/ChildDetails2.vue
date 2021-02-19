@@ -27,6 +27,7 @@
         placeholder="请输入幼儿名称"
         :rules="[{ required: false, message: '请填写幼儿名称' }]"
       />
+
       <van-field
         readonly
         v-model="Sex"
