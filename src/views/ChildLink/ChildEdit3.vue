@@ -22,7 +22,15 @@
         required
         placeholder="请输入幼儿名称"
         :rules="[{ required: true, message: '请填写幼儿名称' }]"
+        v-validate="'Name'"
+        style="float: left; width: 60%"
       />
+      <span
+        v-show="errors.has('Name')"
+        class="help is-danger"
+        style="font-size: 0.3rem; color: red;"
+        >{{ errors.first("Name") }}</span
+      >
       <van-field
         v-model="Sex"
         name="Sex"
@@ -70,7 +78,15 @@
         required
         placeholder="请输入监护人名称"
         :rules="[{ required: true, message: '请填写监护人' }]"
+        style="float: left; width: 60%"
+        v-validate="'ParentName'"
       />
+      <span
+        v-show="errors.has('ParentName')"
+        class="help is-danger"
+        style="font-size: 0.3rem; color: red;"
+        >{{ errors.first("ParentName") }}</span
+      >
       <van-field
         name="birthday"
         label="生日"
