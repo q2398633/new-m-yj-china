@@ -402,7 +402,8 @@ export default {
       CommonlyUsedList: ["幼儿列表", "家长列表", "员工列表", "考勤列表"],
       columns3: [],
       PickerList: [{}],
-      CheckIndex: ""
+      CheckIndex: "",
+      CheckboxIndex: []
     };
   },
 
@@ -643,6 +644,8 @@ export default {
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
       this.CheckIndex = index;
+      this.CheckboxIndex.push(index);
+      console.log(this.CheckboxIndex);
     },
     vueTouch(txt, e) {
       this.name = txt;
@@ -674,6 +677,7 @@ export default {
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
+      this.CheckboxIndex = [];
     },
     tabClick(name, title) {
       axios.get("/js/ButtonData.json").then(response => {
@@ -690,16 +694,37 @@ export default {
         }
       });
       if (title === "添加") {
-        this.$router.replace("/ChildAdd");
+        if (this.CheckboxIndex.length > 0) {
+          this.$notify({ type: "primary", message: "请取消选择后添加" });
+        } else {
+          this.$router.replace("/ChildAdd");
+        }
       } else if (title === "修改") {
-        if (this.CheckIndex == "0") {
-          this.$router.replace("/ChildEdit");
-        } else if (this.CheckIndex == "1") {
-          this.$router.replace("/ChildEdit2");
+        if (this.CheckIndex === 0) {
+          if (this.CheckboxIndex.length === 1) {
+            this.$router.replace("/ChildEdit");
+          } else {
+            this.$notify({ type: "warning", message: "无法多项选择修改" });
+          }
+        } else if (this.CheckIndex === 1) {
+          if (this.CheckboxIndex.length === 1) {
+            this.$router.replace("/ChildEdit2");
+          } else {
+            this.$notify({ type: "warning", message: "无法多项选择修改" });
+          }
         } else if (this.CheckIndex == "2") {
-          this.$router.replace("/ChildEdit3");
-        } else if (this.CheckIndex == "3") {
-          this.$router.replace("/ChildEdit4");
+          if (this.CheckboxIndex.length === 1) {
+            this.$router.replace("/ChildEdit3");
+          } else {
+            this.$notify({ type: "warning", message: "无法多项选择修改" });
+          }
+        } else if (this.CheckIndex === "3") {
+          if (this.CheckboxIndex.length === 1) {
+            this.$router.replace("/ChildEdit4");
+          } else {
+            this.$notify({ type: "warning", message: "无法多项选择修改" });
+          }
+        } else {
         }
       }
     },
