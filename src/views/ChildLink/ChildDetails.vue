@@ -805,12 +805,21 @@ export default {
     Cparams() {
       this.UPdateForm.xueXing = this.$route.params.xueXing;
       this.UPdateForm.jiaZuBingShi = this.$route.params.jiaZuBingShi;
-      this.UPdateForm.minZu = this.$route.params.minZu;
-      this.UPdateForm.ruTuoLeiXing = this.$route.params.ruTuoLeiXing + "";
+      for (var w = 0; w < this.MinZuList.length; w++) {
+        if (this.MinZuList[w].name == this.$route.params.minZu) {
+          this.MinZuType = this.MinZuList[w].name;
+          this.UPdateForm.minZu = this.MinZuList[w].value;
+        }
+      }
+      // this.UPdateForm.ruTuoLeiXing = this.$route.params.ruTuoLeiXing + "";
       this.UPdateForm.id = this.$route.params.id;
       this.UPdateForm.isJiaZuBingShi = this.$route.params.isJiaZuBingShi + "";
       this.UPdateForm.dangAnHao = this.$route.params.dangAnHao;
-      this.UPdateForm.xueXing = this.$route.params.xueXing;
+      for (var i = 0; i < this.BType.length; i++) {
+        if (this.BType[i].value == this.$route.params.xueXing) {
+          this.BTypeValue = this.BType[i].name;
+        }
+      }
       this.UPdateForm.jinJiLianXiRenDianHua = this.$route.params.jinJiLianXiRenDianHua;
       this.UPdateForm.pouFuChan = this.$route.params.pouFuChan + "";
       this.UPdateForm.shengRi = this.$route.params.shengRi;
@@ -823,8 +832,17 @@ export default {
       this.UPdateForm.teShuYaoQiu = this.$route.params.teShuYaoQiu;
       this.UPdateForm.banJi = this.$route.params.banJi;
       this.UPdateForm.xiHuanYanSe = this.$route.params.xiHuanYanSe;
-      this.UPdateForm.xingBie = this.$route.params.xingBie;
-      this.UPdateForm.huJiLeiXing = this.$route.params.huJiLeiXing;
+      for (var q = 0; q < this.SexList.length; q++) {
+        if (this.SexList[q].value == this.$route.params.xingBie) {
+          this.SexTypeValue = this.SexList[q].name;
+        }
+      }
+      for (var h = 0; h < this.HuJiTypeList.length; h++) {
+        if (this.$route.params.huJiLeiXing == this.HuJiTypeList[h].value) {
+          this.UPdateForm.huJiLeiXing = this.$route.params.huJiLeiXing;
+          this.HuJiLeiXingType = this.HuJiTypeList[h].name
+        }
+      }
       this.UPdateForm.jinJiLianXiRen = this.$route.params.jinJiLianXiRen;
       this.UPdateForm.shenFenZhengHao = this.$route.params.shenFenZhengHao;
       this.UPdateForm.baoJianGuanLiBen =
@@ -832,16 +850,23 @@ export default {
       this.UPdateForm.diZhi = this.$route.params.diZhi;
       this.UPdateForm.shiFouZhuanYuan = this.$route.params.shiFouZhuanYuan + "";
       this.UPdateForm.xingMing = this.$route.params.xingMing;
-      this.UPdateForm.createTime = this.$route.params.createTime;
       if (this.UPdateForm.isXianTianJiBing == 0) {
         this.ShowJZBS = true;
       } else if (this.UPdateForm.isXianTianJiBing != 0) {
         this.ShowJZBS = false;
       }
+
       if (this.UPdateForm.isJiaZuBingShi == 0) {
         this.ShowJZBS = true;
       } else if (this.UPdateForm.isJiaZuBingShi != 0) {
         this.ShowJZBS = false;
+      }
+      if (this.$route.params.ruTuoLeiXing == "日托") {
+        this.UPdateForm.ruTuoLeiXing = 1 + "";
+      } else if (this.$route.params.ruTuoLeiXing == "全托") {
+        this.UPdateForm.ruTuoLeiXing = 0 + "";
+      } else if (this.$route.params.ruTuoLeiXing == "混托") {
+        this.UPdateForm.ruTuoLeiXing = 2 + "";
       }
       console.log(this.$route.params)
     },
