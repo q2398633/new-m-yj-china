@@ -716,6 +716,7 @@ export default {
     },
     // 复选状态
     toggle(index) {
+      this.MenuIcon = false
       this.$refs.checkboxes[index].toggle();
       this.CheckIndex = index;
       this.CheckboxIndex = index;
@@ -724,7 +725,7 @@ export default {
       }
       console.log(this.CheckIndex);
     },
-    tabClick(name, title) {
+    tabClick(title) {
       axios.get("/js/ButtonData.json").then(response => {
         var data = response.data;
         var ButtonListData = data.ButtonListData;
