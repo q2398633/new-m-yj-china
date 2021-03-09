@@ -32,9 +32,10 @@
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
+        :offset="130"
       >
         <div v-for="(item, index) in ChildName" :key="index">
-          <van-checkbox-group v-model="result">
+          <van-checkbox-group v-model="result" @change="CheckBoxChange">
             <van-cell
               v-longtap="e => vueTouch('长按', e)"
               @click="toggle(index)"
@@ -54,12 +55,12 @@
                   :src="item.Head"
                 />
               </div>
-              <div class="ChildName" @click="Child_Countend">
-                <div>{{ item.Name }}</div>
-                <div class="ChildName_Bottom">{{ item.Age }} 2月</div>
-                <div class="ChildName_Bottom2">{{ item.Sex }}</div>
-                <div class="ChildName_Bottom2">{{ item.Grade }}</div>
-                <div class="ChildName_Bottom2">{{ item.Class }}</div>
+              <div class="ChildName" @click="Child_Countend()">
+                <div>{{ item.xingMing }}</div>
+                <div class="ChildName_Bottom">{{ item.banJi }}</div>
+                <div class="ChildName_Bottom2">{{ item.xingBie }}</div>
+                <div class="ChildName_Bottom2">{{ item.xueXing }}</div>
+                <div class="ChildName_Bottom2">{{ item.shengRi }}</div>
                 <div></div>
               </div>
             </van-cell>
@@ -84,7 +85,7 @@
         </h1>
         <van-form @submit="onSubmit">
           <van-field
-            v-model="username"
+            v-model="Name"
             v-validate="'required|Name'"
             name="Name"
             label="姓名"
@@ -164,9 +165,9 @@
                 v-model="checkboxGroup"
                 direction="horizontal"
               >
-                <van-checkbox name="1" shape="square">全托</van-checkbox>
-                <van-checkbox name="2" shape="square">日托</van-checkbox>
-                <van-checkbox name="3" shape="square">混托</van-checkbox>
+                <van-checkbox name="全托" shape="square">全托</van-checkbox>
+                <van-checkbox name="日托" shape="square">日托</van-checkbox>
+                <van-checkbox name="混托" shape="square">混托</van-checkbox>
               </van-checkbox-group>
             </template>
           </van-field>
@@ -294,8 +295,9 @@
       position="bottom"
       style="height: 65%;"
       closeable
+      @click-close-icon="Clost"
       close-icon="close"
-      closed="MenuShow"
+      @closed="MenuShow"
     >
       <!-- 顶部说明 -->
       <span class="CommonlyUsed">常用列表</span>
@@ -334,8 +336,8 @@
 <script>
 import axios from "axios";
 import AreaList from "../../assets/Area/AreaList";
-import { reactive } from "vue";
-
+import { CList } from "@/api/user";
+import { ListMenu } from "@/api/Menu";
 export default {
   data() {
     return {
@@ -346,10 +348,14 @@ export default {
       ChildName: [],
       loading: false,
       finished: false,
+      ListError: false,
+      isLoading: false,
+      LoadPage: {
+        page: 0,
+        limit: 10
+      },
       refreshing: false,
       show: false,
-      username: "",
-      password: "",
       InValue: "",
       showCalendar: false,
       birthday: "",
@@ -357,7 +363,10 @@ export default {
       Sex: "",
       showPicker: false,
       columns: ["男", "女", "其他"],
+      Name: "",
       Age: "",
+      Class: "",
+      Nation: "",
       Addres: "",
       parentname: "",
       showPicker2: false,
@@ -400,10 +409,22 @@ export default {
       chosenCoupon: -1,
       ShowMyMenu: false,
       CommonlyUsedList: ["幼儿列表", "家长列表", "员工列表", "考勤列表"],
-      columns3: [],
+      columns3: [
+        {
+          text: "",
+          children: [
+            {
+              text: "",
+              children: [{ text: "" }]
+            }
+          ]
+        }
+      ],
       PickerList: [{}],
-      CheckIndex: "",
-      CheckboxIndex: []
+      CheckIndex: 0,
+      CheckboxIndex: 0,
+      CheckboxID: {},
+      ID: ""
     };
   },
 
@@ -411,36 +432,53 @@ export default {
     this.PickerJson();
   },
   methods: {
-    onLoad() {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      axios.get("/js/Child.json").then(response => {
-        var data = response.data;
-        var ChildListDate = data.ChildList;
-        for (var i = 0; i <= ChildListDate.length; i++) {
+    async onLoad() {
+      this.LoadPage.page++;
+      this.loading = true;
+      this.finished = false;
+      const { data } = await CList(this.LoadPage);
+      var ChildList = data.data;
+      console.log(this.ChildName);
+      console.log(this.LoadPage.page);
+      if (data.code == 200) {
+        for (var i = 0; i <= ChildList.length; i++) {
           this.ChildName.push({
-            Name: ChildListDate[i].Name,
-            Age: ChildListDate[i].Age,
-            birthday: ChildListDate[i].birthday,
-            InDate: ChildListDate[i].InDate,
-            ParentName: ChildListDate[i].ParentName,
-            Grade: ChildListDate[i].Grade,
-            Sex: ChildListDate[i].Sex,
-            Class: ChildListDate[i].Class,
-            Head: ChildListDate[i].Head
+            xingMing: ChildList[i].xingMing,
+            xingBie: ChildList[i].xingBie,
+            shengRi: ChildList[i].shengRi,
+            jinJiLianXiRen: ChildList[i].jinJiLianXiRen,
+            id: ChildList[i].id,
+            banJi: ChildList[i].banJi,
+            diZhi: ChildList[i].diZhi,
+            ruTuoLeiXing: ChildList[i].ruTuoLeiXing,
+            minZu: ChildList[i].minZu,
+            isJiaZuBingShi: ChildList[i].isJiaZuBingShi,
+            dangAnHao: ChildList[i].dangAnHao,
+            xueXing: ChildList[i].xueXing,
+            jinJiLianXiRenDianHua: ChildList[i].jinJiLianXiRenDianHua,
+            pouFuChan: ChildList[i].pouFuChan,
+            isXianTianJiBing: ChildList[i].isXianTianJiBing,
+            xianTianJiBing: ChildList[i].xianTianJiBing,
+            status: ChildList[i].status,
+            huJi: ChildList[i].huJi,
+            ruYuanRiQi: ChildList[i].ruYuanRiQi,
+            teShuYaoQiu: ChildList[i].teShuYaoQiu,
+            xiHuanYanSe: ChildList[i].xiHuanYanSe,
+            huJiLeiXing: ChildList[i].huJiLeiXing,
+            shenFenZhengHao: ChildList[i].shenFenZhengHao,
+            baoJianGuanLiBen: ChildList[i].baoJianGuanLiBen,
+            shiFouZhuanYuan: ChildList[i].shiFouZhuanYuan,
+            jiaZuBingShi: ChildList[i].jiaZuBingShi
           });
-          this.ListLenggth += 1;
+          this.loading = false;
         }
-      });
-
-      // 加载状态结束
-      this.loading = false;
-
-      // 数据全部加载完成
-      if (this.DataList.length === this.ListLenggth) {
+      } else {
         this.finished = true;
       }
     },
+
+    // 复选改变
+    CheckBoxChange() {},
     Revoke() {
       this.ChildName = [];
       let _this = this;
@@ -462,15 +500,18 @@ export default {
               ParentName: ChildListDate[i].ParentName,
               Grade: ChildListDate[i].Grade,
               Sex: ChildListDate[i].Sex,
-              Class: ChildListDate[i].Class,
-              Head: ChildListDate[i].Head
+              Class: ChildListDate[i].banJi,
+              Head: ChildListDate[i].Head,
+              Addres: ChildListDate[i].huJi
             });
             _this.ListLenggth += 1;
           }
         });
       }, 2500);
     },
-    onClickLeft() {},
+    onClickLeft() {
+      this.$router.push("/login");
+    },
     onClickRight() {
       // this.ChildName = "";
       this.ChildName = [];
@@ -502,7 +543,8 @@ export default {
               Grade: ChildListDate[i].Grade,
               Sex: ChildListDate[i].Sex,
               Class: ChildListDate[i].Class,
-              Head: ChildListDate[i].Head
+              Head: ChildListDate[i].Head,
+              ID: ChildListDate[i].ID
             });
           } else if (
             ChildListDate[i].Name === values.Name ||
@@ -640,13 +682,6 @@ export default {
       }
       return value;
     },
-    // 复选状态
-    toggle(index) {
-      this.$refs.checkboxes[index].toggle();
-      this.CheckIndex = index;
-      this.CheckboxIndex.push(index);
-      console.log(this.CheckboxIndex);
-    },
     vueTouch(txt, e) {
       this.name = txt;
       this.ListCheckbox = true;
@@ -679,6 +714,16 @@ export default {
       this.ButtonList = [];
       this.CheckboxIndex = [];
     },
+    // 复选状态
+    toggle(index) {
+      this.$refs.checkboxes[index].toggle();
+      this.CheckIndex = index;
+      this.CheckboxIndex = index;
+      if (this.$refs.checkboxes[index].checked == false) {
+        this.CheckboxID = this.$refs.checkboxes[index].name;
+      }
+      console.log(this.CheckIndex);
+    },
     tabClick(name, title) {
       axios.get("/js/ButtonData.json").then(response => {
         var data = response.data;
@@ -693,38 +738,56 @@ export default {
           });
         }
       });
+      // for (var z = 0; z < this.$refs.checkboxes.length; z++) {
+      //   console.log(this.$refs.checkboxes)
+      //   if (this.$refs.checkboxes[z].checked == true) {
+      //     this.CheckboxID.push(this.$refs.checkboxes[z]);
+      //     console.log(this.$refs.checkboxes)
+      //   } else {
+      //   }
+      // }
       if (title === "添加") {
-        if (this.CheckboxIndex.length > 0) {
+        if (this.CheckboxIndex > 0) {
           this.$notify({ type: "primary", message: "请取消选择后添加" });
         } else {
           this.$router.replace("/ChildAdd");
         }
       } else if (title === "修改") {
-        if (this.CheckIndex === 0) {
-          if (this.CheckboxIndex.length === 1) {
-            this.$router.replace("/ChildEdit");
-          } else {
-            this.$notify({ type: "warning", message: "无法多项选择修改" });
-          }
-        } else if (this.CheckIndex === 1) {
-          if (this.CheckboxIndex.length === 1) {
-            this.$router.replace("/ChildEdit2");
-          } else {
-            this.$notify({ type: "warning", message: "无法多项选择修改" });
-          }
-        } else if (this.CheckIndex == "2") {
-          if (this.CheckboxIndex.length === 1) {
-            this.$router.replace("/ChildEdit3");
-          } else {
-            this.$notify({ type: "warning", message: "无法多项选择修改" });
-          }
-        } else if (this.CheckIndex === "3") {
-          if (this.CheckboxIndex.length === 1) {
-            this.$router.replace("/ChildEdit4");
-          } else {
-            this.$notify({ type: "warning", message: "无法多项选择修改" });
-          }
-        } else {
+        if (this.CheckboxIndex == 0) {
+          this.$router.push({
+            name: "ChildEdit",
+            params: {
+              xueXing: this.CheckboxID.xueXing,
+              jiaZuBingShi: this.CheckboxID.jiaZuBingShi,
+              minZu: this.CheckboxID.minZu,
+              ruTuoLeiXing: this.CheckboxID.ruTuoLeiXing,
+              id: this.CheckboxID.id,
+              isJiaZuBingShi: this.CheckboxID.isJiaZuBingShi,
+              dangAnHao: this.CheckboxID.dangAnHao,
+              jinJiLianXiRenDianHua: this.CheckboxID.jinJiLianXiRenDianHua,
+              pouFuChan: this.CheckboxID.pouFuChan,
+              shengRi: this.CheckboxID.shengRi,
+              isXianTianJiBing: this.CheckboxID.isXianTianJiBing,
+              xianTianJiBing: this.CheckboxID.xianTianJiBing,
+              status: this.CheckboxID.status,
+              huJi: this.CheckboxID.huJi,
+              ruYuanRiQi: this.CheckboxID.ruYuanRiQi,
+              teShuYaoQiu: this.CheckboxID.teShuYaoQiu,
+              banJi: this.CheckboxID.banJi,
+              xiHuanYanSe: this.CheckboxID.xiHuanYanSe,
+              xingBie: this.CheckboxID.xingBie,
+              huJiLeiXing: this.CheckboxID.huJiLeiXing,
+              jinJiLianXiRen: this.CheckboxID.jinJiLianXiRen,
+              shenFenZhengHao: this.CheckboxID.shenFenZhengHao,
+              baoJianGuanLiBen: this.CheckboxID.baoJianGuanLiBen,
+              diZhi: this.CheckboxID.diZhi,
+              shiFouZhuanYuan: this.CheckboxID.shiFouZhuanYuan,
+              xingMing: this.CheckboxID.xingMing,
+              createTime: this.CheckboxID.createTime
+            }
+          });
+        } else if (this.CheckboxIndex >= 1) {
+          this.$notify({ type: "primary", message: "仅能单选一项进行修改" });
         }
       }
     },
@@ -733,52 +796,54 @@ export default {
       this.MenuIcon = false;
     },
     // 幼儿详情
-    Child_Countend(value) {
-      if (value.path[0].innerText == "刘德华") {
-        this.$router.replace("/ChildDetails");
-      } else if (value.path[0].innerText == "张学友") {
-        this.$router.replace("/ChildDetails2");
-      }
+    Child_Countend(index) {
+      console.log(this.$refs.checkboxes[this.CheckIndex].name);
+      var ChildArr = [];
+      ChildArr.push(this.$refs.checkboxes[this.CheckIndex].name);
+      this.$router.push({
+        name: "ChildDetails",
+        params: this.$refs.checkboxes[this.CheckIndex].name
+      });
+      this.$router.replace("/ChildDetails");
+      ChildArr = [];
     },
     MenuLink(value) {
-      if (value.path[0].innerText == "考勤列表") {
-        this.$router.replace("/AttendanceList");
+      if (value.path[0].innerText == "幼儿信息") {
+        this.$router.go(0);
       } else if (value.path[0].innerText == "考勤审核") {
         this.$router.replace("/AttendanceAudit");
       }
     },
     CommonlyUsedButton(value) {
       if (value.path[0].innerText == "幼儿列表") {
-        this.$router.replace("/ChildManagement");
+        // this.$router.replace("/ChildManagement");
       } else if (value.path[0].innerText == "家长列表") {
         this.$router.replace("/ParentAdmin");
       }
     },
-    MenuShow(e) {
+    MenuShow() {
       this.MenuIcon = true;
     },
-    PickerJson(val) {
-      axios.get("/js/Picker.json").then(response => {
-        for (let k in response.data) {
-          this.columns3.push(response.data[k]);
+    // 菜单列表
+    async PickerJson() {
+      const { data } = await ListMenu();
+      for (var e in data.result) {
+        for (var c in this.columns3) {
+          this.columns3[c].text = data.result[e].item.name;
+          for (var v in data.result[e].children) {
+            for (var b in this.columns3[c].children) {
+              this.columns3[c].children[b].text =
+                data.result[e].children[v].item.name;
+            }
+          }
         }
-      });
+      }
+    },
+    Clost() {
+      console.log(123);
     }
   },
-  computed: {
-    items: function() {
-      var _search = this.search;
-      if (_search) {
-        var reg = new RegExp(_search, "ig");
-        return this.list.filter(function(e) {
-          return Object.keys(e).some(function(key) {
-            return e[key].match(reg);
-          });
-        });
-      }
-      return this.list;
-    }
-  }
+  computed: {}
 };
 </script>
 

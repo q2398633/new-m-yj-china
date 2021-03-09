@@ -62,15 +62,15 @@
 </template>
 
 <script>
-import { ModifyPassword } from '@/api/ModifyPassword.js';
+import { ModifyPassword } from "@/api/ModifyPassword.js";
 export default {
-  name: 'StaffAdmin',
+  name: "StaffAdmin",
   data() {
     return {
       ModifyPassWord: {
-        oldPassword: '',
-        password: '',
-        repassword: ''
+        oldPassword: "",
+        password: "",
+        repassword: ""
       }
     };
   },
@@ -83,7 +83,7 @@ export default {
     async ModifyPd() {
       const data = await ModifyPassword(this.ModifyPassWord);
       this.$toast.fail(data.msg);
-      this.$router.push('/home');
+      this.$router.push("/home");
     }
   }
 };

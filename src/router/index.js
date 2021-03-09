@@ -56,14 +56,18 @@ import DaKa from '@/views/DaKa'
 import ChildAdd from '@/views/ChildLink/ChildAdd'
 import ChildEdit from '@/views/ChildLink/ChildEdit'
 import ChildDetails from '@/views/ChildLink/ChildDetails'
-import ChildDetails2 from '@/views/ChildLink/ChildDetails2'
 import AttendanceAudit from '@/views/AttendanceAudit'
-import ChildEdit2 from '@/views/ChildLink/ChildEdit2'
-import ChildEdit3 from '@/views/ChildLink/ChildEdit3'
-import ChildEdit4 from '@/views/ChildLink/ChildEdit4'
-
 
 Vue.use(VueRouter)
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function (location) {
+  try {
+    return originalPush.call(this, location).catch(err => err);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const router = new VueRouter({
     routes: [
@@ -128,12 +132,24 @@ const router = new VueRouter({
         { name: 'ChildAdd', path: '/ChildAdd', component: ChildAdd },
         { name: 'ChildEdit', path: '/ChildEdit', component: ChildEdit },
         { name: 'ChildDetails', path: '/ChildDetails', component: ChildDetails },
-        { name: 'ChildDetails2', path: '/ChildDetails2', component: ChildDetails2 },
-        { name: 'AttendanceAudit', path: '/AttendanceAudit', component: AttendanceAudit },
-        { name: 'ChildEdit2', path: '/ChildEdit2', component: ChildEdit2 },
-        { name: 'ChildEdit3', path: '/ChildEdit3', component: ChildEdit3 },
-        { name: 'ChildEdit4', path: '/ChildEdit4', component: ChildEdit4 }
+        { name: 'AttendanceAudit', path: '/AttendanceAudit', component: AttendanceAudit }
     ]
 })
-
+// 注册一个全局的前置导航守卫
+// router.beforeEach((to, from, next) => {
+  // 如果不去主动的触发 resolve（next 下一步） 会一直等待
+  // console.log('ok')
+  // 如果是登录页面 放行
+  // if (to.path === '/login') return next()
+  // // 判断登录状态
+  // const user = window.sessionStorage.getItem('yjZhongGuo')
+  // if (user) {
+  //   next()
+  // } else {
+  //   next('/login')
+  // }
+//   const user = window.sessionStorage.getItem('yjZhongGuo')
+//   if (to.path !== '/login' && !user) return next('/login')
+//   next()
+// })
 export default router

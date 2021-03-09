@@ -19,25 +19,25 @@
             ></div>
             <van-cell-group style="margin-top: 0.5rem;">
               <van-field
-                v-validate="'required|username'"
-                name="username"
-                v-model="loginForm.username"
+                v-validate="'required|Account'"
+                name="Account"
+                v-model="loginForm.Account"
                 clearable
                 left-icon="contact"
-                prop="username"
+                prop="Account"
                 placeholder="手机号/用户名/邮箱"
               />
-              <span v-show="errors.has('username')" class="help is-danger">{{
-                errors.first("username")
+              <span v-show="errors.has('Account')" class="help is-danger">{{
+                errors.first("Account")
               }}</span>
               <van-field
-                v-validate="'required|password'"
-                name="password"
-                v-model="loginForm.password"
+                v-validate="'required|Password'"
+                name="Password"
+                v-model="loginForm.Password"
                 clearable
                 left-icon="closed-eye"
-                prop="password"
-                type="password"
+                prop="Password"
+                type="Password"
                 placeholder="密码"
               />
             </van-cell-group>
@@ -72,38 +72,35 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "18000000000",
-        password: "caifu123456"
+        Account: "test",
+        AppKey: "ymkjoa",
+        Password: "test"
       },
       loginloading: false
     };
   },
   created() {},
   methods: {
-    // async handleLogin() {
-    //   this.loginloading = true;
-    //   const data = await login(this.loginForm);
-    //   if (data.Status === 500) {
-    //     this.loginloading = false;
-    //     this.$toast.fail("登录失败!请检查账户名与密码");
-    //   } else {
-    //     this.$store.commit("setUser", data);
-    //     this.loginloading = false;
-    //     this.$router.push("/home");
-    //     this.$toast.success("登录成功");
-    //   }
+    async Login() {
+      this.$toast.loading({
+        message: '登录中...', // 提示文本
+        forbidClick: true, // 禁止背景点击
+        duration: 0 // 展示时长(ms)，值为 0 时，toast 不会消失
+      })
+     try {
+      const { data } = await login(this.loginForm);
+      console.log(data);
+        // 4. 处理响应结果
+        this.$toast.success('登录成功')
 
-    //   this.loginloading = false;
-    // }
-    Login() {
-      if (
-        this.loginForm.username == "18000000000" &&
-        this.loginForm.password == "caifu123456"
-      ) {
-        this.$router.replace("/ChildManagement");
-      } else {
-        // 警告通知
-        this.$notify({ type: "warning", message: "账号密码错误" });
+        // 将后端返回的用户登录状态（token等数据）放到 Vuex 容器中
+        this.$store.commit('setUser', data)
+
+        // 登录成功，跳转幼儿列表页
+        this.$router.push('/ChildManagement')
+      } catch (err) {
+        console.log(err)
+        this.$toast.fail('登录失败，账号或密码错误')
       }
     }
   },

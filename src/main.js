@@ -18,7 +18,6 @@ import './assets/iconfont/iconfont.css'
 import AMap from 'vue-amap'
 import vueTouch from 'kim-vue-touch'
 
-
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
 
@@ -50,8 +49,8 @@ Vue.filter('moment', function(value, formatString) {
 })
 
 
-Validator.extend('Name', {
-    getMessage: field => '姓名最少两位最多七位',
+Validator.extend('xingMing', {
+    getMessage: field => '姓名最少两位最多七位中文汉字, ',
     validate: value => {
         // 自定义的校验规则
         return /^[\u4e00-\u9fa5]{2,7}$/.test(value)
@@ -64,8 +63,8 @@ Validator.extend('ParentName', {
       return /^[\u4e00-\u9fa5]{2,7}$/.test(value)
   }
 })
-Validator.extend('Phone', {
-    getMessage: field => '手机号11位数字',
+Validator.extend('jinJiLianXiRenDianHua', {
+    getMessage: field => '请输入11位手机号',
     validate: value => {
         // 自定义的校验规则
         return /^(1[1-9][0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)
@@ -73,7 +72,7 @@ Validator.extend('Phone', {
 })
 
 
-Validator.extend('IDNmuber', {
+Validator.extend('shenFenZhengHao', {
   getMessage: field => '请输入15或18位身份证',
   validate: value => {
       // 自定义的校验规则
@@ -94,6 +93,7 @@ Validator.extend('Email', {
       return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
   }
 })
+
 AMap.initAMapApiLoader({
         key: '3554afad07a8ac3ddedf7b201e678de9',
         plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView',
