@@ -268,8 +268,12 @@
       />
     </van-popup>
     <!-- 长按后执行事件 -->
-    <div class="ButtonListStyle" v-show="TabbarActiveIf2">
-      <van-tabs @click="tabClick" color="white">
+    <div
+      class="ButtonListStyle"
+      v-show="TabbarActiveIf2"
+      @click="tabClick($event)"
+    >
+      <van-tabs color="white">
         <van-tab
           v-for="(item, index) in ButtonList"
           :key="index"
@@ -422,9 +426,10 @@ export default {
       ],
       PickerList: [{}],
       CheckIndex: 0,
-      CheckboxIndex: 0,
+      CheckboxIndex: [],
       CheckboxID: {},
-      ID: ""
+      ID: "",
+      ckindex: 0
     };
   },
 
@@ -438,8 +443,6 @@ export default {
       this.finished = false;
       const { data } = await CList(this.LoadPage);
       var ChildList = data.data;
-      console.log(this.ChildName);
-      console.log(this.LoadPage.page);
       if (data.code == 200) {
         for (var i = 0; i <= ChildList.length; i++) {
           this.ChildName.push({
@@ -604,7 +607,7 @@ export default {
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `0${month}`;
+        month = `${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
@@ -627,7 +630,7 @@ export default {
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `0${month}`;
+        month = `${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
@@ -650,7 +653,7 @@ export default {
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `0${month}`;
+        month = `${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
@@ -690,19 +693,19 @@ export default {
       this.TabbarActiveIf = false;
       this.TabbarActiveIf2 = true;
       // 加载按钮数据
-      axios.get("/js/ButtonData.json").then(response => {
-        var data = response.data;
-        var ButtonListData = data.ButtonListData;
-        for (var i = 0; i <= ButtonListData.length; i++) {
-          this.ButtonList.push({
-            Name: ButtonListData[i].Name,
-            NR: ButtonListData[i].NR,
-            Color: ButtonListData[i].Color,
-            IconName: ButtonListData[i].IconName,
-            ChildLink: ButtonListData[i].ChildLink
-          });
-        }
-      });
+      // axios.get("/js/ButtonData.json").then(response => {
+      //   var data = response.data;
+      //   var ButtonListData = data.ButtonListData;
+      //   for (var i = 0; i <= ButtonListData.length; i++) {
+      //     this.ButtonList.push({
+      //       Name: ButtonListData[i].Name,
+      //       NR: ButtonListData[i].NR,
+      //       Color: ButtonListData[i].Color,
+      //       IconName: ButtonListData[i].IconName,
+      //       ChildLink: ButtonListData[i].ChildLink
+      //     });
+      //   }
+      // });
     },
     ClearCheck() {
       this.ListCheckbox = false;
@@ -716,45 +719,32 @@ export default {
     },
     // 复选状态
     toggle(index) {
-      this.MenuIcon = false
+      this.MenuIcon = false;
       this.$refs.checkboxes[index].toggle();
       this.CheckIndex = index;
-      this.CheckboxIndex = index;
+      this.CheckboxIndex.push(index);
       if (this.$refs.checkboxes[index].checked == false) {
         this.CheckboxID = this.$refs.checkboxes[index].name;
       }
-      console.log(this.CheckIndex);
     },
-    tabClick(title) {
-      axios.get("/js/ButtonData.json").then(response => {
-        var data = response.data;
-        var ButtonListData = data.ButtonListData;
-        for (var i = 0; i <= ButtonListData.length; i++) {
-          this.ButtonList.push({
-            Name: ButtonListData[i].Name,
-            NR: ButtonListData[i].NR,
-            Color: ButtonListData[i].Color,
-            IconName: ButtonListData[i].IconName,
-            ChildLink: ButtonListData[i].ChildLink
-          });
+    tabClick(event) {
+      this.ckindex = 0;
+      const ButtonText = event.target.innerText;
+      for (var ss = 0; ss < this.$refs.checkboxes.length; ss++) {
+        if (this.$refs.checkboxes[ss].checked == true) {
+          this.ckindex = this.ckindex + 1;
         }
-      });
-      // for (var z = 0; z < this.$refs.checkboxes.length; z++) {
-      //   console.log(this.$refs.checkboxes)
-      //   if (this.$refs.checkboxes[z].checked == true) {
-      //     this.CheckboxID.push(this.$refs.checkboxes[z]);
-      //     console.log(this.$refs.checkboxes)
-      //   } else {
-      //   }
-      // }
-      if (title === "添加") {
-        if (this.CheckboxIndex > 0) {
+      }
+      if (ButtonText === "添加") {
+        if (this.ckindex > 0) {
           this.$notify({ type: "primary", message: "请取消选择后添加" });
+          this.ckindex = 0
         } else {
           this.$router.replace("/ChildAdd");
         }
-      } else if (title === "修改") {
-        if (this.CheckboxIndex == 0) {
+        this.CheckboxIndex = [];
+      } else if (ButtonText === "编辑") {
+        if (this.ckindex <= 1) {
           this.$router.push({
             name: "ChildEdit",
             params: {
@@ -787,8 +777,11 @@ export default {
               createTime: this.CheckboxID.createTime
             }
           });
-        } else if (this.CheckboxIndex >= 1) {
-          this.$notify({ type: "primary", message: "仅能单选一项进行修改" });
+        } else if (this.CheckboxIndex.length > 1) {
+          this.$notify({
+            type: "primary",
+            message: "仅能单选一项进行修改, 请重新选择后再试"
+          });
         }
       }
     },
@@ -798,15 +791,14 @@ export default {
     },
     // 幼儿详情
     Child_Countend(index) {
-      console.log(this.$refs.checkboxes[this.CheckIndex].name);
-      var ChildArr = [];
-      ChildArr.push(this.$refs.checkboxes[this.CheckIndex].name);
+      var CheckBIndex = this.CheckIndex - 0;
+      console.log(CheckBIndex);
+      console.log(this.$refs.checkboxes[CheckBIndex].name);
+      const thiscountent = this.$refs.checkboxes[CheckBIndex].name
       this.$router.push({
         name: "ChildDetails",
-        params: this.$refs.checkboxes[this.CheckIndex].name
+        params: thiscountent
       });
-      this.$router.replace("/ChildDetails");
-      ChildArr = [];
     },
     MenuLink(value) {
       if (value.path[0].innerText == "幼儿信息") {
@@ -828,6 +820,13 @@ export default {
     // 菜单列表
     async PickerJson() {
       const { data } = await ListMenu();
+      const MenuData = data.result;
+      const MenuDataButton = MenuData[0].children[0].item.elements;
+      for (var n = 0; n < MenuDataButton.length; n++) {
+        this.ButtonList.push({
+          Name: MenuDataButton[n].name
+        });
+      }
       for (var e in data.result) {
         for (var c in this.columns3) {
           this.columns3[c].text = data.result[e].item.name;
@@ -841,7 +840,7 @@ export default {
       }
     },
     Clost() {
-      console.log(123);
+      this.MenuIcon = true;
     }
   },
   computed: {}

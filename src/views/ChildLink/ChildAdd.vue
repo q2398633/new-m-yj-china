@@ -883,7 +883,7 @@ export default {
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `0${month}`;
+        month = `${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
@@ -910,7 +910,7 @@ export default {
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `0${month}`;
+        month = `${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
