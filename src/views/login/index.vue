@@ -19,7 +19,6 @@
             ></div>
             <van-cell-group style="margin-top: 0.5rem;">
               <van-field
-                v-validate="'required|Account'"
                 name="Account"
                 v-model="loginForm.Account"
                 clearable
@@ -27,11 +26,7 @@
                 prop="Account"
                 placeholder="手机号/用户名/邮箱"
               />
-              <span v-show="errorBags.has('Account')" class="help is-danger">{{
-                errorBags.first("Account")
-              }}</span>
               <van-field
-                v-validate="'required|Password'"
                 name="Password"
                 v-model="loginForm.Password"
                 clearable

@@ -513,7 +513,6 @@ export default {
             shiFouZhuanYuan: ChildList[i].shiFouZhuanYuan,
             jiaZuBingShi: ChildList[i].jiaZuBingShi
           });
-          console.log(this.ChildName);
 
           this.loading = false;
         }

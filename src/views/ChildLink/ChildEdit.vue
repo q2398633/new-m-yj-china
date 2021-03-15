@@ -788,7 +788,6 @@ export default {
       values.xueXing = this.UPdateForm.xueXing - 0;
       values.jinJiLianXiRenDianHua = this.UPdateForm.jinJiLianXiRenDianHua;
       const { data } = await ChildUPdate(values);
-      console.log("submit", values);
       console.log(data);
       if (data.code == 200) {
         this.$notify({ type: "success", message: "修改完成" });
@@ -980,7 +979,6 @@ export default {
       } else if (this.$route.params.ruTuoLeiXing == "混托") {
         this.UPdateForm.ruTuoLeiXing = 2 + "";
       }
-      console.log(this.UPdateForm);
     },
     // 家族病史Change
     JZBS() {
