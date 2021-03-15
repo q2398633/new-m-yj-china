@@ -73,7 +73,7 @@
       closeable
       position="left"
       class="Serach"
-      :style="{ height: '100%', zIndex: '99999' }"
+      :style="{ height: '100%' }"
     >
       <!-- 筛选表单 -->
       <div style="margin-top: 2.5rem">
@@ -82,82 +82,76 @@
         >
           幼儿筛选
         </h1>
-        <van-form @submit="onSubmit">
+        <van-form>
           <van-field
-            v-model="xingMing"
+            v-model="ChildListSearch.xingMing"
             label="姓名"
             clearable
             @change="NameChange"
             placeholder="姓名"
           />
           <van-field
-            readonly
-            clickable
+            @focus="noBomBox"
+            v-model="SexTypeValue"
             name="xingBie"
             label="性别"
-            :value="xingBie"
             placeholder="请选择"
-            @click="showPicker = true"
+            @click="ShowSex = true"
           />
           <van-field
-            v-model="jinJiLianXiRen"
+            v-model="ChildListSearch.jinJiLianXiRen"
             clearable
             name="ParentName"
             label="紧急联系人名称"
             placeholder="紧急联系人名称"
           />
           <van-field
-            v-model="Addres"
+            v-model="ChildListSearch.huJi"
             name="地区选择"
             label="地区选择"
             placeholder="地区选择"
             @click="ShowAddres = true"
           />
           <van-field
-            readonly
-            clickable
             name="birthday"
-            :value-class="className"
-            :value="timeValue"
             label="生日"
-            placeholder="点击选择日期"
-            @click="showPicker2 = true"
-          />
-
-          <van-field
-            readonly
             clickable
-            name="InDate"
+            @focus="noBomBox"
+            :value-class="className"
+            :value="ChildListSearch.shengRi"
+            placeholder="请输入幼儿生日"
+            @click="ShowBirthday = true"
+          />
+          <van-field
+            name="ruYuanRiQi"
+            label="入园日期"
+            clickable
+            @focus="noBomBox"
             :value-class="className2"
-            :value="timeValue2"
-            label="开始时间"
-            placeholder="点击选择开始时间"
-            @click="showSTime = true"
+            :value="ChildListSearch.ruYuanRiQi"
+            placeholder="请输入入园日期"
+            @click="ShowInDate = true"
           />
-          <van-field
-            readonly
-            clickable
-            name="InDate"
-            :value-class="className3"
-            :value="timeValue3"
-            placeholder="点击选择结束时间"
-            @click="showMTime = true"
-            style="margin-left: 2.6rem;"
-          />
-          <van-field name="RT_Type" label="入托类型">
+          <van-field name="ruTuoLeiXing" label="入托类型">
             <template #input>
-              <van-checkbox-group
-                v-model="checkboxGroup"
+              <van-radio-group
+                v-model="ChildListSearch.ruTuoLeiXing"
                 direction="horizontal"
               >
-                <van-checkbox name="全托" shape="square">全托</van-checkbox>
-                <van-checkbox name="日托" shape="square">日托</van-checkbox>
-                <van-checkbox name="混托" shape="square">混托</van-checkbox>
-              </van-checkbox-group>
+                <van-radio name="0">全托</van-radio>
+                <van-radio name="1" checked-color="#34dcc5">日托</van-radio>
+                <van-radio name="2" checked-color="#e60101">混托</van-radio>
+              </van-radio-group>
             </template>
           </van-field>
           <div style="margin: 16px;">
-            <van-button round block type="info" native-type="submit">
+            <van-button
+              round
+              block
+              type="info"
+              native-type="submit"
+              @click="onSubmit"
+            >
               提交
             </van-button>
           </div>
@@ -187,12 +181,14 @@
     <van-calendar v-model="showCalendar" @confirm="onConfirm" type="range" />
     <van-calendar v-model="showCalendar2" @confirm="onConfirm2" />
     <!-- 筛选弹窗 -->
-    <van-popup v-model="showPicker" round position="bottom">
+    <!-- 性别选择 -->
+    <van-popup v-model="ShowSex" round position="bottom" class="Zindex">
       <van-picker
         show-toolbar
-        :columns="columns"
-        @cancel="showPicker = false"
-        @confirm="onConfirm3"
+        :columns="SexList"
+        value-key="name"
+        @cancel="ShowSex = false"
+        @confirm="SexConfirm"
       />
     </van-popup>
     <van-popup v-model="ShowAge" round position="bottom">
@@ -201,32 +197,6 @@
         :columns="columns2"
         @cancel="ShowAge = false"
         @confirm="onConfirm4"
-      />
-    </van-popup>
-    <!-- 开始时间 -->
-    <van-popup v-model="showSTime" round position="bottom">
-      <van-datetime-picker
-        v-model="currentDate2"
-        type="date"
-        title="开始时间"
-        @cancel="showSTime = false"
-        @confirm="confirmPicker2"
-        :formatter="formatter"
-        :min-date="minDate"
-        :max-date="maxDate"
-      />
-    </van-popup>
-    <!-- 结束时间 -->
-    <van-popup v-model="showMTime" round position="bottom">
-      <van-datetime-picker
-        v-model="currentDate3"
-        type="date"
-        title="结束时间"
-        @cancel="showMTime = false"
-        @confirm="confirmPicker3"
-        :formatter="formatter"
-        :min-date="minDate"
-        :max-date="maxDate"
       />
     </van-popup>
     <van-popup v-model="ShowAddres" round position="bottom">
@@ -240,13 +210,29 @@
         :columns-placeholder="['省/直辖市', '市', '区/县']"
       />
     </van-popup>
-    <van-popup v-model="showPicker2" round position="bottom">
+    <!-- 生日选择 -->
+    <van-popup v-model="ShowBirthday" round position="bottom">
       <van-datetime-picker
-        v-model="currentDate"
+        :value-class="className"
+        :value="ChildListSearch.shengRi"
         type="date"
         title="生日"
-        @cancel="showPicker2 = false"
-        @confirm="confirmPicker"
+        @cancel="ShowBirthday = false"
+        @confirm="BirthdayConfirm"
+        :formatter="formatter"
+        :min-date="minDate"
+        :max-date="maxDate"
+      />
+    </van-popup>
+    <!-- 入园日期选择 -->
+    <van-popup v-model="ShowInDate" round position="bottom">
+      <van-datetime-picker
+        :value-class="className2"
+        :value="ruYuanRiQi"
+        type="date"
+        title="入园日期"
+        @cancel="ShowInDate = false"
+        @confirm="Rdate"
         :formatter="formatter"
         :min-date="minDate"
         :max-date="maxDate"
@@ -334,35 +320,7 @@ export default {
       active2: 0,
       TabbarActive: 2,
       DataList: [],
-      ChildName: [
-        {
-          jiaZuBingShi: "",
-          minZu: "",
-          ruTuoLeiXing: "",
-          isJiaZuBingShi: "",
-          dangAnHao: "",
-          xueXing: "",
-          jinJiLianXiRenDianHua: "",
-          pouFuChan: "",
-          shengRi: "",
-          isXianTianJiBing: "",
-          xianTianJiBing: "",
-          status: "",
-          xingMing: "",
-          ruYuanRiQi: "",
-          teShuYaoQiu: "",
-          banJi: "",
-          xiHuanYanSe: "",
-          xingBie: "",
-          huJiLeiXing: "",
-          jinJiLianXiRen: "",
-          shenFenZhengHao: "",
-          baoJianGuanLiBen: "",
-          diZhi: "",
-          shiFouZhuanYuan: "",
-          huJi: ""
-        }
-      ],
+      ChildName: [],
       loading: false,
       finished: false,
       ListError: false,
@@ -370,6 +328,16 @@ export default {
       LoadPage: {
         page: 0,
         limit: 10
+      },
+      ChildListSearch: {
+        xingMing: "",
+        xingBie: "",
+        jinJiLianXiRen: "",
+        ruYuanRiQi: "",
+        huJi: "",
+        shengRi: "",
+        ruTuoLeiXing: null,
+        page: 1
       },
       refreshing: false,
       show: false,
@@ -414,7 +382,6 @@ export default {
       TabbarActiveIf: true,
       TabbarActiveIf2: false,
       ButtonList: [],
-      showSTime: false,
       showMTime: false,
       MenuIcon: true,
       icon: {
@@ -467,7 +434,24 @@ export default {
       baoJianGuanLiBen: "",
       diZhi: "",
       shiFouZhuanYuan: "",
-      huJi: ""
+      huJi: "",
+      // 筛选属性
+      SexList: [
+        {
+          name: "男",
+          value: "1"
+        },
+        {
+          name: "女",
+          value: "0"
+        }
+      ],
+      ShowSex: false,
+      SexTypeValue: "",
+      // 生日
+      ShowBirthday: false,
+      // 入园日期
+      ShowInDate: false
     };
   },
 
@@ -567,50 +551,87 @@ export default {
       for (var i = 0; i < val.length; i++) {
         areaName = areaName + (i === 0 ? "" : "-") + val[i].name;
       }
-      this.Addres = areaName;
+      this.ChildListSearch.huJi = areaName;
     },
-    onSubmit(values) {
+    // 阻止默认键盘弹出
+    noBomBox(Event) {
+      document.activeElement.blur();
+    },
+    async onSubmit() {
       // 筛选赋值
       this.see = false;
-      axios.get("/js/Child.json").then(response => {
-        var data = response.data;
-        var ChildListDate = data.ChildList;
-        for (var i = 0; i <= ChildListDate.length; i++) {
-          if (ChildListDate[i].Name === values.Name) {
-            this.ChildName.push({
-              Name: ChildListDate[i].Name,
-              Age: ChildListDate[i].Age,
-              birthday: ChildListDate[i].birthday,
-              InDate: ChildListDate[i].InDate,
-              ParentName: ChildListDate[i].ParentName,
-              Grade: ChildListDate[i].Grade,
-              Sex: ChildListDate[i].Sex,
-              Class: ChildListDate[i].Class,
-              Head: ChildListDate[i].Head,
-              ID: ChildListDate[i].ID
-            });
-          } else if (
-            ChildListDate[i].Name === values.Name ||
-            ChildListDate[i].Age === values.Age ||
-            ChildListDate[i].birthday === values.birthday ||
-            ChildListDate[i].InDate === values.InDate ||
-            ChildListDate[i].ParentName === values.ParentName ||
-            ChildListDate[i].Grade === values.Grade
-          ) {
-            this.ChildName.push({
-              Name: ChildListDate[i].Name,
-              Age: ChildListDate[i].Age,
-              birthday: ChildListDate[i].birthday,
-              InDate: ChildListDate[i].InDate,
-              ParentName: ChildListDate[i].ParentName,
-              Grade: ChildListDate[i].Grade,
-              Sex: ChildListDate[i].Sex,
-              Class: ChildListDate[i].Class,
-              Head: ChildListDate[i].Head
-            });
-          }
-        }
-      });
+      const { data } = await CList(this.ChildListSearch);
+      const CdSearchList = data.data;
+      for (var m = 0; m < CdSearchList.length; m++) {
+        this.ChildName.push({
+          xingMing: CdSearchList[m].xingMing,
+          xingBie: CdSearchList[m].xingBie,
+          shengRi: CdSearchList[m].shengRi,
+          jinJiLianXiRen: CdSearchList[m].jinJiLianXiRen,
+          id: CdSearchList[m].id,
+          banJi: CdSearchList[m].banJi,
+          diZhi: CdSearchList[m].diZhi,
+          ruTuoLeiXing: CdSearchList[m].ruTuoLeiXing,
+          minZu: CdSearchList[m].minZu,
+          isJiaZuBingShi: CdSearchList[m].isJiaZuBingShi,
+          dangAnHao: CdSearchList[m].dangAnHao,
+          xueXing: CdSearchList[m].xueXing,
+          jinJiLianXiRenDianHua: CdSearchList[m].jinJiLianXiRenDianHua,
+          pouFuChan: CdSearchList[m].pouFuChan,
+          isXianTianJiBing: CdSearchList[m].isXianTianJiBing,
+          xianTianJiBing: CdSearchList[m].xianTianJiBing,
+          status: CdSearchList[m].status,
+          huJi: CdSearchList[m].huJi,
+          ruYuanRiQi: CdSearchList[m].ruYuanRiQi,
+          teShuYaoQiu: CdSearchList[m].teShuYaoQiu,
+          xiHuanYanSe: CdSearchList[m].xiHuanYanSe,
+          huJiLeiXing: CdSearchList[m].huJiLeiXing,
+          shenFenZhengHao: CdSearchList[m].shenFenZhengHao,
+          baoJianGuanLiBen: CdSearchList[m].baoJianGuanLiBen,
+          shiFouZhuanYuan: CdSearchList[m].shiFouZhuanYuan,
+          jiaZuBingShi: CdSearchList[m].jiaZuBingShi
+        });
+      }
+      console.log(this.ChildName)
+      // axios.get("/js/Child.json").then(response => {
+      //   var data = response.data;
+      //   var ChildListDate = data.ChildList;
+      //   for (var i = 0; i <= ChildListDate.length; i++) {
+      //     if (ChildListDate[i].Name === values.Name) {
+      //       this.ChildName.push({
+      //         Name: ChildListDate[i].Name,
+      //         Age: ChildListDate[i].Age,
+      //         birthday: ChildListDate[i].birthday,
+      //         InDate: ChildListDate[i].InDate,
+      //         ParentName: ChildListDate[i].ParentName,
+      //         Grade: ChildListDate[i].Grade,
+      //         Sex: ChildListDate[i].Sex,
+      //         Class: ChildListDate[i].Class,
+      //         Head: ChildListDate[i].Head,
+      //         ID: ChildListDate[i].ID
+      //       });
+      //     } else if (
+      //       ChildListDate[i].Name === values.Name ||
+      //       ChildListDate[i].Age === values.Age ||
+      //       ChildListDate[i].birthday === values.birthday ||
+      //       ChildListDate[i].InDate === values.InDate ||
+      //       ChildListDate[i].ParentName === values.ParentName ||
+      //       ChildListDate[i].Grade === values.Grade
+      //     ) {
+      //       this.ChildName.push({
+      //         Name: ChildListDate[i].Name,
+      //         Age: ChildListDate[i].Age,
+      //         birthday: ChildListDate[i].birthday,
+      //         InDate: ChildListDate[i].InDate,
+      //         ParentName: ChildListDate[i].ParentName,
+      //         Grade: ChildListDate[i].Grade,
+      //         Sex: ChildListDate[i].Sex,
+      //         Class: ChildListDate[i].Class,
+      //         Head: ChildListDate[i].Head
+      //       });
+      //     }
+      //   }
+      // });
       this.$notify({ type: "success", message: "筛选完成" });
       this.show = false;
       this.MenuIcon = true;
@@ -625,9 +646,11 @@ export default {
       this.birthday = `${date.getMonth() + 1}/${date.getDate()}`;
       this.showCalendar2 = false;
     },
-    onConfirm3(value) {
-      this.Sex = value;
-      this.showPicker = false;
+    // 性别选择
+    SexConfirm(value) {
+      this.SexTypeValue = value.name;
+      this.ChildListSearch.xingBie = value.value;
+      this.ShowSex = false;
     },
     onConfirm4(value) {
       this.Age = value;
@@ -640,7 +663,8 @@ export default {
     onAddres(value) {
       this.ShowAddres = false;
     },
-    confirmPicker(val) {
+    // 生日选择
+    BirthdayConfirm(val) {
       let year = val.getFullYear();
       let month = val.getMonth() + 1;
       let day = val.getDate();
@@ -658,55 +682,31 @@ export default {
       if (minute >= 0 && minute <= 9) {
         minute = `0${minute}`;
       }
-      this.className = "timeClass";
-      this.timeValue = `${year}/${month}/${day}`;
-      this.showPicker2 = false;
+      this.className = "生日";
+      this.ChildListSearch.shengRi = `${year}-${month}-${day}`;
+      this.ShowBirthday = false;
     },
-    // 开始时间
-    confirmPicker2(val) {
+    Rdate(val) {
       let year = val.getFullYear();
       let month = val.getMonth() + 1;
       let day = val.getDate();
       let hour = val.getHours();
       let minute = val.getMinutes();
       if (month >= 1 && month <= 9) {
-        month = `${month}`;
+        month = `0${month}`;
       }
       if (day >= 1 && day <= 9) {
         day = `0${day}`;
       }
       if (hour >= 0 && hour <= 9) {
-        hour = `0${hour}`;
+        hour = `${hour}`;
       }
       if (minute >= 0 && minute <= 9) {
         minute = `0${minute}`;
       }
-      this.className2 = "timeClass";
-      this.timeValue2 = `${year}/${month}/${day}`;
-      this.showSTime = false;
-    },
-    // 结束时间
-    confirmPicker3(val) {
-      let year = val.getFullYear();
-      let month = val.getMonth() + 1;
-      let day = val.getDate();
-      let hour = val.getHours();
-      let minute = val.getMinutes();
-      if (month >= 1 && month <= 9) {
-        month = `${month}`;
-      }
-      if (day >= 1 && day <= 9) {
-        day = `0${day}`;
-      }
-      if (hour >= 0 && hour <= 9) {
-        hour = `0${hour}`;
-      }
-      if (minute >= 0 && minute <= 9) {
-        minute = `0${minute}`;
-      }
-      this.className3 = "timeClass";
-      this.timeValue3 = `${year}/${month}/${day}`;
-      this.showMTime = false;
+      this.className2 = "入园日期";
+      this.ChildListSearch.ruYuanRiQi = `${year}-${month}-${day}`;
+      this.ShowInDate = false;
     },
     // 选项格式化函数
     formatter(type, value) {
@@ -978,5 +978,7 @@ export default {
   top: 10%;
   z-index: 999;
   background: white;
+}
+.Zindex {
 }
 </style>
