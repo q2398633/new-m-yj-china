@@ -6,18 +6,16 @@
       <form action="/" method="POSt" ref="loginForm" ::model="loginForm">
         <div class="login_form_bottom">
           <div class="login_form_top">
-            <img
-              src="https://img.zcool.cn/community/01039857b959590000012e7e08ea22.jpg@1280w_1l_2o_100sh.jpg"
-              alt="LOGO"
-              style="width:9rem; border-radius: 50%; margin-left: 0;"
-            />
+            寅卯后台管理系统
           </div>
           <!-- 登录Button -->
-          <div class="LoginForm">
+          <div class="LoginForm" style="margin-top: 3rem;">
             <div
               style="font-size: .5rem; margin-bottom: 10px; color: #106ecc; font-weight: 700; font-family: 楷体"
             ></div>
-            <van-cell-group style="margin-top: 0.5rem;">
+            <van-cell-group
+              style="margin-top: 0.5rem; background-color: transparent; height: 4rem;"
+            >
               <van-field
                 name="Account"
                 v-model="loginForm.Account"
@@ -25,6 +23,7 @@
                 left-icon="contact"
                 prop="Account"
                 placeholder="手机号/用户名/邮箱"
+                style="background-color: rgb(158 201 222 / 50%); color: black; font-weight: 700; margin-bottom: 1rem;"
               />
               <van-field
                 name="Password"
@@ -34,6 +33,7 @@
                 prop="Password"
                 type="Password"
                 placeholder="密码"
+                style="background-color: rgb(158 201 222 / 50%);  color: black; font-weight: 700;"
               />
             </van-cell-group>
             <van-button
@@ -78,24 +78,24 @@ export default {
   methods: {
     async Login() {
       this.$toast.loading({
-        message: '登录中...', // 提示文本
+        message: "登录中...", // 提示文本
         forbidClick: true, // 禁止背景点击
         duration: 0 // 展示时长(ms)，值为 0 时，toast 不会消失
-      })
-     try {
-      const { data } = await login(this.loginForm);
-      console.log(data);
+      });
+      try {
+        const { data } = await login(this.loginForm);
+        console.log(data);
         // 4. 处理响应结果
-        this.$toast.success('登录成功')
+        this.$toast.success("登录成功");
 
         // 将后端返回的用户登录状态（token等数据）放到 Vuex 容器中
-        this.$store.commit('setUser', data)
+        this.$store.commit("setUser", data);
 
         // 登录成功，跳转幼儿列表页
-        this.$router.push('/ChildManagement')
+        this.$router.push("/ChildManagement");
       } catch (err) {
-        console.log(err)
-        this.$toast.fail('登录失败，账号或密码错误')
+        console.log(err);
+        this.$toast.fail("登录失败，账号或密码错误");
       }
     }
   },
@@ -116,7 +116,10 @@ export default {
   left: 0;
   top: 0;
   // background: url("../../assets/BG2.jpg") no-repeat center / cover;
-  background: white;
+  background-image: url("../../assets/LGBG.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
   .nav {
     background: linear-gradient(to right, #4bb0ff, #6149f6);
     font-family: "楷体";
@@ -135,19 +138,15 @@ export default {
     .login_form_bottom {
       width: 600px;
       height: 10rem;
-      background: white;
+      background-color: transparent;
       opacity: 1;
       border-radius: 20px;
       margin: -20px 0 0 38px;
 
       .login_form_top {
         width: 100%;
-
-        img {
-          width: 300px;
-          border-radius: 20px;
-          margin-left: 24%;
-        }
+        font-size: 1rem;
+        font-family: '楷体';
       }
     }
     .footer {
@@ -156,7 +155,8 @@ export default {
       .LoginText {
         font-size: 0.4rem;
         margin-left: 0.5rem;
-        color: #5d5656;
+        color: black;
+        font-weight: 700;
       }
     }
     .LoginForm {
@@ -171,6 +171,8 @@ export default {
       .van-field {
         border-bottom: 1px solid #e0e8eb;
       }
+    }
+    .LGBG {
     }
   }
 }

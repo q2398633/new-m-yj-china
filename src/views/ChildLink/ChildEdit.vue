@@ -11,11 +11,8 @@
     <!-- <div>{{ this.$router.params.ID }}</div> -->
     <!-- 添加表单 -->
     <van-form @submit="onSubmit">
-      <van-field name="Head" label="幼儿头像上传" required>
-        <template #input>
-          <van-uploader />
-        </template>
-      </van-field>
+      <div name="id"></div>
+      <div name="banJi"></div>
       <van-field
         v-model="UPdateForm.xingMing"
         name="xingMing"
@@ -113,7 +110,7 @@
         </template>
       </van-field>
       <van-field
-        name="birthday"
+        name="shengRi"
         label="生日"
         required
         @focus="noBomBox"
@@ -397,7 +394,6 @@
 <script>
 import AreaList from "../../assets/Area/AreaList";
 import { ChildUPdate } from "@/api/UPdate";
-import axios from "axios";
 
 export default {
   data() {
@@ -427,7 +423,8 @@ export default {
         baoJianGuanLiBen: "",
         diZhi: "",
         shiFouZhuanYuan: "",
-        huJi: ""
+        huJi: "",
+        id: ""
       },
       ChildName: [],
       ShowBType: false,
@@ -787,6 +784,8 @@ export default {
       values.shiFouZhuanYuan = this.UPdateForm.shiFouZhuanYuan - 0;
       values.xueXing = this.UPdateForm.xueXing - 0;
       values.jinJiLianXiRenDianHua = this.UPdateForm.jinJiLianXiRenDianHua;
+      values.id = this.UPdateForm.id;
+      values.banJi = this.UPdateForm.banJi
       const { data } = await ChildUPdate(values);
       console.log(data);
       if (data.code == 200) {
@@ -917,7 +916,7 @@ export default {
       this.UPdateForm.xueXing = this.$route.params.xueXing;
       this.UPdateForm.jiaZuBingShi = this.$route.params.jiaZuBingShi;
       for (var w = 0; w < this.MinZuList.length; w++) {
-        if (this.MinZuList[w].name == this.$route.params.minZu) {
+        if (this.MinZuList[w].value == this.$route.params.minZu) {
           this.MinZuType = this.MinZuList[w].name;
           this.UPdateForm.minZu = this.MinZuList[w].value;
         }
@@ -951,7 +950,7 @@ export default {
       for (var h = 0; h < this.HuJiTypeList.length; h++) {
         if (this.$route.params.huJiLeiXing == this.HuJiTypeList[h].value) {
           this.UPdateForm.huJiLeiXing = this.$route.params.huJiLeiXing;
-          this.HuJiLeiXingType = this.HuJiTypeList[h].name
+          this.HuJiLeiXingType = this.HuJiTypeList[h].name;
         }
       }
       this.UPdateForm.jinJiLianXiRen = this.$route.params.jinJiLianXiRen;
@@ -972,13 +971,8 @@ export default {
       } else if (this.UPdateForm.isJiaZuBingShi != 0) {
         this.ShowJZBS = false;
       }
-      if (this.$route.params.ruTuoLeiXing == "日托") {
-        this.UPdateForm.ruTuoLeiXing = 1 + "";
-      } else if (this.$route.params.ruTuoLeiXing == "全托") {
-        this.UPdateForm.ruTuoLeiXing = 0 + "";
-      } else if (this.$route.params.ruTuoLeiXing == "混托") {
-        this.UPdateForm.ruTuoLeiXing = 2 + "";
-      }
+      this.UPdateForm.ruTuoLeiXing = this.$route.params.ruTuoLeiXing + "";
+      console.log(this.UPdateForm)
     },
     // 家族病史Change
     JZBS() {

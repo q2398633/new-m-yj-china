@@ -26,10 +26,10 @@
         v-validate="'xingMing'"
       />
       <span
-        v-show="errors.has('xingMing')"
+        v-show="errorBags.has('xingMing')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("xingMing") }}</span
+        >{{ errorBags.first("xingMing") }}</span
       >
       <van-field
         v-model="SexTypeValue"
@@ -72,10 +72,10 @@
         :rules="[{ required: true, message: '请输入身份证号' }]"
       />
       <span
-        v-show="errors.has('shenFenZhengHao')"
+        v-show="errorBags.has('shenFenZhengHao')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("shenFenZhengHao") }}</span
+        >{{ errorBags.first("shenFenZhengHao") }}</span
       >
       <van-field
         v-model="UPdateForm.xiHuanYanSe"
@@ -203,10 +203,10 @@
         :rules="[{ required: true, message: '请输入紧急联系人电话' }]"
       />
       <span
-        v-show="errors.has('jinJiLianXiRenDianHua')"
+        v-show="errorBags.has('jinJiLianXiRenDianHua')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red;"
-        >{{ errors.first("jinJiLianXiRenDianHua") }}</span
+        >{{ errorBags.first("jinJiLianXiRenDianHua") }}</span
       >
       <van-field
         name="isJiaZuBingShi"
@@ -309,7 +309,7 @@
         </template>
       </van-field>
       <div style="margin: 16px;">
-        <van-button round block type="primary" @click="Cancel">取消</van-button>
+        <van-button round block type="primary" @click="Cancel">返回</van-button>
       </div>
     </van-form>
   </div>
@@ -806,7 +806,7 @@ export default {
       this.UPdateForm.xueXing = this.$route.params.xueXing;
       this.UPdateForm.jiaZuBingShi = this.$route.params.jiaZuBingShi;
       for (var w = 0; w < this.MinZuList.length; w++) {
-        if (this.MinZuList[w].name == this.$route.params.minZu) {
+        if (this.MinZuList[w].value == this.$route.params.minZu) {
           this.MinZuType = this.MinZuList[w].name;
           this.UPdateForm.minZu = this.MinZuList[w].value;
         }
@@ -861,14 +861,7 @@ export default {
       } else if (this.UPdateForm.isJiaZuBingShi != 0) {
         this.ShowJZBS = false;
       }
-      if (this.$route.params.ruTuoLeiXing == "日托") {
-        this.UPdateForm.ruTuoLeiXing = 1 + "";
-      } else if (this.$route.params.ruTuoLeiXing == "全托") {
-        this.UPdateForm.ruTuoLeiXing = 0 + "";
-      } else if (this.$route.params.ruTuoLeiXing == "混托") {
-        this.UPdateForm.ruTuoLeiXing = 2 + "";
-      }
-      console.log(this.$route.params)
+      this.UPdateForm.ruTuoLeiXing = this.$route.params.ruTuoLeiXing + "";
     },
     ClassConfirm() {}
   }

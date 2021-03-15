@@ -159,7 +159,7 @@
       </div>
     </van-popup>
     <!-- 粘性布局标签栏 -->
-    <van-sticky v-show="TabbarActiveIf">
+    <van-sticky v-if="TabbarActiveIf">
       <van-tabbar v-model="TabbarActive">
         <van-tabbar-item icon="wap-home-o" badge="3">首页</van-tabbar-item>
         <van-tabbar-item icon="smile-o">打卡</van-tabbar-item>
@@ -460,6 +460,8 @@ export default {
   },
   methods: {
     async onLoad() {
+      this.TabbarActiveIf = true;
+      this.TabbarActiveIf2 = false;
       this.LoadPage.page++;
       this.loading = true;
       this.finished = false;
@@ -497,9 +499,9 @@ export default {
             shiFouZhuanYuan: ChildList[i].shiFouZhuanYuan,
             jiaZuBingShi: ChildList[i].jiaZuBingShi
           });
-
           this.loading = false;
         }
+        console.log(ChildList);
       } else {
         this.finished = true;
       }
@@ -507,35 +509,6 @@ export default {
 
     // 复选改变
     CheckBoxChange() {},
-    // Revoke() {
-    //   this.ChildName = [];
-    //   let _this = this;
-    //   this.$toast.loading({
-    //     message: "加载中...",
-    //     forbidClick: true
-    //   });
-    //   setTimeout(function() {
-    //     axios.get("/js/Child.json").then(response => {
-    //       var data = response.data;
-    //       var ChildListDate = data.ChildList;
-    //       for (var i = 0; i <= ChildListDate.length; i++) {
-    //         _this.ChildName.push({
-    //           Name: ChildListDate[i].Name,
-    //           Age: ChildListDate[i].Age,
-    //           birthday: ChildListDate[i].birthday,
-    //           InDate: ChildListDate[i].InDate,
-    //           ParentName: ChildListDate[i].ParentName,
-    //           Grade: ChildListDate[i].Grade,
-    //           Sex: ChildListDate[i].Sex,
-    //           Class: ChildListDate[i].banJi,
-    //           Head: ChildListDate[i].Head,
-    //           Addres: ChildListDate[i].huJi
-    //         });
-    //         _this.ListLenggth += 1;
-    //       }
-    //     });
-    //   }, 2500);
-    // },
     onClickLeft() {
       this.$router.push("/login");
     },
@@ -592,46 +565,7 @@ export default {
           jiaZuBingShi: CdSearchList[m].jiaZuBingShi
         });
       }
-      console.log(this.ChildName)
-      // axios.get("/js/Child.json").then(response => {
-      //   var data = response.data;
-      //   var ChildListDate = data.ChildList;
-      //   for (var i = 0; i <= ChildListDate.length; i++) {
-      //     if (ChildListDate[i].Name === values.Name) {
-      //       this.ChildName.push({
-      //         Name: ChildListDate[i].Name,
-      //         Age: ChildListDate[i].Age,
-      //         birthday: ChildListDate[i].birthday,
-      //         InDate: ChildListDate[i].InDate,
-      //         ParentName: ChildListDate[i].ParentName,
-      //         Grade: ChildListDate[i].Grade,
-      //         Sex: ChildListDate[i].Sex,
-      //         Class: ChildListDate[i].Class,
-      //         Head: ChildListDate[i].Head,
-      //         ID: ChildListDate[i].ID
-      //       });
-      //     } else if (
-      //       ChildListDate[i].Name === values.Name ||
-      //       ChildListDate[i].Age === values.Age ||
-      //       ChildListDate[i].birthday === values.birthday ||
-      //       ChildListDate[i].InDate === values.InDate ||
-      //       ChildListDate[i].ParentName === values.ParentName ||
-      //       ChildListDate[i].Grade === values.Grade
-      //     ) {
-      //       this.ChildName.push({
-      //         Name: ChildListDate[i].Name,
-      //         Age: ChildListDate[i].Age,
-      //         birthday: ChildListDate[i].birthday,
-      //         InDate: ChildListDate[i].InDate,
-      //         ParentName: ChildListDate[i].ParentName,
-      //         Grade: ChildListDate[i].Grade,
-      //         Sex: ChildListDate[i].Sex,
-      //         Class: ChildListDate[i].Class,
-      //         Head: ChildListDate[i].Head
-      //       });
-      //     }
-      //   }
-      // });
+      this.finished = true;
       this.$notify({ type: "success", message: "筛选完成" });
       this.show = false;
       this.MenuIcon = true;
@@ -725,41 +659,31 @@ export default {
       }
       return value;
     },
-    vueTouch(txt, e) {
+    vueTouch(txt) {
       this.name = txt;
       this.ListCheckbox = true;
       this.SearchShow = false;
       this.ClearCheckBox = true;
       this.TabbarActiveIf = false;
       this.TabbarActiveIf2 = true;
-      // 加载按钮数据
-      // axios.get("/js/ButtonData.json").then(response => {
-      //   var data = response.data;
-      //   var ButtonListData = data.ButtonListData;
-      //   for (var i = 0; i <= ButtonListData.length; i++) {
-      //     this.ButtonList.push({
-      //       Name: ButtonListData[i].Name,
-      //       NR: ButtonListData[i].NR,
-      //       Color: ButtonListData[i].Color,
-      //       IconName: ButtonListData[i].IconName,
-      //       ChildLink: ButtonListData[i].ChildLink
-      //     });
-      //   }
-      // });
     },
     ClearCheck() {
+      this.TabbarActiveIf = true;
+      this.TabbarActiveIf2 = false;
       this.ListCheckbox = false;
       this.ClearCheckBox = false;
       this.SearchShow = true;
       this.show = false;
+      this.CheckboxIndex = [];
+      this.MenuIcon = true;
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
-      this.CheckboxIndex = [];
-      this.MenuIcon = true;
+      this.PickerJson()
     },
     // 复选状态
     toggle(index) {
+      this.TabbarActiveIf2 = true;
       this.MenuIcon = false;
       this.$refs.checkboxes[index].toggle();
       this.CheckIndex = index;
@@ -784,7 +708,7 @@ export default {
           this.$router.replace("/ChildAdd");
         }
         this.CheckboxIndex = [];
-      } else if (ButtonText === "编辑") {
+      } else if (ButtonText === "修改") {
         if (this.ckindex <= 1) {
           this.$router.push({
             name: "ChildEdit",
@@ -833,7 +757,6 @@ export default {
     // 幼儿详情
     Child_Countend(event) {
       var CheckBIndex = this.CheckIndex - 0;
-      console.log(event);
       const thiscountent = this.$refs.checkboxes[CheckBIndex].name;
       this.$router.push({
         name: "ChildDetails",
