@@ -26,10 +26,10 @@
         v-validate="'xingMing'"
       />
       <span
-        v-show="errors.has('xingMing')"
+        v-show="errorBags.has('xingMing')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("xingMing") }}</span
+        >{{ errorBags.first("xingMing") }}</span
       >
       <van-field
         v-model="SexTypeValue"
@@ -72,10 +72,10 @@
         :rules="[{ required: true, message: '请输入身份证号' }]"
       />
       <span
-        v-show="errors.has('shenFenZhengHao')"
+        v-show="errorBags.has('shenFenZhengHao')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("shenFenZhengHao") }}</span
+        >{{ errorBags.first("shenFenZhengHao") }}</span
       >
       <van-field
         v-model="UPdateForm.xiHuanYanSe"
@@ -115,10 +115,10 @@
 
       <!-- v-validate="'ParentName'"-->
       <!-- <span
-        v-show="errors.has('ParentName')"
+        v-show="errorBags.has('ParentName')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red;"
-        >{{ errors.first("ParentName") }}</span
+        >{{ errorBags.first("ParentName") }}</span
       > -->
       <van-field
         name="birthday"
@@ -203,10 +203,10 @@
         :rules="[{ required: true, message: '请输入紧急联系人电话' }]"
       />
       <span
-        v-show="errors.has('jinJiLianXiRenDianHua')"
+        v-show="errorBags.has('jinJiLianXiRenDianHua')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red;"
-        >{{ errors.first("jinJiLianXiRenDianHua") }}</span
+        >{{ errorBags.first("jinJiLianXiRenDianHua") }}</span
       >
       <van-field
         name="isJiaZuBingShi"

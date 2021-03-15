@@ -18,6 +18,12 @@ import './assets/iconfont/iconfont.css'
 import AMap from 'vue-amap'
 import vueTouch from 'kim-vue-touch'
 
+
+const config = {
+  errorBagName: 'errorBags', // change if property conflicts.
+  fieldsBagName: 'fieldBags'
+};
+
 // 注册插件 CheckLogin.install(Vue)
 Vue.use(CheckLogin)
 
@@ -36,12 +42,10 @@ Vue.use(Carousel3d)
 
 Vue.use(AMap)
 
-Vue.use(VeeValidate);
-
 Validator.localize('zhCN', zhCN)
 
 // 配置插件 VeeValidate
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, config)
 
 Vue.filter('moment', function(value, formatString) {
     formatString = formatString || 'HH:mm:ss'

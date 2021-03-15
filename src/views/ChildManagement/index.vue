@@ -55,13 +55,12 @@
                   :src="item.Head"
                 />
               </div>
-              <div class="ChildName" @click="Child_Countend()">
+              <div class="ChildName" @click="Child_Countend($event)">
                 <div>{{ item.xingMing }}</div>
                 <div class="ChildName_Bottom">{{ item.banJi }}</div>
                 <div class="ChildName_Bottom2">{{ item.xingBie }}</div>
                 <div class="ChildName_Bottom2">{{ item.xueXing }}</div>
                 <div class="ChildName_Bottom2">{{ item.shengRi }}</div>
-                <div></div>
               </div>
             </van-cell>
           </van-checkbox-group>
@@ -85,41 +84,27 @@
         </h1>
         <van-form @submit="onSubmit">
           <van-field
-            v-model="Name"
-            v-validate="'required|Name'"
-            name="Name"
+            v-model="xingMing"
             label="姓名"
             clearable
             @change="NameChange"
             placeholder="姓名"
           />
-          <span v-show="errors.has('Name')" class="help is-danger">{{
-            errors.first("Name")
-          }}</span>
-          <van-field
-            readonly
-            clearable
-            name="Age"
-            label="年龄"
-            :value="Age"
-            placeholder="请选择"
-            @click="ShowAge = true"
-          />
           <van-field
             readonly
             clickable
-            name="Sex"
+            name="xingBie"
             label="性别"
-            :value="Sex"
+            :value="xingBie"
             placeholder="请选择"
             @click="showPicker = true"
           />
           <van-field
-            v-model="parentname"
+            v-model="jinJiLianXiRen"
             clearable
             name="ParentName"
-            label="家长名称"
-            placeholder="家长名称"
+            label="紧急联系人名称"
+            placeholder="紧急联系人名称"
           />
           <van-field
             v-model="Addres"
@@ -349,7 +334,35 @@ export default {
       active2: 0,
       TabbarActive: 2,
       DataList: [],
-      ChildName: [],
+      ChildName: [
+        {
+          jiaZuBingShi: "",
+          minZu: "",
+          ruTuoLeiXing: "",
+          isJiaZuBingShi: "",
+          dangAnHao: "",
+          xueXing: "",
+          jinJiLianXiRenDianHua: "",
+          pouFuChan: "",
+          shengRi: "",
+          isXianTianJiBing: "",
+          xianTianJiBing: "",
+          status: "",
+          xingMing: "",
+          ruYuanRiQi: "",
+          teShuYaoQiu: "",
+          banJi: "",
+          xiHuanYanSe: "",
+          xingBie: "",
+          huJiLeiXing: "",
+          jinJiLianXiRen: "",
+          shenFenZhengHao: "",
+          baoJianGuanLiBen: "",
+          diZhi: "",
+          shiFouZhuanYuan: "",
+          huJi: ""
+        }
+      ],
       loading: false,
       finished: false,
       ListError: false,
@@ -429,7 +442,32 @@ export default {
       CheckboxIndex: [],
       CheckboxID: {},
       ID: "",
-      ckindex: 0
+      ckindex: 0,
+      jiaZuBingShi: "",
+      minZu: "",
+      ruTuoLeiXing: "",
+      isJiaZuBingShi: "",
+      dangAnHao: "",
+      xueXing: "",
+      jinJiLianXiRenDianHua: "",
+      pouFuChan: "",
+      shengRi: "",
+      isXianTianJiBing: "",
+      xianTianJiBing: "",
+      status: "",
+      xingMing: "",
+      ruYuanRiQi: "",
+      teShuYaoQiu: "",
+      banJi: "",
+      xiHuanYanSe: "",
+      xingBie: "",
+      huJiLeiXing: "",
+      jinJiLianXiRen: "",
+      shenFenZhengHao: "",
+      baoJianGuanLiBen: "",
+      diZhi: "",
+      shiFouZhuanYuan: "",
+      huJi: ""
     };
   },
 
@@ -441,11 +479,13 @@ export default {
       this.LoadPage.page++;
       this.loading = true;
       this.finished = false;
+      var that = this;
       const { data } = await CList(this.LoadPage);
       var ChildList = data.data;
       if (data.code == 200) {
-        for (var i = 0; i <= ChildList.length; i++) {
-          this.ChildName.push({
+        for (var i = 0; i < ChildList.length; i++) {
+          // that.ChildName.push(ChildList[i])
+          that.ChildName.push({
             xingMing: ChildList[i].xingMing,
             xingBie: ChildList[i].xingBie,
             shengRi: ChildList[i].shengRi,
@@ -473,6 +513,8 @@ export default {
             shiFouZhuanYuan: ChildList[i].shiFouZhuanYuan,
             jiaZuBingShi: ChildList[i].jiaZuBingShi
           });
+          console.log(this.ChildName);
+
           this.loading = false;
         }
       } else {
@@ -482,36 +524,35 @@ export default {
 
     // 复选改变
     CheckBoxChange() {},
-    Revoke() {
-      this.ChildName = [];
-      let _this = this;
-      // this.$notify({ type: "success", message: "已清空筛选" });
-      this.$toast.loading({
-        message: "加载中...",
-        forbidClick: true
-      });
-      setTimeout(function() {
-        axios.get("/js/Child.json").then(response => {
-          var data = response.data;
-          var ChildListDate = data.ChildList;
-          for (var i = 0; i <= ChildListDate.length; i++) {
-            _this.ChildName.push({
-              Name: ChildListDate[i].Name,
-              Age: ChildListDate[i].Age,
-              birthday: ChildListDate[i].birthday,
-              InDate: ChildListDate[i].InDate,
-              ParentName: ChildListDate[i].ParentName,
-              Grade: ChildListDate[i].Grade,
-              Sex: ChildListDate[i].Sex,
-              Class: ChildListDate[i].banJi,
-              Head: ChildListDate[i].Head,
-              Addres: ChildListDate[i].huJi
-            });
-            _this.ListLenggth += 1;
-          }
-        });
-      }, 2500);
-    },
+    // Revoke() {
+    //   this.ChildName = [];
+    //   let _this = this;
+    //   this.$toast.loading({
+    //     message: "加载中...",
+    //     forbidClick: true
+    //   });
+    //   setTimeout(function() {
+    //     axios.get("/js/Child.json").then(response => {
+    //       var data = response.data;
+    //       var ChildListDate = data.ChildList;
+    //       for (var i = 0; i <= ChildListDate.length; i++) {
+    //         _this.ChildName.push({
+    //           Name: ChildListDate[i].Name,
+    //           Age: ChildListDate[i].Age,
+    //           birthday: ChildListDate[i].birthday,
+    //           InDate: ChildListDate[i].InDate,
+    //           ParentName: ChildListDate[i].ParentName,
+    //           Grade: ChildListDate[i].Grade,
+    //           Sex: ChildListDate[i].Sex,
+    //           Class: ChildListDate[i].banJi,
+    //           Head: ChildListDate[i].Head,
+    //           Addres: ChildListDate[i].huJi
+    //         });
+    //         _this.ListLenggth += 1;
+    //       }
+    //     });
+    //   }, 2500);
+    // },
     onClickLeft() {
       this.$router.push("/login");
     },
@@ -716,6 +757,7 @@ export default {
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
       this.CheckboxIndex = [];
+      this.MenuIcon = true;
     },
     // 复选状态
     toggle(index) {
@@ -738,7 +780,7 @@ export default {
       if (ButtonText === "添加") {
         if (this.ckindex > 0) {
           this.$notify({ type: "primary", message: "请取消选择后添加" });
-          this.ckindex = 0
+          this.ckindex = 0;
         } else {
           this.$router.replace("/ChildAdd");
         }
@@ -790,11 +832,10 @@ export default {
       this.MenuIcon = false;
     },
     // 幼儿详情
-    Child_Countend(index) {
+    Child_Countend(event) {
       var CheckBIndex = this.CheckIndex - 0;
-      console.log(CheckBIndex);
-      console.log(this.$refs.checkboxes[CheckBIndex].name);
-      const thiscountent = this.$refs.checkboxes[CheckBIndex].name
+      console.log(event);
+      const thiscountent = this.$refs.checkboxes[CheckBIndex].name;
       this.$router.push({
         name: "ChildDetails",
         params: thiscountent

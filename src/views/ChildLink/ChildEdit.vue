@@ -13,7 +13,7 @@
     <van-form @submit="onSubmit">
       <van-field name="Head" label="幼儿头像上传" required>
         <template #input>
-          <van-uploader v-model="UPdateForm.xingBie" />
+          <van-uploader />
         </template>
       </van-field>
       <van-field
@@ -26,10 +26,10 @@
         v-validate="'xingMing'"
       />
       <span
-        v-show="errors.has('xingMing')"
+        v-show="errorBags.has('xingMing')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("xingMing") }}</span
+        >{{ errorBags.first("xingMing") }}</span
       >
       <van-field
         v-model="SexTypeValue"
@@ -72,10 +72,10 @@
         :rules="[{ required: true, message: '请输入身份证号' }]"
       />
       <span
-        v-show="errors.has('shenFenZhengHao')"
+        v-show="errorBags.has('shenFenZhengHao')"
         class="help is-danger"
         style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errors.first("shenFenZhengHao") }}</span
+        >{{ errorBags.first("shenFenZhengHao") }}</span
       >
       <van-field
         v-model="UPdateForm.xiHuanYanSe"
