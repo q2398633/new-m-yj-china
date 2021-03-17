@@ -57,6 +57,8 @@ import ChildAdd from '@/views/ChildLink/ChildAdd'
 import ChildEdit from '@/views/ChildLink/ChildEdit'
 import ChildDetails from '@/views/ChildLink/ChildDetails'
 import AttendanceAudit from '@/views/AttendanceAudit'
+import store from '@/store/'
+import { Dialog } from 'vant'
 
 Vue.use(VueRouter)
 
@@ -81,7 +83,7 @@ const router = new VueRouter({
         { name: 'SignInRule', path: '/SignInRule', component: SignInRule },
         { name: 'calender', path: '/Calender', component: Calender },
         { name: 'demo', path: '/demo', component: Demo },
-        { name: 'childManagement', path: '/ChildManagement', component: ChildManagement },
+        { name: 'childManagement', path: '/ChildManagement', component: ChildManagement, meta: { requiresAuth: true } },
         { name: 'Menu', path: '/Menu', component: Menu },
         { name: 'parentAdmin', path: '/parentAdmin', component: ParentAdmin },
         { name: 'StaffAdmin', path: '/StaffAdmin', component: StaffAdmin },
@@ -129,27 +131,39 @@ const router = new VueRouter({
         { name: 'LeaveManagement', path: '/LeaveManagement', component: LeaveManagement },
         { name: 'ModifyPD', path: '/ModifyPD', component: ModifyPD },
         { name: 'DaKa', path: '/DaKa', component: DaKa },
-        { name: 'ChildAdd', path: '/ChildAdd', component: ChildAdd },
-        { name: 'ChildEdit', path: '/ChildEdit', component: ChildEdit },
-        { name: 'ChildDetails', path: '/ChildDetails', component: ChildDetails },
+        { name: 'ChildAdd', path: '/ChildAdd', component: ChildAdd, meta: { requiresAuth: true } },
+        { name: 'ChildEdit', path: '/ChildEdit', component: ChildEdit, meta: { requiresAuth: true } },
+        { name: 'ChildDetails', path: '/ChildDetails', component: ChildDetails, meta: { requiresAuth: true } },
         { name: 'AttendanceAudit', path: '/AttendanceAudit', component: AttendanceAudit }
     ]
 })
-// 注册一个全局的前置导航守卫
-// router.beforeEach((to, from, next) => {
-  // 如果不去主动的触发 resolve（next 下一步） 会一直等待
-  // console.log('ok')
-  // 如果是登录页面 放行
-  // if (to.path === '/login') return next()
-  // // 判断登录状态
-  // const user = window.sessionStorage.getItem('yjZhongGuo')
-  // if (user) {
-  //   next()
-  // } else {
-  //   next('/login')
-  // }
-//   const user = window.sessionStorage.getItem('yjZhongGuo')
-//   if (to.path !== '/login' && !user) return next('/login')
-//   next()
-// })
+// 全局前置导航守卫
+router.beforeEach((to, from, next) => {
+  // 判断页面是否需要登录才能访问
+  if (to.meta.requiresAuth) {
+    // 如已登录，通过
+    if (store.state.user) {
+      return next()
+    }
+
+    // 没有登录，登录
+    Dialog.confirm({
+      title: '访问提示',
+      message: '该功能需要登录才能访问，确认登录吗'
+    }).then(() => { // 确认执行
+      router.replace({
+        name: 'login',
+        query: {
+          redirect: router.currentRoute.fullPath
+        }
+      })
+    }).catch(() => { // 取消执行
+      // 取消，中断路由导航
+      next(false)
+    })
+  } else {
+    // 不需要登录状态的页面，直接过
+    next()
+  }
+})
 export default router
