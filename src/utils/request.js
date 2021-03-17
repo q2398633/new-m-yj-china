@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 import JSONbig from 'json-bigint'
-import { Toast } from 'vant'
+import { Toast, Dialog } from 'vant'
 
 // 在非组件模块中获取 store 必须通过这种方式
 // 这里单独加载 store，和在组件中 this.$store 一个东西
@@ -44,10 +44,8 @@ request.interceptors.request.use(function (config) {
 
   // 如果用户已登录，统一给接口设置 token 信息
   if (user) {
-    config.headers.Authorization = `Bearer ${user.token}`
     config.headers["X-token"] = `${user.token}`;
   }
-
   // 处理完之后一定要把 config 返回，否则请求就会停在这里
   return config
 }, function (error) {
@@ -66,10 +64,22 @@ request.interceptors.response.use(function (response) {
   // 超过 2xx 的状态码都会进入这里
 
   const status = error.response.status
-
+  if (status === 401) {
+    Dialog.confirm({
+      title: "登录失效",
+      message: "需要重新登录才能访问，确认登录吗"
+    }).then(() => {
+        // 确认执行
+      redirectLogin()
+      })
+      .catch(() => {
+        // 取消执行
+        // 取消，中断路由导航
+      });
+    }
   if (status === 400) {
     // 客户端请求参数错误
-    Toast.fail('客户端请求参数异常')
+    this.$toast.fail('客户端请求参数异常')
   } else if (status === 401) {
     // token 无效
     // 如果没有 user 或者 user.token，直接去登录
@@ -108,6 +118,8 @@ request.interceptors.response.use(function (response) {
   } else if (status >= 500) {
     // 服务端异常
     Toast.fail('服务端异常，请稍后重试')
+  } else if (status === 200) {
+    console.log('正常')
   }
 
   // 抛出异常

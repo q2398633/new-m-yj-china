@@ -309,10 +309,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import AreaList from "../../assets/Area/AreaList";
 import { CList } from "@/api/user";
 import { ListMenu } from "@/api/Menu";
+import { Dialog } from "vant";
+
 export default {
   data() {
     return {
@@ -468,6 +469,21 @@ export default {
       var that = this;
       const { data } = await CList(this.LoadPage);
       var ChildList = data.data;
+      var StateCode = data.code;
+      if (StateCode == 401) {
+        Dialog.confirm({
+          title: "登录失效",
+          message: "需要重新登录才能访问，确认登录吗"
+        })
+          .then(() => {
+            // 确认执行
+          this.$router.push('/login')
+          })
+          .catch(() => {
+            // 取消执行
+            // 取消，中断路由导航
+          });
+      }
       if (data.code == 200) {
         for (var i = 0; i < ChildList.length; i++) {
           // that.ChildName.push(ChildList[i])
@@ -501,7 +517,6 @@ export default {
           });
           this.loading = false;
         }
-        console.log(ChildList);
       } else {
         this.finished = true;
       }
@@ -679,7 +694,7 @@ export default {
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
-      this.PickerJson()
+      this.PickerJson();
     },
     // 复选状态
     toggle(index) {

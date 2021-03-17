@@ -84,7 +84,6 @@ export default {
       });
       try {
         const { data } = await login(this.loginForm);
-        console.log(data);
         // 4. 处理响应结果
         this.$toast.success("登录成功");
 
@@ -94,7 +93,6 @@ export default {
         // 登录成功，跳转幼儿列表页
         this.$router.push("/ChildManagement");
       } catch (err) {
-        console.log(err);
         this.$toast.fail("登录失败，账号或密码错误");
       }
     }
