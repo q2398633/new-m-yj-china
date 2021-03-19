@@ -356,15 +356,6 @@
         :max-date="maxDate"
       />
     </van-popup>
-    <!-- 年级选择 -->
-    <van-popup v-model="ShowGrade" round position="bottom">
-      <van-picker
-        show-toolbar
-        :columns="GradeList"
-        @cancel="ShowGrade = false"
-        @confirm="GradeConfirm"
-      />
-    </van-popup>
     <!-- 户籍类型选择 -->
     <van-popup v-model="ShowHuJiType" round position="bottom">
       <van-picker
@@ -729,7 +720,6 @@ export default {
           value: "58"
         }
       ],
-      GradeList: ["大班", "中班", "小班", "托班", "学前班"],
       HuJiTypeList: [
         {
           name: "城镇户口",

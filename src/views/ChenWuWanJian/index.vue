@@ -303,7 +303,7 @@
 
 <script>
 import AreaList from "../../assets/Area/AreaList";
-import { CWWJList } from "@/api/ChenWuWanJian";
+import { CWWJList, CWWJDelete } from "@/api/ChenWuWanJian";
 import { ListMenu } from "@/api/Menu";
 import Columns from "../../../public/js/column";
 
@@ -394,31 +394,8 @@ export default {
       CheckboxID: {},
       ID: "",
       ckindex: 0,
-      jiaZuBingShi: "",
-      minZu: "",
-      ruTuoLeiXing: "",
-      isJiaZuBingShi: "",
-      dangAnHao: "",
-      xueXing: "",
-      jinJiLianXiRenDianHua: "",
-      pouFuChan: "",
       shengRi: "",
-      isXianTianJiBing: "",
-      xianTianJiBing: "",
-      status: "",
-      xingMing: "",
       ruYuanRiQi: "",
-      teShuYaoQiu: "",
-      banJi: "",
-      xiHuanYanSe: "",
-      xingBie: "",
-      huJiLeiXing: "",
-      jinJiLianXiRen: "",
-      shenFenZhengHao: "",
-      baoJianGuanLiBen: "",
-      diZhi: "",
-      shiFouZhuanYuan: "",
-      huJi: "",
       // 筛选属性
       SexList: [
         {
@@ -667,7 +644,7 @@ export default {
         this.CheckboxID = this.$refs.checkboxes[index].name;
       }
     },
-    tabClick(event) {
+    async tabClick(event) {
       this.ckindex = 0;
       const ButtonText = event.target.innerText;
       for (var ss = 0; ss < this.$refs.checkboxes.length; ss++) {
@@ -710,6 +687,16 @@ export default {
             message: "仅能单选一项进行修改, 请重新选择后再试"
           });
         }
+      } else if (ButtonText === "删除") {
+        if (this.ckindex <= 1) {
+          var ChildId = this.CheckboxID.id;
+          // const { data } = await CWWJDelete(ChildId);
+        } else if (this.CheckboxIndex.length > 1) {
+          this.$notify({
+            type: "primary",
+            message: "仅能单选一项进行删除, 请重新选择后再试"
+          });
+        }
       }
     },
     MyMenu() {
@@ -730,6 +717,8 @@ export default {
         this.$router.replace("/ChildManagement");
       } else if (value.path[0].innerText == "晨午晚检") {
         this.$router.replace("/ChenWuWanJian");
+      } else if (value.path[0].innerText == "疾病防控登记") {
+        this.$router.replace("/JiBingDengJi");
       }
     },
     CommonlyUsedButton(value) {

@@ -29,3 +29,11 @@ export const CWWJEdit = data => {
     data
     })
 }
+// 晨午晚检删除
+export const CWWJDelete = data => {
+  return request({
+    method: 'POST',
+    url: 'ChenWuWanJians/Delete',
+    data
+    })
+}
