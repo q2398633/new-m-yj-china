@@ -59,6 +59,9 @@ import ChildDetails from '@/views/ChildLink/ChildDetails'
 import AttendanceAudit from '@/views/AttendanceAudit'
 import store from '@/store/'
 import { Dialog } from 'vant'
+import ChenWuWanJian from '@/views/ChenWuWanJian'
+import ChenWuWanJianAdd from '@/views/ChenWuWanJian/ChenWuWanJianAdd'
+import ChenWuWanJianEdit from '@/views/ChenWuWanJian/ChenWuWanJianEdit'
 
 Vue.use(VueRouter)
 
@@ -134,6 +137,9 @@ const router = new VueRouter({
         { name: 'ChildAdd', path: '/ChildAdd', component: ChildAdd, meta: { requiresAuth: true } },
         { name: 'ChildEdit', path: '/ChildEdit', component: ChildEdit, meta: { requiresAuth: true } },
         { name: 'ChildDetails', path: '/ChildDetails', component: ChildDetails, meta: { requiresAuth: true } },
+        { name: 'ChenWuWanJian', path: '/ChenWuWanJian', component: ChenWuWanJian, meta: { requiresAuth: true } },
+        { name: 'ChenWuWanJianAdd', path: '/ChenWuWanJianAdd', component: ChenWuWanJianAdd, meta: { requiresAuth: true } },
+        { name: 'ChenWuWanJianEdit', path: '/ChenWuWanJianEdit', component: ChenWuWanJianEdit, meta: { requiresAuth: true } },
         { name: 'AttendanceAudit', path: '/AttendanceAudit', component: AttendanceAudit }
     ]
 })

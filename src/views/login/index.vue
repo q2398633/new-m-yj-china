@@ -67,9 +67,9 @@ export default {
   data() {
     return {
       loginForm: {
-        Account: "test",
+        Account: "System",
         AppKey: "ymkjoa",
-        Password: "test"
+        Password: "123456"
       },
       loginloading: false
     };

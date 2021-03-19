@@ -74,54 +74,18 @@ request.interceptors.response.use(function (response) {
       })
       .catch(() => {
         // 取消执行
-        // 取消，中断路由导航
       });
     }
   if (status === 400) {
     // 客户端请求参数错误
     this.$toast.fail('客户端请求参数异常')
-  } else if (status === 401) {
-    // token 无效
-    // 如果没有 user 或者 user.token，直接去登录
-    const { user } = store.state
-    if (!user || !user.token) {
-      // 直接跳转到登录页
-      // return redirectLogin()
-    }
-
-    // 使用 refresh_token 请求获取新的 token
-    try {
-      const { data } = await refreshTokenReq({
-        method: 'PUT',
-        url: '/app/v1_0/authorizations',
-        headers: {
-          Authorization: `Bearer ${user.refresh_token}`
-        }
-      })
-
-      // 拿到新的 token 之后把它更新到容器中
-      user.token = data.data.token
-      store.commit('setUser', user)
-
-      // 把失败的请求重新发出去
-      // error.config 是本次请求的相关配置信息对象
-      // 这里使用 request 发请求，它会走自己的拦截器
-      // 它的请求拦截器中通过 store 容器访问 token 数据
-      return request(error.config)
-    } catch (err) {
-      // 刷新 token 都失败了，直接跳转登录页
-      // redirectLogin()
-    }
   } else if (status === 403) {
     // 没有权限操作
     Toast.fail('没有权限操作')
   } else if (status >= 500) {
     // 服务端异常
     Toast.fail('服务端异常，请稍后重试')
-  } else if (status === 200) {
-    console.log('正常')
   }
-
   // 抛出异常
   return Promise.reject(error)
 })

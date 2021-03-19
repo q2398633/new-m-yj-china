@@ -778,19 +778,6 @@ export default {
     }
   },
   computed: {
-    items: function() {
-      var _search = this.search;
-      if (_search) {
-        var reg = new RegExp(_search, "ig");
-
-        return this.list.filter(function(e) {
-          return Object.keys(e).some(function(key) {
-            return e[key].match(reg);
-          });
-        });
-      }
-      return this.list;
-    }
   }
 };
 </script>

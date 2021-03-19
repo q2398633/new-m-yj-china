@@ -414,7 +414,6 @@
 <script>
 import AreaList from "../../assets/Area/AreaList";
 import { ChildAdd } from "@/api/UPdate";
-import axios from "axios";
 
 export default {
   data() {

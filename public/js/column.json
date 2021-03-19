@@ -1,0 +1,765 @@
+[
+  {
+    "text": "代码生成",
+    "children": [
+      {
+        "text": "",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "财务管理",
+    "children": [
+      {
+        "text": "收费方案",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "收支管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "仓储中心",
+    "children": [
+      {
+        "text": "入库订单",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "督导评估",
+    "children": [
+      {
+        "text": "标准管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "评测管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "流程中心",
+    "children": [
+      {
+        "text": "我的流程",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "已处理流程",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "待处理流程",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "后勤管理",
+    "children": [
+      {
+        "text": "仓库管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "产品管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "产品类别",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "出库管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "供应商管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "库存清单",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "盘点管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "入库管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "装修工程",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "装修公司",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "基础信息",
+    "children": [
+      {
+        "text": "公告管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "部门管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "幼儿管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "班级管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "家长管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "考勤列表",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "考勤审核",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "职务管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "银行账户",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "消息日志",
+    "children": [
+      {
+        "text": "系统日志",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "我的消息",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "人事管理",
+    "children": [
+      {
+        "text": "组织架构",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "工资方案",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "员工管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "班次管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "工资列表",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "员工奖惩",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "教育经历",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "绩效管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "绩效评分",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "考勤组管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "排班管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "员工培训",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "请假管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "日常工作表",
+    "children": [
+      {
+        "text": "晨午晚检",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "传染病登记信息",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "大型玩具",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "大型玩具检查登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "健康教育登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "交接班登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "疾病防控登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "龋齿登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "儿童伤害与事故登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "膳食管理会议记录",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "视力矫治登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "体弱/肥胖儿童登记",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "食堂管理",
+    "children": [
+      {
+        "text": "安全检测项目",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "菜品留样",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "餐具消毒",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "能耗使用",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "能耗控制项目",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "区域消毒",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "食材处理记录",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "食品安全检测",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "消毒区域设置",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "系统管理",
+    "children": [
+      {
+        "text": "字典分类",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "数据权限",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "流程设计",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "表单设计",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "模块管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "地区管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "资源管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "角色管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "系统设置",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "营养保健",
+    "children": [
+      {
+        "text": "菜肴管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "配餐管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "食材管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "体检表",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "体质测试",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "疫苗管理",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "疫苗接种",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "招生管理",
+    "children": [
+      {
+        "text": "策划方案",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "活动方案模版",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "来电来访",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "环境调研",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "资产管理",
+    "children": [
+      {
+        "text": "资产维护",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      },
+      {
+        "text": "资产信息表",
+        "children": [
+          {
+            "text": ""
+          }
+        ]
+      }
+    ]
+  }
+]
