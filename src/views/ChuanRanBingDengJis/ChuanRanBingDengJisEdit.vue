@@ -2,7 +2,7 @@
   <div class="ChildAdd">
     <!-- 导航栏 -->
     <van-nav-bar
-      title="晨午晚检修改"
+      title="传染病登记信息修改"
       left-text="返回"
       right-text=""
       left-arrow
@@ -14,98 +14,47 @@
       <div name="id"></div>
       <div name="banJi"></div>
       <van-field
-        v-model="UPdateForm.studentIdName"
+        v-model="UPdateForm.title"
         name="xingMing"
-        label="学生姓名"
+        label="名称"
         required
-        placeholder="请输入学生姓名"
-        :rules="[{ required: true, message: '请填写学生姓名' }]"
-        v-validate="'xingMing'"
-      />
-      <span
-        v-show="errorBags.has('xingMing')"
-        class="help is-danger"
-        style="font-size: 0.3rem; color: red; margin-left: 31%;"
-        >{{ errorBags.first("xingMing") }}</span
-      >
-      <van-field
-        v-model="UPdateForm.zhengZhuang"
-        name="zhengZhuang"
-        required
-        label="症状"
-        placeholder="请输入症状"
-        :rules="[{ required: true, message: '请输入症状' }]"
+        placeholder="请输入名称"
+        :rules="[{ required: true, message: '请填写名称' }]"
       />
       <van-field
-        v-model="UPdateForm.tiZheng"
-        name="tiZheng"
-        label="体征"
+        v-model="UPdateForm.duiXiang"
+        name="duiXiang"
         required
-        placeholder="请输入体征"
-        :rules="[{ required: true, message: '请输入体征' }]"
+        label="对象"
+        placeholder="请输入对象"
+        :rules="[{ required: true, message: '请输入对象' }]"
       />
       <van-field
-        v-model="UPdateForm.zhenDuan"
-        name="zhenDuan"
-        label="诊断"
+        v-model="UPdateForm.huoDongFangShi"
+        name="huoDongFangShi"
+        label="活动方式"
         required
-        placeholder="请输入诊断"
-        :rules="[{ message: '请输入诊断' }]"
+        placeholder="请输入活动方式"
+        :rules="[{ required: true, message: '请输入活动方式' }]"
       />
       <van-field
-        v-model="UPdateForm.chuLiFangShi"
-        name="chuLiFangShi"
+        v-model="UPdateForm.neiRong"
+        name="neiRong"
+        label="内容"
         required
-        label="处理方式"
-        placeholder="请输入处理方式"
-        :rules="[{ required: true, message: '请输入处理方式' }]"
-      />
-      <van-field
-        v-model="UPdateForm.jiBingFenLei"
-        name="jiBingFenLei"
-        required
-        style="float: left; width: 60%"
-        label="疾病分类"
-        placeholder="请输入疾病分类"
-        :rules="[{ required: true, message: '请输入疾病分类' }]"
-      />
-      <van-field
-        v-model="UPdateForm.zhengZhuangFenLei"
-        name="zhengZhuangFenLei"
-        label="症状分类"
-        required
-        placeholder="请输入症状分类"
-        :rules="[{ required: true, message: '请输入症状分类' }]"
-      />
-      <van-field
-        v-model="UPdateForm.jianChaRen"
-        name="jianChaRen"
-        label="检查人"
-        required
-        placeholder="请输入检查人"
-        :rules="[{ required: true, message: '请输入检查人' }]"
+        placeholder="请输入内容"
+        :rules="[{ message: '请输入内容' }]"
       />
       <van-field
         name="date"
-        label="检查日期"
+        label="日期"
         required
         @focus="noBomBox"
         :value-class="className"
         :value="UPdateForm.date"
-        placeholder="请输入检查日期"
-        :rules="[{ required: true, message: '请选择检查日期' }]"
+        placeholder="请输入日期"
+        :rules="[{ required: true, message: '请选择日期' }]"
         @click="ShowBirthday = true"
-      />
-      <van-field
-        name="createTime"
-        label="创建时间"
-        required
-        @focus="noBomBox"
-        :value-class="className2"
-        :value="UPdateForm.createTime"
-        placeholder="请输入创建时间"
-        :rules="[{ required: true, message: '请填写创建时间' }]"
-        @click="ShowInDate = true"
       />
       <div style="margin: 16px;">
         <van-button round block type="info" native-type="submit"
@@ -150,26 +99,21 @@
 
 <script>
 import AreaList from "../../assets/Area/AreaList";
-import { CWWJEdit } from "@/api/ChenWuWanJian";
+import { JKDJEdit } from "@/api/JianKangDengJis";
 
 export default {
   data() {
     return {
       UPdateForm: {
-        chuLiFangShi: "",
-        createId: "",
-        createName: "",
-        createTime: "",
         date: "",
+        title: "",
+        duiXiang: "",
+        huoDongFangShi: "",
+        neiRong: "",
         id: "",
-        jiBingFenLei: "",
-        jianChaRen: "",
-        studentId: "",
-        studentIdName: "",
-        tiZheng: "",
-        zhenDuan: "",
-        zhengZhuang: "",
-        zhengZhuangFenLei: ""
+        createTime: "",
+        createId: "",
+        createName: ""
       },
       ChildName: [],
       ShowBType: false,
@@ -203,27 +147,26 @@ export default {
     this.Cparams();
   },
   methods: {
-    // 跳转回晨午晚检页
+    // 跳转回疾病防控登记页
     onClickLeft() {
-      this.$router.replace("/ChenWuWanJian");
+      this.$router.replace("/ChuanRanBingDengJis");
     },
     minzuchange() {},
     // 提交添加表单
     async onSubmit() {
-      const { data } = await CWWJEdit(this.UPdateForm);
-      // console.log(data);
+      const { data } = await JKDJEdit(this.UPdateForm);
       if (data.code == 200) {
         this.$notify({ type: "success", message: "修改完成" });
         setTimeout(() => {
-          this.$router.replace("/ChenWuWanJian");
+          this.$router.replace("/ChuanRanBingDengJis");
         }, 1500);
       }
     },
 
     // 取消修改
     Cancel() {
-      this.$router.replace("/ChenWuWanJian");
-      this.$notify({ type: "success", message: "取消添加" });
+      this.$router.replace("/ChuanRanBingDengJis");
+      this.$notify({ type: "success", message: "取消修改" });
     },
     // 检查日期选择
     BirthdayConfirm(val) {
@@ -245,7 +188,7 @@ export default {
         minute = `0${minute}`;
       }
       this.className = "检查日期";
-      this.UPdateForm.shengRi = `${year}-${month}-${day}`;
+      this.UPdateForm.date = `${year}-${month}-${day}`;
       this.ShowBirthday = false;
     },
     // 阻止默认键盘弹出
@@ -294,21 +237,15 @@ export default {
     },
     // 接收跳转传参
     Cparams() {
-      this.UPdateForm.chuLiFangShi = this.$route.params.chuLiFangShi;
+      this.UPdateForm.date = this.$route.params.date;
+      this.UPdateForm.title = this.$route.params.title;
+      this.UPdateForm.duiXiang = this.$route.params.duiXiang;
+      this.UPdateForm.huoDongFangShi = this.$route.params.huoDongFangShi;
+      this.UPdateForm.neiRong = this.$route.params.neiRong;
+      this.UPdateForm.id = this.$route.params.id;
+      this.UPdateForm.createTime = this.$route.params.createTime;
       this.UPdateForm.createId = this.$route.params.createId;
       this.UPdateForm.createName = this.$route.params.createName;
-      this.UPdateForm.createTime = this.$route.params.createTime;
-      this.UPdateForm.date = this.$route.params.date;
-      this.UPdateForm.id = this.$route.params.id;
-      this.UPdateForm.jiBingFenLei = this.$route.params.jiBingFenLei;
-      this.UPdateForm.jianChaRen = this.$route.params.jianChaRen;
-      this.UPdateForm.studentId = this.$route.params.studentId;
-      this.UPdateForm.studentIdName = this.$route.params.studentIdName;
-      this.UPdateForm.tiZheng = this.$route.params.tiZheng;
-      this.UPdateForm.zhenDuan = this.$route.params.zhenDuan;
-      this.UPdateForm.zhengZhuang = this.$route.params.zhengZhuang;
-      this.UPdateForm.zhengZhuangFenLei = this.$route.params.zhengZhuangFenLei;
-      console.log(this.UPdateForm);
     },
     ClassConfirm() {}
   }

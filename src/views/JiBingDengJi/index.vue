@@ -38,8 +38,8 @@
           <van-checkbox-group v-model="result" @change="CheckBoxChange">
             <van-cell
               v-longtap="e => vueTouch('长按', e)"
-              @click="toggle(index)"
               v-if="Child"
+              @click="clickFlag && toggle(index)"
             >
               <template #right-icon>
                 <van-checkbox
@@ -48,15 +48,15 @@
                   v-show="ListCheckbox"
                 />
               </template>
-              <div class="ChildHead">
-                <van-image round width="1.5rem" height="1.5rem" />
-              </div>
-              <div class="ChildName" @click="Child_Countend($event)">
-                <div>{{ Child.duiXiang }}</div>
-                <div class="ChildName_Bottom">{{ Child.title }}</div>
-                <div class="ChildName_Bottom2">{{ Child.date }}</div>
+              <div
+                class="ChildName"
+                @click="Child_Countend($event)"
+              >
+                <div>{{ Child.title }}</div>
+                <div class="ChildName_Bottom">{{ Child.duiXiang }}</div>
                 <div class="ChildName_Bottom2">{{ Child.fangKong }}</div>
                 <div class="ChildName_Bottom2">{{ Child.zhiXingRen }}</div>
+                <div class="ChildName_Bottom2">{{ Child.date }}</div>
               </div>
             </van-cell>
           </van-checkbox-group>
@@ -311,6 +311,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      clickFlag: false,
       areaList: AreaList,
       active2: 0,
       TabbarActive: 2,
@@ -585,6 +586,7 @@ export default {
       this.ClearCheckBox = true;
       this.TabbarActiveIf = false;
       this.TabbarActiveIf2 = true;
+      this.clickFlag = true;
     },
     ClearCheck() {
       this.TabbarActiveIf = true;
@@ -598,6 +600,7 @@ export default {
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
+      this.clickFlag = false;
       this.PickerJson();
     },
     // 复选状态
@@ -671,14 +674,16 @@ export default {
       this.ShowMyMenu = true;
       this.MenuIcon = false;
     },
-    // 幼儿详情
+    // 疾病登记详情
     Child_Countend(event) {
-      var CheckBIndex = this.CheckIndex - 0;
-      const thiscountent = this.$refs.checkboxes[CheckBIndex].name;
-      this.$router.push({
-        name: "ChildDetails",
-        params: thiscountent
-      });
+      for (var i in this.$refs.checkboxes) {
+        if (event.target.innerText == this.$refs.checkboxes[i].name.title) {
+          this.$router.push({
+            name: "JiBingDengJiDetails",
+            params: this.$refs.checkboxes[i].name
+          });
+        }
+      }
     },
     // 三级联动菜单
     MenuLink(value) {
@@ -690,6 +695,12 @@ export default {
         this.$router.replace("/JiBingDengJi");
       } else if (value.path[0].innerText == "健康教育登记") {
         this.$router.replace("/JianKangDengJis");
+      } else if (value.path[0].innerText == "传染病登记信息") {
+        this.$router.replace("/ChuanRanBingDengJis");
+      } else if (value.path[0].innerText == "大型玩具") {
+        this.$router.replace("/DaXingWanJus");
+      } else if (value.path[0].innerText == "大型玩具检查登记") {
+        this.$router.replace("/DaXingWanJuJianChaDengJis");
       }
     },
     CommonlyUsedButton(value) {

@@ -4,7 +4,7 @@
     <div>
       <van-sticky>
         <van-nav-bar
-          title="健康教育登记"
+          title="大型玩具信息"
           left-text="返回"
           left-arrow
           @click-left="onClickLeft"
@@ -39,7 +39,7 @@
             <van-cell
               v-longtap="e => vueTouch('长按', e)"
               v-if="Child"
-              @click="clickFlag && toggle(index)"
+              @click="clickFlag && toggle($event, index)"
             >
               <template #right-icon>
                 <van-checkbox
@@ -48,10 +48,7 @@
                   v-show="ListCheckbox"
                 />
               </template>
-              <div
-                class="ChildName"
-                @click="Child_Countend($event)"
-              >
+              <div class="ChildName" @click="Child_Countend($event, index)">
                 <div>{{ Child.title }}</div>
                 <div class="ChildName_Bottom">{{ Child.duiXiang }}</div>
                 <div class="ChildName_Bottom2">{{ Child.neiRong }}</div>
@@ -76,7 +73,7 @@
         <h1
           style="font-size: .7rem; color: #1989fa; font-family: 宋体; margin-left: .5rem"
         >
-          健康教育登记筛选
+          大型玩具信息筛选
         </h1>
         <van-form>
           <van-field
@@ -606,13 +603,13 @@ export default {
           this.$notify({ type: "primary", message: "请取消选择后添加" });
           this.ckindex = 0;
         } else {
-          this.$router.replace("/JianKangDengJisAdd");
+          this.$router.replace("/DaXingWanJusAdd");
         }
         this.CheckboxIndex = [];
       } else if (ButtonText === "修改") {
         if (this.ckindex <= 1) {
           this.$router.push({
-            name: "JianKangDengJisEdit",
+            name: "DaXingWanJusEdit",
             params: {
               date: this.CheckboxID.date,
               title: this.CheckboxID.title,
@@ -653,12 +650,12 @@ export default {
       this.ShowMyMenu = true;
       this.MenuIcon = false;
     },
-    // 健康教育登记详情
-    Child_Countend(event) {
+    // 大型玩具详情
+    Child_Countend(event, index) {
       for (var i in this.$refs.checkboxes) {
         if (event.target.innerText == this.$refs.checkboxes[i].name.title) {
           this.$router.push({
-            name: "JianKangDengJisDetails",
+            name: "DaXingWanJusDetail",
             params: this.$refs.checkboxes[i].name
           });
         }
@@ -674,8 +671,6 @@ export default {
         this.$router.replace("/JiBingDengJi");
       } else if (value.path[0].innerText == "健康教育登记") {
         this.$router.replace("/JianKangDengJis");
-      } else if (value.path[0].innerText == "传染病登记信息") {
-        this.$router.replace("/ChuanRanBingDengJis");
       } else if (value.path[0].innerText == "大型玩具") {
         this.$router.replace("/DaXingWanJus");
       } else if (value.path[0].innerText == "大型玩具检查登记") {
@@ -700,7 +695,7 @@ export default {
       for (var i = 0; i < MenuList.length; i++) {
         if (MenuList[i].item.name == "日常工作表") {
           for (var q = 0; q < MenuList[i].children.length; q++) {
-            if (MenuList[i].children[q].item.name == "健康教育登记") {
+            if (MenuList[i].children[q].item.name == "大型玩具") {
               for (
                 var w = 0;
                 w < MenuList[i].children[q].item.elements.length;

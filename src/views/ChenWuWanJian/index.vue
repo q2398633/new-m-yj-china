@@ -38,8 +38,8 @@
           <van-checkbox-group v-model="result" @change="CheckBoxChange">
             <van-cell
               v-longtap="e => vueTouch('长按', e)"
-              @click="toggle(index)"
               v-if="Child"
+              @click="clickFlag && toggle(index)"
             >
               <template #right-icon>
                 <van-checkbox
@@ -48,10 +48,7 @@
                   v-show="ListCheckbox"
                 />
               </template>
-              <div class="ChildHead">
-                <van-image round width="1.5rem" height="1.5rem" />
-              </div>
-              <div class="ChildName" @click="Child_Countend($event)">
+              <div class="ChildName" @click="Child_Countend($event, index)">
                 <div>{{ Child.studentIdName }}</div>
                 <div class="ChildName_Bottom">{{ Child.zhenDuan }}</div>
                 <div class="ChildName_Bottom2">{{ Child.jiBingFenLei }}</div>
@@ -80,38 +77,38 @@
         </h1>
         <van-form>
           <van-field
-            v-model="ChildListSearch.xingMing"
+            v-model="ChildListSearch.studentIdName"
             label="学生姓名"
             clearable
             @change="NameChange"
             placeholder="姓名"
           />
           <van-field
-            v-model="SexTypeValue"
+            v-model="ChildListSearch.zhengZhuang"
             name="xingBie"
             label="症状"
             placeholder="症状"
           />
           <van-field
-            v-model="ChildListSearch.jinJiLianXiRen"
+            v-model="ChildListSearch.zhenDuan"
             clearable
             name="ParentName"
             label="诊断"
             placeholder="诊断"
           />
           <van-field
-            v-model="ChildListSearch.huJi"
+            v-model="ChildListSearch.tiZheng"
             name="体征"
             label="体征"
             placeholder="体征"
           />
           <van-field
-            name="birthday"
+            name="date"
             label="检查日期"
             clickable
             @focus="noBomBox"
             :value-class="className"
-            :value="ChildListSearch.shengRi"
+            :value="ChildListSearch.date"
             placeholder="请输入检查日期"
             @click="ShowBirthday = true"
           />
@@ -121,22 +118,10 @@
             clickable
             @focus="noBomBox"
             :value-class="className2"
-            :value="ChildListSearch.ruYuanRiQi"
+            :value="ChildListSearch.createTime"
             placeholder="请输入创建时间"
             @click="ShowInDate = true"
           />
-          <van-field name="ruTuoLeiXing" label="入托类型">
-            <template #input>
-              <van-radio-group
-                v-model="ChildListSearch.ruTuoLeiXing"
-                direction="horizontal"
-              >
-                <van-radio name="0">全托</van-radio>
-                <van-radio name="1" checked-color="#34dcc5">日托</van-radio>
-                <van-radio name="2" checked-color="#e60101">混托</van-radio>
-              </van-radio-group>
-            </template>
-          </van-field>
           <div style="margin: 16px;">
             <van-button
               round
@@ -203,13 +188,13 @@
         :columns-placeholder="['省/直辖市', '市', '区/县']"
       />
     </van-popup>
-    <!-- 生日选择 -->
+    <!-- 检测日期选择 -->
     <van-popup v-model="ShowBirthday" round position="bottom">
       <van-datetime-picker
         :value-class="className"
-        :value="ChildListSearch.shengRi"
+        :value="ChildListSearch.date"
         type="date"
-        title="生日"
+        title="检测日期"
         @cancel="ShowBirthday = false"
         @confirm="BirthdayConfirm"
         :formatter="formatter"
@@ -221,7 +206,7 @@
     <van-popup v-model="ShowInDate" round position="bottom">
       <van-datetime-picker
         :value-class="className2"
-        :value="ruYuanRiQi"
+        :value="ChildListSearch.createTime"
         type="date"
         title="入园日期"
         @cancel="ShowInDate = false"
@@ -310,6 +295,7 @@ import Columns from "../../../public/js/column";
 export default {
   data() {
     return {
+      clickFlag: false,
       areaList: AreaList,
       active2: 0,
       TabbarActive: 2,
@@ -324,14 +310,16 @@ export default {
         limit: 10
       },
       ChildListSearch: {
-        xingMing: "",
-        xingBie: "",
-        jinJiLianXiRen: "",
-        ruYuanRiQi: "",
-        huJi: "",
-        shengRi: "",
-        ruTuoLeiXing: null,
-        page: 1
+        chuLiFangShi: "",
+        createTime: "",
+        jiBingFenLei: "",
+        date: "",
+        jianChaRen: "",
+        studentIdName: "",
+        tiZheng: "",
+        zhenDuan: "",
+        zhengZhuang: "",
+        zhengZhuangFenLei: ""
       },
       refreshing: false,
       show: false,
@@ -485,36 +473,20 @@ export default {
     async onSubmit() {
       // 筛选赋值
       this.see = false;
-      const { data } = await CWWJList(this.LoadPage);
+      const { data } = await CWWJList(this.ChildListSearch);
       const CdSearchList = data.data;
       for (var m = 0; m < CdSearchList.length; m++) {
         this.ChildName.push({
-          xingMing: CdSearchList[m].xingMing,
-          xingBie: CdSearchList[m].xingBie,
-          shengRi: CdSearchList[m].shengRi,
-          jinJiLianXiRen: CdSearchList[m].jinJiLianXiRen,
-          id: CdSearchList[m].id,
-          banJi: CdSearchList[m].banJi,
-          diZhi: CdSearchList[m].diZhi,
-          ruTuoLeiXing: CdSearchList[m].ruTuoLeiXing,
-          minZu: CdSearchList[m].minZu,
-          isJiaZuBingShi: CdSearchList[m].isJiaZuBingShi,
-          dangAnHao: CdSearchList[m].dangAnHao,
-          xueXing: CdSearchList[m].xueXing,
-          jinJiLianXiRenDianHua: CdSearchList[m].jinJiLianXiRenDianHua,
-          pouFuChan: CdSearchList[m].pouFuChan,
-          isXianTianJiBing: CdSearchList[m].isXianTianJiBing,
-          xianTianJiBing: CdSearchList[m].xianTianJiBing,
-          status: CdSearchList[m].status,
-          huJi: CdSearchList[m].huJi,
-          ruYuanRiQi: CdSearchList[m].ruYuanRiQi,
-          teShuYaoQiu: CdSearchList[m].teShuYaoQiu,
-          xiHuanYanSe: CdSearchList[m].xiHuanYanSe,
-          huJiLeiXing: CdSearchList[m].huJiLeiXing,
-          shenFenZhengHao: CdSearchList[m].shenFenZhengHao,
-          baoJianGuanLiBen: CdSearchList[m].baoJianGuanLiBen,
-          shiFouZhuanYuan: CdSearchList[m].shiFouZhuanYuan,
-          jiaZuBingShi: CdSearchList[m].jiaZuBingShi
+          chuLiFangShi: CdSearchList[m].chuLiFangShi,
+          createTime: CdSearchList[m].createTime,
+          jiBingFenLei: CdSearchList[m].jiBingFenLei,
+          date: CdSearchList[m].date,
+          jianChaRen: CdSearchList[m].jianChaRen,
+          studentIdName: CdSearchList[m].studentIdName,
+          tiZheng: CdSearchList[m].tiZheng,
+          zhenDuan: CdSearchList[m].zhenDuan,
+          zhengZhuang: CdSearchList[m].zhengZhuang,
+          zhengZhuangFenLei: CdSearchList[m].zhengZhuangFenLei
         });
       }
       this.finished = true;
@@ -568,8 +540,8 @@ export default {
       if (minute >= 0 && minute <= 9) {
         minute = `0${minute}`;
       }
-      this.className = "生日";
-      this.ChildListSearch.shengRi = `${year}-${month}-${day}`;
+      this.className = "检测日期";
+      this.ChildListSearch.date = `${year}-${month}-${day}`;
       this.ShowBirthday = false;
     },
     Rdate(val) {
@@ -590,8 +562,8 @@ export default {
       if (minute >= 0 && minute <= 9) {
         minute = `0${minute}`;
       }
-      this.className2 = "入园日期";
-      this.ChildListSearch.ruYuanRiQi = `${year}-${month}-${day}`;
+      this.className2 = "创建日期";
+      this.ChildListSearch.createTime = `${year}-${month}-${day}`;
       this.ShowInDate = false;
     },
     // 选项格式化函数
@@ -618,6 +590,7 @@ export default {
       this.ClearCheckBox = true;
       this.TabbarActiveIf = false;
       this.TabbarActiveIf2 = true;
+      this.clickFlag = true;
     },
     ClearCheck() {
       this.TabbarActiveIf = true;
@@ -631,6 +604,7 @@ export default {
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
+      this.clickFlag = false;
       this.PickerJson();
     },
     // 复选状态
@@ -703,14 +677,18 @@ export default {
       this.ShowMyMenu = true;
       this.MenuIcon = false;
     },
-    // 幼儿详情
+    // 晨午晚检详情
     Child_Countend(event) {
-      var CheckBIndex = this.CheckIndex - 0;
-      const thiscountent = this.$refs.checkboxes[CheckBIndex].name;
-      this.$router.push({
-        name: "ChildDetails",
-        params: thiscountent
-      });
+      for (var i in this.$refs.checkboxes) {
+        if (
+          event.target.innerText == this.$refs.checkboxes[i].name.studentIdName
+        ) {
+          this.$router.push({
+            name: "ChenWuWanJianDetail",
+            params: this.$refs.checkboxes[i].name
+          });
+        }
+      }
     },
     MenuLink(value) {
       if (value.path[0].innerText == "幼儿管理") {
@@ -719,6 +697,14 @@ export default {
         this.$router.replace("/ChenWuWanJian");
       } else if (value.path[0].innerText == "疾病防控登记") {
         this.$router.replace("/JiBingDengJi");
+      } else if (value.path[0].innerText == "健康教育登记") {
+        this.$router.replace("/JianKangDengJis");
+      } else if (value.path[0].innerText == "传染病登记信息") {
+        this.$router.replace("/ChuanRanBingDengJis");
+      } else if (value.path[0].innerText == "大型玩具") {
+        this.$router.replace("/DaXingWanJus");
+      } else if (value.path[0].innerText == "大型玩具检查登记") {
+        this.$router.replace("/DaXingWanJuJianChaDengJis");
       }
     },
     CommonlyUsedButton(value) {

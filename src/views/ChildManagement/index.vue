@@ -38,8 +38,8 @@
           <van-checkbox-group v-model="result" @change="CheckBoxChange">
             <van-cell
               v-longtap="e => vueTouch('长按', e)"
-              @click="toggle(index)"
               v-if="Child"
+              @click="clickFlag && toggle(index)"
             >
               <template #right-icon>
                 <van-checkbox
@@ -48,9 +48,6 @@
                   v-show="ListCheckbox"
                 />
               </template>
-              <div class="ChildHead">
-                <van-image round width="1.5rem" height="1.5rem" />
-              </div>
               <div class="ChildName" @click="Child_Countend($event)">
                 <div>{{ Child.xingMing }}</div>
                 <div class="ChildName_Bottom">{{ Child.banJi }}</div>
@@ -313,6 +310,7 @@ import Columns from "../../../public/js/column";
 export default {
   data() {
     return {
+      clickFlag: false,
       areaList: AreaList,
       active2: 0,
       TabbarActive: 2,
@@ -651,6 +649,7 @@ export default {
       this.ClearCheckBox = true;
       this.TabbarActiveIf = false;
       this.TabbarActiveIf2 = true;
+      this.clickFlag = true;
     },
     ClearCheck() {
       this.TabbarActiveIf = true;
@@ -664,6 +663,7 @@ export default {
       this.TabbarActiveIf = true;
       this.TabbarActiveIf2 = false;
       this.ButtonList = [];
+      this.clickFlag = false;
       this.PickerJson();
     },
     // 复选状态
@@ -742,12 +742,15 @@ export default {
     },
     // 幼儿详情
     Child_Countend(event) {
-      var CheckBIndex = this.CheckIndex - 0;
-      const thiscountent = this.$refs.checkboxes[CheckBIndex].name;
-      this.$router.push({
-        name: "ChildDetails",
-        params: thiscountent
-      });
+      for (var i in this.$refs.checkboxes) {
+        if (event.target.innerText == this.$refs.checkboxes[i].name.xingMing) {
+          console.log(this.$refs.checkboxes[i].name);
+          this.$router.push({
+            name: "ChildDetails",
+            params: this.$refs.checkboxes[i].name
+          });
+        }
+      }
     },
     // 三级联动菜单
     MenuLink(value) {
@@ -759,6 +762,12 @@ export default {
         this.$router.replace("/JiBingDengJi");
       } else if (value.path[0].innerText == "健康教育登记") {
         this.$router.replace("/JianKangDengJis");
+      } else if (value.path[0].innerText == "传染病登记信息") {
+        this.$router.replace("/ChuanRanBingDengJis");
+      } else if (value.path[0].innerText == "大型玩具") {
+        this.$router.replace("/DaXingWanJus");
+      } else if (value.path[0].innerText == "大型玩具检查登记") {
+        this.$router.replace("/DaXingWanJuJianChaDengJis");
       }
     },
     CommonlyUsedButton(value) {

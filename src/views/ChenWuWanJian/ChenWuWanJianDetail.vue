@@ -2,7 +2,7 @@
   <div class="ChildAdd">
     <!-- 导航栏 -->
     <van-nav-bar
-      title="晨午晚检修改"
+      title="晨午晚检详情"
       left-text="返回"
       right-text=""
       left-arrow
@@ -18,6 +18,8 @@
         name="xingMing"
         label="学生姓名"
         required
+        @focus="noBomBox"
+        readonly
         placeholder="请输入学生姓名"
         :rules="[{ required: true, message: '请填写学生姓名' }]"
         v-validate="'xingMing'"
@@ -32,6 +34,8 @@
         v-model="UPdateForm.zhengZhuang"
         name="zhengZhuang"
         required
+        @focus="noBomBox"
+        readonly
         label="症状"
         placeholder="请输入症状"
         :rules="[{ required: true, message: '请输入症状' }]"
@@ -41,6 +45,8 @@
         name="tiZheng"
         label="体征"
         required
+        @focus="noBomBox"
+        readonly
         placeholder="请输入体征"
         :rules="[{ required: true, message: '请输入体征' }]"
       />
@@ -49,6 +55,8 @@
         name="zhenDuan"
         label="诊断"
         required
+        @focus="noBomBox"
+        readonly
         placeholder="请输入诊断"
         :rules="[{ message: '请输入诊断' }]"
       />
@@ -56,6 +64,8 @@
         v-model="UPdateForm.chuLiFangShi"
         name="chuLiFangShi"
         required
+        @focus="noBomBox"
+        readonly
         label="处理方式"
         placeholder="请输入处理方式"
         :rules="[{ required: true, message: '请输入处理方式' }]"
@@ -64,6 +74,8 @@
         v-model="UPdateForm.jiBingFenLei"
         name="jiBingFenLei"
         required
+        readonly
+        @focus="noBomBox"
         style="float: left; width: 60%"
         label="疾病分类"
         placeholder="请输入疾病分类"
@@ -74,6 +86,8 @@
         name="zhengZhuangFenLei"
         label="症状分类"
         required
+        readonly
+        @focus="noBomBox"
         placeholder="请输入症状分类"
         :rules="[{ required: true, message: '请输入症状分类' }]"
       />
@@ -82,6 +96,8 @@
         name="jianChaRen"
         label="检查人"
         required
+        readonly
+        @focus="noBomBox"
         placeholder="请输入检查人"
         :rules="[{ required: true, message: '请输入检查人' }]"
       />
@@ -89,6 +105,7 @@
         name="date"
         label="检查日期"
         required
+        readonly
         @focus="noBomBox"
         :value-class="className"
         :value="UPdateForm.date"
@@ -100,6 +117,7 @@
         name="createTime"
         label="创建时间"
         required
+        readonly
         @focus="noBomBox"
         :value-class="className2"
         :value="UPdateForm.createTime"
@@ -107,11 +125,6 @@
         :rules="[{ required: true, message: '请填写创建时间' }]"
         @click="ShowInDate = true"
       />
-      <div style="margin: 16px;">
-        <van-button round block type="info" native-type="submit"
-          >提交</van-button
-        >
-      </div>
       <div style="margin: 16px;">
         <van-button round block type="primary" @click="Cancel">取消</van-button>
       </div>

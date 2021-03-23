@@ -11,11 +11,6 @@
     <!-- <div>{{ this.$router.params.ID }}</div> -->
     <!-- 添加表单 -->
     <van-form>
-      <van-field name="Head" label="幼儿头像上传" required>
-        <template #input>
-          <van-uploader v-model="UPdateForm.xingBie" />
-        </template>
-      </van-field>
       <van-field
         v-model="UPdateForm.xingMing"
         name="xingMing"

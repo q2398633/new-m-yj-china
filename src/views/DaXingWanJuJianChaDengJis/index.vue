@@ -4,7 +4,7 @@
     <div>
       <van-sticky>
         <van-nav-bar
-          title="健康教育登记"
+          title="大型玩具检查登记"
           left-text="返回"
           left-arrow
           @click-left="onClickLeft"
@@ -25,7 +25,7 @@
     <!-- <div class="Revoke" @click="Revoke">
       <van-icon name="notes-o" size="0.8rem" class="Revoke_Icon" />
     </div> -->
-    <!-- 健康教育登记列表 -->
+    <!-- 大型玩具检查登记列表 -->
     <div class="Child_List" style="text-align: center;">
       <van-list
         v-model="loading"
@@ -54,8 +54,8 @@
               >
                 <div>{{ Child.title }}</div>
                 <div class="ChildName_Bottom">{{ Child.duiXiang }}</div>
-                <div class="ChildName_Bottom2">{{ Child.neiRong }}</div>
-                <div class="ChildName_Bottom2">{{ Child.huoDongFangShi }}</div>
+                <div class="ChildName_Bottom2">{{ Child.fangKong }}</div>
+                <div class="ChildName_Bottom2">{{ Child.zhiXingRen }}</div>
                 <div class="ChildName_Bottom2">{{ Child.date }}</div>
               </div>
             </van-cell>
@@ -76,7 +76,7 @@
         <h1
           style="font-size: .7rem; color: #1989fa; font-family: 宋体; margin-left: .5rem"
         >
-          健康教育登记筛选
+          大型玩具检查登记筛选
         </h1>
         <van-form>
           <van-field
@@ -93,17 +93,17 @@
             placeholder="对象"
           />
           <van-field
-            v-model="ChildListSearch.huoDongFangShi"
+            v-model="ChildListSearch.zhiXingRen"
             clearable
-            name="huoDongFangShi"
-            label="活动方式"
-            placeholder="活动方式"
+            name="zhiXingRen"
+            label="执行人"
+            placeholder="执行人"
           />
           <van-field
-            v-model="ChildListSearch.neiRong"
-            name="neiRong"
-            label="内容"
-            placeholder="内容"
+            v-model="ChildListSearch.fangKong"
+            name="fangKong"
+            label="防控"
+            placeholder="防控"
           />
           <van-field
             name="birthday"
@@ -111,10 +111,32 @@
             clickable
             @focus="noBomBox"
             :value-class="className"
-            :value="ChildListSearch.shengRi"
+            :value="ChildListSearch.date"
             placeholder="请输入日期"
             @click="ShowBirthday = true"
           />
+          <van-field
+            name="ruYuanRiQi"
+            label="创建时间"
+            clickable
+            @focus="noBomBox"
+            :value-class="className2"
+            :value="ChildListSearch.ruYuanRiQi"
+            placeholder="请输入创建时间"
+            @click="ShowInDate = true"
+          />
+          <van-field name="ruTuoLeiXing" label="入托类型">
+            <template #input>
+              <van-radio-group
+                v-model="ChildListSearch.ruTuoLeiXing"
+                direction="horizontal"
+              >
+                <van-radio name="0">全托</van-radio>
+                <van-radio name="1" checked-color="#34dcc5">日托</van-radio>
+                <van-radio name="2" checked-color="#e60101">混托</van-radio>
+              </van-radio-group>
+            </template>
+          </van-field>
           <div style="margin: 16px;">
             <van-button
               round
@@ -185,7 +207,7 @@
     <van-popup v-model="ShowBirthday" round position="bottom">
       <van-datetime-picker
         :value-class="className"
-        :value="ChildListSearch.shengRi"
+        :value="ChildListSearch.date"
         type="date"
         title="生日"
         @cancel="ShowBirthday = false"
@@ -281,9 +303,10 @@
 
 <script>
 import AreaList from "../../assets/Area/AreaList";
-import { JKDJList, JKDJDelete } from "@/api/JianKangDengJis";
+import { JBFKList, JBFKDelete } from "@/api/JiBingDengJis";
 import { ListMenu } from "@/api/Menu";
 import Columns from "../../../public/js/column";
+import axios from "axios";
 
 export default {
   data() {
@@ -306,8 +329,8 @@ export default {
         date: "",
         title: "",
         duiXiang: "",
-        huoDongFangShi: "",
-        neiRong: ""
+        zhiXingRen: "",
+        fangKong: ""
       },
       refreshing: false,
       show: false,
@@ -402,7 +425,7 @@ export default {
       this.TabbarActiveIf2 = false;
       this.LoadPage.page++;
       var that = this;
-      const { data } = await JKDJList(this.LoadPage);
+      const { data } = await JBFKList(this.LoadPage);
       var ChildList = data.data;
       console.log(data);
       if (data.code == 200) {
@@ -412,8 +435,8 @@ export default {
               date: ChildList[i].date,
               title: ChildList[i].title,
               duiXiang: ChildList[i].duiXiang,
-              huoDongFangShi: ChildList[i].huoDongFangShi,
-              neiRong: ChildList[i].neiRong,
+              fangKong: ChildList[i].fangKong,
+              zhiXingRen: ChildList[i].zhiXingRen,
               createTime: ChildList[i].createTime,
               createId: ChildList[i].createId,
               createName: ChildList[i].createName,
@@ -451,15 +474,15 @@ export default {
     async onSubmit() {
       // 筛选赋值
       this.see = false;
-      const { data } = await JKDJList(this.ChildListSearch);
+      const { data } = await JBFKList(this.ChildListSearch);
       const CdSearchList = data.data;
       for (var m = 0; m < CdSearchList.length; m++) {
         this.ChildName.push({
           date: CdSearchList[m].date,
           title: CdSearchList[m].title,
           duiXiang: CdSearchList[m].duiXiang,
-          huoDongFangShi: CdSearchList[m].huoDongFangShi,
-          neiRong: CdSearchList[m].neiRong
+          fangKong: CdSearchList[m].fangKong,
+          zhiXingRen: CdSearchList[m].zhiXingRen
         });
       }
       this.finished = true;
@@ -514,7 +537,7 @@ export default {
         minute = `0${minute}`;
       }
       this.className = "生日";
-      this.ChildListSearch.shengRi = `${year}-${month}-${day}`;
+      this.ChildListSearch.date = `${year}-${month}-${day}`;
       this.ShowBirthday = false;
     },
     Rdate(val) {
@@ -556,7 +579,6 @@ export default {
       }
       return value;
     },
-    // 长按后事件
     vueTouch(txt) {
       this.name = txt;
       this.ListCheckbox = true;
@@ -591,7 +613,6 @@ export default {
       if (this.$refs.checkboxes[index].checked == false) {
         this.CheckboxID = this.$refs.checkboxes[index].name;
       }
-      console.log(this.$refs.checkboxes[index]);
     },
     async tabClick(event) {
       this.ckindex = 0;
@@ -606,19 +627,19 @@ export default {
           this.$notify({ type: "primary", message: "请取消选择后添加" });
           this.ckindex = 0;
         } else {
-          this.$router.replace("/JianKangDengJisAdd");
+          this.$router.replace("/JiBingDengJiAdd");
         }
         this.CheckboxIndex = [];
       } else if (ButtonText === "修改") {
         if (this.ckindex <= 1) {
           this.$router.push({
-            name: "JianKangDengJisEdit",
+            name: "JiBingDengJiEdit",
             params: {
               date: this.CheckboxID.date,
               title: this.CheckboxID.title,
               duiXiang: this.CheckboxID.duiXiang,
-              neiRong: this.CheckboxID.neiRong,
-              huoDongFangShi: this.CheckboxID.huoDongFangShi,
+              fangKong: this.CheckboxID.fangKong,
+              zhiXingRen: this.CheckboxID.zhiXingRen,
               id: this.CheckboxID.id,
               createTime: this.CheckboxID.createTime,
               createId: this.CheckboxID.createId,
@@ -634,7 +655,7 @@ export default {
       } else if (ButtonText === "删除") {
         if (this.ckindex <= 1) {
           this.CID.push(this.CheckboxID.id);
-          const { data } = await JKDJDelete(this.CID);
+          const { data } = await JBFKDelete(this.CID);
           if (data.code == 200) {
             this.$notify({ type: "success", message: "删除完成" });
             setTimeout(() => {
@@ -653,12 +674,12 @@ export default {
       this.ShowMyMenu = true;
       this.MenuIcon = false;
     },
-    // 健康教育登记详情
+    // 大型玩具检查登记详情
     Child_Countend(event) {
       for (var i in this.$refs.checkboxes) {
         if (event.target.innerText == this.$refs.checkboxes[i].name.title) {
           this.$router.push({
-            name: "JianKangDengJisDetails",
+            name: "DaXingWanJuJianChaDengJisDetail",
             params: this.$refs.checkboxes[i].name
           });
         }
@@ -686,7 +707,7 @@ export default {
       if (value.path[0].innerText == "幼儿列表") {
         // this.$router.replace("/ChildManagement");
       } else if (value.path[0].innerText == "家长列表") {
-        // this.$router.replace("/ParentAdmin");
+        this.$router.replace("/ParentAdmin");
       }
     },
     MenuShow() {
@@ -700,7 +721,7 @@ export default {
       for (var i = 0; i < MenuList.length; i++) {
         if (MenuList[i].item.name == "日常工作表") {
           for (var q = 0; q < MenuList[i].children.length; q++) {
-            if (MenuList[i].children[q].item.name == "健康教育登记") {
+            if (MenuList[i].children[q].item.name == "大型玩具检查登记") {
               for (
                 var w = 0;
                 w < MenuList[i].children[q].item.elements.length;
