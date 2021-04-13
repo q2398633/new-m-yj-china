@@ -8,7 +8,7 @@ import request from '@/utils/request'
 export const ChildUPdate = data => {
   return request({
     method: 'POST',
-    url: '/Students/Update',
+    url: '/Student/Update',
     data
     })
 }
@@ -16,7 +16,16 @@ export const ChildUPdate = data => {
 export const ChildAdd = data => {
   return request({
     method: 'POST',
-    url: '/Students/Add',
+    url: '/Student/Add',
+    data
+    })
+}
+
+// 幼儿调班
+export const ChildTB = data => {
+  return request({
+    method: 'POST',
+    url: '/Student/TiaoBan',
     data
     })
 }

@@ -680,6 +680,162 @@ export default {
         this.$router.replace("/DaXingWanJus");
       } else if (value.path[0].innerText == "大型玩具检查登记") {
         this.$router.replace("/DaXingWanJuJianChaDengJis");
+      } else if (value.path[0].innerText == "安全检测项目") {
+        this.$router.replace("/AnJianXiangMus");
+      } else if (value.path[0].innerText == "菜品留样") {
+        this.$router.replace("/CaiPinLiuYangs");
+      } else if (value.path[0].innerText == "餐具消毒") {
+        this.$router.replace("/CanJuXiaoDus");
+      } else if (value.path[0].innerText == "能耗使用") {
+        this.$router.replace("/NengHaoShiYongs");
+      } else if (value.path[0].innerText == "能耗控制项目") {
+        this.$router.replace("/NengHaoShiYongs");
+      } else if (value.path[0].innerText == "区域消毒") {
+        this.$router.replace("/QuYuXiaoDus");
+      } else if (value.path[0].innerText == "食材处理记录") {
+        this.$router.replace("/ShiCaiChuLiJiLus");
+      } else if (value.path[0].innerText == "食品安全检测") {
+        this.$router.replace("/ShiPinJianCes");
+      } else if (value.path[0].innerText == "消毒区域设置") {
+        // this.$router.replace("/NengHaoShiYongs");
+      } else if (value.path[0].innerText == "班级管理") {
+        this.$router.replace("/BanJis");
+      } else if (value.path[0].innerText == "交接班登记") {
+        this.$router.replace("/JiaoJieBans");
+      } else if (value.path[0].innerText == "龋齿登记") {
+        this.$router.replace("/QuChiDengJis");
+      } else if (value.path[0].innerText == "儿童伤害与事故登记") {
+        this.$router.replace("/ShangHaiDengJis");
+      } else if (value.path[0].innerText == "膳食管理会议记录") {
+        this.$router.replace("/ShanShiHuiYis");
+      } else if (value.path[0].innerText == "视力矫治登记") {
+        this.$router.replace("/ShiLiDengJis");
+      } else if (value.path[0].innerText == "体弱/肥胖儿童登记") {
+        this.$router.replace("/TiRuoDengJis");
+      } else if (value.path[0].innerText == "收费方案") {
+        this.$router.replace("/ShouFeiFangAns");
+      } else if (value.path[0].innerText == "收支管理") {
+        this.$router.replace("/ShouZhiGuanLis");
+      } else if (value.path[0].innerText == "入库订单") {
+        this.$router.replace("/RuKuDingDans");
+      } else if (value.path[0].innerText == "标准管理") {
+        this.$router.replace("/BiaoZhunGuanLis");
+      } else if (value.path[0].innerText == "评测管理") {
+        this.$router.replace("/PingCeGuanLi");
+      } else if (value.path[0].innerText == "我的流程") {
+        this.$router.replace("/WoDeLiuChengs");
+      } else if (value.path[0].innerText == "已处理流程") {
+        this.$router.replace("/YiChuLiLiuChengs");
+      } else if (value.path[0].innerText == "待处理流程") {
+        this.$router.replace("/DaiChuLiLiuChengs");
+      } else if (value.path[0].innerText == "仓库管理") {
+        this.$router.replace("/CangKuGuanLis");
+      } else if (value.path[0].innerText == "产品管理") {
+        this.$router.replace("/ChanPinGuanLis");
+      } else if (value.path[0].innerText == "产品类别") {
+        this.$router.replace("/ChanPinLeiBie");
+      } else if (value.path[0].innerText == "出库管理") {
+        this.$router.replace("/ChuKuGuanLis");
+      } else if (value.path[0].innerText == "供应商管理") {
+        this.$router.replace("/GongYingShangs");
+      } else if (value.path[0].innerText == "库存清单") {
+        this.$router.replace("/KuCunQingDans");
+      } else if (value.path[0].innerText == "盘点管理") {
+        this.$router.replace("/PanDianGuanLis");
+      } else if (value.path[0].innerText == "入库管理") {
+        this.$router.replace("/RuKuGuanLis");
+      } else if (value.path[0].innerText == "装修工程") {
+        this.$router.replace("/ZhuangXiuGongChengs");
+      } else if (value.path[0].innerText == "装修公司") {
+        this.$router.replace("/ZhuangXiuGongSis");
+      } else if (value.path[0].innerText == "公告管理") {
+        this.$router.replace("/GongGaos");
+      } else if (value.path[0].innerText == "部门管理") {
+        this.$router.replace("/BuMenGuanLis");
+      } else if (value.path[0].innerText == "家长管理") {
+        this.$router.replace("/JiaZhangGuanLis");
+      } else if (value.path[0].innerText == "考勤审核") {
+        this.$router.replace("/KaoQinShenHes");
+      } else if (value.path[0].innerText == "考勤列表") {
+        this.$router.replace("/KaoQinLieBiaos");
+      } else if (value.path[0].innerText == "职务管理") {
+        this.$router.replace("/ZhiWuGuanLis");
+      } else if (value.path[0].innerText == "银行账户") {
+        this.$router.replace("/YinHangs");
+      } else if (value.path[0].innerText == "系统日志") {
+        this.$router.replace("/XiTongRiZhis");
+      } else if (value.path[0].innerText == "我的消息") {
+        this.$router.replace("/WoDeXiaoXis");
+      } else if (value.path[0].innerText == "组织架构") {
+        this.$router.replace("/ZuZhiJiaGous");
+      } else if (value.path[0].innerText == "工资方案") {
+        this.$router.replace("/GongZiFangAns");
+      } else if (value.path[0].innerText == "员工管理") {
+        this.$router.replace("/YuanGongGuanLis");
+      } else if (value.path[0].innerText == "班次管理") {
+        this.$router.replace("/BanCiGuanLis");
+      } else if (value.path[0].innerText == "工资列表") {
+        this.$router.replace("/GongZiLieBiaos");
+      } else if (value.path[0].innerText == "员工奖惩") {
+        this.$router.replace("/YuanGongJiangChengs");
+      } else if (value.path[0].innerText == "教育经历") {
+        this.$router.replace("/JiaoYuJingLis");
+      } else if (value.path[0].innerText == "绩效管理") {
+        this.$router.replace("/JiXiaoGuanLis");
+      } else if (value.path[0].innerText == "绩效评分") {
+        this.$router.replace("/JiXiaoPingFens");
+      } else if (value.path[0].innerText == "考勤组管理") {
+        this.$router.replace("/KaoQinZuGuanLis");
+      } else if (value.path[0].innerText == "排班管理") {
+        this.$router.replace("/PaiBanGuanLis");
+      } else if (value.path[0].innerText == "员工培训") {
+        this.$router.replace("/YuanGongPeiXuns");
+      } else if (value.path[0].innerText == "请假管理") {
+        this.$router.replace("/QingJiaGuanLis");
+      } else if (value.path[0].innerText == "字典分类") {
+        this.$router.replace("/ZiDianFenLeis");
+      } else if (value.path[0].innerText == "数据权限") {
+        this.$router.replace("/ShuJuQuanXIans");
+      } else if (value.path[0].innerText == "流程设计") {
+        this.$router.replace("/LiuChengSheJis");
+      } else if (value.path[0].innerText == "表单设计") {
+        this.$router.replace("/BiaoDanSheJis");
+      } else if (value.path[0].innerText == "模块管理") {
+        this.$router.replace("/MoKuaiGuanLis");
+      } else if (value.path[0].innerText == "地区管理") {
+        this.$router.replace("/DiQuGuanLis");
+      } else if (value.path[0].innerText == "资源管理") {
+        this.$router.replace("/ZiYuanGuanLis");
+      } else if (value.path[0].innerText == "角色管理") {
+        this.$router.replace("/JueSeGuanLis");
+      } else if (value.path[0].innerText == "系统设置") {
+        this.$router.replace("/XiTongSheZhis");
+      } else if (value.path[0].innerText == "菜肴管理") {
+        this.$router.replace("/CaiYaoGuanLis");
+      } else if (value.path[0].innerText == "配餐管理") {
+        this.$router.replace("/PeiCanGuanLis");
+      } else if (value.path[0].innerText == "食材管理") {
+        this.$router.replace("/ShiCaiGuanLis");
+      } else if (value.path[0].innerText == "体检表") {
+        this.$router.replace("/TiJianBiaos");
+      } else if (value.path[0].innerText == "体质测试") {
+        this.$router.replace("/TiZhiCeShis");
+      } else if (value.path[0].innerText == "疫苗管理") {
+        this.$router.replace("/YiMiaoGuanLis");
+      } else if (value.path[0].innerText == "疫苗接种") {
+        this.$router.replace("/YiMiaoJieZhongs");
+      } else if (value.path[0].innerText == "策划方案") {
+        this.$router.replace("/CeHuaFangAns");
+      } else if (value.path[0].innerText == "活动方案模板") {
+        this.$router.replace("/HuoDongFangAns");
+      } else if (value.path[0].innerText == "来电来访") {
+        this.$router.replace("/LaiDianLaiFangs");
+      } else if (value.path[0].innerText == "环境调研") {
+        this.$router.replace("/HuanJingDiaoYans");
+      } else if (value.path[0].innerText == "资产维护") {
+        this.$router.replace("/ZiChanWeiHus");
+      } else if (value.path[0].innerText == "资产信息表") {
+        this.$router.replace("/ZiChanXinXiBiaos");
       }
     },
     CommonlyUsedButton(value) {

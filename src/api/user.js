@@ -20,7 +20,7 @@ export const login = data => {
 export const CList = params => {
   return request({
     method: 'GET',
-    url: '/Students/Load',
+    url: '/Student/Load',
     params
     })
 }

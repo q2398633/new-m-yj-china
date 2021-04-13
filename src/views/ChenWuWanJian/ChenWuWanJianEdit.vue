@@ -21,6 +21,8 @@
         placeholder="请输入学生姓名"
         :rules="[{ required: true, message: '请填写学生姓名' }]"
         v-validate="'xingMing'"
+        @focus="noBomBox"
+        @click="showPicker = true"
       />
       <span
         v-show="errorBags.has('xingMing')"
@@ -145,12 +147,24 @@
         :max-date="maxDate"
       />
     </van-popup>
+    <!-- 幼儿信息 -->
+    <van-popup v-model="showPicker" round position="bottom">
+      <van-picker
+        show-toolbar
+        :columns="BJCList"
+        @cancel="showPicker = false"
+        @confirm="ChildConfirm"
+      />
+    </van-popup>
   </div>
 </template>
 
 <script>
 import AreaList from "../../assets/Area/AreaList";
 import { CWWJEdit } from "@/api/ChenWuWanJian";
+import { BJList } from "@/api/BanJis";
+import { CList } from "@/api/user";
+import BanJis from "../../../public/js/BanJi";
 
 export default {
   data() {
@@ -172,6 +186,7 @@ export default {
         zhengZhuangFenLei: ""
       },
       ChildName: [],
+      BJCList: BanJis,
       ShowBType: false,
       ShowGrade: false,
       ShowClass: false,
@@ -196,10 +211,27 @@ export default {
       BTypeValue: "",
       SexTypeValue: "",
       HuJiLeiXingType: "",
-      MinZuType: ""
+      MinZuType: "",
+      CID: [],
+      showPicker: false,
+      // 幼儿菜单
+      columns: [
+        {
+          text: "",
+          id: "",
+          children: [
+            {
+              text: "",
+              id: ""
+            }
+          ]
+        }
+      ]
     };
   },
   created() {
+    this.IZChild();
+    this.BJList();
     this.Cparams();
   },
   methods: {
@@ -308,9 +340,36 @@ export default {
       this.UPdateForm.zhenDuan = this.$route.params.zhenDuan;
       this.UPdateForm.zhengZhuang = this.$route.params.zhengZhuang;
       this.UPdateForm.zhengZhuangFenLei = this.$route.params.zhengZhuangFenLei;
-      console.log(this.UPdateForm);
     },
-    ClassConfirm() {}
+    // 获取班级
+    async BJList() {
+      const { data } = await BJList();
+      const BanJiList = data.data;
+    },
+    // 初始化幼儿信息
+    async IZChild() {
+      const { data } = await CList();
+      var ChildList = data.data;
+      for (var i in ChildList) {
+        this.ChildContent.push({
+          name: ChildList[i].xingMing,
+          id: ChildList[i].id
+        });
+      }
+      for (var t in this.ChildContent) {
+        this.CList.push(this.ChildContent[t].name);
+      }
+    },
+    // 幼儿选择
+    ChildConfirm(value) {
+      this.UPdateForm.studentIdName = value[1];
+      for (var y in this.ChildContent) {
+        if (this.CName == this.ChildContent[y].name) {
+          this.UPdateForm.studentId = this.ChildContent[y].id;
+        }
+      }
+      this.showPicker = false;
+    }
   }
 };
 </script>

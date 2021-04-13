@@ -150,7 +150,7 @@
     <van-popup v-model="showPicker" round position="bottom">
       <van-picker
         show-toolbar
-        :columns="CList"
+        :columns="BJList"
         @cancel="showPicker = false"
         @confirm="ChildConfirm"
       />
@@ -162,6 +162,7 @@
 import AreaList from "../../assets/Area/AreaList";
 import { CWWJAdd } from "@/api/ChenWuWanJian";
 import { CList } from "@/api/user";
+import BanJis from "../../../public/js/BanJi";
 
 export default {
   data() {
@@ -207,7 +208,8 @@ export default {
       ChildList: [],
       ChildContent: [],
       CName: "",
-      CList: []
+      CList: [],
+      BJList: BanJis
     };
   },
   created() {
@@ -316,14 +318,13 @@ export default {
       for (var t in this.ChildContent) {
         this.CList.push(this.ChildContent[t].name);
       }
-      console.log(this.CList);
     },
     // 幼儿选择
     ChildConfirm(value) {
-      this.CName = value;
+      this.CName = value[1];
       for (var y in this.ChildContent) {
         if (this.CName == this.ChildContent[y].name) {
-          this.UPdateForm.studentId = this.ChildContent[y].id
+          this.UPdateForm.studentId = this.ChildContent[y].id;
         }
       }
       this.showPicker = false;
