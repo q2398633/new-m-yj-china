@@ -4,7 +4,7 @@
 import request from '@/utils/request'
 
 
-// 晨午晚检列表
+// 晨午晚检Load列表
 export const CWWJList = params => {
   return request({
     method: 'GET',
@@ -12,7 +12,14 @@ export const CWWJList = params => {
     params
     })
 }
-
+// 晨午晚检Get列表
+export const CWWJGetList = params => {
+  return request({
+    method: 'GET',
+    url: '/ChenWuWanJians/Get',
+    params
+    })
+}
 // 晨午晚检添加
 export const CWWJAdd = data => {
   return request({

@@ -153,6 +153,7 @@
         :columns="BJList"
         @cancel="showPicker = false"
         @confirm="ChildConfirm"
+        @change="ChildChange"
       />
     </van-popup>
   </div>
@@ -334,6 +335,10 @@ export default {
         }
       }
       this.showPicker = true;
+    },
+    async ChildChange() {
+      const { data } = await BJList();
+      const a = await CList();
     }
   }
 };

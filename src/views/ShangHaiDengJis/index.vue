@@ -4,7 +4,7 @@
     <div>
       <van-sticky>
         <van-nav-bar
-          title="晨午晚检"
+          title="儿童伤害与意外事故登记"
           left-text="返回"
           left-arrow
           @click-left="onClickLeft"
@@ -73,7 +73,7 @@
         <h1
           style="font-size: .7rem; color: #1989fa; font-family: 宋体; margin-left: .5rem"
         >
-          晨午晚检筛选
+          儿童伤害与意外登记筛选
         </h1>
         <van-form>
           <van-field
@@ -296,7 +296,7 @@
 
 <script>
 import AreaList from "../../assets/Area/AreaList";
-import { CWWJList, CWWJGetList, CWWJDelete } from "@/api/ChenWuWanJian";
+import { SHDJList, SHDJDelete } from "@/api/ShangHaiDengJis";
 import { ListMenu } from "@/api/Menu";
 import { BJList } from "@/api/BanJis";
 import { CList } from "@/api/user";
@@ -412,10 +412,7 @@ export default {
       ShowBirthday: false,
       // 入园日期
       ShowInDate: false,
-      CID: [],
-      Sid: {
-        id: ''
-      }
+      CID: []
     };
   },
 
@@ -666,27 +663,24 @@ export default {
         }
         this.CheckboxIndex = [];
       } else if (ButtonText === "修改") {
-        this.Sid.id = this.CheckboxID.id
-        const Get = await CWWJGetList(this.Sid);
-        const GetData = Get.data.result
         if (this.ckindex <= 1) {
           this.$router.push({
             name: "ChenWuWanJianEdit",
             params: {
-              chuLiFangShi: GetData.chuLiFangShi,
-              createId: GetData.createId,
-              createName: GetData.createName,
-              createTime: GetData.createTime,
-              date: GetData.date,
-              id: GetData.id,
-              jiBingFenLei: GetData.jiBingFenLei,
-              jianChaRen: GetData.jianChaRen,
-              studentId: GetData.studentId,
-              studentIdName: GetData.studentIdName,
-              tiZheng: GetData.tiZheng,
-              zhenDuan: GetData.zhenDuan,
-              zhengZhuang: GetData.zhengZhuang,
-              zhengZhuangFenLei: GetData.zhengZhuangFenLei
+              chuLiFangShi: this.CheckboxID.chuLiFangShi,
+              createId: this.CheckboxID.createId,
+              createName: this.CheckboxID.createName,
+              createTime: this.CheckboxID.createTime,
+              date: this.CheckboxID.date,
+              id: this.CheckboxID.id,
+              jiBingFenLei: this.CheckboxID.jiBingFenLei,
+              jianChaRen: this.CheckboxID.jianChaRen,
+              studentId: this.CheckboxID.studentId,
+              studentIdName: this.CheckboxID.studentIdName,
+              tiZheng: this.CheckboxID.tiZheng,
+              zhenDuan: this.CheckboxID.zhenDuan,
+              zhengZhuang: this.CheckboxID.zhengZhuang,
+              zhengZhuangFenLei: this.CheckboxID.zhengZhuangFenLei
             }
           });
         } else if (this.CheckboxIndex.length > 1) {

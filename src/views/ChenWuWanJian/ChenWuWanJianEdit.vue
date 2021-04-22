@@ -22,7 +22,7 @@
         :rules="[{ required: true, message: '请填写学生姓名' }]"
         v-validate="'xingMing'"
         @focus="noBomBox"
-        @click="showPicker = true"
+        @click="BJCD"
       />
       <span
         v-show="errorBags.has('xingMing')"
@@ -151,9 +151,10 @@
     <van-popup v-model="showPicker" round position="bottom">
       <van-picker
         show-toolbar
-        :columns="BJCList"
+        :columns="BJList"
         @cancel="showPicker = false"
         @confirm="ChildConfirm"
+        @change="ChildChange"
       />
     </van-popup>
   </div>
@@ -226,12 +227,13 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      CList: [],
+      BJList: []
     };
   },
   created() {
     this.IZChild();
-    this.BJList();
     this.Cparams();
   },
   methods: {
@@ -341,11 +343,6 @@ export default {
       this.UPdateForm.zhengZhuang = this.$route.params.zhengZhuang;
       this.UPdateForm.zhengZhuangFenLei = this.$route.params.zhengZhuangFenLei;
     },
-    // 获取班级
-    async BJList() {
-      const { data } = await BJList();
-      const BanJiList = data.data;
-    },
     // 初始化幼儿信息
     async IZChild() {
       const { data } = await CList();
@@ -360,15 +357,39 @@ export default {
         this.CList.push(this.ChildContent[t].name);
       }
     },
-    // 幼儿选择
+  // 幼儿选择
     ChildConfirm(value) {
       this.UPdateForm.studentIdName = value[1];
-      for (var y in this.ChildContent) {
-        if (this.CName == this.ChildContent[y].name) {
-          this.UPdateForm.studentId = this.ChildContent[y].id;
+      this.showPicker = false;
+    },
+    // 弹出框
+    async BJCD() {
+      const { data } = await BJList();
+      const BJ = data.data;
+      this.BJList = [];
+      for (var i in BJ) {
+        var BJItem = {};
+        BJItem.text = BJ[i].name;
+        BJItem.id = BJ[i].id;
+        BJItem.children = [];
+        this.BJList.push(BJItem);
+      }
+      const child = await CList();
+      const CDList = child.data.data;
+      for (var s in CDList) {
+        for (var v in this.BJList) {
+          if (CDList[s].banJiId == this.BJList[v].id) {
+            var CDItem = {};
+            CDItem.text = CDList[s].xingMing;
+            this.BJList[v].children.push(CDItem);
+          }
         }
       }
-      this.showPicker = false;
+      this.showPicker = true;
+    },
+    async ChildChange() {
+      const { data } = await BJList();
+      const a = await CList();
     }
   }
 };
